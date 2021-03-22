@@ -48,9 +48,16 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="..." />
     <option name="LAST_COMMIT_MESSAGE" value="..." />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="451" y="205" key="Vcs.Push.Dialog.v2" timestamp="1616402463233">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="451" y="205" key="Vcs.Push.Dialog.v2/0.0.1920.1080/1920.48.1920.1032@0.0.1920.1080" timestamp="1616402463233" />
   </component>
 </project>
