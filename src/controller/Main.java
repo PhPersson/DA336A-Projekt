@@ -7,6 +7,8 @@ public class Main {
         new Controller();
     }
 
-    // Hallå fungerar detta
+
+    // Hejsan detta skall fungera
+
 
 }
