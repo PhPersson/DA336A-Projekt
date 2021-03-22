@@ -8,7 +8,7 @@ import view.*;
 import javax.swing.*;
 import java.sql.Date;
 
-
+//Test
 public class Controller {
     private User user;
     private UserManager userManager;
