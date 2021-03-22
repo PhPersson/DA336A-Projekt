@@ -18,7 +18,7 @@ public class dbCon {
     private User user;
     private String dbUrl;
     private Connection connection;
-    private String sqlURL = "jdbc:sqlserver://192.168.10.26:1433;databaseName=support_me;";
+    private String sqlURL = "jdbc:sqlserver://supportme.duckdns.org;databaseName=support_me;";
     private String sqlUsername = "supportmeadmin";
     private String sqlPassword = "hejsanhoppsan";
     private FileInputStream fis;
