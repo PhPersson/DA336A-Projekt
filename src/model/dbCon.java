@@ -57,7 +57,7 @@ public class dbCon {
 
     }
 
-    public boolean getGetAllUserAndPass(String username, String password) {
+    public boolean getAllUserAndPass(String username, String password) {
 
         String query = "SELECT username FROM [User] WHERE username = ? AND password = ?";  //get username
         try {
@@ -232,36 +232,34 @@ public class dbCon {
         return guideModel;
     }
 
-    public int getGuideId() {
-        String query = "SELECT guideId FROM GUIDE";
-        int temp = 1000;
-        try {
 
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            ResultSet rs = preparedStatement.executeQuery();
-            //preparedStatement.setInt(1, guideId);
-
-            while (rs.next()) {
-                int guideId = rs.getInt("guideId");
-                temp = guideId;
-                if(guideId > temp){
-                    temp = guideId;
-
-                }
-
-            }
-
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
-        temp++;
-        return temp;
-    }
-
-
+                // Behövs ej längre??
+//    public int getGuideId() {
+//        String query = "SELECT guideId FROM GUIDE";
+//        int temp = 1000;
+//        try {
+//
+//            PreparedStatement preparedStatement = connection.prepareStatement(query);
+//            ResultSet rs = preparedStatement.executeQuery();
+//            //preparedStatement.setInt(1, guideId);
+//
+//            while (rs.next()) {
+//                int guideId = rs.getInt("guideId");
+//                temp = guideId;
+//                if(guideId > temp){
+//                    temp = guideId;
+//                }
+//            }
+//
+//        } catch (SQLException exception) {
+//            exception.printStackTrace();
+//        }
+//        temp++;
+//        return temp;
+//    }
 
 
-
+        // Söker efter den valda användaren via GUI i databasen
         public DefaultTableModel searchUser (String soktext){
             DefaultTableModel userModel = new DefaultTableModel(new String[]{"Username", "Email"}, 0);
             try {
@@ -281,7 +279,7 @@ public class dbCon {
             return userModel;
         }
 
-
+        // Söker efter en guide i databasen.
         public DefaultTableModel searchGuide (String soktext){
             DefaultTableModel guideModel = new DefaultTableModel(new String[]{"Title", "Created by:", "Date", "Rating"}, 0);
             try {

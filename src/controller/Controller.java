@@ -56,7 +56,7 @@ public class Controller {
 
 
 ///*
-        if (con.getGetAllUserAndPass(view.getLoginUsername(), view.getLoginPassword())) {
+        if (con.getAllUserAndPass(view.getLoginUsername(), view.getLoginPassword())) {
             if (!con.getRole(view.getLoginUsername(), view.getLoginPassword())) {
 
                 view.getLoginFrame().setVisible(false);
