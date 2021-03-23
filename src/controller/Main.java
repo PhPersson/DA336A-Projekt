@@ -8,10 +8,4 @@ public class Main {
 
         //Simons kommentar
     }
-
-  //TJooo
-
-  // Hejsan detta skall fungera
-
-
 }

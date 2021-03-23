@@ -50,15 +50,9 @@ public class Controller {
         }
     }
 
-
     public void btnLoginClicked() {
 
-        //System.out.println(con.getAllUsers());
-        //homePageFrame.updateUserList(userManager.getUserList());
-
-
-///*
-        if (con.getGetAllUserAndPass(view.getLoginUsername(), view.getLoginPassword())) {
+        if (con.getAllUserAndPass(view.getLoginUsername(), view.getLoginPassword())) {
             if (!con.getRole(view.getLoginUsername(), view.getLoginPassword())) {
 
                 view.getLoginFrame().setVisible(false);
