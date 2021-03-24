@@ -16,7 +16,6 @@ public class Controller {
 
     public Controller() {
 
-        //userManager = new UserManager();
         view = new MainFrame(this);
         con = new dbCon();
         util = new GuiUtilities();
@@ -87,4 +86,11 @@ public class Controller {
         adminFrame.updateGuideList(con.getAllGuides());
     }
 
+    public void btntSearchGuideNotLoggedInPressed(String text) {
+        con.searchGuide(text);
+    }
+
+    public void btnShowGuideNotLoggedInPressed(String indexGuide) {
+
+    }
 }

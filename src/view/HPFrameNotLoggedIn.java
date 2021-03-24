@@ -15,7 +15,7 @@ public class HPFrameNotLoggedIn extends JFrame implements ActionListener{
     private JButton btnSearch;
     private JButton btnShowGuides;
     private JScrollPane jScrollPane1;
-    private JTable jTable2;
+    private JTable table;
     private JLabel lblSearchResult;
     private JTextField txtSearch;
 
@@ -31,7 +31,7 @@ public class HPFrameNotLoggedIn extends JFrame implements ActionListener{
         txtSearch = new JTextField();
         btnSearch = new JButton();
         jScrollPane1 = new JScrollPane();
-        jTable2 = new JTable();
+        table = new JTable();
         lblSearchResult = new JLabel();
         btnShowGuides = new JButton();
         btnLogIn = new JButton();
@@ -43,14 +43,14 @@ public class HPFrameNotLoggedIn extends JFrame implements ActionListener{
         btnSearch.setFont(new Font("Tahoma", 0, 14));
         btnSearch.setText("Sök");
 
-        jTable2.setModel(new DefaultTableModel(
+        table.setModel(new DefaultTableModel(
                 new Object [][] {
                 },
                 new String [] {
                         "Title", "Username", "Date", "Ratings"
                 }
         ));
-        jScrollPane1.setViewportView(jTable2);
+        jScrollPane1.setViewportView(table);
 
         lblSearchResult.setFont(new Font("Tahoma", 0, 14));
         lblSearchResult.setText("Sökresultat:");
@@ -113,7 +113,14 @@ public class HPFrameNotLoggedIn extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnSearch) {
-            txtSearch.getText();
+            controller.btntSearchGuideNotLoggedInPressed(txtSearch.getText());
+        } else if (e.getSource() == btnLogIn) {
+            controller.btnLoginClicked();
+        } else if (e.getSource() == btnShowGuides);{ // Visa den markerade guiden // Baserat på vilket index man står på i raden.
+            int column = 0;
+            int row = table.getSelectedRow();
+            String indexGuide = table.getModel().getValueAt(row, column).toString();
+            controller.btnShowGuideNotLoggedInPressed(indexGuide);
         }
     }
 }
