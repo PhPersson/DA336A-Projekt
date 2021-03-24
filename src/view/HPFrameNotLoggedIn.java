@@ -2,11 +2,12 @@ package view;
 
 import controller.Controller;
 import javax.swing.*;
+import java.awt.*;
 
 public class HPFrameNotLoggedIn extends JFrame{
 
 
-    private Controller controller;     
+    private Controller controller;
     private javax.swing.JButton btnLogIn;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnShowGuides;
@@ -103,10 +104,11 @@ public class HPFrameNotLoggedIn extends JFrame{
                                 .addComponent(btnShowGuides, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(21, Short.MAX_VALUE))
         );
+
+        this.setLocationRelativeTo(null);
         setVisible(true);
-        setResizable(false);
-        setLocationRelativeTo(null);
         pack();
+
 
     }
 

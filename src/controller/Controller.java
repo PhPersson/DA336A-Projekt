@@ -61,7 +61,7 @@ public class Controller {
 
     public void btnNoLoginClicked() {
         view.getLoginFrame().setVisible(false);
-        new HomePageFrame(this);
+        new HPFrameNotLoggedIn(this);
     }
 
     public void btnLoggOffAdmin() {
