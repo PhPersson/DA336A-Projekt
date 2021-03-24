@@ -1,12 +1,8 @@
 package controller;
 
-import model.User;
-import model.UserManager;
-import model.dbCon;
+import model.*;
 import view.*;
 
-import javax.swing.*;
-import java.sql.Date;
 
 
 public class Controller {
@@ -26,12 +22,6 @@ public class Controller {
         view = new MainFrame(this);
         con = new dbCon();
         util = new GuiUtilities();
-
-
-        //HEj
-        //bajs
-
-
     }
 
     public void btnRegisterClicked() {
@@ -56,7 +46,7 @@ public class Controller {
             if (!con.getRole(view.getLoginUsername(), view.getLoginPassword())) {
 
                 view.getLoginFrame().setVisible(false);
-                new HomePageFrame();
+                new HomePageFrame(this);
             } else {
                 view.getLoginFrame().setVisible(false);
                 adminFrame = new AdminFrame(this);
@@ -73,14 +63,13 @@ public class Controller {
 
     public void btnNoLoginClicked() {
         view.getLoginFrame().setVisible(false);
-        new HomePageFrame();
+        new HomePageFrame(this);
     }
 
     public void btnLoggOffAdmin() {
         adminFrame.setVisible(false);
         new LoginFrame(this);
     }
-
 
     public void btnAdminDeleteUser(String username) {
         con.deleteAUser(username);
