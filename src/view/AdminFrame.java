@@ -95,18 +95,10 @@ public class AdminFrame extends JFrame implements ActionListener {
         jScrollPane2.setViewportView(userTable);
 
         txtSearchUser.setPreferredSize(new Dimension(34, 23));
-        txtSearchUser.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                guideSrchTextActionPerformed(evt);
-            }
-        });
+
 
         guidesearch.setFont(new Font("Tahoma", 0, 14)); // NOI18N
-        guidesearch.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                guidesearchActionPerformed(evt);
-            }
-        });
+
 
         lblGuide.setFont(new Font("Tahoma", 0, 14)); // NOI18N
         lblGuide.setText("Guide");
@@ -259,13 +251,6 @@ public class AdminFrame extends JFrame implements ActionListener {
         guideTable.setModel(update);
     }
 
-    private void guidesearchActionPerformed(ActionEvent evt) {
-        // TODO add your handling code here:
-    }
-
-    private void guideSrchTextActionPerformed(ActionEvent evt) {
-        // TODO add your handling code here:
-    }
 
 
     public void setLblloginAdmin(String name) {
