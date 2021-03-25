@@ -115,7 +115,7 @@ public class HPFrameNotLoggedIn extends JFrame implements ActionListener{
         if (e.getSource() == btnSearch) {
             controller.btntSearchGuideNotLoggedInPressed(txtSearch.getText());
         } else if (e.getSource() == btnLogIn) {
-            controller.btnLoginClicked();
+            //controller.btnLoginClicked();
         } else if (e.getSource() == btnShowGuides);{ // Visa den markerade guiden // Baserat på vilket index man står på i raden.
             int column = 0;
             int row = table.getSelectedRow();
