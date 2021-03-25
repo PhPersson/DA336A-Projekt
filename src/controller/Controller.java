@@ -13,6 +13,7 @@ public class Controller {
     private dbCon con;
     private GuiUtilities util;
     private AdminFrame adminFrame;
+    private HPFrameNotLoggedIn homePageFrameNotLoggedIn;
 
     //test test
 
@@ -62,7 +63,7 @@ public class Controller {
 
     public void btnNoLoginClicked() {
         view.getLoginFrame().setVisible(false);
-        new HPFrameNotLoggedIn(this);
+        homePageFrameNotLoggedIn = new HPFrameNotLoggedIn(this);
     }
 
     public void btnLoggOffAdmin() {
@@ -93,6 +94,13 @@ public class Controller {
     }
 
     public void btnShowGuideNotLoggedInPressed(String indexGuide) {
+
+    }
+
+    public void btnNoLoginTryLogin() {
+        homePageFrameNotLoggedIn.setVisible(false);
+        view.getLoginFrame().setVisible(true);
+
 
     }
 }
