@@ -107,9 +107,6 @@ public class RegisterFrame extends JFrame implements ActionListener {
         if (e.getSource() == btnRegister) {
             if(getTxtPassword().equals(getTxtConPassword())){
                 controller.btnRegisterClicked();
-
-
-
             }else{
                 util.showDialog("Password not matching");
             }
