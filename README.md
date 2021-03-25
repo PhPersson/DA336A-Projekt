@@ -3,7 +3,7 @@
 Delaktiga:
 1. Philip Persson, 
 1. Måns Olsson,
-1. Malek,
+1. Malek Borovnjak,
 1. Alexander Olsson,
 1. Simon Pizevski
 
