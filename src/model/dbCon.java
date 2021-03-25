@@ -37,6 +37,7 @@ public class dbCon {
         }
     }
 
+    // Hämtar alla användare baserat på sökresultat
     public boolean getAllUsernames(String username) {
 
         String query = "SELECT username FROM [User] WHERE username = ?";  //get username
