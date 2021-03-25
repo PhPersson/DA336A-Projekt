@@ -15,4 +15,4 @@ SupportMe är en desktopapplikation som går ut på att hjälpa användaren med 
 3. För att kunna logga in som användare krävs det att du anger ett användarnamn, gilltig epost samt ett lösenord.
 
 
-Länk till källkoden finns på [GitHub](https://github.com/PhPersson/DA336A-Projekt)
+Länk till källkoden finns på [GitHub](https://github.com/PhPersson/DA336A-Projekt/tree/RS1)
