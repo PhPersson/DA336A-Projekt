@@ -3,8 +3,11 @@ package view.HomePage;
 import controller.Controller;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class HomePageFrame extends JFrame {
+public class HomePageFrame extends JFrame implements ActionListener {
 
 
     private JToggleButton btnEditGuide;
@@ -190,7 +193,33 @@ public class HomePageFrame extends JFrame {
         setVisible(true);
         setLocationRelativeTo(null);
         pack();
+        addListeners();
     }// </editor-fold>
+
+    public void addListeners() {
+        btnNewGuide.addActionListener(this);
+        btnSearch.addActionListener(this);
+        btnShowGuides.addActionListener(this);
+        btnLogOff.addActionListener(this);
+    }
+
+    public void setLblloginUser(String name) {
+        lblLoggedIn.setText(name);
+        lblLoggedIn.setForeground(Color.darkGray);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == btnNewGuide) {
+            System.out.println("skapa guide");
+            controller.btnCreateGuide();
+
+        }  else if (e.getSource() == btnLogOff) {
+            //controller.btnLoginClicked();
+            controller.btnUserLoggOff();
+        }
+
+    }
 
     private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:

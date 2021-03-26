@@ -7,9 +7,16 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ *
+ * @author Alexander Olsson
+ */
 
 public class SkapaGuideGui extends JFrame implements ActionListener{
+=======
 
+
+    // Variables declaration - do not modify
     private Controller controller;
 
     private javax.swing.JButton AvbrytButton;
@@ -23,6 +30,7 @@ public class SkapaGuideGui extends JFrame implements ActionListener{
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JInternalFrame jInternalFrame2;
     private javax.swing.JScrollPane jScrollPane1;
+    private SkapaGuideGui skapaGuideGui;
     // End of variables declaration
 
 
@@ -85,14 +93,36 @@ public class SkapaGuideGui extends JFrame implements ActionListener{
         InputTextArea.setText("Beskrivning.");
         jScrollPane1.setViewportView(InputTextArea);
 
-        TypComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
+        TypComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
+        TypComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TypComboBoxActionPerformed(evt);
+            }
+        });
 
-        KategoriComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
+        KategoriComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
+
         TitelField.setText("Titel");
+        TitelField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TitelFieldActionPerformed(evt);
+            }
+        });
+
         SkapaGuideButton.setText("Skapa Guide");
+        SkapaGuideButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SkapaGuideButtonActionPerformed(evt);
+            }
+        });
 
         BildButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         BildButton.setText("Lägg till Bild");
+        BildButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BildButtonActionPerformed(evt);
+            }
+        });
 
         SkapaguideLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         SkapaguideLabel.setText("Skapa ny Guide");
@@ -142,29 +172,51 @@ public class SkapaGuideGui extends JFrame implements ActionListener{
                                         .addComponent(AvbrytButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(20, 20, 20))
         );
-        addListeners();
-        setResizable(true);
-        setLocationRelativeTo(null);
         setVisible(true);
         pack();
+        addListeners();
+
+    }// </editor-fold>
+
+    public void addListeners() {
+        AvbrytButton.addActionListener(this);
+        SkapaGuideButton.addActionListener(this);
+    }
+
+    public String getTitelGuide() {
+        return TitelField.getText();
+    }
+    public String getDescriptionField() {
+        return InputTextArea.getText();
     }
 
 
-    public void addListeners() {
-        SkapaGuideButton.addActionListener(this);
-        BildButton.addActionListener(this);
-        AvbrytButton.addActionListener(this);
+    private void TypComboBoxActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
+    private void TitelFieldActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
+    private void SkapaGuideButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
+    private void BildButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == SkapaGuideButton) {
-            controller.btnMakeGuidePressed();
-        } else if ( e.getSource() == BildButton) {
-            controller.btnChoosePicturePressed();
+        if (e.getSource() == AvbrytButton) {
+            controller.btnAvbrtyGuide();
+        } else if (e.getSource() == SkapaGuideButton) {
+            controller.btnSkapaGuide();
+            System.out.println("hej");
+
         }
     }
+
+
 }
-
-
-
