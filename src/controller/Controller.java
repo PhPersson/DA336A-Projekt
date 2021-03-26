@@ -17,7 +17,6 @@ public class Controller {
     private HPFrameNotLoggedIn homePageFrameNotLoggedIn;
     private SkapaGuideGui SkapaGuideGui;
 
-    //test test
 
     public Controller() {
 
@@ -27,6 +26,7 @@ public class Controller {
         user = new User();
     }
 
+    // Kanske skapa ett helt User objekt istället?
     public void btnRegisterClicked() {
 
         if (con.getAllUsernames(view.getTxtUsername())) {
@@ -34,6 +34,7 @@ public class Controller {
         } else {
             if (email.isValidEmailAddress(view.getTxtEmail())) {
                 email.sendMail(view.getTxtEmail(), view.getTxtUsername());
+
                 con.registerNewCustomer(view.getTxtUsername(), view.getTxtEmail(), view.getTxtPassword());
                 util.showDialog("Registration OK \nYou can now log in");
                 view.getRegisterFrame().setVisible(false);
