@@ -11,7 +11,10 @@ import java.awt.event.ActionListener;
  *
  * @author Alexander Olsson
  */
-public class SkapaGuideGui extends javax.swing.JFrame {
+
+public class SkapaGuideGui extends JFrame implements ActionListener{
+=======
+
 
     // Variables declaration - do not modify
     private Controller controller;
@@ -27,6 +30,7 @@ public class SkapaGuideGui extends javax.swing.JFrame {
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JInternalFrame jInternalFrame2;
     private javax.swing.JScrollPane jScrollPane1;
+    private SkapaGuideGui skapaGuideGui;
     // End of variables declaration
 
 
@@ -170,7 +174,22 @@ public class SkapaGuideGui extends javax.swing.JFrame {
         );
         setVisible(true);
         pack();
+        addListeners();
+
     }// </editor-fold>
+
+    public void addListeners() {
+        AvbrytButton.addActionListener(this);
+        SkapaGuideButton.addActionListener(this);
+    }
+
+    public String getTitelGuide() {
+        return TitelField.getText();
+    }
+    public String getDescriptionField() {
+        return InputTextArea.getText();
+    }
+
 
     private void TypComboBoxActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
@@ -188,7 +207,16 @@ public class SkapaGuideGui extends javax.swing.JFrame {
         // TODO add your handling code here:
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == AvbrytButton) {
+            controller.btnAvbrtyGuide();
+        } else if (e.getSource() == SkapaGuideButton) {
+            controller.btnSkapaGuide();
+            System.out.println("hej");
+
+        }
+    }
+
+
 }
-
-
-
