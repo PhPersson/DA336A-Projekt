@@ -3,6 +3,7 @@ package controller;
 import model.*;
 import view.*;
 
+import java.util.ArrayList;
 
 
 public class Controller {
@@ -52,7 +53,7 @@ public class Controller {
                 view.getLoginFrame().setVisible(false);
                 homePageFrame =new HomePageFrame(this);
                 homePageFrame.setLblloginUser(user.getUsername());
-                homePageFrame.updateUserList(con.getAllGuides());
+                homePageFrame.updateUserGuideList(con.getAllGuides());
             } else {
                 view.getLoginFrame().setVisible(false);
                 adminFrame = new AdminFrame(this);
@@ -112,6 +113,12 @@ public class Controller {
         homePageFrame.setVisible(false);
         view.getLoginFrame().setVisible(true);
     }
+    public void btnUserSearchGuide(String soktext) {
+        homePageFrame.updateUserGuideList(con.searchGuide(soktext));
+    }
+    public ArrayList <String> getUsersFromDb(){
+        return con.getAllUsers();
+    }
 
     public void btnCreateGuide(){
         SkapaGuideGui = new SkapaGuideGui(this);
@@ -125,5 +132,9 @@ public class Controller {
     public void btnSkapaGuide(){
         con.createGuide(SkapaGuideGui.getTitelGuide(),SkapaGuideGui.getDescriptionField(), user.getUsername(),"files/Gubbe.jpg");
        // con.createGuide("asda","asdasd", null);
+    }
+
+    public GuiUtilities getUtil() {
+        return util;
     }
 }
