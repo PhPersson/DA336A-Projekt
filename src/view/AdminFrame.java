@@ -1,8 +1,4 @@
-package view;/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+package view;
 
 
 import controller.Controller;
@@ -29,12 +25,12 @@ public class AdminFrame extends JFrame implements ActionListener {
     private JLabel jLabel5;
     private JScrollPane scrollGuide;
     private JScrollPane jScrollPane2;
-    private javax.swing.JTable guideTable;
-    private javax.swing.JTable userTable;
-    private javax.swing.JLabel lblGuide;
-    private javax.swing.JLabel lblUser;
-    private javax.swing.JLabel lbladminName;
-    private javax.swing.JLabel lblloginAdmin;
+    private JTable guideTable;
+    private JTable userTable;
+    private JLabel lblGuide;
+    private JLabel lblUser;
+    private JLabel lbladminName;
+    private JLabel lblloginAdmin;
     private Controller controller;
 
 
@@ -68,27 +64,14 @@ public class AdminFrame extends JFrame implements ActionListener {
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        guideTable.setModel(new DefaultTableModel(
-                new Object[][]{},
-                new String[]{
-                        "Title 1", "Title 2", "Title 3", "Title 4"
-                }
-        ));
-        scrollGuide.setViewportView(guideTable);
 
-        userTable.setModel(new DefaultTableModel(
-                new Object[][]{},
-                new String[]{
-                        "Username", "Email"
-                }
-        ));
+
+        scrollGuide.setViewportView(guideTable);
         jScrollPane2.setViewportView(userTable);
 
         txtSearchUser.setPreferredSize(new Dimension(34, 23));
 
-
         guidesearch.setFont(new Font("Tahoma", 0, 14));
-
 
         lblGuide.setFont(new Font("Tahoma", 0, 14));
         lblGuide.setText("Guide");
@@ -96,7 +79,6 @@ public class AdminFrame extends JFrame implements ActionListener {
         btnSearchGuide.setFont(new Font("Tahoma", 0, 14));
         btnSearchGuide.setText("Sök");
 
-        GuideTypeBox.setModel(new DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
 
         lblloginAdmin.setFont(new Font("Tahoma", 0, 12));
         lblloginAdmin.setText("Inloggad:");
@@ -108,7 +90,6 @@ public class AdminFrame extends JFrame implements ActionListener {
         btnSearchUser.setText("Sök");
 
         lbladminName.setText("AdminText");
-
         btnLogOff.setText("LogOff");
 
         btnDeleteUser.setFont(new Font("Tahoma", 0, 14));
@@ -213,9 +194,10 @@ public class AdminFrame extends JFrame implements ActionListener {
                                 .addGap(16, 16, 16))
         );
         addListeners();
-        setLocationRelativeTo(null);
-        setResizable(false);
+
+        setResizable(true);
         pack();
+        setLocationRelativeTo(null);
         setVisible(true);
     }
 
