@@ -12,6 +12,7 @@ public class MainFrame extends JFrame {
 
     private LoginFrame loginFrame;
     private HomePageFrame hpf;
+    private HPFrameNotLoggedIn hpFrameNotLoggedIn;
 
     private Controller controller;
     private GuiUtilities util;
@@ -68,6 +69,8 @@ public class MainFrame extends JFrame {
     public HomePageFrame getHomepageFrame(){
         return getHomepageFrame();
     }
+
+    //public HPFrameNotLoggedIn getHPFrameNotLoggedIn(){ return HPFrameNotLoggedIn.getHPFrameNotLoggedIn();}
 
 
 }

@@ -1,5 +1,7 @@
 package model;
 
+import controller.Controller;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -16,14 +18,15 @@ import static java.lang.String.valueOf;
 public class dbCon {
 
     private User user;
-    private String dbUrl;
     private Connection connection;
     private String sqlURL = "jdbc:sqlserver://supportme.duckdns.org;databaseName=support_me;";
     private String sqlUsername = "supportmeadmin";
     private String sqlPassword = "hejsanhoppsan";
     private FileInputStream fis;
+    private Controller controller;
 
-    public dbCon() {
+    public dbCon(Controller controller) {
+        this.controller = controller;
         connectToDatabase();
     }
 
@@ -34,9 +37,12 @@ public class dbCon {
             connection = DriverManager.getConnection(sqlURL, sqlUsername, sqlPassword);
         } catch (ClassNotFoundException | SQLException exception) {
             exception.printStackTrace();
+            controller.getUtil().showErrorDialog("C");
+
         }
     }
 
+    // Hämtar alla användare baserat på sökresultat
     public boolean getAllUsernames(String username) {
 
         String query = "SELECT username FROM [User] WHERE username = ?";  //get username
@@ -302,18 +308,19 @@ public class dbCon {
 
         }
 
-        public void createGuide (String title, String description, String filepath ){
+        public void createGuide (String title, String description, String username, String filepath ){
             try {
                 fis = new FileInputStream(filepath);
                 connection.setAutoCommit(false);
 
-                String createGuide = "INSERT INTO [Guide] ( title, description, date, picture)" + " VALUES (?,?,?,?)";
+                String createGuide = "INSERT INTO [Guide] ( title, description, date, picture, username)" + " VALUES (?,?,?,?,?)";
                 PreparedStatement create = connection.prepareStatement(createGuide);
 
                 create.setString(1, title);
                 create.setString(2, description);
                 create.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
                 create.setBinaryStream(4,fis);
+                create.setString(5,username);
                 System.out.println("Created a Guide");
                 create.execute();
                 connection.commit();
