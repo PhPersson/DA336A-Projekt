@@ -21,7 +21,7 @@ public class Controller {
     public Controller() {
 
         view = new MainFrame(this);
-        con = new dbCon();
+        con = new dbCon(this);
         util = new GuiUtilities();
         user = new User();
     }
