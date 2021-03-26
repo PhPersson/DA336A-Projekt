@@ -1,4 +1,5 @@
 package model;
+import controller.Controller;
 import model.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -8,13 +9,12 @@ public class UserManager {
 
     private User user;
     private List<User> userList;
-    private int index;
-    private dbCon con;
+    private Controller controller;
 
 
-    public UserManager() {
+    public UserManager(Controller controller) {
+        this.controller = controller;
         userList = new ArrayList<>();
-        con = new dbCon();
 
     }
 
@@ -25,7 +25,7 @@ public class UserManager {
 
     public String[] getUserList(){
 
-        ArrayList<String> user = con.getAllUsers();
+        ArrayList<String> user = controller.getUsersFromDb();
 
         String[] InfoStrings = new String[user.size()];
         for(int i =0; i < InfoStrings.length;i++) {

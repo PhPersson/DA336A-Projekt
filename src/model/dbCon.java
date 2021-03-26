@@ -1,5 +1,7 @@
 package model;
 
+import controller.Controller;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -16,14 +18,15 @@ import static java.lang.String.valueOf;
 public class dbCon {
 
     private User user;
-    private String dbUrl;
     private Connection connection;
     private String sqlURL = "jdbc:sqlserver://supportme.duckdns.org;databaseName=support_me;";
     private String sqlUsername = "supportmeadmin";
     private String sqlPassword = "hejsanhoppsan";
     private FileInputStream fis;
+    private Controller controller;
 
-    public dbCon() {
+    public dbCon(Controller controller) {
+        this.controller = controller;
         connectToDatabase();
     }
 
@@ -34,6 +37,8 @@ public class dbCon {
             connection = DriverManager.getConnection(sqlURL, sqlUsername, sqlPassword);
         } catch (ClassNotFoundException | SQLException exception) {
             exception.printStackTrace();
+            controller.getUtil().showErrorDialog("C");
+
         }
     }
 

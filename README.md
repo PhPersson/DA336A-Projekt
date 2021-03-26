@@ -1,5 +1,9 @@
 # SupportMe (Grupp 25)
 
+* [Delaktiga](#Delaktiga)
+* [Projektbeskrivning](#Projektbeskrivning)
+* [Github](#Github)
+
 Delaktiga:
 1. Philip Persson, 
 1. Måns Olsson,
@@ -15,4 +19,4 @@ SupportMe är en desktopapplikation som går ut på att hjälpa användaren med 
 3. För att kunna logga in som användare krävs det att du anger ett användarnamn, gilltig epost samt ett lösenord.
 
 
-Länk till källkoden finns på [GitHub](https://github.com/PhPersson/DA336A-Projekt/tree/RS1)
+Länk till källkoden finns på [GitHub](https://github.com/PhPersson/DA336A-Projekt/tree/RS1/src)
