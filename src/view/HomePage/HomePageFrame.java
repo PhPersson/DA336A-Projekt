@@ -3,6 +3,7 @@ package view.HomePage;
 import controller.Controller;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -207,6 +208,10 @@ public class HomePageFrame extends JFrame implements ActionListener {
         lblLoggedIn.setText(name);
         lblLoggedIn.setForeground(Color.darkGray);
     }
+    public void updateUserList(DefaultTableModel update) {
+        jTable2.setModel(update);
+    }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -217,6 +222,8 @@ public class HomePageFrame extends JFrame implements ActionListener {
         }  else if (e.getSource() == btnLogOff) {
             //controller.btnLoginClicked();
             controller.btnUserLoggOff();
+        } else if (e.getSource() == btnSearch) {
+
         }
 
     }
