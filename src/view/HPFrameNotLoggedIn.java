@@ -122,6 +122,8 @@ public class HPFrameNotLoggedIn extends JFrame implements ActionListener{
             int row = table.getSelectedRow();
             String indexGuide = table.getModel().getValueAt(row, column).toString();
             controller.btnShowGuideNotLoggedInPressed(indexGuide);
+        } else if (e.getSource() == btnSearch){
+            controller.btnUserSearchGuide(txtSearch.getText());
         }
     }
 }
