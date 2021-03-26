@@ -2,18 +2,12 @@ package model;
 
 import controller.Controller;
 
-import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Calendar;
 
-import static java.lang.String.valueOf;
 
 public class dbCon {
 
@@ -37,7 +31,7 @@ public class dbCon {
             connection = DriverManager.getConnection(sqlURL, sqlUsername, sqlPassword);
         } catch (ClassNotFoundException | SQLException exception) {
             exception.printStackTrace();
-            controller.getUtil().showErrorDialog("C");
+            controller.getUtil().showErrorDialog("Couldn't connect to the database. \n Please contact the systemadministrator");
 
         }
     }

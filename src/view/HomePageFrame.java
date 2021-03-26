@@ -58,11 +58,7 @@ public class HomePageFrame extends JFrame implements ActionListener {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         txtSearch.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSearchActionPerformed(evt);
-            }
-        });
+
 
         btnSearch.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnSearch.setText("Sök");
@@ -191,11 +187,12 @@ public class HomePageFrame extends JFrame implements ActionListener {
                                         .addComponent(btnRemoveGuide, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(20, 20, 20))
         );
+
+        pack();
         setVisible(true);
         setLocationRelativeTo(null);
-        pack();
         addListeners();
-    }// </editor-fold>
+    }
 
     public void addListeners() {
         btnNewGuide.addActionListener(this);
