@@ -208,8 +208,11 @@ public class HomePageFrame extends JFrame implements ActionListener {
         lblLoggedIn.setText(name);
         lblLoggedIn.setForeground(Color.darkGray);
     }
-    public void updateUserGuideList(DefaultTableModel update) {
+    public void updateUserSearchGuideList(DefaultTableModel update) {
         jTable2.setModel(update);
+    }
+    public void updateUserGuideList(DefaultTableModel update) {
+        jTable1.setModel(update);
     }
 
 
@@ -223,6 +226,7 @@ public class HomePageFrame extends JFrame implements ActionListener {
             //controller.btnLoginClicked();
             controller.btnUserLoggOff();
         } else if (e.getSource() == btnSearch) {
+            controller.btnUserSearchGuide(txtSearch.getText());
 
         }
 
