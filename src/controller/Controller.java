@@ -3,6 +3,7 @@ package controller;
 import model.*;
 import view.*;
 
+import java.util.ArrayList;
 
 
 public class Controller {
@@ -100,7 +101,13 @@ public class Controller {
     public void btnNoLoginTryLogin() {
         homePageFrameNotLoggedIn.setVisible(false);
         view.getLoginFrame().setVisible(true);
+    }
 
+    public ArrayList<String> getUsersFromDb() {
+        return con.getAllUsers();
+    }
 
+    public GuiUtilities getUtil() {
+        return util;
     }
 }

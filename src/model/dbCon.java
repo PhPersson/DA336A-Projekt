@@ -37,7 +37,7 @@ public class dbCon {
             connection = DriverManager.getConnection(sqlURL, sqlUsername, sqlPassword);
         } catch (ClassNotFoundException | SQLException exception) {
             exception.printStackTrace();
-            controller.getUtil().showErrorDialog("C");
+            controller.getUtil().showErrorDialog("Couldn't connect to the database. \n Please contact the systemadministrator.");
 
         }
     }
@@ -57,7 +57,7 @@ public class dbCon {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            return true;
+            return false;
         }
 
 
@@ -180,6 +180,7 @@ public class dbCon {
             delete.close();
 
         } catch (SQLException exception) {
+            controller.getUtil().showErrorDialog("Couldn't delete user with username " + username );
             exception.printStackTrace();
         }
     }
