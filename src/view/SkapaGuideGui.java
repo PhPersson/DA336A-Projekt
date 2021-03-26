@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
  *
  * @author Alexander Olsson
  */
-public class SkapaGuideGui extends javax.swing.JInternalFrame {
+public class SkapaGuideGui extends javax.swing.JFrame {
 
     // Variables declaration - do not modify
     private Controller controller;
@@ -168,7 +168,7 @@ public class SkapaGuideGui extends javax.swing.JInternalFrame {
                                         .addComponent(AvbrytButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(20, 20, 20))
         );
-
+        setVisible(true);
         pack();
     }// </editor-fold>
 
