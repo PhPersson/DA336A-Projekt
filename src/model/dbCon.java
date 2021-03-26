@@ -302,18 +302,19 @@ public class dbCon {
 
         }
 
-        public void createGuide (String title, String description, String filepath ){
+        public void createGuide (String title, String description, String username, String filepath ){
             try {
                 fis = new FileInputStream(filepath);
                 connection.setAutoCommit(false);
 
-                String createGuide = "INSERT INTO [Guide] ( title, description, date, picture)" + " VALUES (?,?,?,?)";
+                String createGuide = "INSERT INTO [Guide] ( title, description, date, picture, username)" + " VALUES (?,?,?,?,?)";
                 PreparedStatement create = connection.prepareStatement(createGuide);
 
                 create.setString(1, title);
                 create.setString(2, description);
                 create.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
                 create.setBinaryStream(4,fis);
+                create.setString(5,username);
                 System.out.println("Created a Guide");
                 create.execute();
                 connection.commit();

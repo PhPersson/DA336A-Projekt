@@ -14,6 +14,7 @@ public class Controller {
     private GuiUtilities util;
     private AdminFrame adminFrame;
     private HPFrameNotLoggedIn homePageFrameNotLoggedIn;
+    private SkapaGuideGui SkapaGuideGui;
 
     //test test
 
@@ -22,6 +23,7 @@ public class Controller {
         view = new MainFrame(this);
         con = new dbCon();
         util = new GuiUtilities();
+        user = new User();
     }
 
     public void btnRegisterClicked() {
@@ -44,9 +46,12 @@ public class Controller {
 
         if (con.getAllUserAndPass(view.getLoginUsername(), view.getLoginPassword())) {
             if (!con.getRole(view.getLoginUsername(), view.getLoginPassword())) {
+                user.setUsername(view.getLoginUsername());
+                System.out.println(user.getUsername());
 
                 view.getLoginFrame().setVisible(false);
-                new HomePageFrame(this);
+                homePageFrame =new HomePageFrame(this);
+                homePageFrame.setLblloginUser(user.getUsername());
             } else {
                 view.getLoginFrame().setVisible(false);
                 adminFrame = new AdminFrame(this);
@@ -100,7 +105,24 @@ public class Controller {
     public void btnNoLoginTryLogin() {
         homePageFrameNotLoggedIn.setVisible(false);
         view.getLoginFrame().setVisible(true);
+    }
 
+    public void btnUserLoggOff(){
+        homePageFrame.setVisible(false);
+        view.getLoginFrame().setVisible(true);
+    }
 
+    public void btnCreateGuide(){
+        SkapaGuideGui = new SkapaGuideGui(this);
+        SkapaGuideGui.setVisible(true);
+    }
+    public void btnAvbrtyGuide(){
+        SkapaGuideGui.setVisible(false);
+        System.out.println(user.getUsername());
+    }
+
+    public void btnSkapaGuide(){
+        con.createGuide(SkapaGuideGui.getTitelGuide(),SkapaGuideGui.getDescriptionField(), user.getUsername(),"files/Gubbe.jpg");
+       // con.createGuide("asda","asdasd", null);
     }
 }
