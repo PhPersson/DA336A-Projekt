@@ -237,6 +237,42 @@ public class dbCon {
         }
         return guideModel;
     }
+    public DefaultTableModel getAllGuidesUserSearch() {
+        DefaultTableModel guideModel = new DefaultTableModel(new String[]{"Title", "Created by:", "Date", "Rating"}, 0);
+        try {
+            String strGetUsers = "Select * FROM GUIDE ORDER BY username ASC";
+            PreparedStatement statement = connection.prepareStatement(strGetUsers);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                String title = rs.getString("title");
+                String username = rs.getString("username");
+                Date date = rs.getDate("date");
+                int rating = rs.getInt("rating");
+                guideModel.addRow(new Object[]{title, username, date, rating});            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        return guideModel;
+    }
+    public DefaultTableModel getAllGuidesUser(String user) {
+        DefaultTableModel guideModel = new DefaultTableModel(new String[]{"Title", "Created by:", "Date", "Rating"}, 0);
+        try {
+            String strGetUsers = "Select * FROM GUIDE WHERE username = ?";
+            PreparedStatement statement = connection.prepareStatement(strGetUsers);
+            statement.setString(1, user);
+
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                String title = rs.getString("title");
+                String username = rs.getString("username");
+                Date date = rs.getDate("date");
+                int rating = rs.getInt("rating");
+                guideModel.addRow(new Object[]{title, username, date, rating});            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        return guideModel;
+    }
 
 
                 // Behövs ej längre??

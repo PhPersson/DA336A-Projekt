@@ -109,11 +109,15 @@ public class HPFrameNotLoggedIn extends JFrame implements ActionListener{
         btnShowGuides.addActionListener(this);
     }
 
+    public void updateSearchGuideList(DefaultTableModel update) {
+        table.setModel(update);
+    }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnSearch) {
-            controller.btntSearchGuideNotLoggedInPressed(txtSearch.getText());
+            controller.btnNoLoginSearchGuide(txtSearch.getText());
         } else if (e.getSource() == btnLogIn) {
             //controller.btnLoginClicked();
             controller.btnNoLoginTryLogin();
@@ -123,7 +127,7 @@ public class HPFrameNotLoggedIn extends JFrame implements ActionListener{
             String indexGuide = table.getModel().getValueAt(row, column).toString();
             controller.btnShowGuideNotLoggedInPressed(indexGuide);
         } else if (e.getSource() == btnSearch){
-            controller.btnUserSearchGuide(txtSearch.getText());
+            controller.btnNoLoginSearchGuide(txtSearch.getText());
         }
     }
 }
