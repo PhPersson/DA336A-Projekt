@@ -7,13 +7,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- *
- * @author Alexander Olsson
- */
-public class SkapaGuideGui extends javax.swing.JFrame {
 
-    // Variables declaration - do not modify
+public class SkapaGuideGui extends JFrame implements ActionListener{
+
     private Controller controller;
 
     private javax.swing.JButton AvbrytButton;
@@ -89,36 +85,14 @@ public class SkapaGuideGui extends javax.swing.JFrame {
         InputTextArea.setText("Beskrivning.");
         jScrollPane1.setViewportView(InputTextArea);
 
-        TypComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
-        TypComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TypComboBoxActionPerformed(evt);
-            }
-        });
+        TypComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
 
-        KategoriComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
-
+        KategoriComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
         TitelField.setText("Titel");
-        TitelField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TitelFieldActionPerformed(evt);
-            }
-        });
-
         SkapaGuideButton.setText("Skapa Guide");
-        SkapaGuideButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SkapaGuideButtonActionPerformed(evt);
-            }
-        });
 
         BildButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         BildButton.setText("Lägg till Bild");
-        BildButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BildButtonActionPerformed(evt);
-            }
-        });
 
         SkapaguideLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         SkapaguideLabel.setText("Skapa ny Guide");
@@ -168,26 +142,28 @@ public class SkapaGuideGui extends javax.swing.JFrame {
                                         .addComponent(AvbrytButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(20, 20, 20))
         );
+        addListeners();
+        setResizable(true);
+        setLocationRelativeTo(null);
         setVisible(true);
         pack();
-    }// </editor-fold>
-
-    private void TypComboBoxActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
     }
 
-    private void TitelFieldActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+
+    public void addListeners() {
+        SkapaGuideButton.addActionListener(this);
+        BildButton.addActionListener(this);
+        AvbrytButton.addActionListener(this);
     }
 
-    private void SkapaGuideButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == SkapaGuideButton) {
+            controller.btnMakeGuidePressed();
+        } else if ( e.getSource() == BildButton) {
+            controller.btnChoosePicturePressed();
+        }
     }
-
-    private void BildButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
-
 }
 
 

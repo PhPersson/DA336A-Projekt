@@ -1,8 +1,11 @@
 package view;
 
 import controller.Controller;
+import view.HomePage.HPFrameNotLoggedIn;
+import view.HomePage.HomePageFrame;
+import view.LoginFrames.LoginFrame;
+import view.LoginFrames.RegisterFrame;
 
-import javax.mail.Address;
 import javax.swing.*;
 
 public class MainFrame extends JFrame {

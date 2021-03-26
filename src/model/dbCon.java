@@ -143,7 +143,7 @@ public class dbCon {
  */
 
 
-    public void registerNewCustomer(String username, String password, String email) {
+    public void registerNewCustomer(User user) {
 
         try {
             connection.setAutoCommit(false);
@@ -152,9 +152,9 @@ public class dbCon {
 
             PreparedStatement register = connection.prepareStatement(registerCustomer);
 
-            register.setString(1, username);
-            register.setString(3, password);
-            register.setString(2, email);
+            register.setString(1, user.getUsername());
+            register.setString(2, user.getPassword());
+            register.setString(3, user.getEmail());
             register.setInt(4, 0);
             register.execute();
             connection.commit();
@@ -239,31 +239,6 @@ public class dbCon {
         return guideModel;
     }
 
-
-                // Behövs ej längre??
-//    public int getGuideId() {
-//        String query = "SELECT guideId FROM GUIDE";
-//        int temp = 1000;
-//        try {
-//
-//            PreparedStatement preparedStatement = connection.prepareStatement(query);
-//            ResultSet rs = preparedStatement.executeQuery();
-//            //preparedStatement.setInt(1, guideId);
-//
-//            while (rs.next()) {
-//                int guideId = rs.getInt("guideId");
-//                temp = guideId;
-//                if(guideId > temp){
-//                    temp = guideId;
-//                }
-//            }
-//
-//        } catch (SQLException exception) {
-//            exception.printStackTrace();
-//        }
-//        temp++;
-//        return temp;
-//    }
 
 
         // Söker efter den valda användaren via GUI i databasen

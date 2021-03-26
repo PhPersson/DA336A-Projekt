@@ -2,6 +2,9 @@ package controller;
 
 import model.*;
 import view.*;
+import view.HomePage.HPFrameNotLoggedIn;
+import view.HomePage.HomePageFrame;
+import view.LoginFrames.LoginFrame;
 
 import java.util.ArrayList;
 
@@ -32,7 +35,8 @@ public class Controller {
         } else {
             if (email.isValidEmailAddress(view.getTxtEmail())) {
                 email.sendMail(view.getTxtEmail(), view.getTxtUsername());
-                con.registerNewCustomer(view.getTxtUsername(), view.getTxtEmail(), view.getTxtPassword());
+                user = new User(view.getTxtUsername(), view.getTxtEmail(), view.getTxtPassword());
+                con.registerNewCustomer(user);
                 util.showDialog("Registration OK \nYou can now log in");
                 view.getRegisterFrame().setVisible(false);
             } else {
@@ -109,5 +113,11 @@ public class Controller {
 
     public GuiUtilities getUtil() {
         return util;
+    }
+
+    public void btnMakeGuidePressed() {
+    }
+
+    public void btnChoosePicturePressed() {
     }
 }

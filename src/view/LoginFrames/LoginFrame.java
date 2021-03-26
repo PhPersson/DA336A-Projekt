@@ -1,6 +1,7 @@
-package view;
+package view.LoginFrames;
 
 import controller.Controller;
+import view.HomePage.HomePageFrame;
 
 import javax.swing.*;
 import javax.swing.border.Border;

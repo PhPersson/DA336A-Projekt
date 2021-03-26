@@ -9,11 +9,10 @@ public class User {
 
     public User(){}
 
-    public User(String username, String email, String password, int role) {
+    public User(String username, String email, String password) {
         this.Username = username;
         this.email = email;
         this.password = password;
-        this.role = role;
     }
 
     public String getUsername() {

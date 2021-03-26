@@ -1,4 +1,4 @@
-package view;
+package view.HomePage;
 
 import controller.Controller;
 
@@ -7,22 +7,22 @@ import javax.swing.*;
 public class HomePageFrame extends JFrame {
 
 
-    private javax.swing.JToggleButton btnEditGuide;
-    private javax.swing.JButton btnLogOff;
-    private javax.swing.JButton btnNewGuide;
-    private javax.swing.JButton btnRemoveGuide;
-    private javax.swing.JButton btnSearch;
-    private javax.swing.JToggleButton btnShowGuide;
-    private javax.swing.JButton btnShowGuides;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JLabel lblLoggedIn;
-    private javax.swing.JLabel lblSearchResult;
-    private javax.swing.JLabel lblYourGuides;
-    private javax.swing.JLabel lblactiveUser;
-    private javax.swing.JTextField txtSearch;
+    private JToggleButton btnEditGuide;
+    private JButton btnLogOff;
+    private JButton btnNewGuide;
+    private JButton btnRemoveGuide;
+    private JButton btnSearch;
+    private JToggleButton btnShowGuide;
+    private JButton btnShowGuides;
+    private JScrollPane jScrollPane1;
+    private JScrollPane jScrollPane2;
+    private JTable jTable1;
+    private JTable jTable2;
+    private JLabel lblLoggedIn;
+    private JLabel lblSearchResult;
+    private JLabel lblYourGuides;
+    private JLabel lblactiveUser;
+    private JTextField txtSearch;
     private Controller controller;
 
     public HomePageFrame(Controller controller) {
@@ -33,11 +33,11 @@ public class HomePageFrame extends JFrame {
 
     private void initComponents() {
 
-        txtSearch = new javax.swing.JTextField();
-        btnSearch = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        txtSearch = new JTextField();
+        btnSearch = new JButton();
+        jScrollPane2 = new JScrollPane();
+        jTable1 = new JTable();
+        jScrollPane1 = new JScrollPane();
         jTable2 = new javax.swing.JTable();
         btnShowGuide = new javax.swing.JToggleButton();
         btnEditGuide = new javax.swing.JToggleButton();
