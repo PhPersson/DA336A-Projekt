@@ -52,6 +52,7 @@ public class Controller {
                 view.getLoginFrame().setVisible(false);
                 homePageFrame =new HomePageFrame(this);
                 homePageFrame.setLblloginUser(user.getUsername());
+                homePageFrame.updateUserList(con.getAllGuides());
             } else {
                 view.getLoginFrame().setVisible(false);
                 adminFrame = new AdminFrame(this);
@@ -73,7 +74,7 @@ public class Controller {
 
     public void btnLoggOffAdmin() {
         adminFrame.setVisible(false);
-        new LoginFrame(this);
+        view.getLoginFrame().setVisible(true);
     }
 
     public void btnAdminDeleteUser(String username) {
