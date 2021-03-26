@@ -69,12 +69,7 @@ public class AdminFrame extends JFrame implements ActionListener {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         guideTable.setModel(new DefaultTableModel(
-                new Object[][]{
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null}
-                },
+                new Object[][]{},
                 new String[]{
                         "Title 1", "Title 2", "Title 3", "Title 4"
                 }
@@ -82,12 +77,7 @@ public class AdminFrame extends JFrame implements ActionListener {
         scrollGuide.setViewportView(guideTable);
 
         userTable.setModel(new DefaultTableModel(
-                new Object[][]{
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null}
-                },
+                new Object[][]{},
                 new String[]{
                         "Username", "Email"
                 }
@@ -97,37 +87,37 @@ public class AdminFrame extends JFrame implements ActionListener {
         txtSearchUser.setPreferredSize(new Dimension(34, 23));
 
 
-        guidesearch.setFont(new Font("Tahoma", 0, 14)); // NOI18N
+        guidesearch.setFont(new Font("Tahoma", 0, 14));
 
 
-        lblGuide.setFont(new Font("Tahoma", 0, 14)); // NOI18N
+        lblGuide.setFont(new Font("Tahoma", 0, 14));
         lblGuide.setText("Guide");
 
-        btnSearchGuide.setFont(new Font("Tahoma", 0, 14)); // NOI18N
+        btnSearchGuide.setFont(new Font("Tahoma", 0, 14));
         btnSearchGuide.setText("Sök");
 
         GuideTypeBox.setModel(new DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
 
-        lblloginAdmin.setFont(new Font("Tahoma", 0, 12)); // NOI18N
-        lblloginAdmin.setText("Inloggad Admin: ");
+        lblloginAdmin.setFont(new Font("Tahoma", 0, 12));
+        lblloginAdmin.setText("Inloggad:");
 
-        lblUser.setFont(new Font("Tahoma", 0, 14)); // NOI18N
+        lblUser.setFont(new Font("Tahoma", 0, 14));
         lblUser.setText("Användare");
 
-        btnSearchUser.setFont(new Font("Tahoma", 0, 14)); // NOI18N
+        btnSearchUser.setFont(new Font("Tahoma", 0, 14));
         btnSearchUser.setText("Sök");
 
         lbladminName.setText("AdminText");
 
         btnLogOff.setText("LogOff");
 
-        btnDeleteUser.setFont(new Font("Tahoma", 0, 14)); // NOI18N
+        btnDeleteUser.setFont(new Font("Tahoma", 0, 14));
         btnDeleteUser.setText("Delete");
 
-        btnEditGuide.setFont(new Font("Tahoma", 0, 14)); // NOI18N
+        btnEditGuide.setFont(new Font("Tahoma", 0, 14));
         btnEditGuide.setText("Redigera");
 
-        btnDeleteGuide.setFont(new Font("Tahoma", 0, 14)); // NOI18N
+        btnDeleteGuide.setFont(new Font("Tahoma", 0, 14));
         btnDeleteGuide.setText("Delete");
 
         GroupLayout layout = new GroupLayout(getContentPane());
