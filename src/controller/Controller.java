@@ -19,7 +19,6 @@ public class Controller {
     private AdminFrame adminFrame;
     private HPFrameNotLoggedIn homePageFrameNotLoggedIn;
 
-    //test test
 
     public Controller() {
 

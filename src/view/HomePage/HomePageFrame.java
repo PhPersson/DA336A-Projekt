@@ -38,9 +38,9 @@ public class HomePageFrame extends JFrame {
         jScrollPane2 = new JScrollPane();
         jTable1 = new JTable();
         jScrollPane1 = new JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        btnShowGuide = new javax.swing.JToggleButton();
-        btnEditGuide = new javax.swing.JToggleButton();
+        jTable2 = new JTable();
+        btnShowGuide = new JToggleButton();
+        btnEditGuide = new JToggleButton();
         lblSearchResult = new javax.swing.JLabel();
         btnShowGuides = new javax.swing.JButton();
         btnNewGuide = new javax.swing.JButton();
