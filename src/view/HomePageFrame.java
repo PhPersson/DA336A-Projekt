@@ -208,7 +208,7 @@ public class HomePageFrame extends JFrame implements ActionListener {
         lblLoggedIn.setText(name);
         lblLoggedIn.setForeground(Color.darkGray);
     }
-    public void updateUserList(DefaultTableModel update) {
+    public void updateUserGuideList(DefaultTableModel update) {
         jTable2.setModel(update);
     }
 

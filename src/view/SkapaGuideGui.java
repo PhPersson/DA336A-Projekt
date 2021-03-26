@@ -13,7 +13,6 @@ import java.awt.event.ActionListener;
  */
 
 public class SkapaGuideGui extends JFrame implements ActionListener{
-=======
 
 
     // Variables declaration - do not modify
