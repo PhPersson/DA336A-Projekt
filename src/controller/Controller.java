@@ -3,6 +3,8 @@ package controller;
 import model.*;
 import view.*;
 
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 
 
@@ -103,6 +105,12 @@ public class Controller {
     }
 
     public void btnShowGuideNotLoggedInPressed(String indexGuide) {
+        JFrame visaFrame = new JFrame("Guide");
+        DefaultTableModel model = new DefaultTableModel();
+        visaFrame.add(new JPanel(Boolean.parseBoolean(indexGuide)));
+        visaFrame.setSize(400,400);
+        visaFrame.setVisible(true);
+        visaFrame.setResizable(false);
 
     }
 

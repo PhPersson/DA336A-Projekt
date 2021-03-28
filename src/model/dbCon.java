@@ -57,7 +57,7 @@ public class dbCon {
 
     }
 
-    // Anänvds för att gå igenom alla användare för att kontrollera så användaren matar in ett unikt användarnamn
+    // Används för att gå igenom alla användare för att kontrollera så användaren matar in ett unikt användarnamn
     public boolean getAllUserAndPass(String username, String password) {
 
         String query = "SELECT username FROM [User] WHERE username = ? AND password = ?";  //get username
