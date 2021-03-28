@@ -2,18 +2,12 @@ package model;
 
 import controller.Controller;
 
-import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Calendar;
 
-import static java.lang.String.valueOf;
 
 public class dbCon {
 
@@ -37,7 +31,7 @@ public class dbCon {
             connection = DriverManager.getConnection(sqlURL, sqlUsername, sqlPassword);
         } catch (ClassNotFoundException | SQLException exception) {
             exception.printStackTrace();
-            controller.getUtil().showErrorDialog("C");
+            controller.getUtil().showErrorDialog("Couldn't connect to the database. \n Please contact the systemadministrator");
 
         }
     }
@@ -63,6 +57,7 @@ public class dbCon {
 
     }
 
+    // Anänvds för att gå igenom alla användare för att kontrollera så användaren matar in ett unikt användarnamn
     public boolean getAllUserAndPass(String username, String password) {
 
         String query = "SELECT username FROM [User] WHERE username = ? AND password = ?";  //get username
@@ -82,6 +77,7 @@ public class dbCon {
         }
     }
 
+    // Hämtar rollen av användaren som loggar in. Kontrollerar om det är en administratör som loggar in eller inte.
     public boolean getRole(String username, String password) {
         String query = "SELECT role FROM [User] WHERE username = ? AND password = ?";
         try {
@@ -106,6 +102,7 @@ public class dbCon {
         return true;
     }
 
+    //  Retunerar alla användare som finns registrerade i databasen.
     public ArrayList<String> getAllUsers() {
         ArrayList<String> user = new ArrayList<String>();
         String query = "SELECT * FROM [User]";
@@ -122,27 +119,7 @@ public class dbCon {
         return user;
     }
 
-/*
-    public ArrayList<String> getAllGuides() {
-        ArrayList<String> user = new ArrayList<String>();
-        String query = "SELECT * FROM [User]";
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()) {
-                user.add(rs.getString("username") + ", " + (rs.getString("email")));
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return user;
-
-    }
-
- */
-
-
+    // Registrerar en ny användare i databasen.
     public void registerNewCustomer(String username, String password, String email) {
 
         try {
@@ -166,7 +143,7 @@ public class dbCon {
         }
     }
 
-
+    // Raderar den valda användaren från databasen
     public void deleteAUser(String username) {
         try {
             connection.setAutoCommit(false);
@@ -184,7 +161,7 @@ public class dbCon {
         }
     }
 
-
+    // En administratör kan ta bort en guide via denna metoden
     public void deleteGuideAdmin(String guideId) {
         try {
             connection.setAutoCommit(false);
@@ -202,6 +179,7 @@ public class dbCon {
         }
     }
 
+    // Populerar UserTable med användarenamn och tillhörande epostadress.
     public DefaultTableModel getUsersAndEmail() {
         DefaultTableModel model = new DefaultTableModel(new String[]{"Username", "Email"}, 0);
         try {
@@ -219,8 +197,9 @@ public class dbCon {
         return model;
     }
 
+    // Populerar GuideTable med alla guider samt deras Titel, skapare och vilket datum guiden skapades.
     public DefaultTableModel getAllGuides() {
-        DefaultTableModel guideModel = new DefaultTableModel(new String[]{"GuideId","Title", "Created by:", "Date", "Rating"}, 0);
+        DefaultTableModel guideModel = new DefaultTableModel(new String[]{"GuideId", "Title", "Created by:", "Date", "Rating"}, 0);
         try {
             String strGetUsers = "Select * FROM GUIDE ORDER BY username ASC";
             PreparedStatement statement = connection.prepareStatement(strGetUsers);
@@ -231,7 +210,28 @@ public class dbCon {
                 String username = rs.getString("username");
                 Date date = rs.getDate("date");
                 int rating = rs.getInt("rating");
-                guideModel.addRow(new Object[]{guideId, title, username, date, rating});            }
+                guideModel.addRow(new Object[]{guideId, title, username, date, rating});
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        return guideModel;
+    }
+
+    //
+    public DefaultTableModel getAllGuidesUserSearch() {
+        DefaultTableModel guideModel = new DefaultTableModel(new String[]{"Title", "Created by:", "Date", "Rating"}, 0);
+        try {
+            String strGetUsers = "Select * FROM GUIDE ORDER BY username ASC";
+            PreparedStatement statement = connection.prepareStatement(strGetUsers);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                String title = rs.getString("title");
+                String username = rs.getString("username");
+                Date date = rs.getDate("date");
+                int rating = rs.getInt("rating");
+                guideModel.addRow(new Object[]{title, username, date, rating});
+            }
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
@@ -239,102 +239,99 @@ public class dbCon {
     }
 
 
-                // Behövs ej längre??
-//    public int getGuideId() {
-//        String query = "SELECT guideId FROM GUIDE";
-//        int temp = 1000;
-//        try {
-//
-//            PreparedStatement preparedStatement = connection.prepareStatement(query);
-//            ResultSet rs = preparedStatement.executeQuery();
-//            //preparedStatement.setInt(1, guideId);
-//
-//            while (rs.next()) {
-//                int guideId = rs.getInt("guideId");
-//                temp = guideId;
-//                if(guideId > temp){
-//                    temp = guideId;
-//                }
-//            }
-//
-//        } catch (SQLException exception) {
-//            exception.printStackTrace();
-//        }
-//        temp++;
-//        return temp;
-//    }
+    public DefaultTableModel getAllGuidesUser(String user) {
+        DefaultTableModel guideModel = new DefaultTableModel(new String[]{"Title", "Created by:", "Date", "Rating"}, 0);
+        try {
+            String strGetUsers = "Select * FROM GUIDE WHERE username = ?";
+            PreparedStatement statement = connection.prepareStatement(strGetUsers);
+            statement.setString(1, user);
 
-
-        // Söker efter den valda användaren via GUI i databasen
-        public DefaultTableModel searchUser (String soktext){
-            DefaultTableModel userModel = new DefaultTableModel(new String[]{"Username", "Email"}, 0);
-            try {
-                String query = "SELECT username, email FROM [User] WHERE username LIKE '%" + soktext + "%' OR email LIKE '%" + soktext + "%' ";
-
-                PreparedStatement ps = connection.prepareStatement(query);
-                ResultSet rs = ps.executeQuery();
-                while (rs.next()) {
-                    String username = rs.getString("username");
-                    String email = rs.getString("email");
-                    userModel.addRow(new Object[]{username, email});
-                }
-            } catch (SQLException exception) {
-                exception.printStackTrace();
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                String title = rs.getString("title");
+                String username = rs.getString("username");
+                Date date = rs.getDate("date");
+                int rating = rs.getInt("rating");
+                guideModel.addRow(new Object[]{title, username, date, rating});
             }
-
-            return userModel;
+        } catch (SQLException exception) {
+            exception.printStackTrace();
         }
-
-        // Söker efter en guide i databasen.
-        public DefaultTableModel searchGuide (String soktext){
-            DefaultTableModel guideModel = new DefaultTableModel(new String[]{"Title", "Created by:", "Date", "Rating"}, 0);
-            try {
-                String query = "SELECT title, username, date, rating FROM Guide WHERE title LIKE '%" + soktext + "%' OR username LIKE '%" + soktext + "%'";
-                PreparedStatement ps = connection.prepareStatement(query);
-                ResultSet rs = ps.executeQuery();
-
-                while (rs.next()) {
-                    String title = rs.getString("title");
-                    String username = rs.getString("username");
-                    Date date = rs.getDate("date");
-                    int rating = rs.getInt("rating");
-
-                    guideModel.addRow(new Object[]{title, username, date, rating});
-                }
-            } catch (SQLException exception) {
-                exception.printStackTrace();
-            }
-            return guideModel;
-
-        }
-
-        public void createGuide (String title, String description, String username, String filepath ){
-            try {
-                fis = new FileInputStream(filepath);
-                connection.setAutoCommit(false);
-
-                String createGuide = "INSERT INTO [Guide] ( title, description, date, picture, username)" + " VALUES (?,?,?,?,?)";
-                PreparedStatement create = connection.prepareStatement(createGuide);
-
-                create.setString(1, title);
-                create.setString(2, description);
-                create.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
-                create.setBinaryStream(4,fis);
-                create.setString(5,username);
-                System.out.println("Created a Guide");
-                create.execute();
-                connection.commit();
-                create.close();
-
-
-            } catch (SQLException | FileNotFoundException exception) {
-                exception.printStackTrace();
-            }
-        }
+        return guideModel;
     }
 
-    // Delete a guide query delete from Guide where title = ?
 
-    // DBCC CHECKIDENT (Guide, RESEED, 0) Återställer Guideid == 0;
+    // Söker efter den valda användaren via GUI i databasen
+    public DefaultTableModel searchUser(String soktext) {
+        DefaultTableModel userModel = new DefaultTableModel(new String[]{"Username", "Email"}, 0);
+        try {
+            String query = "SELECT username, email FROM [User] WHERE username LIKE '%" + soktext + "%' OR email LIKE '%" + soktext + "%' ";
 
-    // DBCC CHECKIDENT (mytable) Kolla vad increment value ligger på för just den tabellen
+            PreparedStatement ps = connection.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String username = rs.getString("username");
+                String email = rs.getString("email");
+                userModel.addRow(new Object[]{username, email});
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+
+        return userModel;
+    }
+
+    // Söker efter en guide i databasen.
+    public DefaultTableModel searchGuide(String soktext) {
+        DefaultTableModel guideModel = new DefaultTableModel(new String[]{"Title", "Created by:", "Date", "Rating"}, 0);
+        try {
+            String query = "SELECT title, username, date, rating FROM Guide WHERE title LIKE '%" + soktext + "%' OR username LIKE '%" + soktext + "%'";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String title = rs.getString("title");
+                String username = rs.getString("username");
+                Date date = rs.getDate("date");
+                int rating = rs.getInt("rating");
+
+                guideModel.addRow(new Object[]{title, username, date, rating});
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        return guideModel;
+
+    }
+
+    // Skapar en guide och lagrar denna i databasen
+    public void createGuide(String title, String description, String username, String filepath) {
+        try {
+            fis = new FileInputStream(filepath);
+            connection.setAutoCommit(false);
+
+            String createGuide = "INSERT INTO [Guide] ( title, description, date, picture, username)" + " VALUES (?,?,?,?,?)";
+            PreparedStatement create = connection.prepareStatement(createGuide);
+
+            create.setString(1, title);
+            create.setString(2, description);
+            create.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
+            create.setBinaryStream(4, fis);
+            create.setString(5, username);
+            System.out.println("Created a Guide");
+            create.execute();
+            connection.commit();
+            create.close();
+
+
+        } catch (SQLException | FileNotFoundException exception) {
+            exception.printStackTrace();
+        }
+    }
+}
+
+// Delete a guide query delete from Guide where title = ?
+
+// DBCC CHECKIDENT (Guide, RESEED, 0) Återställer Guideid == 0;
+
+// DBCC CHECKIDENT (mytable) Kolla vad increment value ligger på för just den tabellen

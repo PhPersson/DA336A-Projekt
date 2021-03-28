@@ -11,22 +11,22 @@ import java.awt.event.ActionListener;
 public class HomePageFrame extends JFrame implements ActionListener {
 
 
-    private javax.swing.JToggleButton btnEditGuide;
-    private javax.swing.JButton btnLogOff;
-    private javax.swing.JButton btnNewGuide;
-    private javax.swing.JButton btnRemoveGuide;
-    private javax.swing.JButton btnSearch;
-    private javax.swing.JToggleButton btnShowGuide;
-    private javax.swing.JButton btnShowGuides;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JLabel lblLoggedIn;
-    private javax.swing.JLabel lblSearchResult;
-    private javax.swing.JLabel lblYourGuides;
-    private javax.swing.JLabel lblactiveUser;
-    private javax.swing.JTextField txtSearch;
+    private JToggleButton btnEditGuide;
+    private JButton btnLogOff;
+    private JButton btnNewGuide;
+    private JButton btnRemoveGuide;
+    private JButton btnSearch;
+    private JToggleButton btnShowGuide;
+    private JButton btnShowGuides;
+    private JScrollPane jScrollPane1;
+    private JScrollPane jScrollPane2;
+    private JTable jTable1;
+    private JTable jTable2;
+    private JLabel lblLoggedIn;
+    private JLabel lblSearchResult;
+    private JLabel lblYourGuides;
+    private JLabel lblactiveUser;
+    private JTextField txtSearch;
     private Controller controller;
 
     public HomePageFrame(Controller controller) {
@@ -37,165 +37,140 @@ public class HomePageFrame extends JFrame implements ActionListener {
 
     private void initComponents() {
 
-        txtSearch = new javax.swing.JTextField();
-        btnSearch = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        btnShowGuide = new javax.swing.JToggleButton();
-        btnEditGuide = new javax.swing.JToggleButton();
-        lblSearchResult = new javax.swing.JLabel();
-        btnShowGuides = new javax.swing.JButton();
-        btnNewGuide = new javax.swing.JButton();
-        lblYourGuides = new javax.swing.JLabel();
-        btnLogOff = new javax.swing.JButton();
-        lblactiveUser = new javax.swing.JLabel();
-        lblLoggedIn = new javax.swing.JLabel();
-        btnRemoveGuide = new javax.swing.JButton();
+        txtSearch = new JTextField();
+        btnSearch = new JButton();
+        jScrollPane2 = new JScrollPane();
+        jTable1 = new JTable();
+        jScrollPane1 = new JScrollPane();
+        jTable2 = new JTable();
+        btnShowGuide = new JToggleButton();
+        btnEditGuide = new JToggleButton();
+        lblSearchResult = new JLabel();
+        btnShowGuides = new JButton();
+        btnNewGuide = new JButton();
+        lblYourGuides = new JLabel();
+        btnLogOff = new JButton();
+        lblactiveUser = new JLabel();
+        lblLoggedIn = new JLabel();
+        btnRemoveGuide = new JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        txtSearch.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSearchActionPerformed(evt);
-            }
-        });
+        txtSearch.setFont(new java.awt.Font("Tahoma", 0, 14));
 
-        btnSearch.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        btnSearch.setFont(new java.awt.Font("Tahoma", 0, 14));
         btnSearch.setText("Sök");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null}
-                },
-                new String [] {
-                        "Title 1", "Title 2", "Title 3", "Title 4"
-                }
-        ));
+
         jScrollPane2.setViewportView(jTable1);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null}
-                },
-                new String [] {
-                        "Title 1", "Title 2", "Title 3", "Title 4"
-                }
-        ));
         jScrollPane1.setViewportView(jTable2);
 
-        btnShowGuide.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnShowGuide.setFont(new Font("Tahoma", 0, 14));
         btnShowGuide.setText("Visa");
 
-        btnEditGuide.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnEditGuide.setFont(new Font("Tahoma", 0, 14));
         btnEditGuide.setText("Redigera");
 
-        lblSearchResult.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblSearchResult.setFont(new Font("Tahoma", 0, 14));
         lblSearchResult.setText("Sökresultat:");
 
-        btnShowGuides.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnShowGuides.setFont(new Font("Tahoma", 0, 14));
         btnShowGuides.setText("Visa");
 
-        btnNewGuide.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnNewGuide.setFont(new Font("Tahoma", 0, 14));
         btnNewGuide.setText("Skapa ny guide");
 
-        lblYourGuides.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblYourGuides.setFont(new Font("Tahoma", 0, 14)); // NOI18N
         lblYourGuides.setText("Dina guider:");
 
-        btnLogOff.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnLogOff.setFont(new Font("Tahoma", 0, 14)); // NOI18N
         btnLogOff.setText("Logga ut");
 
-        lblactiveUser.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblactiveUser.setFont(new Font("Tahoma", 0, 14)); // NOI18N
         lblactiveUser.setText("Inloggad:");
 
-        lblLoggedIn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblLoggedIn.setFont(new Font("Tahoma", 0, 14)); // NOI18N
         lblLoggedIn.setText("USERNAME");
 
-        btnRemoveGuide.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnRemoveGuide.setFont(new Font("Tahoma", 0, 14)); // NOI18N
         btnRemoveGuide.setText("Ta Bort");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addGap(25, 25, 25)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                         .addComponent(lblYourGuides)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                                                .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 452, GroupLayout.PREFERRED_SIZE)
+                                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                                                         .addComponent(lblSearchResult)
                                                         .addGroup(layout.createSequentialGroup()
                                                                 .addGap(39, 39, 39)
-                                                                .addComponent(btnRemoveGuide, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addComponent(btnRemoveGuide, GroupLayout.PREFERRED_SIZE, 127, GroupLayout.PREFERRED_SIZE)
                                                                 .addGap(18, 18, 18)
-                                                                .addComponent(btnEditGuide, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addComponent(btnEditGuide, GroupLayout.PREFERRED_SIZE, 127, GroupLayout.PREFERRED_SIZE)
                                                                 .addGap(18, 18, 18)
-                                                                .addComponent(btnShowGuide, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                                .addComponent(btnShowGuide, GroupLayout.PREFERRED_SIZE, 127, GroupLayout.PREFERRED_SIZE))
+                                                        .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                                                 .addComponent(btnNewGuide)
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(btnShowGuides, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(btnShowGuides, GroupLayout.PREFERRED_SIZE, 127, GroupLayout.PREFERRED_SIZE))
+                                                        .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                                                 .addComponent(txtSearch)
                                                                 .addGap(18, 18, 18)
                                                                 .addComponent(btnSearch)))
-                                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jScrollPane2, GroupLayout.PREFERRED_SIZE, 452, GroupLayout.PREFERRED_SIZE)
                                                 .addGroup(layout.createSequentialGroup()
                                                         .addComponent(lblactiveUser)
                                                         .addGap(18, 18, 18)
-                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                                .addComponent(btnLogOff, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                .addComponent(lblLoggedIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                                                .addComponent(btnLogOff, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                .addComponent(lblLoggedIn, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                                 .addContainerGap(27, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addComponent(lblactiveUser)
                                         .addComponent(lblLoggedIn))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnLogOff, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnLogOff, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(txtSearch, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnSearch, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addComponent(lblSearchResult)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 358, GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(btnNewGuide, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(btnShowGuides, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(btnNewGuide, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnShowGuides, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
                                 .addGap(21, 21, 21)
                                 .addComponent(lblYourGuides)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(btnEditGuide, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(btnShowGuide, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(btnRemoveGuide, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane2, GroupLayout.PREFERRED_SIZE, 358, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(btnEditGuide, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnShowGuide, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnRemoveGuide, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
                                 .addGap(20, 20, 20))
         );
+
+        pack();
         setVisible(true);
         setLocationRelativeTo(null);
-        pack();
         addListeners();
-    }// </editor-fold>
+    }
 
     public void addListeners() {
         btnNewGuide.addActionListener(this);
@@ -208,8 +183,12 @@ public class HomePageFrame extends JFrame implements ActionListener {
         lblLoggedIn.setText(name);
         lblLoggedIn.setForeground(Color.darkGray);
     }
-    public void updateUserGuideList(DefaultTableModel update) {
+
+    public void updateUserSearchGuideList(DefaultTableModel update) {
         jTable2.setModel(update);
+    }
+    public void updateUserGuideList(DefaultTableModel update) {
+        jTable1.setModel(update);
     }
 
 
@@ -223,15 +202,11 @@ public class HomePageFrame extends JFrame implements ActionListener {
             //controller.btnLoginClicked();
             controller.btnUserLoggOff();
         } else if (e.getSource() == btnSearch) {
+            controller.btnUserSearchGuide(txtSearch.getText());
 
         }
 
     }
-
-    private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
-
 
 }
 
