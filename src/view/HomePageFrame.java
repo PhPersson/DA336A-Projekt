@@ -56,10 +56,10 @@ public class HomePageFrame extends JFrame implements ActionListener {
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        txtSearch.setFont(new java.awt.Font("Tahoma", 0, 14));
+        txtSearch.setFont(new Font("Tahoma", 0, 14));
 
 
-        btnSearch.setFont(new java.awt.Font("Tahoma", 0, 14));
+        btnSearch.setFont(new Font("Tahoma", 0, 14));
         btnSearch.setText("Sök");
 
 
@@ -195,11 +195,8 @@ public class HomePageFrame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnNewGuide) {
-            System.out.println("skapa guide");
             controller.btnCreateGuide();
-
         }  else if (e.getSource() == btnLogOff) {
-            //controller.btnLoginClicked();
             controller.btnUserLoggOff();
         } else if (e.getSource() == btnSearch) {
             controller.btnUserSearchGuide(txtSearch.getText());
