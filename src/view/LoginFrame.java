@@ -18,7 +18,7 @@ public class LoginFrame extends JFrame implements ActionListener {
     private JButton btnNoLogin;
 
     private RegisterFrame registerFrame;
-    private HomePageFrame homePageFrame;
+    private UserHomepageFrame homePageFrame;
 
     private Controller controller;
 
