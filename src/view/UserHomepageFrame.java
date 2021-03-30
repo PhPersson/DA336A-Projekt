@@ -12,20 +12,13 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
 
 
     private JToggleButton btnEditGuide;
-    private JButton btnLogOff;
-    private JButton btnNewGuide;
-    private JButton btnRemoveGuide;
-    private JButton btnSearch;
     private JToggleButton btnShowGuide;
-    private JButton btnShowGuides;
+    private JButton btnLogOff,btnNewGuide,btnRemoveGuide,btnSearch,btnShowGuides;
     private JScrollPane jScrollPane1;
     private JScrollPane jScrollPane2;
     private JTable jTable1;
     private JTable jTable2;
-    private JLabel lblLoggedIn;
-    private JLabel lblSearchResult;
-    private JLabel lblYourGuides;
-    private JLabel lblactiveUser;
+    private JLabel lblLoggedIn,lblSearchResult,lblYourGuides,lblactiveUser;
     private JTextField txtSearch;
     private Controller controller;
 
