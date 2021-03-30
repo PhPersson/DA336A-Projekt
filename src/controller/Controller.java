@@ -14,8 +14,10 @@ public class Controller {
     private DbCon con;
     private GuiUtilities util;
     private AdminFrame adminFrame;
+
     private HomePageFrame homePageFrame;
-    private SkapaGuideGui SkapaGuideGui;
+    private MakeGuideGui SkapaGuideGui;
+
 
     /**
      * 
@@ -206,7 +208,7 @@ public class Controller {
      */
 
     public void btnCreateGuide(){
-        SkapaGuideGui = new SkapaGuideGui(this);
+        SkapaGuideGui = new MakeGuideGui(this);
         SkapaGuideGui.setVisible(true);
     }
 
