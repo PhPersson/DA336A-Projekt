@@ -151,12 +151,6 @@ public class Controller {
      * @param indexGuide
      */
     public void btnShowGuideNotLoggedInPressed(String indexGuide) {
-        JFrame visaFrame = new JFrame("Guide");
-        DefaultTableModel model = new DefaultTableModel();
-        visaFrame.add(new JPanel(Boolean.parseBoolean(indexGuide)));
-        visaFrame.setSize(400,400);
-        visaFrame.setVisible(true);
-        visaFrame.setResizable(false);
 
     }
 
