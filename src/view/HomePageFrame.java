@@ -120,7 +120,7 @@ public class HomePageFrame extends JFrame implements ActionListener{
             controller.btnNoLoginSearchGuide(txtSearch.getText());
         } else if (e.getSource() == btnLogIn) {
             //controller.btnLoginClicked();
-            controller.btnNoLoginTryLogin();
+            controller.btnHomePageFrameLogin();
         } else if (e.getSource() == btnShowGuides){ // Visa den markerade guiden // Baserat på vilket index man står på i raden.
             int column = 0;
             int row = table.getSelectedRow();
