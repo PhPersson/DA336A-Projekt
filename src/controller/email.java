@@ -6,12 +6,13 @@ import javax.mail.internet.*;
 
 import static javax.tools.JavaFileObject.Kind.HTML;
 
-public class email {
+public class Email {
 
     private String recepient;
     private String username;
 
-    public email(String recepient, String username) {
+
+    public Email(String recepient, String username) {
         this.recepient = recepient;
         this.username = username;
     }
