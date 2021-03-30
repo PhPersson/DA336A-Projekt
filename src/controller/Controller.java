@@ -15,7 +15,7 @@ public class Controller {
     private GuiUtilities util;
     private AdminFrame adminFrame;
     private HPFrameNotLoggedIn homePageFrameNotLoggedIn;
-    private SkapaGuideGui SkapaGuideGui;
+    private MakeGuideGui SkapaGuideGui;
 
 
     public Controller() {
@@ -127,7 +127,7 @@ public class Controller {
     }
 
     public void btnCreateGuide(){
-        SkapaGuideGui = new SkapaGuideGui(this);
+        SkapaGuideGui = new MakeGuideGui(this);
         SkapaGuideGui.setVisible(true);
     }
     public void btnAvbrtyGuide(){

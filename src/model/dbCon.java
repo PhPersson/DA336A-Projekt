@@ -1,14 +1,16 @@
 package model;
 
 import controller.Controller;
-
 import javax.swing.table.DefaultTableModel;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.sql.*;
 import java.util.ArrayList;
 
-
+/**
+ * @author Philip Persosn
+ * @author
+ */
 public class dbCon {
 
     private User user;
@@ -19,12 +21,19 @@ public class dbCon {
     private FileInputStream fis;
     private Controller controller;
 
+    /**
+     *
+     * @param controller Tar emot ett controller objekt för att kunna komunicera tillbaka till controller klassen.
+     * Konstruktorn som även öppnar en anslutning till databasen.
+     */
     public dbCon(Controller controller) {
         this.controller = controller;
         connectToDatabase();
     }
 
-
+    /**
+     * Ansluter till den fastställda databsen. Om databasen inte går att ansluta till visas ett felmeddelande.
+     */
     public void connectToDatabase() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -32,7 +41,6 @@ public class dbCon {
         } catch (ClassNotFoundException | SQLException exception) {
             exception.printStackTrace();
             controller.getUtil().showErrorDialog("Couldn't connect to the database. \n Please contact the systemadministrator");
-
         }
     }
 
@@ -53,8 +61,6 @@ public class dbCon {
             e.printStackTrace();
             return true;
         }
-
-
     }
 
     // Anänvds för att gå igenom alla användare för att kontrollera så användaren matar in ett unikt användarnamn
