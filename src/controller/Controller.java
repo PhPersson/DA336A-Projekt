@@ -20,9 +20,8 @@ public class Controller {
 
 
     /**
-     * 
+     *
      */
-
     public Controller() {
 
         view = new MainFrame(this);
@@ -34,16 +33,18 @@ public class Controller {
     // Kanske skapa ett helt User objekt istället?
 
     /**
-     *
+     * Registrera en ny användare.
+     * Första IF-satsen: Hämtar alla användarnamn i databasen och tittar om det nya användarnamnet är unikt.
+     * Andra IF-satsen kontrollerar om emailadressen är en giltig email. Kollar t.ex. om "@" finns med.
+     * Om det är valid så läggs den nya användare in i databasen med parapetrar: Username, Email, Password.
      */
-
     public void btnRegisterClicked() {
 
         if (con.getAllUsernames(view.getTxtUsername())) {
             util.showDialog("TAKEN!!!!!");
         } else {
-            if (email.isValidEmailAddress(view.getTxtEmail())) {
-                email.sendMail(view.getTxtEmail(), view.getTxtUsername());
+            if (Email.isValidEmailAddress(view.getTxtEmail())) {
+                Email.sendMail(view.getTxtEmail(), view.getTxtUsername());
 
                 con.registerNewCustomer(view.getTxtUsername(), view.getTxtEmail(), view.getTxtPassword());
                 util.showDialog("Registration OK \nYou can now log in");
@@ -55,9 +56,10 @@ public class Controller {
     }
 
     /**
-     *
+     * Kollar om inloggning lyckas.
+     * Första IF-satsen: Hämtar alla användare och lösenord rad för rad i databasen. Tittar om det finns match med användarnamn och lösenord. Annars: felmedelande om att användarnamn eller lösenord är fel.
+     * Andra IF-satsen: Om användaren inte har en roll satt i databasen så körs userHomePageFrame. Annars: Användaren har en roll, vilket betyder att det är en admin. adminFrame körs.
      */
-
     public void btnLoginClicked() {
 
         if (con.getAllUserAndPass(view.getLoginUsername(), view.getLoginPassword())) {
@@ -84,9 +86,8 @@ public class Controller {
     }
 
     /**
-     *
+     * Användare väljer att starta programmet utan att logga in. homePageFrame körs.
      */
-
     public void btnNoLoginClicked() {
         view.getLoginFrame().setVisible(false);
         homePageFrame = new HomePageFrame(this);
@@ -94,47 +95,42 @@ public class Controller {
     }
 
     /**
-     *
+     * AdminFrame stängs ner och en ny LoginFrame körs.
      */
-
     public void btnLoggOffAdmin() {
         adminFrame.setVisible(false);
         view.getLoginFrame().setVisible(true);
     }
 
     /**
-     *
-     * @param username
+     * Admin tar bort en användare i databasen.
+     * @param username Användarnamn för raden man vill ta bort.
      */
-
     public void btnAdminDeleteUser(String username) {
         con.deleteAUser(username);
         adminFrame.updateUserList(con.getUsersAndEmail());
     }
 
     /**
-     *
-     * @param soktext
+     * Admin söker efter användare.
+     * @param soktext input av sträng man vill söka med.
      */
-
     public void btnAdminSearchUser(String soktext) {
         adminFrame.updateUserList(con.searchUser(soktext));
     }
 
     /**
-     *
-     * @param soktext
+     * Admin söker efter guider.
+     * @param soktext input av sträng man vill söka med.
      */
-
     public void btnAdminSearchGuide(String soktext) {
         adminFrame.updateGuideList(con.searchGuide(soktext));
     }
 
     /**
-     *
-     * @param indexToRemove
+     * Admin tar bort guide i databasen.
+     * @param indexToRemove input av sträng som är Guide_ID i databasen.
      */
-
     public void btnAdminDeleteGuide(String indexToRemove) {
         con.deleteGuideAdmin(indexToRemove);
         adminFrame.updateGuideList(con.getAllGuides());
@@ -144,33 +140,29 @@ public class Controller {
      *
      * @param text
      */
-
     public void btntSearchGuideNotLoggedInPressed(String text) {
         con.searchGuide(text);
     }
 
     /**
-     *
+     * Visa guide för användare som inte loggat in.
      * @param indexGuide
      */
-
     public void btnShowGuideNotLoggedInPressed(String indexGuide) {
 
     }
 
     /**
-     *
+     * Användare loggar in från homePageFrame
      */
-
-    public void btnNoLoginTryLogin() {
+    public void btnHomePageFrameLogin() {
         homePageFrame.setVisible(false);
         view.getLoginFrame().setVisible(true);
     }
 
     /**
-     *
+     * Användare loggar ut, Ny loginFrame öppnas
      */
-
     public void btnUserLoggOff(){
         userHomePageFrame.setVisible(false);
         view.getLoginFrame().setVisible(true);
@@ -180,7 +172,6 @@ public class Controller {
      *
      * @param soktext
      */
-
     public void btnUserSearchGuide(String soktext) {
         userHomePageFrame.updateUserSearchGuideList(con.searchGuide(soktext));
     }
@@ -189,7 +180,6 @@ public class Controller {
      *
      * @param soktext
      */
-
     public void btnNoLoginSearchGuide(String soktext) {
         homePageFrame.updateSearchGuideList(con.searchGuide(soktext));
     }
@@ -198,7 +188,6 @@ public class Controller {
      *
      * @return
      */
-
     public ArrayList <String> getUsersFromDb(){
         return con.getAllUsers();
     }
@@ -206,7 +195,6 @@ public class Controller {
     /**
      *
      */
-
     public void btnCreateGuide(){
         SkapaGuideGui = new MakeGuideGui(this);
         SkapaGuideGui.setVisible(true);
@@ -215,7 +203,6 @@ public class Controller {
     /**
      *
      */
-
     public void btnAvbrtyGuide(){
         SkapaGuideGui.setVisible(false);
         System.out.println(user.getUsername());
@@ -224,7 +211,6 @@ public class Controller {
     /**
      *
      */
-
     public void btnSkapaGuide(){
         con.createGuide(SkapaGuideGui.getTitelGuide(),SkapaGuideGui.getDescriptionField(), user.getUsername(),"files/Gubbe.jpg");
         userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
@@ -235,7 +221,6 @@ public class Controller {
      *
      * @return
      */
-
     public GuiUtilities getUtil() {
         return util;
     }
