@@ -9,7 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 
-public class dbCon {
+public class DbCon {
 
     private User user;
     private Connection connection;
@@ -19,7 +19,7 @@ public class dbCon {
     private FileInputStream fis;
     private Controller controller;
 
-    public dbCon(Controller controller) {
+    public DbCon(Controller controller) {
         this.controller = controller;
         connectToDatabase();
     }
