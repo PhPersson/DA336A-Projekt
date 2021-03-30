@@ -13,24 +13,16 @@ public class AdminFrame extends JFrame implements ActionListener {
 
 
     private JComboBox<String> GuideTypeBox;
-    private JButton btnDeleteGuide;
-    private JButton btnDeleteUser;
-    private JButton btnEditGuide;
-    private JButton btnLogOff;
-    private JButton btnSearchGuide;
+    private JButton btnDeleteGuide,btnDeleteUser,btnEditGuide,btnLogOff,btnSearchGuide,btnSearchUser;
     private JTextField txtSearchUser;
     private JTextField guidesearch;
-    private JButton btnSearchUser;
     private JLabel jLabel2;
     private JLabel jLabel5;
     private JScrollPane scrollGuide;
     private JScrollPane jScrollPane2;
     private JTable guideTable;
     private JTable userTable;
-    private JLabel lblGuide;
-    private JLabel lblUser;
-    private JLabel lbladminName;
-    private JLabel lblloginAdmin;
+    private JLabel lblGuide,lbladminName,lblloginAdmin,lblUser;
     private Controller controller;
 
 
@@ -144,7 +136,6 @@ public class AdminFrame extends JFrame implements ActionListener {
                                                                 .addComponent(lblloginAdmin)
                                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                                        .addComponent(jLabel5, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE)
                                                                         .addComponent(lbladminName, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE))
                                                                 .addGap(39, 39, 39))))
                                         .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -177,7 +168,6 @@ public class AdminFrame extends JFrame implements ActionListener {
                                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                                         .addComponent(lblloginAdmin, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
                                                         .addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(jLabel5)
                                                         .addComponent(lbladminName, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))
                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(btnLogOff)
