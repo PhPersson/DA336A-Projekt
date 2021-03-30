@@ -1,7 +1,6 @@
 package model;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -9,7 +8,7 @@ public class GuideManager {
 
     private List<Guide> guideList;
     private Guide guide;
-    private dbCon con;
+    private DbCon con;
 
     public GuideManager() {
 

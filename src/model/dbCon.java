@@ -7,11 +7,15 @@ import java.io.FileNotFoundException;
 import java.sql.*;
 import java.util.ArrayList;
 
+
+
 /**
  * @author Philip Persosn
  * @author
  */
-public class dbCon {
+public class DbCon {
+
+
 
     private User user;
     private Connection connection;
@@ -21,12 +25,15 @@ public class dbCon {
     private FileInputStream fis;
     private Controller controller;
 
+
+
     /**
      *
      * @param controller Tar emot ett controller objekt för att kunna komunicera tillbaka till controller klassen.
      * Konstruktorn som även öppnar en anslutning till databasen.
      */
-    public dbCon(Controller controller) {
+    public DbCon(Controller controller) {
+
         this.controller = controller;
         connectToDatabase();
     }

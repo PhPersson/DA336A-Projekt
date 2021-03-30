@@ -2,7 +2,6 @@ package view;
 
 import controller.Controller;
 
-import javax.mail.Address;
 import javax.swing.*;
 
 public class MainFrame extends JFrame {
@@ -11,8 +10,8 @@ public class MainFrame extends JFrame {
     private int margin = 5;
 
     private LoginFrame loginFrame;
-    private HomePageFrame hpf;
-    private HPFrameNotLoggedIn hpFrameNotLoggedIn;
+    private UserHomepageFrame hpf;
+    private HomePageFrame hpFrameNotLoggedIn;
 
     private Controller controller;
     private GuiUtilities util;
@@ -66,7 +65,7 @@ public class MainFrame extends JFrame {
 
     public RegisterFrame getRegisterFrame() {return loginFrame.getRegisterFrame();}
 
-    public HomePageFrame getHomepageFrame(){
+    public UserHomepageFrame getHomepageFrame(){
         return getHomepageFrame();
     }
 

@@ -9,24 +9,34 @@ import java.util.ArrayList;
 public class Controller {
     private User user;
     private UserManager userManager;
-    private HomePageFrame homePageFrame;
+    private UserHomepageFrame userHomePageFrame;
     private MainFrame view;
-    private dbCon con;
+    private DbCon con;
     private GuiUtilities util;
     private AdminFrame adminFrame;
-    private HPFrameNotLoggedIn homePageFrameNotLoggedIn;
+
+    private HomePageFrame homePageFrame;
     private MakeGuideGui SkapaGuideGui;
 
+
+    /**
+     * 
+     */
 
     public Controller() {
 
         view = new MainFrame(this);
-        con = new dbCon(this);
+        con = new DbCon(this);
         util = new GuiUtilities();
         user = new User();
     }
 
     // Kanske skapa ett helt User objekt istället?
+
+    /**
+     *
+     */
+
     public void btnRegisterClicked() {
 
         if (con.getAllUsernames(view.getTxtUsername())) {
@@ -44,6 +54,10 @@ public class Controller {
         }
     }
 
+    /**
+     *
+     */
+
     public void btnLoginClicked() {
 
         if (con.getAllUserAndPass(view.getLoginUsername(), view.getLoginPassword())) {
@@ -52,10 +66,10 @@ public class Controller {
                 System.out.println(user.getUsername());
 
                 view.getLoginFrame().setVisible(false);
-                homePageFrame =new HomePageFrame(this);
-                homePageFrame.setLblloginUser(user.getUsername());
-                homePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
-                homePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
+                userHomePageFrame =new UserHomepageFrame(this);
+                userHomePageFrame.setLblloginUser(user.getUsername());
+                userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
+                userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
             } else {
                 view.getLoginFrame().setVisible(false);
                 adminFrame = new AdminFrame(this);
@@ -69,77 +83,158 @@ public class Controller {
 
     }
 
+    /**
+     *
+     */
+
     public void btnNoLoginClicked() {
         view.getLoginFrame().setVisible(false);
-        homePageFrameNotLoggedIn = new HPFrameNotLoggedIn(this);
-        homePageFrameNotLoggedIn.updateSearchGuideList(con.getAllGuidesUserSearch());
+        homePageFrame = new HomePageFrame(this);
+        homePageFrame.updateSearchGuideList(con.getAllGuidesUserSearch());
     }
+
+    /**
+     *
+     */
 
     public void btnLoggOffAdmin() {
         adminFrame.setVisible(false);
         view.getLoginFrame().setVisible(true);
     }
 
+    /**
+     *
+     * @param username
+     */
+
     public void btnAdminDeleteUser(String username) {
         con.deleteAUser(username);
         adminFrame.updateUserList(con.getUsersAndEmail());
     }
 
+    /**
+     *
+     * @param soktext
+     */
+
     public void btnAdminSearchUser(String soktext) {
         adminFrame.updateUserList(con.searchUser(soktext));
     }
 
+    /**
+     *
+     * @param soktext
+     */
+
     public void btnAdminSearchGuide(String soktext) {
         adminFrame.updateGuideList(con.searchGuide(soktext));
     }
+
+    /**
+     *
+     * @param indexToRemove
+     */
 
     public void btnAdminDeleteGuide(String indexToRemove) {
         con.deleteGuideAdmin(indexToRemove);
         adminFrame.updateGuideList(con.getAllGuides());
     }
 
+    /**
+     *
+     * @param text
+     */
+
     public void btntSearchGuideNotLoggedInPressed(String text) {
         con.searchGuide(text);
     }
+
+    /**
+     *
+     * @param indexGuide
+     */
 
     public void btnShowGuideNotLoggedInPressed(String indexGuide) {
 
     }
 
-    public void btnNoLoginTryLogin() {
-        homePageFrameNotLoggedIn.setVisible(false);
-        view.getLoginFrame().setVisible(true);
-    }
+    /**
+     *
+     */
 
-    public void btnUserLoggOff(){
+    public void btnNoLoginTryLogin() {
         homePageFrame.setVisible(false);
         view.getLoginFrame().setVisible(true);
     }
-    public void btnUserSearchGuide(String soktext) {
-        homePageFrame.updateUserSearchGuideList(con.searchGuide(soktext));
+
+    /**
+     *
+     */
+
+    public void btnUserLoggOff(){
+        userHomePageFrame.setVisible(false);
+        view.getLoginFrame().setVisible(true);
     }
 
-    public void btnNoLoginSearchGuide(String soktext) {
-        homePageFrameNotLoggedIn.updateSearchGuideList(con.searchGuide(soktext));
+    /**
+     *
+     * @param soktext
+     */
+
+    public void btnUserSearchGuide(String soktext) {
+        userHomePageFrame.updateUserSearchGuideList(con.searchGuide(soktext));
     }
+
+    /**
+     *
+     * @param soktext
+     */
+
+    public void btnNoLoginSearchGuide(String soktext) {
+        homePageFrame.updateSearchGuideList(con.searchGuide(soktext));
+    }
+
+    /**
+     *
+     * @return
+     */
+
     public ArrayList <String> getUsersFromDb(){
         return con.getAllUsers();
     }
+
+    /**
+     *
+     */
 
     public void btnCreateGuide(){
         SkapaGuideGui = new MakeGuideGui(this);
         SkapaGuideGui.setVisible(true);
     }
+
+    /**
+     *
+     */
+
     public void btnAvbrtyGuide(){
         SkapaGuideGui.setVisible(false);
         System.out.println(user.getUsername());
     }
 
+    /**
+     *
+     */
+
     public void btnSkapaGuide(){
         con.createGuide(SkapaGuideGui.getTitelGuide(),SkapaGuideGui.getDescriptionField(), user.getUsername(),"files/Gubbe.jpg");
-        homePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
+        userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
         // con.createGuide("asda","asdasd", null);
     }
+
+    /**
+     *
+     * @return
+     */
 
     public GuiUtilities getUtil() {
         return util;
