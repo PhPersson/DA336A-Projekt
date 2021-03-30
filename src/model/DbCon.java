@@ -1,7 +1,6 @@
 package model;
 
 import controller.Controller;
-
 import javax.swing.table.DefaultTableModel;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -9,7 +8,10 @@ import java.sql.*;
 import java.util.ArrayList;
 
 
-public class dbCon {
+/**
+ * @author Philip Persson
+ */
+public class DbCon {
 
     private User user;
     private Connection connection;
@@ -19,12 +21,21 @@ public class dbCon {
     private FileInputStream fis;
     private Controller controller;
 
-    public dbCon(Controller controller) {
+
+    /**
+     *
+     * @param controller Tar emot ett controller objekt för att kunna komunicera tillbaka till controller klassen.
+     * Konstruktorn som även öppnar en anslutning till databasen.
+     */
+    public DbCon(Controller controller) {
+
         this.controller = controller;
         connectToDatabase();
     }
 
-
+    /**
+     * Ansluter till den fastställda databsen. Om databasen inte går att ansluta till visas ett felmeddelande.
+     */
     public void connectToDatabase() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -32,11 +43,14 @@ public class dbCon {
         } catch (ClassNotFoundException | SQLException exception) {
             exception.printStackTrace();
             controller.getUtil().showErrorDialog("Couldn't connect to the database. \n Please contact the systemadministrator");
-
         }
     }
 
-    // Hämtar alla användare baserat på sökresultat
+    /**
+     *
+     * @param username Anänvdarnamet tas emot som en paramter. Söker sedan igenom hela databsen.
+     * @return om användaren finns i databasen retuneras true, annars retuneras false.
+     */
     public boolean getAllUsernames(String username) {
 
         String query = "SELECT username FROM [User] WHERE username = ?";  //get username
@@ -51,13 +65,16 @@ public class dbCon {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            return true;
+            return false;
         }
-
-
     }
 
-    // Används för att gå igenom alla användare för att kontrollera så användaren matar in ett unikt användarnamn
+    /**
+     * Kontrollerar om användaren redan finns i databasen eller inte.
+     * @param username Användarnamnet som användaren skriver inte
+     * @param password Lösenordet som användaren matar in vid
+     * @return retunerar true om användaren finns. Annars retuneras false.
+     */
     public boolean getAllUserAndPass(String username, String password) {
 
         String query = "SELECT username FROM [User] WHERE username = ? AND password = ?";  //get username
@@ -73,11 +90,16 @@ public class dbCon {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            return true;
+            return false;
         }
     }
 
-    // Hämtar rollen av användaren som loggar in. Kontrollerar om det är en administratör som loggar in eller inte.
+    /**
+     * Hämtar vilken roll användaren har i databsen. Om rollen är 1 räknas detta som att användaren är en administratör.
+     * @param username Användarnamet att kolla upp i databsen
+     * @param password Lösenorder att kolla upp i databasen,
+     * @return Om användaren är administratör så retuneras true.
+     */
     public boolean getRole(String username, String password) {
         String query = "SELECT role FROM [User] WHERE username = ? AND password = ?";
         try {
@@ -97,12 +119,14 @@ public class dbCon {
 
         } catch (SQLException exception) {
             exception.printStackTrace();
-
         }
         return true;
     }
 
-    //  Retunerar alla användare som finns registrerade i databasen.
+    /**
+     * Hämtar alla alla användare som finns registrerade i databsen.
+     * @return Retunerar alla användare i en lista.
+     */
     public ArrayList<String> getAllUsers() {
         ArrayList<String> user = new ArrayList<String>();
         String query = "SELECT * FROM [User]";
@@ -119,9 +143,14 @@ public class dbCon {
         return user;
     }
 
-    // Registrerar en ny användare i databasen.
-    public void registerNewCustomer(String username, String password, String email) {
 
+    /**
+     * Registrear en ny användare i databasen.
+     * @param username Det användarnamn som användaren väljer att ha.
+     * @param password Lösenordet som användare väljer att ha
+     * @param email e-postadressen användaren väljer att registrera till systemet
+     */
+    public void registerNewCustomer(String username, String password, String email) {
         try {
             connection.setAutoCommit(false);
 
@@ -137,13 +166,15 @@ public class dbCon {
             connection.commit();
             register.close();
 
-
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
     }
 
-    // Raderar den valda användaren från databasen
+    /**
+     * Raderar en användaren från databsen. Detta kan enbart göras av de som är administratörer.
+     * @param username Användarnamnet på den användaren som skall tas bort från databsen
+     */
     public void deleteAUser(String username) {
         try {
             connection.setAutoCommit(false);
@@ -161,7 +192,10 @@ public class dbCon {
         }
     }
 
-    // En administratör kan ta bort en guide via denna metoden
+    /**
+     * En administratör kan ta bort en hel guide via administratörs GUI
+     * @param guideId Baserat på GuidId vet databsen vilken guide om skall raderas.
+     */
     public void deleteGuideAdmin(String guideId) {
         try {
             connection.setAutoCommit(false);
@@ -179,7 +213,11 @@ public class dbCon {
         }
     }
 
-    // Populerar UserTable med användarenamn och tillhörande epostadress.
+
+    /**
+     * Populerar UserTable i GUI med användare och dess tillhörande epostadress.
+     * @return Ett helt DefaultTableModel objekt som innehåller användarens Användarnamn och email.
+     */
     public DefaultTableModel getUsersAndEmail() {
         DefaultTableModel model = new DefaultTableModel(new String[]{"Username", "Email"}, 0);
         try {
@@ -197,7 +235,11 @@ public class dbCon {
         return model;
     }
 
-    // Populerar GuideTable med alla guider samt deras Titel, skapare och vilket datum guiden skapades.
+
+    /**
+     * Populerar GuideTable med alla guider samt deras Titel, skapare och vilket datum guiden skapades.
+     * @return Ett helt DefaultTableModel objekt som innehåller alla guider med tillhörande Titel på guiden, vem som skapade guiden och vilket datum guiden skapades.
+     */
     public DefaultTableModel getAllGuides() {
         DefaultTableModel guideModel = new DefaultTableModel(new String[]{"GuideId", "Title", "Created by:", "Date", "Rating"}, 0);
         try {
@@ -261,7 +303,11 @@ public class dbCon {
     }
 
 
-    // Söker efter den valda användaren via GUI i databasen
+    /**
+     * Söker igeon databasen efter en specefik användare baserat på användarnamnet.
+     * @param soktext Sträng som innehåller ord som databasen ska söka på.
+     * @return Ett helt DefaultTableModel objekt som innehåller alla namnet på den sökta användaren och tillhörande e-postaddress.
+     */
     public DefaultTableModel searchUser(String soktext) {
         DefaultTableModel userModel = new DefaultTableModel(new String[]{"Username", "Email"}, 0);
         try {
@@ -281,7 +327,11 @@ public class dbCon {
         return userModel;
     }
 
-    // Söker efter en guide i databasen.
+    /**
+     * Söker igeon databasen efter en specefik guide baserat på vem som skapade den eller titlen på guide.
+     * @param soktext Sträng som innehåller ord som databasen ska söka på.
+     * @return Ett helt DefaultTableModel objekt som innehåller alla namnet på den sökta guiden med tillhörande användare som skapade guiden, när guiden skapades och vilket omdöme guiden har.
+     */
     public DefaultTableModel searchGuide(String soktext) {
         DefaultTableModel guideModel = new DefaultTableModel(new String[]{"Title", "Created by:", "Date", "Rating"}, 0);
         try {
@@ -305,6 +355,14 @@ public class dbCon {
     }
 
     // Skapar en guide och lagrar denna i databasen
+
+    /**
+     * Skapar en guide i databasen
+     * @param title Den titeln som användare väljer att sätta på sin guide.
+     * @param description Förklaringen till guiden. Hur man ska gå tillväga bland annat.
+     * @param username Användarnamnet på vem det var som skapade guiden.
+     * @param filepath Sökvägen till bild/bilder användaren väljer att lägga in i guiden.
+     */
     public void createGuide(String title, String description, String username, String filepath) {
         try {
             fis = new FileInputStream(filepath);
