@@ -4,8 +4,6 @@ import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
 
-import static javax.tools.JavaFileObject.Kind.HTML;
-
 public class Email {
 
     private String recepient;
@@ -68,7 +66,7 @@ public class Email {
                         new InternetAddress(to));
 
                 // Set Subject: header field
-                message.setSubject("Välkommen " +username + " till SupportMe!");
+                message.setSubject("Välkommen " + username + " till SupportMe!");
 
                 // Now set the actual message
                 message.setContent("<h1>Välkommen!</h1>" + "\n" + "<p>Vi på SupportMe är glada att ha dig som kund hos oss!.</p>", "text/html");
