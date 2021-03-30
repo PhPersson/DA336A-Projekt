@@ -17,7 +17,6 @@ public class Controller {
     private DbCon con;
     private GuiUtilities util;
     private AdminFrame adminFrame;
-
     private HomePageFrame homePageFrame;
     private MakeGuideGui SkapaGuideGui;
 
@@ -110,8 +109,14 @@ public class Controller {
      * @param username Användarnamn för raden man vill ta bort.
      */
     public void btnAdminDeleteUser(String username) {
-        con.deleteAUser(username);
+        if (con.checkIfUserHaveGuides(username)) {
+            if (util.showConfirmationDialog("User have still active guides \n Do you want to remove all guides to?") == 1) {
+                con.deleteGuideBasedOnUsername(username);
+                con.deleteAUser(username);
+            }
+        }
         adminFrame.updateUserList(con.getUsersAndEmail());
+        adminFrame.updateGuideList(con.getAllGuides());
     }
 
     /**
