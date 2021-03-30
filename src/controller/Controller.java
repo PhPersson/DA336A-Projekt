@@ -5,6 +5,7 @@ import view.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.util.ArrayList;
 
 
@@ -155,8 +156,35 @@ public class Controller {
      * Visa guide för användare som inte loggat in.
      * @param indexGuide
      */
-    public void btnShowGuideNotLoggedInPressed(String indexGuide) {
+    public void btnShowGuideNotLoggedInPressed(String indexGuide, String titleString, String dateString, String ratingString) {
+        JFrame frame = new JFrame("Current guide");
 
+        JTextArea area = new JTextArea();
+        JLabel title, author, date, rating;
+
+        title = new JLabel(titleString);
+        author = new JLabel();
+        date = new JLabel(dateString);
+        rating = new JLabel(ratingString);
+
+        area.setText(indexGuide);
+        area.setEditable(false);
+        area.setPreferredSize(new Dimension(300,300));
+
+        GridLayout layout = new GridLayout(4,4);
+        JScrollPane scroll = new JScrollPane(area);
+        scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+        frame.add(title);
+        frame.add(author);
+        frame.add(date);
+        frame.add(rating);
+        frame.add(scroll);
+
+        frame.setLayout(layout);
+        frame.setResizable(false);
+        frame.setSize(500,500);
+        frame.setVisible(true);
     }
 
     /**

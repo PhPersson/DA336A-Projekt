@@ -262,7 +262,7 @@ public class DbCon {
 
     //
     public DefaultTableModel getAllGuidesUserSearch() {
-        DefaultTableModel guideModel = new DefaultTableModel(new String[]{"Title", "Created by:", "Date", "Rating"}, 0);
+        DefaultTableModel guideModel = new DefaultTableModel(new String[]{"Title", "Created by:", "Date", "Rating", "Description"}, 0);
         try {
             String strGetUsers = "Select * FROM GUIDE ORDER BY username ASC";
             PreparedStatement statement = connection.prepareStatement(strGetUsers);
@@ -272,7 +272,8 @@ public class DbCon {
                 String username = rs.getString("username");
                 Date date = rs.getDate("date");
                 int rating = rs.getInt("rating");
-                guideModel.addRow(new Object[]{title, username, date, rating});
+                String description = rs.getString("description");
+                guideModel.addRow(new Object[]{title, username, date, rating, description});
             }
         } catch (SQLException exception) {
             exception.printStackTrace();
