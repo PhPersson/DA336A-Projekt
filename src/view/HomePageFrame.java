@@ -122,10 +122,15 @@ public class HomePageFrame extends JFrame implements ActionListener{
             //controller.btnLoginClicked();
             controller.btnHomePageFrameLogin();
         } else if (e.getSource() == btnShowGuides){ // Visa den markerade guiden // Baserat på vilket index man står på i raden.
-            int column = 0;
+            int column = 4;
             int row = table.getSelectedRow();
             String indexGuide = table.getModel().getValueAt(row, column).toString();
-            controller.btnShowGuideNotLoggedInPressed(indexGuide);
+            String titleString = table.getModel().getValueAt(row,0).toString();
+            //String authorString = table.getModel().getValueAt(row,1).toString();
+            String dateString = table.getModel().getValueAt(row,2).toString();
+            String ratingString = table.getModel().getValueAt(row,3).toString();
+
+            controller.btnShowGuideNotLoggedInPressed(indexGuide, titleString, dateString, ratingString);
         } else if (e.getSource() == btnSearch){
             controller.btnNoLoginSearchGuide(txtSearch.getText());
         }
