@@ -387,7 +387,62 @@ public class DbCon {
             exception.printStackTrace();
         }
     }
+
+    public boolean checkIfUserHaveGuides(String username){
+        boolean userHaveGuides = false;
+        try {
+            connection.setAutoCommit(false);
+            String query = "SELECT COUNT(guide.guideId) FROM Guide WHERE username = ?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1,username);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                if (count >= 1) {
+                    userHaveGuides = true;
+                } else {
+                    userHaveGuides = false;
+                }
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        return userHaveGuides;
+    }
+
+    public void deleteGuideBasedOnUsername(String username) {
+        try {
+            connection.setAutoCommit(false);
+            String deleteGuide = "DELETE FROM GUIDE WHERE username = ?";
+
+            PreparedStatement ps = connection.prepareStatement(deleteGuide);
+            ps.setString(1,username);
+            ps.execute();
+            connection.commit();
+            ps.close();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+    }
 }
+
+//    public void deleteGuideAdmin(String guideId) {
+//        try {
+//            connection.setAutoCommit(false);
+//
+//            String deleteUser = "Delete from GUIDE WHERE guideId = ?";
+//
+//            PreparedStatement delete = connection.prepareStatement(deleteUser);
+//            delete.setString(1, guideId);
+//            delete.execute();
+//            connection.commit();
+//            delete.close();
+//
+//        } catch (SQLException exception) {
+//            exception.printStackTrace();
+//        }
+//    }
 
 // Delete a guide query delete from Guide where title = ?
 
