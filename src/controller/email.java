@@ -11,7 +11,6 @@ public class email {
     private String recepient;
     private String username;
 
-
     public email(String recepient, String username) {
         this.recepient = recepient;
         this.username = username;
