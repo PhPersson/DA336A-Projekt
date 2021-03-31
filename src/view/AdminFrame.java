@@ -1,8 +1,4 @@
-package view;/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+package view;
 
 
 import controller.Controller;
@@ -17,24 +13,16 @@ public class AdminFrame extends JFrame implements ActionListener {
 
 
     private JComboBox<String> GuideTypeBox;
-    private JButton btnDeleteGuide;
-    private JButton btnDeleteUser;
-    private JButton btnEditGuide;
-    private JButton btnLogOff;
-    private JButton btnSearchGuide;
+    private JButton btnDeleteGuide,btnDeleteUser,btnEditGuide,btnLogOff,btnSearchGuide,btnSearchUser;
     private JTextField txtSearchUser;
     private JTextField guidesearch;
-    private JButton btnSearchUser;
     private JLabel jLabel2;
     private JLabel jLabel5;
     private JScrollPane scrollGuide;
     private JScrollPane jScrollPane2;
-    private javax.swing.JTable guideTable;
-    private javax.swing.JTable userTable;
-    private javax.swing.JLabel lblGuide;
-    private javax.swing.JLabel lblUser;
-    private javax.swing.JLabel lbladminName;
-    private javax.swing.JLabel lblloginAdmin;
+    private JTable guideTable;
+    private JTable userTable;
+    private JLabel lblGuide,lbladminName,lblloginAdmin,lblUser;
     private Controller controller;
 
 
@@ -68,66 +56,41 @@ public class AdminFrame extends JFrame implements ActionListener {
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        guideTable.setModel(new DefaultTableModel(
-                new Object[][]{
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null}
-                },
-                new String[]{
-                        "Title 1", "Title 2", "Title 3", "Title 4"
-                }
-        ));
-        scrollGuide.setViewportView(guideTable);
 
-        userTable.setModel(new DefaultTableModel(
-                new Object[][]{
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null}
-                },
-                new String[]{
-                        "Username", "Email"
-                }
-        ));
+
+        scrollGuide.setViewportView(guideTable);
         jScrollPane2.setViewportView(userTable);
 
         txtSearchUser.setPreferredSize(new Dimension(34, 23));
 
+        guidesearch.setFont(new Font("Tahoma", 0, 14));
 
-        guidesearch.setFont(new Font("Tahoma", 0, 14)); // NOI18N
-
-
-        lblGuide.setFont(new Font("Tahoma", 0, 14)); // NOI18N
+        lblGuide.setFont(new Font("Tahoma", 0, 14));
         lblGuide.setText("Guide");
 
-        btnSearchGuide.setFont(new Font("Tahoma", 0, 14)); // NOI18N
+        btnSearchGuide.setFont(new Font("Tahoma", 0, 14));
         btnSearchGuide.setText("Sök");
 
-        GuideTypeBox.setModel(new DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
 
-        lblloginAdmin.setFont(new Font("Tahoma", 0, 12)); // NOI18N
-        lblloginAdmin.setText("Inloggad Admin: ");
+        lblloginAdmin.setFont(new Font("Tahoma", 0, 12));
+        lblloginAdmin.setText("Inloggad:");
 
-        lblUser.setFont(new Font("Tahoma", 0, 14)); // NOI18N
+        lblUser.setFont(new Font("Tahoma", 0, 14));
         lblUser.setText("Användare");
 
-        btnSearchUser.setFont(new Font("Tahoma", 0, 14)); // NOI18N
+        btnSearchUser.setFont(new Font("Tahoma", 0, 14));
         btnSearchUser.setText("Sök");
 
         lbladminName.setText("AdminText");
-
         btnLogOff.setText("LogOff");
 
-        btnDeleteUser.setFont(new Font("Tahoma", 0, 14)); // NOI18N
+        btnDeleteUser.setFont(new Font("Tahoma", 0, 14));
         btnDeleteUser.setText("Delete");
 
-        btnEditGuide.setFont(new Font("Tahoma", 0, 14)); // NOI18N
+        btnEditGuide.setFont(new Font("Tahoma", 0, 14));
         btnEditGuide.setText("Redigera");
 
-        btnDeleteGuide.setFont(new Font("Tahoma", 0, 14)); // NOI18N
+        btnDeleteGuide.setFont(new Font("Tahoma", 0, 14));
         btnDeleteGuide.setText("Delete");
 
         GroupLayout layout = new GroupLayout(getContentPane());
@@ -173,7 +136,6 @@ public class AdminFrame extends JFrame implements ActionListener {
                                                                 .addComponent(lblloginAdmin)
                                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                                        .addComponent(jLabel5, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE)
                                                                         .addComponent(lbladminName, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE))
                                                                 .addGap(39, 39, 39))))
                                         .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -206,7 +168,6 @@ public class AdminFrame extends JFrame implements ActionListener {
                                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                                         .addComponent(lblloginAdmin, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
                                                         .addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(jLabel5)
                                                         .addComponent(lbladminName, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))
                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(btnLogOff)
@@ -223,9 +184,10 @@ public class AdminFrame extends JFrame implements ActionListener {
                                 .addGap(16, 16, 16))
         );
         addListeners();
-        setLocationRelativeTo(null);
-        setResizable(false);
+
+        setResizable(true);
         pack();
+        setLocationRelativeTo(null);
         setVisible(true);
     }
 
