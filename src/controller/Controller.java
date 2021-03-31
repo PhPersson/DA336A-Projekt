@@ -158,33 +158,56 @@ public class Controller {
      */
     public void btnShowGuideNotLoggedInPressed(String indexGuide, String titleString, String dateString, String ratingString) {
         JFrame frame = new JFrame("Current guide");
+        frame.setLayout(new BorderLayout());
+        JPanel northPanel = new JPanel(new FlowLayout());
+        JPanel southPanel = new JPanel(new BorderLayout());
 
         JTextArea area = new JTextArea();
-        JLabel title, author, date, rating;
+        JLabel titleTxt, authorTxt, dateTxt, ratingTxt, titleLbl, authorLbl, dateLbl, ratingLbl;
 
-        title = new JLabel(titleString);
-        author = new JLabel();
-        date = new JLabel(dateString);
-        rating = new JLabel(ratingString);
+        titleTxt = new JLabel(titleString);
+        titleTxt.setFont(new Font("Verdana", Font.PLAIN,18));
+        titleLbl = new JLabel("Title: ");
+        titleLbl.setFont(new Font("Verdana", Font.BOLD,18));
+        authorTxt = new JLabel();
+        authorLbl = new JLabel("Author: ");
+        authorLbl.setFont(new Font("Verdana", Font.BOLD,18));
+        dateTxt = new JLabel(dateString);
+        dateTxt.setFont(new Font("Verdana", Font.PLAIN,18));
+        dateLbl = new JLabel("Date: ");
+        dateLbl.setFont(new Font("Verdana", Font.BOLD,18));
+        ratingTxt = new JLabel(ratingString);
+        ratingTxt.setFont(new Font("Verdana", Font.PLAIN,18));
+        ratingLbl = new JLabel("Rating: ");
+        ratingLbl.setFont(new Font("Verdana", Font.BOLD,18));
 
         area.setText(indexGuide);
         area.setEditable(false);
-        area.setPreferredSize(new Dimension(300,300));
+        area.setPreferredSize(new Dimension(500,400));
 
-        GridLayout layout = new GridLayout(4,4);
         JScrollPane scroll = new JScrollPane(area);
         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-        frame.add(title);
-        frame.add(author);
-        frame.add(date);
-        frame.add(rating);
-        frame.add(scroll);
+        frame.add(northPanel, BorderLayout.NORTH);
+        frame.add(southPanel, BorderLayout.SOUTH);
 
-        frame.setLayout(layout);
+        northPanel.add(titleLbl);
+        northPanel.add(titleTxt);
+        //northPanel.add(authorLbl);
+        //northPanel.add(authorTxt, BorderLayout.WEST);
+        northPanel.add(dateLbl);
+        northPanel.add(dateTxt);
+        northPanel.add(ratingLbl);
+        northPanel.add(ratingTxt);
+        southPanel.add(scroll);
+
+        northPanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
+        southPanel.setBorder(BorderFactory.createEmptyBorder(10,10,20,10));
         frame.setResizable(false);
-        frame.setSize(500,500);
+        frame.setLocationRelativeTo(null);
+        frame.setSize(800,800);
         frame.setVisible(true);
+        frame.pack();
     }
 
     /**
