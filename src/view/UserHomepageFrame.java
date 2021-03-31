@@ -158,7 +158,7 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
                                         .addComponent(btnRemoveGuide, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
                                 .addGap(20, 20, 20))
         );
-
+        
         pack();
         setVisible(true);
         setLocationRelativeTo(null);
