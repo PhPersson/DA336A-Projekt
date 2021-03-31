@@ -11,9 +11,7 @@ public class HomePageFrame extends JFrame implements ActionListener{
 
 
     private Controller controller;
-    private JButton btnLogIn;
-    private JButton btnSearch;
-    private JButton btnShowGuides;
+    private JButton btnLogIn,btnSearch,btnShowGuides;
     private JScrollPane jScrollPane1;
     private JTable table;
     private JLabel lblSearchResult;
@@ -98,9 +96,10 @@ public class HomePageFrame extends JFrame implements ActionListener{
                                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
-        this.setLocationRelativeTo(null);
-        setVisible(true);
+
         pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
         addListeners();
     }
     public void addListeners() {

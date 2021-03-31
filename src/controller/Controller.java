@@ -4,13 +4,14 @@ import model.*;
 import view.*;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.io.File;
 import java.util.ArrayList;
 
 
 public class Controller {
     private User user;
+    private Guide guide;
     private UserManager userManager;
     private UserHomepageFrame userHomePageFrame;
     private MainFrame view;
@@ -18,7 +19,7 @@ public class Controller {
     private GuiUtilities util;
     private AdminFrame adminFrame;
     private HomePageFrame homePageFrame;
-    private MakeGuideGui SkapaGuideGui;
+    private MakeGuideGui makeGuideGui;
 
 
     /**
@@ -30,6 +31,8 @@ public class Controller {
         con = new DbCon(this);
         util = new GuiUtilities();
         user = new User();
+        guide = new Guide();
+
     }
 
     // Kanske skapa ett helt User objekt istället?
@@ -47,8 +50,8 @@ public class Controller {
         } else {
             if (Email.isValidEmailAddress(view.getTxtEmail())) {
                 Email.sendMail(view.getTxtEmail(), view.getTxtUsername());
+                con.registerNewCustomer(new User(view.getTxtUsername(), view.getTxtEmail(), view.getTxtUsername(),0));
 
-                con.registerNewCustomer(view.getTxtUsername(), view.getTxtEmail(), view.getTxtPassword());
                 util.showDialog("Registration OK \nYou can now log in");
                 view.getRegisterFrame().setVisible(false);
             } else {
@@ -110,7 +113,7 @@ public class Controller {
      */
     public void btnAdminDeleteUser(String username) {
         if (con.checkIfUserHaveGuides(username)) {
-            if (util.showConfirmationDialog("User have still active guides \n Do you want to remove all guides to?") == 1) {
+            if (util.showConfirmationDialog("User still have active guides! \nDo you want to remove all guides?") == 1) {
                 con.deleteGuideBasedOnUsername(username);
                 con.deleteAUser(username);
             }
@@ -230,26 +233,26 @@ public class Controller {
     /**
      *
      */
-    public void btnCreateGuide(){
-        SkapaGuideGui = new MakeGuideGui(this);
-        SkapaGuideGui.setVisible(true);
+    public void btnOpenCreateGuideFrame(){
+        makeGuideGui = new MakeGuideGui(this);
+        makeGuideGui.setVisible(true);
     }
 
     /**
      *
      */
     public void btnAvbrtyGuide(){
-        SkapaGuideGui.setVisible(false);
+        makeGuideGui.setVisible(false);
         System.out.println(user.getUsername());
     }
 
     /**
      *
      */
-    public void btnSkapaGuide(){
-        con.createGuide(SkapaGuideGui.getTitelGuide(),SkapaGuideGui.getDescriptionField(), user.getUsername(),"files/Gubbe.jpg");
+    public void btnCreateGuide(){
+
+        con.createGuide(new Guide(makeGuideGui.getTitelGuide(),makeGuideGui.getDescriptionField(),user.getUsername()));
         userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
-        // con.createGuide("asda","asdasd", null);
     }
 
     /**
@@ -259,4 +262,7 @@ public class Controller {
     public GuiUtilities getUtil() {
         return util;
     }
+
+
+
 }

@@ -2,10 +2,12 @@ package model;
 
 import controller.Controller;
 import javax.swing.table.DefaultTableModel;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 /**
@@ -146,11 +148,9 @@ public class DbCon {
 
     /**
      * Registrear en ny användare i databasen.
-     * @param username Det användarnamn som användaren väljer att ha.
-     * @param password Lösenordet som användare väljer att ha
-     * @param email e-postadressen användaren väljer att registrera till systemet
+     * @param user
      */
-    public void registerNewCustomer(String username, String password, String email) {
+    public void registerNewCustomer(User user) {
         try {
             connection.setAutoCommit(false);
 
@@ -158,9 +158,10 @@ public class DbCon {
 
             PreparedStatement register = connection.prepareStatement(registerCustomer);
 
-            register.setString(1, username);
-            register.setString(3, password);
-            register.setString(2, email);
+            register.setString(1, user.getUsername());
+
+            register.setString(3, user.getPassword());
+            register.setString(2, user.getEmail());
             register.setInt(4, 0);
             register.execute();
             connection.commit();
@@ -359,31 +360,26 @@ public class DbCon {
 
     /**
      * Skapar en guide i databasen
-     * @param title Den titeln som användare väljer att sätta på sin guide.
-     * @param description Förklaringen till guiden. Hur man ska gå tillväga bland annat.
-     * @param username Användarnamnet på vem det var som skapade guiden.
-     * @param filepath Sökvägen till bild/bilder användaren väljer att lägga in i guiden.
+     *
      */
-    public void createGuide(String title, String description, String username, String filepath) {
+    public void createGuide(Guide guide) {
         try {
-            fis = new FileInputStream(filepath);
+
             connection.setAutoCommit(false);
 
             String createGuide = "INSERT INTO [Guide] ( title, description, date, picture, username)" + " VALUES (?,?,?,?,?)";
             PreparedStatement create = connection.prepareStatement(createGuide);
 
-            create.setString(1, title);
-            create.setString(2, description);
+            create.setString(1, guide.getTitle());
+            create.setString(2, guide.getDescription());
             create.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
             create.setBinaryStream(4, fis);
-            create.setString(5, username);
-            System.out.println("Created a Guide");
+            create.setString(5, guide.getAuthor());
             create.execute();
             connection.commit();
             create.close();
 
-
-        } catch (SQLException | FileNotFoundException exception) {
+        } catch (SQLException  exception) {
             exception.printStackTrace();
         }
     }
@@ -427,22 +423,6 @@ public class DbCon {
     }
 }
 
-//    public void deleteGuideAdmin(String guideId) {
-//        try {
-//            connection.setAutoCommit(false);
-//
-//            String deleteUser = "Delete from GUIDE WHERE guideId = ?";
-//
-//            PreparedStatement delete = connection.prepareStatement(deleteUser);
-//            delete.setString(1, guideId);
-//            delete.execute();
-//            connection.commit();
-//            delete.close();
-//
-//        } catch (SQLException exception) {
-//            exception.printStackTrace();
-//        }
-//    }
 
 // Delete a guide query delete from Guide where title = ?
 
