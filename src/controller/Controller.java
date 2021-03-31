@@ -3,9 +3,12 @@ package controller;
 import model.*;
 import view.*;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -18,8 +21,7 @@ public class Controller {
     private GuiUtilities util;
     private AdminFrame adminFrame;
     private HomePageFrame homePageFrame;
-    private MakeGuideGui SkapaGuideGui;
-
+    private MakeGuideGui makeGuideGui;
 
     /**
      *
@@ -156,30 +158,37 @@ public class Controller {
      * Visa guide för användare som inte loggat in.
      * @param indexGuide
      */
-    public void btnShowGuideNotLoggedInPressed(String indexGuide, String titleString, String dateString, String ratingString) {
+    public void btnShowGuideNotLoggedInPressed(String indexGuide, String titleString, String dateString, String authorString) throws IOException {
         JFrame frame = new JFrame("Current guide");
         frame.setLayout(new BorderLayout());
-        JPanel northPanel = new JPanel(new FlowLayout());
+        JPanel centerPanel = new JPanel(new FlowLayout());
         JPanel southPanel = new JPanel(new BorderLayout());
+        JPanel logoPanel = new JPanel(new BorderLayout());
 
         JTextArea area = new JTextArea();
-        JLabel titleTxt, authorTxt, dateTxt, ratingTxt, titleLbl, authorLbl, dateLbl, ratingLbl;
+        JLabel titleTxt, authorTxt, dateTxt, titleLbl, authorLbl, dateLbl, ratingLbl;
+        Font bold = new Font("", Font.BOLD, 18);
+        Font plain = new Font("", Font.PLAIN, 18);
 
-        titleTxt = new JLabel(titleString);
-        titleTxt.setFont(new Font("Verdana", Font.PLAIN,18));
         titleLbl = new JLabel("Title: ");
-        titleLbl.setFont(new Font("Verdana", Font.BOLD,18));
-        authorTxt = new JLabel();
+        titleLbl.setFont(bold);
+        titleTxt = new JLabel(titleString);
+        titleTxt.setFont(plain);
+
         authorLbl = new JLabel("Author: ");
-        authorLbl.setFont(new Font("Verdana", Font.BOLD,18));
-        dateTxt = new JLabel(dateString);
-        dateTxt.setFont(new Font("Verdana", Font.PLAIN,18));
+        authorLbl.setFont(bold);
+        authorTxt = new JLabel(authorString);
+        authorTxt.setFont(plain);
+
         dateLbl = new JLabel("Date: ");
-        dateLbl.setFont(new Font("Verdana", Font.BOLD,18));
-        ratingTxt = new JLabel(ratingString);
-        ratingTxt.setFont(new Font("Verdana", Font.PLAIN,18));
-        ratingLbl = new JLabel("Rating: ");
-        ratingLbl.setFont(new Font("Verdana", Font.BOLD,18));
+        dateLbl.setFont(bold);
+        dateTxt = new JLabel(dateString);
+        dateTxt.setFont(plain);
+
+        BufferedImage myPicture = ImageIO.read(new File("files/Logga2.png"));
+        JLabel picLabel = new JLabel(new ImageIcon(myPicture.getScaledInstance(
+                180,60, Image.SCALE_SMOOTH)));
+        logoPanel.add(picLabel, BorderLayout.WEST);
 
         area.setText(indexGuide);
         area.setEditable(false);
@@ -188,21 +197,83 @@ public class Controller {
         JScrollPane scroll = new JScrollPane(area);
         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-        frame.add(northPanel, BorderLayout.NORTH);
+        frame.add(logoPanel, BorderLayout.NORTH);
+        frame.add(centerPanel, BorderLayout.CENTER);
         frame.add(southPanel, BorderLayout.SOUTH);
 
-        northPanel.add(titleLbl);
-        northPanel.add(titleTxt);
-        //northPanel.add(authorLbl);
-        //northPanel.add(authorTxt, BorderLayout.WEST);
-        northPanel.add(dateLbl);
-        northPanel.add(dateTxt);
-        northPanel.add(ratingLbl);
-        northPanel.add(ratingTxt);
+        centerPanel.add(titleLbl);
+        centerPanel.add(titleTxt);
+        centerPanel.add(authorLbl);
+        centerPanel.add(authorTxt);
+        centerPanel.add(dateLbl);
+        centerPanel.add(dateTxt);
+
         southPanel.add(scroll);
 
-        northPanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
+        centerPanel.setBorder(BorderFactory.createEmptyBorder(0,20,20,20));
         southPanel.setBorder(BorderFactory.createEmptyBorder(10,10,20,10));
+
+        frame.setResizable(false);
+        frame.setLocationRelativeTo(null);
+        frame.setSize(800,800);
+        frame.setVisible(true);
+        frame.pack();
+    }
+    public void btnShowGuideLoggedInPressed(String indexGuide, String titleString, String dateString, String authorString) throws IOException {
+        JFrame frame = new JFrame("Current guide");
+        frame.setLayout(new BorderLayout());
+        JPanel centerPanel = new JPanel(new FlowLayout());
+        JPanel southPanel = new JPanel(new BorderLayout());
+        JPanel logoPanel = new JPanel(new BorderLayout());
+
+        JTextArea area = new JTextArea();
+        JLabel titleTxt, authorTxt, dateTxt, titleLbl, authorLbl, dateLbl, ratingLbl;
+        Font bold = new Font("", Font.BOLD, 18);
+        Font plain = new Font("", Font.PLAIN, 18);
+
+        titleLbl = new JLabel("Title: ");
+        titleLbl.setFont(bold);
+        titleTxt = new JLabel(titleString);
+        titleTxt.setFont(plain);
+
+        authorLbl = new JLabel("Author: ");
+        authorLbl.setFont(bold);
+        authorTxt = new JLabel(authorString);
+        authorTxt.setFont(plain);
+
+        dateLbl = new JLabel("Date: ");
+        dateLbl.setFont(bold);
+        dateTxt = new JLabel(dateString);
+        dateTxt.setFont(plain);
+
+        BufferedImage myPicture = ImageIO.read(new File("files/Logga2.png"));
+        JLabel picLabel = new JLabel(new ImageIcon(myPicture.getScaledInstance(
+                180,60, Image.SCALE_SMOOTH)));
+        logoPanel.add(picLabel, BorderLayout.WEST);
+
+        area.setText(indexGuide);
+        area.setEditable(false);
+        area.setPreferredSize(new Dimension(500,400));
+
+        JScrollPane scroll = new JScrollPane(area);
+        scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+        frame.add(logoPanel, BorderLayout.NORTH);
+        frame.add(centerPanel, BorderLayout.CENTER);
+        frame.add(southPanel, BorderLayout.SOUTH);
+
+        centerPanel.add(titleLbl);
+        centerPanel.add(titleTxt);
+        centerPanel.add(authorLbl);
+        centerPanel.add(authorTxt);
+        centerPanel.add(dateLbl);
+        centerPanel.add(dateTxt);
+
+        southPanel.add(scroll);
+
+        centerPanel.setBorder(BorderFactory.createEmptyBorder(0,20,20,20));
+        southPanel.setBorder(BorderFactory.createEmptyBorder(10,10,20,10));
+
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setSize(800,800);
@@ -254,15 +325,15 @@ public class Controller {
      *
      */
     public void btnCreateGuide(){
-        SkapaGuideGui = new MakeGuideGui(this);
-        SkapaGuideGui.setVisible(true);
+        makeGuideGui = new MakeGuideGui(this);
+        makeGuideGui.setVisible(true);
     }
 
     /**
      *
      */
     public void btnAvbrtyGuide(){
-        SkapaGuideGui.setVisible(false);
+        makeGuideGui.setVisible(false);
         System.out.println(user.getUsername());
     }
 
@@ -270,7 +341,7 @@ public class Controller {
      *
      */
     public void btnSkapaGuide(){
-        con.createGuide(SkapaGuideGui.getTitelGuide(),SkapaGuideGui.getDescriptionField(), user.getUsername(),"files/Gubbe.jpg");
+        con.createGuide(makeGuideGui.getTitelGuide(), makeGuideGui.getDescriptionField(), user.getUsername(),"files/Gubbe.jpg");
         userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
         // con.createGuide("asda","asdasd", null);
     }
