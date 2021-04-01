@@ -13,7 +13,7 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
 
 
 
-    private JButton btnEditGuide,btnLogOff,btnNewGuide,btnShowGuide,btnRemoveGuide,btnSearch,btnShowGuides;
+    private JButton btnEditGuide,btnLogOff,btnNewGuide,btnShowGuideLower,btnRemoveGuide,btnSearch,btnShowGuideUpper;
     private JScrollPane jScrollPane1,jScrollPane2;
 
     private JTable jTable1;
@@ -23,6 +23,7 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
     private Controller controller;
 
     public UserHomepageFrame(Controller controller){
+        this.controller = controller;
         initComponents();
     }
 
@@ -100,7 +101,7 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
                                 .addGap(18, 18, 18)
                                 .addComponent(btnEditGuide, GroupLayout.PREFERRED_SIZE, 127, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnShowGuide, GroupLayout.PREFERRED_SIZE, 127, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnShowGuideLower, GroupLayout.PREFERRED_SIZE, 127, GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
@@ -108,7 +109,7 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
                                                 .addContainerGap(220, Short.MAX_VALUE)
                                                 .addComponent(btnNewGuide)
                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(btnShowGuides, GroupLayout.PREFERRED_SIZE, 127, GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(btnShowGuideUpper, GroupLayout.PREFERRED_SIZE, 127, GroupLayout.PREFERRED_SIZE))
                                         .addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                                 .addGap(18, 18, 18)
                                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -159,7 +160,7 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addComponent(btnNewGuide, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
 
-                                        .addComponent(btnShowGuides, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(btnShowGuideUpper, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
                                 .addGap(8, 8, 8)
 
                                 .addComponent(lblYourGuides)
@@ -170,7 +171,7 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
                                         .addComponent(btnRemoveGuide, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
                                         .addComponent(btnEditGuide, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
 
-                                        .addComponent(btnShowGuide, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(btnShowGuideLower, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap())
 
         );
