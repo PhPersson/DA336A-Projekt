@@ -438,6 +438,46 @@ public class DbCon {
             exception.printStackTrace();
         }
     }
+
+
+    public void updateUserEmail(String email, String inedxToUpdate) {
+        try {
+            connection.setAutoCommit(false);
+            String query = "UPDATE [User] SET email = ? WHERE username = ?";
+
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1,email);
+            ps.setString(2,inedxToUpdate);
+            ps.execute();
+            connection.commit();
+            ps.close();
+            System.out.println("Finnish");
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    public String getUserEmail(String username){
+
+        String query = "SELECT email FROM [User] WHERE username = ?";
+        String email = null;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, username);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()){
+                email = rs.getString(1);
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+
+        return email;
+
+    }
+
 }
 
 

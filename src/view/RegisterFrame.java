@@ -108,10 +108,11 @@ public class RegisterFrame extends JFrame implements ActionListener {
             if(getTxtPassword().equals(getTxtConPassword())){
                 controller.btnRegisterClicked();
             }else{
-                util.showDialog("Lösenorden stämmer in överrens");
+                util.showDialog("Lösenorden stämmer inte överrens");
             }
         } else {
             util.showConfirmationDialog("Säker att du vill avbryta registreringen?");
+           // setVisible(false);
 
         }
 

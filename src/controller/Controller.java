@@ -72,6 +72,7 @@ public class Controller {
         if (con.getAllUserAndPass(view.getLoginUsername(), view.getLoginPassword())) {
             if (!con.getRole(view.getLoginUsername(), view.getLoginPassword())) {
                 user.setUsername(view.getLoginUsername());
+                //user.setEmail();
 
                 view.getLoginFrame().setVisible(false);
                 userHomePageFrame = new UserHomepageFrame(this);
@@ -298,7 +299,21 @@ public class Controller {
     public void btnUserSettings() {
         userSettings = new UserSettings(this);
         userSettings.setVisible(true);
+        userSettings.setLblUsername(user.getUsername());
+        userSettings.setlblEmail(con.getUserEmail(user.getUsername()));
 
 
+    }
+    public void changePasswordUser(){
+
+       con.updateUserPassword(userSettings.getPassField1(), user.getUsername());
+
+    }
+
+
+    public void changeEmailUser() {
+
+        con.updateUserEmail(userSettings.getEmailField(),user.getUsername());
+        userSettings.setlblEmail(con.getUserEmail(user.getUsername()));
     }
 }
