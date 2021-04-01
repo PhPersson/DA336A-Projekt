@@ -421,6 +421,23 @@ public class DbCon {
             exception.printStackTrace();
         }
     }
+
+    public void updateUserPassword(String password, String inedxToUpdate) {
+        try {
+            connection.setAutoCommit(false);
+            String query = "UPDATE [User] SET password = ? WHERE username = ?";
+
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1,password);
+            ps.setString(2,inedxToUpdate);
+            ps.execute();
+            connection.commit();
+            ps.close();
+            System.out.println("Finnish");
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+    }
 }
 
 
