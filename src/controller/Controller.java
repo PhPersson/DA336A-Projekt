@@ -72,6 +72,7 @@ public class Controller {
         if (con.getAllUserAndPass(view.getLoginUsername(), view.getLoginPassword())) {
             if (!con.getRole(view.getLoginUsername(), view.getLoginPassword())) {
                 user.setUsername(view.getLoginUsername());
+                //user.setEmail();
 
                 view.getLoginFrame().setVisible(false);
                 userHomePageFrame = new UserHomepageFrame(this);
@@ -86,7 +87,7 @@ public class Controller {
                 adminFrame.setLblloginAdmin(view.getLoginUsername());
             }
         } else {
-            util.showErrorDialog("Wrong username or password");
+            util.showErrorDialog("Fel användarnamn eller lösenord!");
         }
 
     }
@@ -114,7 +115,7 @@ public class Controller {
      */
     public void btnAdminDeleteUser(String username) {
         if (con.checkIfUserHaveGuides(username)) {
-            if (util.showConfirmationDialog("User still have active guides! \nDo you want to remove all guides?") == 1) {
+            if (util.showConfirmationDialog("Användaren har fortfarande aktiva guider! \nVill du ta bort alla guider också?") == 1) {
                 con.deleteGuideBasedOnUsername(username);
                 con.deleteAUser(username);
             }
@@ -240,7 +241,21 @@ public class Controller {
     public void btnUserSettings() {
         userSettings = new UserSettings(this);
         userSettings.setVisible(true);
+        userSettings.setLblUsername(user.getUsername());
+        userSettings.setlblEmail(con.getUserEmail(user.getUsername()));
 
 
+    }
+    public void changePasswordUser(){
+
+       con.updateUserPassword(userSettings.getPassField1(), user.getUsername());
+
+    }
+
+
+    public void changeEmailUser() {
+
+        con.updateUserEmail(userSettings.getEmailField(),user.getUsername());
+        userSettings.setlblEmail(con.getUserEmail(user.getUsername()));
     }
 }
