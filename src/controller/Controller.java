@@ -190,7 +190,7 @@ public class Controller {
 
         BufferedImage myPicture = ImageIO.read(new File("files/Logga2.png"));
         JLabel picLabel = new JLabel(new ImageIcon(myPicture.getScaledInstance(
-                180,60, Image.SCALE_SMOOTH)));
+                140,46, Image.SCALE_SMOOTH)));
         logoPanel.add(picLabel, BorderLayout.WEST);
 
         area.setText(indexGuide);
@@ -251,7 +251,7 @@ public class Controller {
 
         BufferedImage myPicture = ImageIO.read(new File("files/Logga2.png"));
         JLabel picLabel = new JLabel(new ImageIcon(myPicture.getScaledInstance(
-                180,60, Image.SCALE_SMOOTH)));
+                120,40, Image.SCALE_SMOOTH)));
         logoPanel.add(picLabel, BorderLayout.WEST);
 
         area.setText(indexGuide);
