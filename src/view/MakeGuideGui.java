@@ -16,14 +16,12 @@ public class MakeGuideGui extends JFrame implements ActionListener{
 
     private Controller controller;
 
-    private JButton AvbrytButton;
-    private JButton BildButton;
+    private JButton btnCancel,btnMakeGuide,btnAddPicture;
     private JTextArea InputTextArea;
     private JComboBox<String> KategoriComboBox;
-    private JButton SkapaGuideButton;
     private JLabel SkapaguideLabel;
     private JTextField TitelField;
-    private JComboBox<String> TypComboBox;
+    private JComboBox<String> TypeComboBox;
     private JInternalFrame jInternalFrame1;
     private JInternalFrame jInternalFrame2;
     private JScrollPane jScrollPane1;
@@ -42,13 +40,13 @@ public class MakeGuideGui extends JFrame implements ActionListener{
         jInternalFrame2 = new JInternalFrame();
         jScrollPane1 = new JScrollPane();
         InputTextArea = new JTextArea();
-        TypComboBox = new JComboBox<>();
+        TypeComboBox = new JComboBox<>();
         KategoriComboBox = new JComboBox<>();
         TitelField = new JTextField();
-        SkapaGuideButton = new JButton();
-        BildButton = new JButton();
+        btnMakeGuide = new JButton();
+        btnAddPicture = new JButton();
         SkapaguideLabel = new JLabel();
-        AvbrytButton = new JButton();
+        btnCancel = new JButton();
 
         jInternalFrame1.setVisible(true);
 
@@ -81,7 +79,7 @@ public class MakeGuideGui extends JFrame implements ActionListener{
         InputTextArea.setText("Beskrivning.");
         jScrollPane1.setViewportView(InputTextArea);
 
-        TypComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Hardware guide", "Software guide"}));
+        TypeComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
 
 
         KategoriComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
@@ -89,17 +87,17 @@ public class MakeGuideGui extends JFrame implements ActionListener{
         TitelField.setText("Titel");
 
 
-        SkapaGuideButton.setText("Skapa Guide");
+        btnMakeGuide.setText("Skapa Guide");
 
 
-        BildButton.setFont(new Font("Tahoma", 0, 14)); // NOI18N
-        BildButton.setText("Lägg till Bild");
+        btnAddPicture.setFont(new Font("Tahoma", 0, 14)); // NOI18N
+        btnAddPicture.setText("Lägg till Bild");
 
 
         SkapaguideLabel.setFont(new Font("Tahoma", 1, 14)); // NOI18N
         SkapaguideLabel.setText("Skapa ny Guide");
 
-        AvbrytButton.setText("Avbryt");
+        btnCancel.setText("Avbryt");
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -110,16 +108,16 @@ public class MakeGuideGui extends JFrame implements ActionListener{
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
                                                 .addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                        .addComponent(AvbrytButton, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(btnCancel, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
                                                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(SkapaGuideButton, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE))
+                                                        .addComponent(btnMakeGuide, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE))
                                                 .addComponent(TitelField, GroupLayout.Alignment.LEADING)
                                                 .addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                        .addComponent(TypComboBox, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(TypeComboBox, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE)
                                                         .addGap(18, 18, 18)
                                                         .addComponent(KategoriComboBox, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE)
                                                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
-                                                        .addComponent(BildButton, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE))
+                                                        .addComponent(btnAddPicture, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE))
                                                 .addComponent(jScrollPane1, GroupLayout.Alignment.LEADING))
                                         .addComponent(SkapaguideLabel, GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap(63, Short.MAX_VALUE))
@@ -133,31 +131,29 @@ public class MakeGuideGui extends JFrame implements ActionListener{
                                 .addComponent(TitelField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(TypComboBox, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(TypeComboBox, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
                                         .addComponent(KategoriComboBox, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(BildButton, GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
+                                        .addComponent(btnAddPicture, GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
                                 .addGap(18, 18, 18)
                                 .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 368, GroupLayout.PREFERRED_SIZE)
                                 .addGap(27, 27, 27)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(SkapaGuideButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(AvbrytButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(btnMakeGuide, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnCancel, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE))
                                 .addGap(20, 20, 20))
         );
-
-        setVisible(true);
         pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
         addListeners();
-
 
     }
 
     public void addListeners() {
-        AvbrytButton.addActionListener(this);
-        SkapaGuideButton.addActionListener(this);
+        btnCancel.addActionListener(this);
+        btnMakeGuide.addActionListener(this);
+        btnAddPicture.addActionListener(this);
     }
-
-    //public void getUserGuide(String titel, String description, )
 
     public String getTitelGuide() {
         return TitelField.getText();
@@ -167,22 +163,21 @@ public class MakeGuideGui extends JFrame implements ActionListener{
     }
 
 
-    public void setSkapaguideLabel() {
-        SkapaguideLabel.setText("Skapa Guide");
-    }
-    public void setRedigeraGuideLabel(){
-        SkapaguideLabel.setText("Redigera din guide");
-    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == AvbrytButton) {
+        if (e.getSource() == btnCancel) {
             controller.btnAvbrtyGuide();
-        } else if (e.getSource() == SkapaGuideButton) {
-            controller.btnSkapaGuide();
-            System.out.println("hej");
-        }
+        } else if (e.getSource() == btnMakeGuide) {
+            controller.btnCreateGuide();
+        } else if (e.getSource() == btnAddPicture) {
+//            JFileChooser fileChooser = new JFileChooser();
+//            fileChooser.setMultiSelectionEnabled(true);
+//            fileChooser.setFileFilter(new FileNameExtensionFilter("Pictures","jpg","png"));
+//            int result = fileChooser.showSaveDialog(null);
+//            File[] files = fileChooser.getSelectedFiles();
 
+        }
     }
 
 

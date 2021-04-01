@@ -85,16 +85,12 @@ public class LoginFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnRegister) {
             registerFrame = new RegisterFrame(controller);
-
         } else if (e.getSource() == btnLogin) {
           controller.btnLoginClicked();
-    //       boolean check = controller.btnLoginClicked();
-    //        if (check) {
         } else if (e.getSource() == btnNoLogin) {
             controller.btnNoLoginClicked();
 
         }
-   //     }
     }
 
 
