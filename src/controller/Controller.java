@@ -85,7 +85,7 @@ public class Controller {
                 adminFrame.setLblloginAdmin(view.getLoginUsername());
             }
         } else {
-            util.showErrorDialog("Wrong username or password");
+            util.showErrorDialog("Fel användarnamn eller lösenord!");
         }
 
     }
@@ -113,7 +113,7 @@ public class Controller {
      */
     public void btnAdminDeleteUser(String username) {
         if (con.checkIfUserHaveGuides(username)) {
-            if (util.showConfirmationDialog("User still have active guides! \nDo you want to remove all guides?") == 1) {
+            if (util.showConfirmationDialog("Användaren har fortfarande aktiva guider! \nVill du ta bort alla guider också?") == 1) {
                 con.deleteGuideBasedOnUsername(username);
                 con.deleteAUser(username);
             }

@@ -263,18 +263,19 @@ public class DbCon {
 
     //
     public DefaultTableModel getAllGuidesUserSearch() {
-        DefaultTableModel guideModel = new DefaultTableModel(new String[]{"Titel", "Skapad av:", "Datum", "Betyg", "Beskrivning"}, 0);
+        DefaultTableModel guideModel = new DefaultTableModel(new String[]{"Guide ID, Titel, Skapad av:, Datum, Betyg"}, 0);
         try {
             String strGetUsers = "Select * FROM GUIDE ORDER BY username ASC";
             PreparedStatement statement = connection.prepareStatement(strGetUsers);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
+                int guideId = rs.getInt("guideId");
                 String title = rs.getString("title");
                 String username = rs.getString("username");
                 Date date = rs.getDate("date");
                 int rating = rs.getInt("rating");
                 String description = rs.getString("description");
-                guideModel.addRow(new Object[]{title, username, date, rating, description});
+                guideModel.addRow(new Object[]{guideId, title, username, date, rating, description});
             }
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -433,7 +434,6 @@ public class DbCon {
             ps.execute();
             connection.commit();
             ps.close();
-            System.out.println("Finnish");
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
