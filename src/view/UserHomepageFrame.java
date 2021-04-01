@@ -165,7 +165,7 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
                                         .addComponent(btnShowGuide, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap())
         );
-
+        
         pack();
         setVisible(true);
         setLocationRelativeTo(null);
@@ -201,7 +201,18 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
             controller.btnUserLoggOff();
         } else if (e.getSource() == btnSearch) {
             controller.btnUserSearchGuide(txtSearch.getText());
-
         }
+
+        /*
+        int column = 4;
+        int row = table.getSelectedRow();
+        String indexGuide = table.getModel().getValueAt(row, column).toString();
+        String titleString = table.getModel().getValueAt(row,0).toString();
+        String authorString = table.getModel().getValueAt(row,1).toString();
+        String dateString = table.getModel().getValueAt(row,2).toString();
+
+        controller.btnShowGuideNotLoggedInPressed(indexGuide, titleString, dateString, authorString);
+*/
+
     }
 }
