@@ -16,8 +16,8 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
     private JButton btnEditGuide,btnLogOff,btnNewGuide,btnShowGuideLower,btnRemoveGuide,btnSearch,btnShowGuideUpper;
     private JScrollPane jScrollPane1,jScrollPane2;
 
-    private JTable jTable1;
-    private JTable jTable2;
+    private JTable jTableLow;
+    private JTable jTableUp;
     private JLabel lblLoggedIn,lblSearchResult,lblYourGuides,lblactiveUser;
     private JTextField txtSearch;
     private Controller controller;
@@ -34,9 +34,9 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
         txtSearch = new JTextField();
         btnSearch = new JButton();
         jScrollPane2 = new JScrollPane();
-        jTable1 = new JTable();
+        jTableLow = new JTable();
         jScrollPane1 = new JScrollPane();
-        jTable2 = new JTable();
+        jTableUp = new JTable();
         btnShowGuideUpper = new JButton();
         btnEditGuide = new JButton();
         lblSearchResult = new JLabel();
@@ -57,9 +57,9 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
         btnSearch.setText("Sök");
 
 
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(jTableLow);
 
-        jScrollPane1.setViewportView(jTable2);
+        jScrollPane1.setViewportView(jTableUp);
 
         btnShowGuideUpper.setFont(new Font("Tahoma", 0, 14));
         btnShowGuideUpper.setText("Visa");
@@ -187,6 +187,7 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
         btnNewGuide.addActionListener(this);
         btnSearch.addActionListener(this);
         btnShowGuideLower.addActionListener(this);
+        btnShowGuideUpper.addActionListener(this);
         btnLogOff.addActionListener(this);
     }
 
@@ -196,10 +197,10 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
     }
 
     public void updateUserSearchGuideList(DefaultTableModel update) {
-        jTable2.setModel(update);
+        jTableUp.setModel(update);
     }
     public void updateUserGuideList(DefaultTableModel update) {
-        jTable1.setModel(update);
+        jTableLow.setModel(update);
     }
 
 
@@ -212,28 +213,30 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
         } else if (e.getSource() == btnSearch) {
             controller.btnUserSearchGuide(txtSearch.getText());
         } else if (e.getSource() == btnShowGuideUpper) {
+            System.out.println("hej");
             int column = 4;
-            int row = jTable1.getSelectedRow();
-            String indexGuide = jTable1.getModel().getValueAt(row, column).toString();
-            String titleString = jTable1.getModel().getValueAt(row,0).toString();
-            String authorString = jTable1.getModel().getValueAt(row,1).toString();
-            String dateString = jTable1.getModel().getValueAt(row,2).toString();
+            int row = jTableUp.getSelectedRow();
+            String indexGuide = jTableUp.getModel().getValueAt(row, column).toString();
+            String titleString = jTableUp.getModel().getValueAt(row,0).toString();
+            String authorString = jTableUp.getModel().getValueAt(row,1).toString();
+            String dateString = jTableUp.getModel().getValueAt(row,2).toString();
 
             try {
-                controller.btnShowGuideLoggedInPressed(indexGuide, titleString, dateString, authorString);
+                controller.btnShowGuide(indexGuide, titleString, dateString, authorString);
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
         } else if (e.getSource() == btnShowGuideLower) {
+            System.out.println("hejdå");
             int column = 4;
-            int row = jTable2.getSelectedRow();
-            String indexGuide = jTable2.getModel().getValueAt(row, column).toString();
-            String titleString = jTable2.getModel().getValueAt(row,0).toString();
-            String authorString = jTable2.getModel().getValueAt(row,1).toString();
-            String dateString = jTable2.getModel().getValueAt(row,2).toString();
+            int row = jTableLow.getSelectedRow();
+            String indexGuide = jTableLow.getModel().getValueAt(row, column).toString();
+            String titleString = jTableLow.getModel().getValueAt(row,0).toString();
+            String authorString = jTableLow.getModel().getValueAt(row,1).toString();
+            String dateString = jTableLow.getModel().getValueAt(row,2).toString();
 
             try {
-                controller.btnShowGuideLoggedInPressed(indexGuide, titleString, dateString, authorString);
+                controller.btnShowGuide(indexGuide, titleString, dateString, authorString);
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
