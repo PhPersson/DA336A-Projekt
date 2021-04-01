@@ -71,10 +71,9 @@ public class Controller {
         if (con.getAllUserAndPass(view.getLoginUsername(), view.getLoginPassword())) {
             if (!con.getRole(view.getLoginUsername(), view.getLoginPassword())) {
                 user.setUsername(view.getLoginUsername());
-                System.out.println(user.getUsername());
 
                 view.getLoginFrame().setVisible(false);
-                userHomePageFrame =new UserHomepageFrame(this);
+                userHomePageFrame = new UserHomepageFrame(this);
                 userHomePageFrame.setLblloginUser(user.getUsername());
                 userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
                 userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));

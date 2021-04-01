@@ -1,7 +1,6 @@
 package view;
 
 import controller.Controller;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -9,9 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+
 public class UserHomepageFrame extends JFrame implements ActionListener {
-
-
 
     private JButton btnEditGuide,btnLogOff,btnNewGuide,btnShowGuideLower,btnRemoveGuide,btnSearch,btnShowGuideUpper;
     private JScrollPane jScrollPane1,jScrollPane2;
@@ -20,12 +18,16 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
     private JTable jTableUp;
     private JLabel lblLoggedIn,lblSearchResult,lblYourGuides,lblactiveUser;
     private JTextField txtSearch;
+    private JLabel lblLogo;
+    private JButton btnUserSettings;
     private Controller controller;
+
 
     public UserHomepageFrame(Controller controller){
         this.controller = controller;
         initComponents();
     }
+
 
     private void initComponents() {
 
@@ -45,15 +47,15 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
         lblactiveUser = new JLabel();
         lblLoggedIn = new JLabel();
         btnRemoveGuide = new JButton();
+        lblLogo = new JLabel();
+        btnUserSettings = new JButton();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         txtSearch.setFont(new Font("Tahoma", 0, 14));
 
-
         btnSearch.setFont(new Font("Tahoma", 0, 14));
         btnSearch.setText("Sök");
-
 
         jScrollPane2.setViewportView(jTableLow);
 
@@ -74,20 +76,24 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
         btnNewGuide.setFont(new Font("Tahoma", 0, 14));
         btnNewGuide.setText("Skapa ny guide");
 
-        lblYourGuides.setFont(new Font("Tahoma", 0, 14)); // NOI18N
+        lblYourGuides.setFont(new Font("Tahoma", 0, 14));
         lblYourGuides.setText("Dina guider:");
 
-        btnLogOff.setFont(new Font("Tahoma", 0, 14)); // NOI18N
+        btnLogOff.setFont(new Font("Tahoma", 0, 10));
         btnLogOff.setText("Logga ut");
 
-        lblactiveUser.setFont(new Font("Tahoma", 0, 14)); // NOI18N
+        lblactiveUser.setFont(new Font("Tahoma", 0, 14));
         lblactiveUser.setText("Inloggad:");
 
         lblLoggedIn.setFont(new Font("Tahoma", 0, 14)); // NOI18N
         lblLoggedIn.setText("Användarnamn");
 
-        btnRemoveGuide.setFont(new Font("Tahoma", 0, 14)); // NOI18N
+
+        btnRemoveGuide.setFont(new Font("Tahoma", 0, 14));
         btnRemoveGuide.setText("Ta Bort");
+
+        btnUserSettings.setFont(new Font("Tahoma", 0, 10));
+        btnUserSettings.setText("Inställningar");
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -116,26 +122,28 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
                                                                 .addGap(0, 0, Short.MAX_VALUE))
                                                         .addComponent(jScrollPane2, GroupLayout.Alignment.TRAILING)
                                                         .addGroup(layout.createSequentialGroup()
-
                                                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                                                                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                                                .addGroup(layout.createSequentialGroup()
-                                                                                        .addComponent(lblSearchResult)
-                                                                                        .addGap(0, 0, Short.MAX_VALUE))
-                                                                                .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
-                                                                                .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                                                        .addComponent(txtSearch)
-                                                                                        .addGap(18, 18, 18)
-                                                                                        .addComponent(btnSearch)))
+                                                                        .addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                                                .addComponent(lblSearchResult)
+                                                                                .addGap(0, 0, Short.MAX_VALUE))
+                                                                        .addComponent(jScrollPane1, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
                                                                         .addGroup(layout.createSequentialGroup()
-                                                                                .addComponent(lblactiveUser)
+                                                                                .addComponent(txtSearch)
                                                                                 .addGap(18, 18, 18)
-                                                                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                                                                        .addComponent(btnLogOff, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                                        .addComponent(lblLoggedIn, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                                                                .addComponent(btnSearch))
+                                                                        .addGroup(layout.createSequentialGroup()
+                                                                                .addComponent(lblLogo)
+                                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED, 269, Short.MAX_VALUE)
+                                                                                .addComponent(lblactiveUser)
+                                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                                                                .addComponent(lblLoggedIn, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE))
+                                                                        .addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                                                .addGap(290, 290, 290)
+                                                                                .addComponent(btnUserSettings, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE)
+                                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                                                .addComponent(btnLogOff, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                                                 .addGap(1, 1, 1)))))
                                 .addGap(26, 26, 26))
-
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -143,24 +151,25 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
                                 .addContainerGap()
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addComponent(lblactiveUser)
-                                        .addComponent(lblLoggedIn))
+                                        .addComponent(lblLoggedIn)
+                                        .addComponent(lblLogo))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnLogOff, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(btnLogOff, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnUserSettings, GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addComponent(txtSearch, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
                                         .addComponent(btnSearch, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addComponent(lblSearchResult)
                                 .addGap(4, 4, 4)
-                                .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                                .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addComponent(btnNewGuide, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
-
                                         .addComponent(btnShowGuideUpper, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
                                 .addGap(8, 8, 8)
-
                                 .addComponent(lblYourGuides)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jScrollPane2, GroupLayout.PREFERRED_SIZE, 249, GroupLayout.PREFERRED_SIZE)
@@ -168,10 +177,8 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addComponent(btnRemoveGuide, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
                                         .addComponent(btnEditGuide, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
-
                                         .addComponent(btnShowGuideLower, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap())
-
         );
         pack();
         setVisible(true);
@@ -186,6 +193,7 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
         btnShowGuideLower.addActionListener(this);
         btnShowGuideUpper.addActionListener(this);
         btnLogOff.addActionListener(this);
+        btnUserSettings.addActionListener(this);
     }
 
     public void setLblloginUser(String name) {
@@ -210,7 +218,6 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
         } else if (e.getSource() == btnSearch) {
             controller.btnUserSearchGuide(txtSearch.getText());
         } else if (e.getSource() == btnShowGuideUpper) {
-            System.out.println("hej");
             int column = 4;
             int row = jTableUp.getSelectedRow();
             String indexGuide = jTableUp.getModel().getValueAt(row, column).toString();
@@ -237,18 +244,9 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
+        } else if (e.getSource() == btnUserSettings) {
+
         }
-
-        /*
-        int column = 4;
-        int row = table.getSelectedRow();
-        String indexGuide = table.getModel().getValueAt(row, column).toString();
-        String titleString = table.getModel().getValueAt(row,0).toString();
-        String authorString = table.getModel().getValueAt(row,1).toString();
-        String dateString = table.getModel().getValueAt(row,2).toString();
-
-        controller.btnShowGuideNotLoggedInPressed(indexGuide, titleString, dateString, authorString);
-*/
 
     }
 }

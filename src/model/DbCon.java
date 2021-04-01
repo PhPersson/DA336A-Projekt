@@ -357,7 +357,6 @@ public class DbCon {
 
     }
 
-    // Skapar en guide och lagrar denna i databasen
 
     /**
      * Skapar en guide i databasen
