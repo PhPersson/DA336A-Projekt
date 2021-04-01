@@ -245,6 +245,7 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
                 ioException.printStackTrace();
             }
         } else if (e.getSource() == btnUserSettings) {
+            controller.btnUserSettings();
 
         }
 
