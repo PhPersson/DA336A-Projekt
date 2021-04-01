@@ -41,15 +41,15 @@ public class LoginFrame extends JFrame implements ActionListener {
         panel.setLayout(layout);
         panel.setBorder(emptyBorder);
 
-        lblUsername = new JLabel("Username");
-        lblPassword = new JLabel("Password");
+        lblUsername = new JLabel("Användarnamn");
+        lblPassword = new JLabel("Lösenord");
 
         txtUsername = new JTextField();
         txtPassword = new JPasswordField();
 
-        btnRegister = new JButton("Register");
-        btnLogin = new JButton("Login");
-        btnNoLogin = new JButton("Continue without login");
+        btnRegister = new JButton("Registrera");
+        btnLogin = new JButton("Logga in");
+        btnNoLogin = new JButton("Fortsätt utan att logga in");
 
         panel.add(lblUsername);
         panel.add(lblPassword);

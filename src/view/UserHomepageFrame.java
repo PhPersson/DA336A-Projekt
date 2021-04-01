@@ -85,8 +85,9 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
         lblactiveUser.setFont(new Font("Tahoma", 0, 14));
         lblactiveUser.setText("Inloggad:");
 
-        lblLoggedIn.setFont(new Font("Tahoma", 0, 14));
-        lblLoggedIn.setText("USERNAME");
+        lblLoggedIn.setFont(new Font("Tahoma", 0, 14)); // NOI18N
+        lblLoggedIn.setText("Användarnamn");
+
 
         btnRemoveGuide.setFont(new Font("Tahoma", 0, 14));
         btnRemoveGuide.setText("Ta Bort");
