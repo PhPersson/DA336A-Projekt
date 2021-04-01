@@ -439,6 +439,7 @@ public class DbCon {
         }
     }
 
+
     public void updateUserEmail(String email, String inedxToUpdate) {
         try {
             connection.setAutoCommit(false);
@@ -476,6 +477,7 @@ public class DbCon {
         return email;
 
     }
+
 }
 
 

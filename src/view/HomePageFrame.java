@@ -119,7 +119,6 @@ public class HomePageFrame extends JFrame implements ActionListener{
         if (e.getSource() == btnSearch) {
             controller.btnNoLoginSearchGuide(txtSearch.getText());
         } else if (e.getSource() == btnLogIn) {
-
             controller.btnHomePageFrameLogin();
         } else if (e.getSource() == btnShowGuides){ // Visa den markerade guiden // Baserat på vilket index man står på i raden.
             int column = 4;
@@ -129,11 +128,7 @@ public class HomePageFrame extends JFrame implements ActionListener{
             String authorString = table.getModel().getValueAt(row,1).toString();
             String dateString = table.getModel().getValueAt(row,2).toString();
 
-            try {
-                controller.btnShowGuide(indexGuide, titleString, dateString, authorString);
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
+            new ShowGuideGUI(titleString, authorString, dateString, indexGuide);
         } else if (e.getSource() == btnSearch){
             controller.btnNoLoginSearchGuide(txtSearch.getText());
         }
