@@ -1,11 +1,15 @@
 package view;
 
 import controller.Controller;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 
 
@@ -16,7 +20,7 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
 
     private JTable jTableLow;
     private JTable jTableUp;
-    private JLabel lblLoggedIn,lblSearchResult,lblYourGuides,lblactiveUser;
+    private JLabel lblLoggedIn,lblSearchResult,lblYourGuides,lblActiveUser;
     private JTextField txtSearch;
     private JLabel lblLogo;
     private JButton btnUserSettings;
@@ -28,8 +32,16 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
         initComponents();
     }
 
-
     private void initComponents() {
+
+        BufferedImage myPicture = null;
+        try {
+            myPicture = ImageIO.read(new File("files/Logga2.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        lblLogo = new JLabel(new ImageIcon(myPicture.getScaledInstance(
+                80,24, Image.SCALE_SMOOTH)));
 
         txtSearch = new JTextField();
         btnSearch = new JButton();
@@ -44,10 +56,9 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
         btnNewGuide = new JButton();
         lblYourGuides = new JLabel();
         btnLogOff = new JButton();
-        lblactiveUser = new JLabel();
+        lblActiveUser = new JLabel();
         lblLoggedIn = new JLabel();
         btnRemoveGuide = new JButton();
-        lblLogo = new JLabel();
         btnUserSettings = new JButton();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -82,8 +93,8 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
         btnLogOff.setFont(new Font("Tahoma", 0, 10));
         btnLogOff.setText("Logga ut");
 
-        lblactiveUser.setFont(new Font("Tahoma", 0, 14));
-        lblactiveUser.setText("Inloggad:");
+        lblActiveUser.setFont(new Font("Tahoma", 0, 14));
+        lblActiveUser.setText("Inloggad:");
 
         lblLoggedIn.setFont(new Font("Tahoma", 0, 14)); // NOI18N
         lblLoggedIn.setText("Användarnamn");
@@ -135,7 +146,7 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
                                                                         .addGroup(layout.createSequentialGroup()
                                                                                 .addComponent(lblLogo)
                                                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED, 269, Short.MAX_VALUE)
-                                                                                .addComponent(lblactiveUser)
+                                                                                .addComponent(lblActiveUser)
                                                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                                                                 .addComponent(lblLoggedIn, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE))
                                                                         .addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -151,7 +162,7 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
                         .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(lblactiveUser)
+                                        .addComponent(lblActiveUser)
                                         .addComponent(lblLoggedIn)
                                         .addComponent(lblLogo))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
@@ -226,11 +237,7 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
             String authorString = jTableUp.getModel().getValueAt(row,1).toString();
             String dateString = jTableUp.getModel().getValueAt(row,2).toString();
 
-            try {
-                controller.btnShowGuide(indexGuide, titleString, dateString, authorString);
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
+            new ShowGuideGUI(titleString, authorString, dateString, indexGuide);
         } else if (e.getSource() == btnShowGuideLower) {
             int column = 4;
             int row = jTableLow.getSelectedRow();
@@ -239,11 +246,7 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
             String authorString = jTableLow.getModel().getValueAt(row,1).toString();
             String dateString = jTableLow.getModel().getValueAt(row,2).toString();
 
-            try {
-                controller.btnShowGuide(indexGuide, titleString, dateString, authorString);
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
+            new ShowGuideGUI(titleString, authorString, dateString, indexGuide);
         } else if (e.getSource() == btnUserSettings) {
             controller.btnUserSettings();
 
