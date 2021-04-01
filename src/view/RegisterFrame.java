@@ -26,7 +26,7 @@ public class RegisterFrame extends JFrame implements ActionListener {
     }
 
     public void createComponents() {
-        setTitle("Register");
+        setTitle("Registrera");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(false);
 
@@ -42,10 +42,10 @@ public class RegisterFrame extends JFrame implements ActionListener {
         panel.setLayout(layout);
         panel.setSize(new Dimension(250, 500));
         panel.setBorder(emptyBorder);
-        lblUsername = new JLabel("Username");
+        lblUsername = new JLabel("Användarnamn");
         lblEmail = new JLabel("Email");
-        lblPassword = new JLabel("Password");
-        lblConPassword = new JLabel("Confirm password");
+        lblPassword = new JLabel("Lösenord");
+        lblConPassword = new JLabel("Bekräfta lösenord");
 
         txtUsername = new JTextField();
         txtEmail = new JTextField();
@@ -57,8 +57,8 @@ public class RegisterFrame extends JFrame implements ActionListener {
         txtPassword.setPreferredSize(fieldSize);
         txtConPassword.setPreferredSize(fieldSize);
 
-        btnRegister = new JButton("Register");
-        btnCancel = new JButton("Cancel");
+        btnRegister = new JButton("Registrera");
+        btnCancel = new JButton("Avbryt");
 
         btnRegister.setPreferredSize(new Dimension(20, 30));
         btnCancel.setPreferredSize(new Dimension(20, 30));
@@ -108,10 +108,10 @@ public class RegisterFrame extends JFrame implements ActionListener {
             if(getTxtPassword().equals(getTxtConPassword())){
                 controller.btnRegisterClicked();
             }else{
-                util.showDialog("Password not matching");
+                util.showDialog("Lösenorden stämmer in överrens");
             }
         } else {
-            util.showConfirmationDialog("Sure you want to cancel registration?");
+            util.showConfirmationDialog("Säker att du vill avbryta registreringen?");
 
         }
 
