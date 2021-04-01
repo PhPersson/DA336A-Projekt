@@ -4,7 +4,6 @@ import model.*;
 import view.*;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -18,7 +17,7 @@ public class Controller {
     private GuiUtilities util;
     private AdminFrame adminFrame;
     private HomePageFrame homePageFrame;
-    private MakeGuideGui SkapaGuideGui;
+    private MakeGuideGui skapaGuideGui;
 
 
     /**
@@ -231,15 +230,16 @@ public class Controller {
      *
      */
     public void btnCreateGuide(){
-        SkapaGuideGui = new MakeGuideGui(this);
-        SkapaGuideGui.setVisible(true);
+        skapaGuideGui = new MakeGuideGui(this);
+        skapaGuideGui.setSkapaguideLabel();
+        skapaGuideGui.setVisible(true);
     }
 
     /**
      *
      */
     public void btnAvbrtyGuide(){
-        SkapaGuideGui.setVisible(false);
+        skapaGuideGui.setVisible(false);
         System.out.println(user.getUsername());
     }
 
@@ -247,7 +247,7 @@ public class Controller {
      *
      */
     public void btnSkapaGuide(){
-        con.createGuide(SkapaGuideGui.getTitelGuide(),SkapaGuideGui.getDescriptionField(), user.getUsername(),"files/Gubbe.jpg");
+        con.createGuide(skapaGuideGui.getTitelGuide(), skapaGuideGui.getDescriptionField(), user.getUsername(),"files/Gubbe.jpg");
         userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
         // con.createGuide("asda","asdasd", null);
     }
@@ -258,5 +258,11 @@ public class Controller {
      */
     public GuiUtilities getUtil() {
         return util;
+    }
+
+    public void btnEditGuide() {
+        //skapaGuideGui.setVisible(true);
+       // skapaGuideGui.
+        System.out.println("wehe");
     }
 }

@@ -194,6 +194,8 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
         } else if (e.getSource() == btnSearch) {
             controller.btnUserSearchGuide(txtSearch.getText());
 
+        } else if (e.getSource() == btnEditGuide){
+            controller.btnEditGuide();
         }
 
     }

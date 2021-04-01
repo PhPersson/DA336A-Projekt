@@ -81,7 +81,7 @@ public class MakeGuideGui extends JFrame implements ActionListener{
         InputTextArea.setText("Beskrivning.");
         jScrollPane1.setViewportView(InputTextArea);
 
-        TypComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
+        TypComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Hardware guide", "Software guide"}));
 
 
         KategoriComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
@@ -144,9 +144,11 @@ public class MakeGuideGui extends JFrame implements ActionListener{
                                         .addComponent(AvbrytButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE))
                                 .addGap(20, 20, 20))
         );
+
         setVisible(true);
         pack();
         addListeners();
+
 
     }
 
@@ -154,6 +156,8 @@ public class MakeGuideGui extends JFrame implements ActionListener{
         AvbrytButton.addActionListener(this);
         SkapaGuideButton.addActionListener(this);
     }
+
+    //public void getUserGuide(String titel, String description, )
 
     public String getTitelGuide() {
         return TitelField.getText();
@@ -163,6 +167,12 @@ public class MakeGuideGui extends JFrame implements ActionListener{
     }
 
 
+    public void setSkapaguideLabel() {
+        SkapaguideLabel.setText("Skapa Guide");
+    }
+    public void setRedigeraGuideLabel(){
+        SkapaguideLabel.setText("Redigera din guide");
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -171,8 +181,8 @@ public class MakeGuideGui extends JFrame implements ActionListener{
         } else if (e.getSource() == SkapaGuideButton) {
             controller.btnSkapaGuide();
             System.out.println("hej");
-
         }
+
     }
 
 
