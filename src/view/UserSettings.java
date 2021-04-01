@@ -9,27 +9,39 @@ package view;/*
  * and open the template in the editor.
  */
 
+
+import controller.Controller;
+import controller.Controller;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+
 /**
  *
  * @author Alexander Olsson
  */
-public class UserSettings extends javax.swing.JFrame {
+public class UserSettings extends JFrame implements ActionListener {
 
 
     // Variables declaration - do not modify
-    private javax.swing.JButton btnKlar;
-    private javax.swing.JLabel changePassLabel1;
-    private javax.swing.JLabel changePassLabel2;
-    private javax.swing.JFrame jFrame1;
-    private javax.swing.JTextField passField1;
-    private javax.swing.JTextField passField2;
-    private javax.swing.JLabel titelLabel;
+    private JButton btnKlar;
+    private JLabel changePassLabel1;
+    private JLabel changePassLabel2;
+    private JFrame jFrame1;
+    private JTextField passField1;
+    private JTextField passField2;
+    private JLabel titelLabel;
+    private Controller controller;
     // End of variables declaration
 
     /**
      * Creates new form UserSettings
      */
-    public UserSettings() {
+    public UserSettings(Controller controller) {
+        this.controller = controller;
         initComponents();
     }
 
@@ -63,26 +75,14 @@ public class UserSettings extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        passField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passField1ActionPerformed(evt);
-            }
-        });
 
-        passField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passField2ActionPerformed(evt);
-            }
-        });
+
+
 
         changePassLabel2.setText("Bekräfta lösenord");
 
         btnKlar.setText("Klar");
-        btnKlar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnKlarActionPerformed(evt);
-            }
-        });
+
 
         titelLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         titelLabel.setText("Användarinställningar");
@@ -123,19 +123,20 @@ public class UserSettings extends javax.swing.JFrame {
                                 .addGap(24, 24, 24))
         );
 
+        setResizable(false);
+        addListeners();
         pack();
     }// </editor-fold>
 
-    private void btnKlarActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+    private void addListeners() {
+        btnKlar.addActionListener(this);
     }
 
-    private void passField2ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
 
-    private void passField1ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == btnKlar) {
+            controller.btnOpenCreateGuideFrame();
+        }
     }
-
 }

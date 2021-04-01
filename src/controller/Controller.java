@@ -23,6 +23,7 @@ public class Controller {
     private AdminFrame adminFrame;
     private HomePageFrame homePageFrame;
     private MakeGuideGui makeGuideGui;
+    private UserSettings userSettings;
 
     /**
      *
@@ -294,5 +295,10 @@ public class Controller {
     }
 
 
+    public void btnUserSettings() {
+        userSettings = new UserSettings(this);
+        userSettings.setVisible(true);
 
+
+    }
 }
