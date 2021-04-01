@@ -2,7 +2,9 @@ package view;
 
 import controller.Controller;
 
+
 import javax.imageio.ImageIO;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -32,6 +34,7 @@ public class AdminFrame extends JFrame implements ActionListener {
 
     private void initComponents() {
 
+
         BufferedImage myPicture = null;
         try {
             myPicture = ImageIO.read(new File("files/Logga2.png"));
@@ -40,6 +43,7 @@ public class AdminFrame extends JFrame implements ActionListener {
         }
         lblLogo = new JLabel(new ImageIcon(myPicture.getScaledInstance(
                 180 ,50, Image.SCALE_SMOOTH)));
+
 
         guidesearch = new JTextField();
         btnSearchGuide = new JButton();
@@ -51,6 +55,9 @@ public class AdminFrame extends JFrame implements ActionListener {
         userTable = new JTable();
         guideTableScroll = new JScrollPane();
         guideTable = new JTable();
+
+        lblLogo = new JLabel();
+
         lblGuideSearch = new JLabel();
         userSearch = new JTextField();
         btnSearchUser = new JButton();
@@ -115,6 +122,67 @@ public class AdminFrame extends JFrame implements ActionListener {
         lbllogin.setText("Inloggad:");
 
         lbladminName.setText("\"\"");
+
+
+
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        guidesearch.setText("");
+
+        btnSearchGuide.setFont(new Font("Tahoma", 0, 12)); // NOI18N
+        btnSearchGuide.setText("Sök");
+
+        jComboBox1.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jComboBox2.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        btnDeleteGuide.setFont(new Font("Tahoma", 0, 12)); // NOI18N
+        btnDeleteGuide.setText("Ta bort");
+
+        btnEditGuide.setFont(new Font("Tahoma", 0, 12)); // NOI18N
+        btnEditGuide.setText("Redigera");
+
+        userTable.setModel(new DefaultTableModel(
+                new Object [][] {
+                        {null, null, null, null},
+                        {null, null, null, null},
+                        {null, null, null, null},
+                        {null, null, null, null}
+                },
+                new String [] {
+                        "Title 1", "Title 2", "Title 3", "Title 4"
+                }
+        ));
+
+        userTableScroll.setViewportView(userTable);
+
+        guideTable.setModel(new DefaultTableModel(
+                new Object [][] {
+                        {null, null, null, null},
+                        {null, null, null, null},
+                        {null, null, null, null},
+                        {null, null, null, null}
+                },
+                new String [] {
+                        "Title 1", "Title 2", "Title 3", "Title 4"
+                }
+        ));
+
+        guideTableScroll.setViewportView(guideTable);
+
+        lblLogo.setText("LOGO");
+
+        lblGuideSearch.setText("Guide");
+
+        userSearch.setText("");
+
+        btnSearchUser.setFont(new Font("Tahoma", 0, 12));
+        btnSearchUser.setText("Sök");
+
+        lbllogin.setText("Inloggad:");
+
+        lbladminName.setText("\"\"");
+
 
         btnLogOff.setFont(new Font("Tahoma", 0, 12));
         btnLogOff.setText("Logga ut");
