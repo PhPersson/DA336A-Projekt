@@ -249,6 +249,8 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
             new ShowGuideGUI(titleString, authorString, dateString, indexGuide);
         } else if (e.getSource() == btnUserSettings) {
             controller.btnUserSettings();
+        }
+        else if (e.getSource() == btnEditGuide) {
 
         }
 

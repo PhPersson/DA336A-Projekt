@@ -23,7 +23,7 @@ public class ShowGuideGUI extends JFrame implements ActionListener {
         frame = new JFrame(titleString);
         frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 
-        centerPanel = new JPanel(new FlowLayout());
+        centerPanel = new JPanel(new GridLayout(3, 2, 0, 5));
         southPanel = new JPanel(new BorderLayout());
         logoPanel = new JPanel(new BorderLayout());
         buttonPanel = new JPanel(new FlowLayout());
@@ -80,7 +80,7 @@ public class ShowGuideGUI extends JFrame implements ActionListener {
         centerPanel.add(dateLbl);
         centerPanel.add(dateTxt);
 
-        centerPanel.setBorder(BorderFactory.createEmptyBorder(0,5,10,5));
+        centerPanel.setBorder(BorderFactory.createEmptyBorder(0,15,10,5));
 
         southPanel.setBorder(BorderFactory.createEmptyBorder(10,15,5,15));
         southPanel.add(scroll);
