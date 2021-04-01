@@ -1,11 +1,16 @@
 package view;
 
 import controller.Controller;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class AdminFrame extends JFrame implements ActionListener {
 
@@ -27,6 +32,15 @@ public class AdminFrame extends JFrame implements ActionListener {
 
     private void initComponents() {
 
+        BufferedImage myPicture = null;
+        try {
+            myPicture = ImageIO.read(new File("files/Logga2.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        lblLogo = new JLabel(new ImageIcon(myPicture.getScaledInstance(
+                180 ,50, Image.SCALE_SMOOTH)));
+
         guidesearch = new JTextField();
         btnSearchGuide = new JButton();
         jComboBox1 = new JComboBox<>();
@@ -37,7 +51,6 @@ public class AdminFrame extends JFrame implements ActionListener {
         userTable = new JTable();
         guideTableScroll = new JScrollPane();
         guideTable = new JTable();
-        lblLogo = new JLabel();
         lblGuideSearch = new JLabel();
         userSearch = new JTextField();
         btnSearchUser = new JButton();
@@ -91,8 +104,6 @@ public class AdminFrame extends JFrame implements ActionListener {
         ));
 
         guideTableScroll.setViewportView(guideTable);
-
-        lblLogo.setText("LOGO");
 
         lblGuideSearch.setText("Guide");
 
