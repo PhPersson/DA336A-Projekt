@@ -94,6 +94,7 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
         btnUserSettings.setFont(new Font("Tahoma", 0, 10));
         btnUserSettings.setText("Inställningar");
 
+
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -230,7 +231,6 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
                 ioException.printStackTrace();
             }
         } else if (e.getSource() == btnShowGuideLower) {
-            System.out.println("hejdå");
             int column = 4;
             int row = jTableLow.getSelectedRow();
             String indexGuide = jTableLow.getModel().getValueAt(row, column).toString();
