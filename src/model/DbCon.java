@@ -44,7 +44,7 @@ public class DbCon {
             connection = DriverManager.getConnection(sqlURL, sqlUsername, sqlPassword);
         } catch (ClassNotFoundException | SQLException exception) {
             exception.printStackTrace();
-            controller.getUtil().showErrorDialog("Couldn't connect to the database. \n Please contact the systemadministrator");
+            controller.getUtil().showErrorDialog("Couldn't connect to the database. \nPlease contact the systemadministrator");
         }
     }
 
@@ -284,7 +284,7 @@ public class DbCon {
 
 
     public DefaultTableModel getAllGuidesUser(String user) {
-        DefaultTableModel guideModel = new DefaultTableModel(new String[]{"Title", "Created by:", "Date", "Rating"}, 0);
+        DefaultTableModel guideModel = new DefaultTableModel(new String[]{"Title", "Created by:", "Date", "Rating", "Description"}, 0);
         try {
             String strGetUsers = "Select * FROM GUIDE WHERE username = ?";
             PreparedStatement statement = connection.prepareStatement(strGetUsers);
@@ -296,7 +296,8 @@ public class DbCon {
                 String username = rs.getString("username");
                 Date date = rs.getDate("date");
                 int rating = rs.getInt("rating");
-                guideModel.addRow(new Object[]{title, username, date, rating});
+                String description = rs.getString("description");
+                guideModel.addRow(new Object[]{title, username, date, rating, description});
             }
         } catch (SQLException exception) {
             exception.printStackTrace();
