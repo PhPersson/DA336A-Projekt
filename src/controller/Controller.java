@@ -160,7 +160,7 @@ public class Controller {
      * @param indexGuide
      */
     public void btnShowGuide(String indexGuide, String titleString, String dateString, String authorString) throws IOException {
-        JFrame frame = new JFrame("Current guide");
+        JFrame frame = new JFrame(titleString);
         frame.setLayout(new BorderLayout());
         JPanel centerPanel = new JPanel(new FlowLayout());
         JPanel southPanel = new JPanel(new BorderLayout());
@@ -168,20 +168,20 @@ public class Controller {
 
         JTextArea area = new JTextArea();
         JLabel titleTxt, authorTxt, dateTxt, titleLbl, authorLbl, dateLbl, ratingLbl;
-        Font bold = new Font("", Font.BOLD, 18);
-        Font plain = new Font("", Font.PLAIN, 18);
+        Font bold = new Font("", Font.BOLD, 14);
+        Font plain = new Font("", Font.PLAIN, 14);
 
-        titleLbl = new JLabel("Title: ");
+        titleLbl = new JLabel("Titel:");
         titleLbl.setFont(bold);
         titleTxt = new JLabel(titleString);
         titleTxt.setFont(plain);
 
-        authorLbl = new JLabel("Author: ");
+        authorLbl = new JLabel("Skapad av:");
         authorLbl.setFont(bold);
         authorTxt = new JLabel(authorString);
         authorTxt.setFont(plain);
 
-        dateLbl = new JLabel("Date: ");
+        dateLbl = new JLabel("Datum:");
         dateLbl.setFont(bold);
         dateTxt = new JLabel(dateString);
         dateTxt.setFont(plain);

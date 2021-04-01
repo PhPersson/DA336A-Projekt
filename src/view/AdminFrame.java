@@ -82,7 +82,7 @@ public class AdminFrame extends JFrame implements ActionListener {
         btnSearchUser.setText("Sök");
 
         lbladminName.setText("AdminText");
-        btnLogOff.setText("LogOff");
+        btnLogOff.setText("Logga ut");
 
         btnDeleteUser.setFont(new Font("Tahoma", 0, 14));
         btnDeleteUser.setText("Delete");
@@ -91,7 +91,7 @@ public class AdminFrame extends JFrame implements ActionListener {
         btnEditGuide.setText("Redigera");
 
         btnDeleteGuide.setFont(new Font("Tahoma", 0, 14));
-        btnDeleteGuide.setText("Delete");
+        btnDeleteGuide.setText("Ta bort");
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

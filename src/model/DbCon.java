@@ -220,7 +220,7 @@ public class DbCon {
      * @return Ett helt DefaultTableModel objekt som innehåller användarens Användarnamn och email.
      */
     public DefaultTableModel getUsersAndEmail() {
-        DefaultTableModel model = new DefaultTableModel(new String[]{"Username", "Email"}, 0);
+        DefaultTableModel model = new DefaultTableModel(new String[]{"Användarnamn", "Email"}, 0);
         try {
             String strGetUsers = "Select * FROM [USER] ORDER BY username ASC";
             PreparedStatement statement = connection.prepareStatement(strGetUsers);
@@ -242,7 +242,7 @@ public class DbCon {
      * @return Ett helt DefaultTableModel objekt som innehåller alla guider med tillhörande Titel på guiden, vem som skapade guiden och vilket datum guiden skapades.
      */
     public DefaultTableModel getAllGuides() {
-        DefaultTableModel guideModel = new DefaultTableModel(new String[]{"GuideId", "Title", "Created by:", "Date", "Rating"}, 0);
+        DefaultTableModel guideModel = new DefaultTableModel(new String[]{"Guide ID", "Titel", "Skapad av:", "Datum", "Betyg"}, 0);
         try {
             String strGetUsers = "Select * FROM GUIDE ORDER BY username ASC";
             PreparedStatement statement = connection.prepareStatement(strGetUsers);
@@ -263,7 +263,7 @@ public class DbCon {
 
     //
     public DefaultTableModel getAllGuidesUserSearch() {
-        DefaultTableModel guideModel = new DefaultTableModel(new String[]{"Title", "Created by:", "Date", "Rating", "Description"}, 0);
+        DefaultTableModel guideModel = new DefaultTableModel(new String[]{"Titel", "Skapad av:", "Datum", "Betyg", "Beskrivning"}, 0);
         try {
             String strGetUsers = "Select * FROM GUIDE ORDER BY username ASC";
             PreparedStatement statement = connection.prepareStatement(strGetUsers);
@@ -284,7 +284,7 @@ public class DbCon {
 
 
     public DefaultTableModel getAllGuidesUser(String user) {
-        DefaultTableModel guideModel = new DefaultTableModel(new String[]{"Title", "Created by:", "Date", "Rating", "Description"}, 0);
+        DefaultTableModel guideModel = new DefaultTableModel(new String[]{"Titel", "Skapad av:", "Datum", "Betyg", "Beskrivning"}, 0);
         try {
             String strGetUsers = "Select * FROM GUIDE WHERE username = ?";
             PreparedStatement statement = connection.prepareStatement(strGetUsers);
@@ -312,7 +312,7 @@ public class DbCon {
      * @return Ett helt DefaultTableModel objekt som innehåller alla namnet på den sökta användaren och tillhörande e-postaddress.
      */
     public DefaultTableModel searchUser(String soktext) {
-        DefaultTableModel userModel = new DefaultTableModel(new String[]{"Username", "Email"}, 0);
+        DefaultTableModel userModel = new DefaultTableModel(new String[]{"Användarnamn", "Email"}, 0);
         try {
             String query = "SELECT username, email FROM [User] WHERE username LIKE '%" + soktext + "%' OR email LIKE '%" + soktext + "%' ";
 
@@ -336,7 +336,7 @@ public class DbCon {
      * @return Ett helt DefaultTableModel objekt som innehåller alla namnet på den sökta guiden med tillhörande användare som skapade guiden, när guiden skapades och vilket omdöme guiden har.
      */
     public DefaultTableModel searchGuide(String soktext) {
-        DefaultTableModel guideModel = new DefaultTableModel(new String[]{"Title", "Created by:", "Date", "Rating"}, 0);
+        DefaultTableModel guideModel = new DefaultTableModel(new String[]{"Titel", "Skapad av:", "Datum", "Betyg"}, 0);
         try {
             String query = "SELECT title, username, date, rating FROM Guide WHERE title LIKE '%" + soktext + "%' OR username LIKE '%" + soktext + "%'";
             PreparedStatement ps = connection.prepareStatement(query);
