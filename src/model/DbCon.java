@@ -44,7 +44,7 @@ public class DbCon {
             connection = DriverManager.getConnection(sqlURL, sqlUsername, sqlPassword);
         } catch (ClassNotFoundException | SQLException exception) {
             exception.printStackTrace();
-            controller.getUtil().showErrorDialog("Couldn't connect to the database. \n Please contact the systemadministrator");
+            controller.getUtil().showErrorDialog("Couldn't connect to the database. \nPlease contact the systemadministrator");
         }
     }
 
