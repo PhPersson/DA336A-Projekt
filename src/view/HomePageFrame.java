@@ -130,7 +130,7 @@ public class HomePageFrame extends JFrame implements ActionListener{
             String dateString = table.getModel().getValueAt(row,2).toString();
 
             try {
-                controller.btnShowGuideNotLoggedInPressed(indexGuide, titleString, dateString, authorString);
+                controller.btnShowGuide(indexGuide, titleString, dateString, authorString);
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
