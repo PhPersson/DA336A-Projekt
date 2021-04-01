@@ -1,7 +1,6 @@
 package view;
 
 import controller.Controller;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -76,19 +75,19 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
         btnNewGuide.setFont(new Font("Tahoma", 0, 14));
         btnNewGuide.setText("Skapa ny guide");
 
-        lblYourGuides.setFont(new Font("Tahoma", 0, 14)); // NOI18N
+        lblYourGuides.setFont(new Font("Tahoma", 0, 14));
         lblYourGuides.setText("Dina guider:");
 
-        btnLogOff.setFont(new Font("Tahoma", 0, 14)); // NOI18N
+        btnLogOff.setFont(new Font("Tahoma", 0, 14));
         btnLogOff.setText("Logga ut");
 
-        lblactiveUser.setFont(new Font("Tahoma", 0, 14)); // NOI18N
+        lblactiveUser.setFont(new Font("Tahoma", 0, 14));
         lblactiveUser.setText("Inloggad:");
 
-        lblLoggedIn.setFont(new Font("Tahoma", 0, 14)); // NOI18N
+        lblLoggedIn.setFont(new Font("Tahoma", 0, 14));
         lblLoggedIn.setText("USERNAME");
 
-        btnRemoveGuide.setFont(new Font("Tahoma", 0, 14)); // NOI18N
+        btnRemoveGuide.setFont(new Font("Tahoma", 0, 14));
         btnRemoveGuide.setText("Ta Bort");
 
         GroupLayout layout = new GroupLayout(getContentPane());
@@ -159,7 +158,6 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addComponent(btnNewGuide, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
-
                                         .addComponent(btnShowGuideUpper, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
                                 .addGap(8, 8, 8)
 
@@ -170,7 +168,6 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addComponent(btnRemoveGuide, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
                                         .addComponent(btnEditGuide, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
-
                                         .addComponent(btnShowGuideLower, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap())
 
