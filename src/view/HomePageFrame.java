@@ -6,6 +6,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class HomePageFrame extends JFrame implements ActionListener{
 
@@ -125,11 +126,14 @@ public class HomePageFrame extends JFrame implements ActionListener{
             int row = table.getSelectedRow();
             String indexGuide = table.getModel().getValueAt(row, column).toString();
             String titleString = table.getModel().getValueAt(row,0).toString();
-            //String authorString = table.getModel().getValueAt(row,1).toString();
+            String authorString = table.getModel().getValueAt(row,1).toString();
             String dateString = table.getModel().getValueAt(row,2).toString();
-            String ratingString = table.getModel().getValueAt(row,3).toString();
 
-            controller.btnShowGuideNotLoggedInPressed(indexGuide, titleString, dateString, ratingString);
+            try {
+                controller.btnShowGuideNotLoggedInPressed(indexGuide, titleString, dateString, authorString);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
         } else if (e.getSource() == btnSearch){
             controller.btnNoLoginSearchGuide(txtSearch.getText());
         }
