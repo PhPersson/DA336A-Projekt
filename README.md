@@ -1,5 +1,7 @@
 # SupportMe (Grupp 25)
 
+<img src="https://github.com/PhPersson/Support_Me/blob/main/files/SupportMeLogo%20.png" width=300 align=topleft>
+
 * [Delaktiga](#Delaktiga)
 * [Projektbeskrivning](#Projektbeskrivning)
 * [Github](#Github)

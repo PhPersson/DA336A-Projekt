@@ -11,9 +11,7 @@ import java.awt.event.ActionListener;
 public class UserHomepageFrame extends JFrame implements ActionListener {
 
 
-    private JToggleButton btnEditGuide;
-    private JToggleButton btnShowGuide;
-    private JButton btnLogOff,btnNewGuide,btnRemoveGuide,btnSearch,btnShowGuides;
+    private JButton btnLogOff,btnNewGuide,btnRemoveGuide,btnSearch,btnShowGuides,btnShowGuide,btnEditGuide;
     private JScrollPane jScrollPane1;
     private JScrollPane jScrollPane2;
     private JTable jTable1;
@@ -36,8 +34,8 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
         jTable1 = new JTable();
         jScrollPane1 = new JScrollPane();
         jTable2 = new JTable();
-        btnShowGuide = new JToggleButton();
-        btnEditGuide = new JToggleButton();
+        btnShowGuide = new JButton();
+        btnEditGuide = new JButton();
         lblSearchResult = new JLabel();
         btnShowGuides = new JButton();
         btnNewGuide = new JButton();
@@ -158,10 +156,11 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
                                         .addComponent(btnRemoveGuide, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
                                 .addGap(20, 20, 20))
         );
-
+        
         pack();
         setVisible(true);
         setLocationRelativeTo(null);
+        setResizable(true);
         addListeners();
     }
 
@@ -188,16 +187,25 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnNewGuide) {
-            controller.btnCreateGuide();
+            controller.btnOpenCreateGuideFrame();
         }  else if (e.getSource() == btnLogOff) {
             controller.btnUserLoggOff();
         } else if (e.getSource() == btnSearch) {
             controller.btnUserSearchGuide(txtSearch.getText());
-
         }
 
-    }
+        /*
+        int column = 4;
+        int row = table.getSelectedRow();
+        String indexGuide = table.getModel().getValueAt(row, column).toString();
+        String titleString = table.getModel().getValueAt(row,0).toString();
+        String authorString = table.getModel().getValueAt(row,1).toString();
+        String dateString = table.getModel().getValueAt(row,2).toString();
 
+        controller.btnShowGuideNotLoggedInPressed(indexGuide, titleString, dateString, authorString);
+*/
+
+    }
 }
 
 

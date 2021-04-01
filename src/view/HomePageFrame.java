@@ -6,14 +6,13 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class HomePageFrame extends JFrame implements ActionListener{
 
 
     private Controller controller;
-    private JButton btnLogIn;
-    private JButton btnSearch;
-    private JButton btnShowGuides;
+    private JButton btnLogIn,btnSearch,btnShowGuides;
     private JScrollPane jScrollPane1;
     private JTable table;
     private JLabel lblSearchResult;
@@ -98,9 +97,10 @@ public class HomePageFrame extends JFrame implements ActionListener{
                                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
-        this.setLocationRelativeTo(null);
-        setVisible(true);
+
         pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
         addListeners();
     }
     public void addListeners() {
@@ -122,10 +122,18 @@ public class HomePageFrame extends JFrame implements ActionListener{
             //controller.btnLoginClicked();
             controller.btnHomePageFrameLogin();
         } else if (e.getSource() == btnShowGuides){ // Visa den markerade guiden // Baserat på vilket index man står på i raden.
-            int column = 0;
+            int column = 4;
             int row = table.getSelectedRow();
             String indexGuide = table.getModel().getValueAt(row, column).toString();
-            controller.btnShowGuideNotLoggedInPressed(indexGuide);
+            String titleString = table.getModel().getValueAt(row,0).toString();
+            String authorString = table.getModel().getValueAt(row,1).toString();
+            String dateString = table.getModel().getValueAt(row,2).toString();
+
+            try {
+                controller.btnShowGuideNotLoggedInPressed(indexGuide, titleString, dateString, authorString);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
         } else if (e.getSource() == btnSearch){
             controller.btnNoLoginSearchGuide(txtSearch.getText());
         }

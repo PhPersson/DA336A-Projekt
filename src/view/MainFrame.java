@@ -69,7 +69,6 @@ public class MainFrame extends JFrame {
         return getHomepageFrame();
     }
 
-    //public HPFrameNotLoggedIn getHPFrameNotLoggedIn(){ return HPFrameNotLoggedIn.getHPFrameNotLoggedIn();}
 
 
 }

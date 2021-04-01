@@ -1,5 +1,6 @@
 package model;
 import java.awt.*;
+import java.io.File;
 import java.util.Date;
 
 public class Guide {
@@ -8,28 +9,43 @@ public class Guide {
     private String title;
     private Image pic;
     private String description;
-    private String username;
+    private String author;
     private Date datetime;
     private int rating;
     private int views;
     private int nbrofratings;
+    private File[] files;
 
     private String category;
 
     private String type;
 
-    public Guide(String title, Image pic, String type, String description) {
+    public Guide(){
+
+    }
+
+    public Guide(String title,String description,String author, File[] files) {
         this.title = title;
-        this.pic = pic;
-        this.type = type;
+        this.files = files;
+        this.author = author;
         this.description = description;
     }
 
-    public Guide(String title, String type, String description) {
+    public Guide(String title,String description,String author, File[] files, String type ) {
         this.title = title;
+        this.files = files;
         this.type = type;
+        this.author = author;
         this.description = description;
     }
+
+    public Guide(String title, String description, String author) {
+        this.title = title;
+        this.author = author;
+        this.description = description;
+    }
+
+
 
     public String getTitle() {
         return title;
@@ -61,5 +77,14 @@ public class Guide {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 }
