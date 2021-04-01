@@ -6,14 +6,13 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class HomePageFrame extends JFrame implements ActionListener{
 
 
     private Controller controller;
-    private JButton btnLogIn;
-    private JButton btnSearch;
-    private JButton btnShowGuides;
+    private JButton btnLogIn,btnSearch,btnShowGuides;
     private JScrollPane jScrollPane1;
     private JTable table;
     private JLabel lblSearchResult;
@@ -98,9 +97,10 @@ public class HomePageFrame extends JFrame implements ActionListener{
                                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
-        this.setLocationRelativeTo(null);
-        setVisible(true);
+
         pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
         addListeners();
     }
     public void addListeners() {
@@ -126,11 +126,14 @@ public class HomePageFrame extends JFrame implements ActionListener{
             int row = table.getSelectedRow();
             String indexGuide = table.getModel().getValueAt(row, column).toString();
             String titleString = table.getModel().getValueAt(row,0).toString();
-            //String authorString = table.getModel().getValueAt(row,1).toString();
+            String authorString = table.getModel().getValueAt(row,1).toString();
             String dateString = table.getModel().getValueAt(row,2).toString();
-            String ratingString = table.getModel().getValueAt(row,3).toString();
 
-            controller.btnShowGuideNotLoggedInPressed(indexGuide, titleString, dateString, ratingString);
+            try {
+                controller.btnShowGuideNotLoggedInPressed(indexGuide, titleString, dateString, authorString);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
         } else if (e.getSource() == btnSearch){
             controller.btnNoLoginSearchGuide(txtSearch.getText());
         }
