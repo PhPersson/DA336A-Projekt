@@ -27,8 +27,6 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
         initComponents();
     }
 
-
-
     private void initComponents() {
 
         txtSearch = new JTextField();
@@ -86,7 +84,7 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
         lblactiveUser.setText("Inloggad:");
 
         lblLoggedIn.setFont(new Font("Tahoma", 0, 14)); // NOI18N
-        lblLoggedIn.setText("USERNAME");
+        lblLoggedIn.setText("Användarnamn");
 
         btnRemoveGuide.setFont(new Font("Tahoma", 0, 14)); // NOI18N
         btnRemoveGuide.setText("Ta Bort");
@@ -175,7 +173,6 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
                                 .addContainerGap())
 
         );
-        
         pack();
         setVisible(true);
         setLocationRelativeTo(null);
