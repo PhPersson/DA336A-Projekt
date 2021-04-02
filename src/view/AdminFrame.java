@@ -33,8 +33,6 @@ public class AdminFrame extends JFrame implements ActionListener {
 
 
     private void initComponents() {
-
-
         BufferedImage myPicture = null;
         try {
             myPicture = ImageIO.read(new File("files/Logga2.png"));
@@ -55,8 +53,6 @@ public class AdminFrame extends JFrame implements ActionListener {
         userTable = new JTable();
         guideTableScroll = new JScrollPane();
         guideTable = new JTable();
-
-        lblLogo = new JLabel();
 
         lblGuideSearch = new JLabel();
         userSearch = new JTextField();
@@ -169,8 +165,6 @@ public class AdminFrame extends JFrame implements ActionListener {
         ));
 
         guideTableScroll.setViewportView(guideTable);
-
-        lblLogo.setText("LOGO");
 
         lblGuideSearch.setText("Guide");
 

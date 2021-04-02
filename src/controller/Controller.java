@@ -73,7 +73,6 @@ public class Controller {
             if (!con.getRole(view.getLoginUsername(), view.getLoginPassword())) {
                 user.setUsername(view.getLoginUsername());
                 //user.setEmail();
-
                 view.getLoginFrame().setVisible(false);
                 userHomePageFrame = new UserHomepageFrame(this);
                 userHomePageFrame.setLblloginUser(user.getUsername());
