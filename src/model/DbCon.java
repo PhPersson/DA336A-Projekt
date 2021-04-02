@@ -242,7 +242,8 @@ public class DbCon {
      * @return Ett helt DefaultTableModel objekt som innehåller alla guider med tillhörande Titel på guiden, vem som skapade guiden och vilket datum guiden skapades.
      */
     public DefaultTableModel getAllGuides() {
-        DefaultTableModel guideModel = new DefaultTableModel(new String[]{"Guide ID", "Titel", "Skapad av:", "Datum", "Betyg"}, 0);
+        DefaultTableModel guideModel = new DefaultTableModel(new String[]{
+                "Guide ID", "Titel", "Skapad av:", "Datum", "Betyg", "Beskrivning"}, 0);
         try {
             String strGetUsers = "Select * FROM GUIDE ORDER BY username ASC";
             PreparedStatement statement = connection.prepareStatement(strGetUsers);
@@ -253,7 +254,8 @@ public class DbCon {
                 String username = rs.getString("username");
                 Date date = rs.getDate("date");
                 int rating = rs.getInt("rating");
-                guideModel.addRow(new Object[]{guideId, title, username, date, rating});
+                String description = rs.getString("description");
+                guideModel.addRow(new Object[]{guideId, title, username, date, rating, description});
             }
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -263,7 +265,8 @@ public class DbCon {
 
     //
     public DefaultTableModel getAllGuidesUserSearch() {
-        DefaultTableModel guideModel = new DefaultTableModel(new String[]{"Guide ID, Titel, Skapad av:, Datum, Betyg"}, 0);
+        DefaultTableModel guideModel = new DefaultTableModel(new String[]{
+                "Guide ID", "Titel", "Skapad av:", "Datum", "Betyg", "Beskrivning"}, 0);
         try {
             String strGetUsers = "Select * FROM GUIDE ORDER BY username ASC";
             PreparedStatement statement = connection.prepareStatement(strGetUsers);
@@ -285,7 +288,8 @@ public class DbCon {
 
 
     public DefaultTableModel getAllGuidesUser(String user) {
-        DefaultTableModel guideModel = new DefaultTableModel(new String[]{"Titel", "Skapad av:", "Datum", "Betyg", "Beskrivning"}, 0);
+        DefaultTableModel guideModel = new DefaultTableModel(new String[]{
+                "Titel", "Skapad av:", "Datum", "Betyg", "Beskrivning"}, 0);
         try {
             String strGetUsers = "Select * FROM GUIDE WHERE username = ?";
             PreparedStatement statement = connection.prepareStatement(strGetUsers);

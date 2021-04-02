@@ -230,21 +230,21 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
         } else if (e.getSource() == btnSearch) {
             controller.btnUserSearchGuide(txtSearch.getText());
         } else if (e.getSource() == btnShowGuideUpper) {
-            int column = 4;
             int row = jTableUp.getSelectedRow();
-            String indexGuide = jTableUp.getModel().getValueAt(row, column).toString();
-            String titleString = jTableUp.getModel().getValueAt(row,0).toString();
-            String authorString = jTableUp.getModel().getValueAt(row,1).toString();
-            String dateString = jTableUp.getModel().getValueAt(row,2).toString();
+
+            String titleString = jTableUp.getModel().getValueAt(row,1).toString();
+            String authorString = jTableUp.getModel().getValueAt(row,2).toString();
+            String dateString = jTableUp.getModel().getValueAt(row,3).toString();
+            String indexGuide = jTableUp.getModel().getValueAt(row, 5).toString();
 
             new ShowGuideGUI(titleString, authorString, dateString, indexGuide);
         } else if (e.getSource() == btnShowGuideLower) {
-            int column = 4;
             int row = jTableLow.getSelectedRow();
-            String indexGuide = jTableLow.getModel().getValueAt(row, column).toString();
+
             String titleString = jTableLow.getModel().getValueAt(row,0).toString();
             String authorString = jTableLow.getModel().getValueAt(row,1).toString();
             String dateString = jTableLow.getModel().getValueAt(row,2).toString();
+            String indexGuide = jTableLow.getModel().getValueAt(row, 4).toString();
 
             new ShowGuideGUI(titleString, authorString, dateString, indexGuide);
         } else if (e.getSource() == btnUserSettings) {
