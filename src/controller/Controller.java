@@ -3,12 +3,7 @@ package controller;
 import model.*;
 import view.*;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 
@@ -24,6 +19,7 @@ public class Controller {
     private HomePageFrame homePageFrame;
     private MakeGuideGui makeGuideGui;
     private UserSettings userSettings;
+    private EditGuideGUI editGuideGUI;
 
     /**
      *
@@ -214,7 +210,7 @@ public class Controller {
     /**
      *
      */
-    public void btnAvbrtyGuide(){
+    public void btnAvbrytGuide(){
         makeGuideGui.setVisible(false);
         System.out.println(user.getUsername());
     }
@@ -242,19 +238,27 @@ public class Controller {
         userSettings.setVisible(true);
         userSettings.setLblUsername(user.getUsername());
         userSettings.setlblEmail(con.getUserEmail(user.getUsername()));
-
-
     }
     public void changePasswordUser(){
-
-       con.updateUserPassword(userSettings.getPassField1(), user.getUsername());
-
+        con.updateUserPassword(userSettings.getPassField1(), user.getUsername());
     }
-
-
     public void changeEmailUser() {
-
-        con.updateUserEmail(userSettings.getEmailField(),user.getUsername());
+        con.updateUserEmail(userSettings.getEmailField(), user.getUsername());
         userSettings.setlblEmail(con.getUserEmail(user.getUsername()));
+    }
+    public void btnSaveGuides() throws SQLException {
+
+        con.updateGuide(editGuideGUI.getTitleEdit(), editGuideGUI.getDescription(),
+                String.valueOf(userHomePageFrame.getTableLow().getSelectedRow()));
+    }
+    public void editGuide() {
+        int row = userHomePageFrame.getTableLow().getSelectedRow();
+
+        String titleString = userHomePageFrame.getTableLow().getModel().getValueAt(row,0).toString();
+        String authorString = userHomePageFrame.getTableLow().getModel().getValueAt(row,1).toString();
+        String dateString = userHomePageFrame.getTableLow().getModel().getValueAt(row,2).toString();
+        String descriptionString = userHomePageFrame.getTableLow().getModel().getValueAt(row, 4).toString();
+
+        editGuideGUI = new EditGuideGUI(this, titleString, authorString, dateString, descriptionString);
     }
 }
