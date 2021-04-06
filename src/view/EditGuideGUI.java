@@ -9,18 +9,19 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class ShowGuideGUI extends JFrame implements ActionListener {
+public class EditGuideGUI extends JFrame implements ActionListener {
     private JFrame frame;
     private JPanel centerPanel, southPanel, logoPanel, buttonPanel;
-    private JLabel titleTxt, authorTxt, dateTxt, titleLbl, authorLbl, dateLbl;
+    private JLabel authorTxt, dateTxt, titleLbl, authorLbl, dateLbl;
     private JTextArea descriptionArea;
+    private JTextField titleTxt;
     private Font bold, plain;
-    private JButton btnClose, btnShowPics;
+    private JButton btnClose, btnSaveGuide;
     private JScrollPane scroll;
 
-    public ShowGuideGUI (String titleString, String authorString, String dateString, String indexGuide) {
+    public EditGuideGUI (String titleString, String authorString, String dateString, String descriptionString) {
 
-        frame = new JFrame(titleString);
+        frame = new JFrame("Edit guide");
         frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 
         centerPanel = new JPanel(new GridLayout(3, 2, 0, 5));
@@ -35,7 +36,7 @@ public class ShowGuideGUI extends JFrame implements ActionListener {
 
         titleLbl = new JLabel("Titel:");
         titleLbl.setFont(bold);
-        titleTxt = new JLabel(titleString);
+        titleTxt = new JTextField(titleString);
         titleTxt.setFont(plain);
 
         authorLbl = new JLabel("Skapad av:");
@@ -49,8 +50,8 @@ public class ShowGuideGUI extends JFrame implements ActionListener {
         dateTxt.setFont(plain);
 
         btnClose = new JButton("Stäng");
-        btnShowPics = new JButton("Visa bilder");
-        setTitle("Visa Guide");
+        btnSaveGuide = new JButton("Spara guide");
+
         BufferedImage myPicture = null;
         try {
             myPicture = ImageIO.read(new File("files/Logga2.png"));
@@ -58,11 +59,11 @@ public class ShowGuideGUI extends JFrame implements ActionListener {
             e.printStackTrace();
         }
         JLabel picLogo = new JLabel(new ImageIcon(myPicture.getScaledInstance(
-                    140,46, Image.SCALE_SMOOTH)));
+                140,46, Image.SCALE_SMOOTH)));
         logoPanel.add(picLogo, BorderLayout.WEST);
 
-        descriptionArea.setText(indexGuide);
-        descriptionArea.setEditable(false);
+        descriptionArea.setText(descriptionString);
+        descriptionArea.setEditable(true);
         descriptionArea.setPreferredSize(new Dimension(500,400));
 
         scroll = new JScrollPane(descriptionArea);
@@ -86,7 +87,7 @@ public class ShowGuideGUI extends JFrame implements ActionListener {
         southPanel.add(scroll);
 
         buttonPanel.add(btnClose);
-        buttonPanel.add(btnShowPics);
+        buttonPanel.add(btnSaveGuide);
 
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
@@ -99,7 +100,7 @@ public class ShowGuideGUI extends JFrame implements ActionListener {
 
     public void addListeners() {
         btnClose.addActionListener(this);
-        btnShowPics.addActionListener(this);
+        btnSaveGuide.addActionListener(this);
     }
 
     @Override
@@ -107,7 +108,7 @@ public class ShowGuideGUI extends JFrame implements ActionListener {
         if (e.getSource() == btnClose) {
             frame.dispose();
         }
-        else if (e.getSource() == btnShowPics) {
+        else if (e.getSource() == btnSaveGuide) {
 
         }
     }

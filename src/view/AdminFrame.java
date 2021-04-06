@@ -278,6 +278,7 @@ public class AdminFrame extends JFrame implements ActionListener {
         btnSearchGuide.addActionListener(this);
         btnLogOff.addActionListener(this);
         btnDeleteGuide.addActionListener(this);
+        btnEditGuide.addActionListener(this);
 
     }
 
@@ -317,6 +318,9 @@ public class AdminFrame extends JFrame implements ActionListener {
             int row = guideTable.getSelectedRow();
             String indexGuide = guideTable.getModel().getValueAt(row, column).toString();
             controller.btnAdminDeleteGuide(indexGuide);
+        }
+        else if (e.getSource() == btnEditGuide) {
+            //new EditGuideGUI();
         }
     }
 
