@@ -3,12 +3,6 @@ package controller;
 import model.*;
 import view.*;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -256,5 +250,8 @@ public class Controller {
 
         con.updateUserEmail(userSettings.getEmailField(),user.getUsername());
         userSettings.setlblEmail(con.getUserEmail(user.getUsername()));
+    }
+    public void editGuide() {
+
     }
 }

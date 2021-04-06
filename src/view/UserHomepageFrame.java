@@ -206,6 +206,7 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
         btnShowGuideUpper.addActionListener(this);
         btnLogOff.addActionListener(this);
         btnUserSettings.addActionListener(this);
+        btnEditGuide.addActionListener(this);
     }
 
     public void setLblloginUser(String name) {
@@ -235,23 +236,30 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
             String titleString = jTableUp.getModel().getValueAt(row,1).toString();
             String authorString = jTableUp.getModel().getValueAt(row,2).toString();
             String dateString = jTableUp.getModel().getValueAt(row,3).toString();
-            String indexGuide = jTableUp.getModel().getValueAt(row, 5).toString();
+            String descriptionString = jTableUp.getModel().getValueAt(row, 5).toString();
 
-            new ShowGuideGUI(titleString, authorString, dateString, indexGuide);
+            new ShowGuideGUI(titleString, authorString, dateString, descriptionString);
         } else if (e.getSource() == btnShowGuideLower) {
             int row = jTableLow.getSelectedRow();
 
             String titleString = jTableLow.getModel().getValueAt(row,0).toString();
             String authorString = jTableLow.getModel().getValueAt(row,1).toString();
             String dateString = jTableLow.getModel().getValueAt(row,2).toString();
-            String indexGuide = jTableLow.getModel().getValueAt(row, 4).toString();
+            String descriptionString = jTableLow.getModel().getValueAt(row, 4).toString();
 
-            new ShowGuideGUI(titleString, authorString, dateString, indexGuide);
+            new ShowGuideGUI(titleString, authorString, dateString, descriptionString);
         } else if (e.getSource() == btnUserSettings) {
             controller.btnUserSettings();
         }
         else if (e.getSource() == btnEditGuide) {
+            int row = jTableLow.getSelectedRow();
 
+            String titleString = jTableLow.getModel().getValueAt(row,0).toString();
+            String authorString = jTableLow.getModel().getValueAt(row,1).toString();
+            String dateString = jTableLow.getModel().getValueAt(row,2).toString();
+            String descriptionString = jTableLow.getModel().getValueAt(row, 4).toString();
+
+            new EditGuideGUI(titleString, authorString, dateString, descriptionString);
         }
 
     }
