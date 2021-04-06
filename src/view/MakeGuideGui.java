@@ -167,7 +167,7 @@ public class MakeGuideGui extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnCancel) {
-            controller.btnAvbrtyGuide();
+            controller.btnAvbrytGuide();
         } else if (e.getSource() == btnMakeGuide) {
             controller.btnCreateGuide();
         } else if (e.getSource() == btnAddPicture) {

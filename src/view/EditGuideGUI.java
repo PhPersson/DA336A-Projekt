@@ -1,5 +1,8 @@
 package view;
 
+import controller.Controller;
+import model.DbCon;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -8,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class EditGuideGUI extends JFrame implements ActionListener {
     private JFrame frame;
@@ -18,9 +22,10 @@ public class EditGuideGUI extends JFrame implements ActionListener {
     private Font bold, plain;
     private JButton btnClose, btnSaveGuide;
     private JScrollPane scroll;
+    private Controller controller;
 
-    public EditGuideGUI (String titleString, String authorString, String dateString, String descriptionString) {
-
+    public EditGuideGUI (Controller controller, String titleString, String authorString, String dateString, String descriptionString) {
+        this.controller = controller;
         frame = new JFrame("Edit guide");
         frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 
@@ -109,7 +114,17 @@ public class EditGuideGUI extends JFrame implements ActionListener {
             frame.dispose();
         }
         else if (e.getSource() == btnSaveGuide) {
-
+            try {
+                controller.btnSaveGuides();
+            } catch (SQLException exception) {
+                exception.printStackTrace();
+            }
         }
+    }
+    public JTextField getTitleEdit() {
+        return titleTxt;
+    }
+    public JTextArea getDescription() {
+        return descriptionArea;
     }
 }

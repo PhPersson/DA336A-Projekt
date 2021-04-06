@@ -1,6 +1,8 @@
 package model;
 
 import controller.Controller;
+
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.io.File;
 import java.io.FileInputStream;
@@ -441,6 +443,18 @@ public class DbCon {
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
+    }
+    public void updateGuide(JTextField title, JTextArea description) throws SQLException {
+        connection.setAutoCommit(false);
+        String query = "UPDATE Guide SET title = ?, description = ? WHERE username = ?";
+
+        PreparedStatement ps = connection.prepareStatement(query);
+        ps.setString(1, String.valueOf(title));
+        ps.setString(3, String.valueOf(description));
+        ps.execute();
+        connection.commit();
+        ps.close();
+
     }
 
 

@@ -14,8 +14,6 @@ import java.sql.Connection;
  */
 public class UserSettings extends JFrame implements ActionListener {
 
-
-
     private JButton btnEmail;
     private JButton btnPassword;
     private JLabel changEmailLabel;

@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 
 
 public class UserHomepageFrame extends JFrame implements ActionListener {
@@ -252,15 +253,13 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
             controller.btnUserSettings();
         }
         else if (e.getSource() == btnEditGuide) {
-            int row = jTableLow.getSelectedRow();
 
-            String titleString = jTableLow.getModel().getValueAt(row,0).toString();
-            String authorString = jTableLow.getModel().getValueAt(row,1).toString();
-            String dateString = jTableLow.getModel().getValueAt(row,2).toString();
-            String descriptionString = jTableLow.getModel().getValueAt(row, 4).toString();
 
-            new EditGuideGUI(titleString, authorString, dateString, descriptionString);
+            controller.editGuide();
         }
 
+    }
+    public JTable getTableLow() {
+        return jTableLow;
     }
 }
