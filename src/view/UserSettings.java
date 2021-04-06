@@ -74,13 +74,13 @@ public class UserSettings extends JFrame implements ActionListener {
 
         changePassLabel2.setText("Bekräfta lösenord");
         btnPassword.setText("Ändra lösenord");
-        titelLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        titelLabel.setFont(new java.awt.Font("Tahoma", 1, 14));
         titelLabel.setText("Användarinställningar");
         changePassLabel1.setText("Ändra lösenord");
-        titleUsernameLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        titleUsernameLabel.setFont(new java.awt.Font("Tahoma", 1, 11));
         titleUsernameLabel.setText("Användarnamn ");
         txtUsernameLabel.setText("jLabel2");
-        titleEmailLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        titleEmailLabel.setFont(new java.awt.Font("Tahoma", 1, 11));
         titleEmailLabel.setText("Nuvarande email");
         txtEmailLabel.setText("jLabel4");
         changEmailLabel.setText("Ändra email");
@@ -89,8 +89,8 @@ public class UserSettings extends JFrame implements ActionListener {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
+        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(layout.createSequentialGroup()
                                 .addGap(33, 33, 33)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(changEmailLabel)
