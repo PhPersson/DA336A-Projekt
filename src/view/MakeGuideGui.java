@@ -49,7 +49,7 @@ public class MakeGuideGui extends JFrame implements ActionListener{
         btnCancel = new JButton();
 
         jInternalFrame1.setVisible(true);
-
+        setTitle("Skapa guide");
         GroupLayout jInternalFrame1Layout = new GroupLayout(jInternalFrame1.getContentPane());
         jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
         jInternalFrame1Layout.setHorizontalGroup(

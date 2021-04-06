@@ -50,7 +50,7 @@ public class ShowGuideGUI extends JFrame implements ActionListener {
 
         btnClose = new JButton("Stäng");
         btnShowPics = new JButton("Visa bilder");
-
+        setTitle("Visa Guide");
         BufferedImage myPicture = null;
         try {
             myPicture = ImageIO.read(new File("files/Logga2.png"));

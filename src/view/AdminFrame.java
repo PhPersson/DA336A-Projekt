@@ -66,8 +66,8 @@ public class AdminFrame extends JFrame implements ActionListener {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         guidesearch.setText("");
-
-        btnSearchGuide.setFont(new Font("Tahoma", 0, 12)); // NOI18N
+        setTitle("Admninistratör");
+        btnSearchGuide.setFont(new Font("Tahoma", 0, 12));
         btnSearchGuide.setText("Sök");
 
         jComboBox1.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
