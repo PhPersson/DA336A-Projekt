@@ -429,14 +429,14 @@ public class DbCon {
         }
     }
 
-    public void updateUserPassword(String password, String inedxToUpdate) {
+    public void updateUserPassword(String password, String indexToUpdate) {
         try {
             connection.setAutoCommit(false);
             String query = "UPDATE [User] SET password = ? WHERE username = ?";
 
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1,password);
-            ps.setString(2,inedxToUpdate);
+            ps.setString(2,indexToUpdate);
             ps.execute();
             connection.commit();
             ps.close();
@@ -444,16 +444,21 @@ public class DbCon {
             exception.printStackTrace();
         }
     }
-    public void updateGuide(JTextField title, JTextArea description) throws SQLException {
-        connection.setAutoCommit(false);
-        String query = "UPDATE Guide SET title = ?, description = ? WHERE username = ?";
+    public void updateGuide(String title, String description, String index) {
+        try {
+            connection.setAutoCommit(false);
+            String query = "UPDATE Guide SET title = ?, description = ? WHERE username = ?";
 
-        PreparedStatement ps = connection.prepareStatement(query);
-        ps.setString(1, String.valueOf(title));
-        ps.setString(3, String.valueOf(description));
-        ps.execute();
-        connection.commit();
-        ps.close();
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, title);
+            ps.setString(2, description);
+            ps.setString(3, index);
+            ps.execute();
+            connection.commit();
+            ps.close();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
 
     }
 
