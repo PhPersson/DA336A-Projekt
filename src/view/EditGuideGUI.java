@@ -98,6 +98,7 @@ public class EditGuideGUI extends JFrame implements ActionListener {
         frame.setLocationRelativeTo(null);
         frame.setSize(800,800);
         frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
         frame.pack();
 
         addListeners();

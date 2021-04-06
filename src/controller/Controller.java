@@ -48,7 +48,7 @@ public class Controller {
         } else {
             if (Email.isValidEmailAddress(view.getTxtEmail())) {
                 Email.sendMail(view.getTxtEmail(), view.getTxtUsername());
-                con.registerNewCustomer(new User(view.getTxtUsername(), view.getTxtEmail(), view.getTxtUsername(),0));
+                con.registerNewCustomer(new User(view.getTxtUsername(), view.getTxtEmail(), view.getTxtUsername(), 0));
 
                 util.showDialog("Registration OK \nYou can now log in");
                 view.getRegisterFrame().setVisible(false);
@@ -106,6 +106,7 @@ public class Controller {
 
     /**
      * Admin tar bort en användare i databasen.
+     *
      * @param username Användarnamn för raden man vill ta bort.
      */
     public void btnAdminDeleteUser(String username) {
@@ -121,6 +122,7 @@ public class Controller {
 
     /**
      * Admin söker efter användare.
+     *
      * @param soktext input av sträng man vill söka med.
      */
     public void btnAdminSearchUser(String soktext) {
@@ -129,6 +131,7 @@ public class Controller {
 
     /**
      * Admin söker efter guider.
+     *
      * @param soktext input av sträng man vill söka med.
      */
     public void btnAdminSearchGuide(String soktext) {
@@ -137,6 +140,7 @@ public class Controller {
 
     /**
      * Admin tar bort guide i databasen.
+     *
      * @param indexToRemove input av sträng som är Guide_ID i databasen.
      */
     public void btnAdminDeleteGuide(String indexToRemove) {
@@ -145,7 +149,6 @@ public class Controller {
     }
 
     /**
-     *
      * @param text
      */
     public void btnSearchGuideNotLoggedInPressed(String text) {
@@ -154,11 +157,13 @@ public class Controller {
 
     /**
      * Visa guide för användare som inte loggat in.
+     *
      * @param indexGuide
      */
     public void btnShowGuide(String indexGuide, String titleString, String dateString, String authorString) {
 
     }
+
     /**
      * Användare loggar in från homePageFrame
      */
@@ -170,13 +175,12 @@ public class Controller {
     /**
      * Användare loggar ut, Ny loginFrame öppnas
      */
-    public void btnUserLoggOff(){
+    public void btnUserLoggOff() {
         userHomePageFrame.setVisible(false);
         view.getLoginFrame().setVisible(true);
     }
 
     /**
-     *
      * @param soktext
      */
     public void btnUserSearchGuide(String soktext) {
@@ -184,7 +188,6 @@ public class Controller {
     }
 
     /**
-     *
      * @param soktext
      */
     public void btnNoLoginSearchGuide(String soktext) {
@@ -192,17 +195,16 @@ public class Controller {
     }
 
     /**
-     *
      * @return
      */
-    public ArrayList <String> getUsersFromDb(){
+    public ArrayList<String> getUsersFromDb() {
         return con.getAllUsers();
     }
 
     /**
      *
      */
-    public void btnOpenCreateGuideFrame(){
+    public void btnOpenCreateGuideFrame() {
         makeGuideGui = new MakeGuideGui(this);
         makeGuideGui.setVisible(true);
     }
@@ -210,7 +212,7 @@ public class Controller {
     /**
      *
      */
-    public void btnAvbrytGuide(){
+    public void btnAvbrytGuide() {
         makeGuideGui.setVisible(false);
         System.out.println(user.getUsername());
     }
@@ -219,13 +221,12 @@ public class Controller {
      *
      */
 
-    public void btnCreateGuide(){
-        con.createGuide(new Guide(makeGuideGui.getTitelGuide(),makeGuideGui.getDescriptionField(),user.getUsername()));
+    public void btnCreateGuide() {
+        con.createGuide(new Guide(makeGuideGui.getTitelGuide(), makeGuideGui.getDescriptionField(), user.getUsername()));
         userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
     }
 
     /**
-     *
      * @return
      */
     public GuiUtilities getUtil() {
@@ -239,26 +240,34 @@ public class Controller {
         userSettings.setLblUsername(user.getUsername());
         userSettings.setlblEmail(con.getUserEmail(user.getUsername()));
     }
-    public void changePasswordUser(){
+
+    public void changePasswordUser() {
         con.updateUserPassword(userSettings.getPassField1(), user.getUsername());
     }
+
     public void changeEmailUser() {
         con.updateUserEmail(userSettings.getEmailField(), user.getUsername());
         userSettings.setlblEmail(con.getUserEmail(user.getUsername()));
     }
-    public void btnSaveGuides() throws SQLException {
 
-        con.updateGuide(editGuideGUI.getTitleEdit(), editGuideGUI.getDescription(),
-                String.valueOf(userHomePageFrame.getTableLow().getSelectedRow()));
+    public void btnSaveGuides() throws SQLException {
+        int row = userHomePageFrame.getTableLow().getSelectedRow();
+        System.out.println(userHomePageFrame.getTableLow().getModel().getValueAt(row, 0).toString());
+        con.updateGuide(editGuideGUI.getTitleEdit(), editGuideGUI.getDescription(), userHomePageFrame.getTableLow().getModel().getValueAt(row, 0).toString());
     }
+
     public void editGuide() {
         int row = userHomePageFrame.getTableLow().getSelectedRow();
 
-        String titleString = userHomePageFrame.getTableLow().getModel().getValueAt(row,0).toString();
-        String authorString = userHomePageFrame.getTableLow().getModel().getValueAt(row,1).toString();
-        String dateString = userHomePageFrame.getTableLow().getModel().getValueAt(row,2).toString();
+        String titleString = userHomePageFrame.getTableLow().getModel().getValueAt(row, 0).toString();
+        String authorString = userHomePageFrame.getTableLow().getModel().getValueAt(row, 1).toString();
+        String dateString = userHomePageFrame.getTableLow().getModel().getValueAt(row, 2).toString();
         String descriptionString = userHomePageFrame.getTableLow().getModel().getValueAt(row, 4).toString();
 
         editGuideGUI = new EditGuideGUI(this, titleString, authorString, dateString, descriptionString);
+    }
+
+    public void btnDeleteGuide(String titelToRemove) {
+        con.deleteGuide(titelToRemove);
     }
 }
