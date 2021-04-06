@@ -248,7 +248,8 @@ public class Controller {
     }
     public void btnSaveGuides() throws SQLException {
 
-        con.updateGuide(editGuideGUI.getTitleEdit(), editGuideGUI.getDescription());
+        con.updateGuide(editGuideGUI.getTitleEdit(), editGuideGUI.getDescription(),
+                String.valueOf(userHomePageFrame.getTableLow().getSelectedRow()));
     }
     public void editGuide() {
         int row = userHomePageFrame.getTableLow().getSelectedRow();

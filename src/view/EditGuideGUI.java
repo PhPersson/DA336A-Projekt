@@ -116,15 +116,16 @@ public class EditGuideGUI extends JFrame implements ActionListener {
         else if (e.getSource() == btnSaveGuide) {
             try {
                 controller.btnSaveGuides();
+                frame.dispose();
             } catch (SQLException exception) {
                 exception.printStackTrace();
             }
         }
     }
-    public JTextField getTitleEdit() {
-        return titleTxt;
+    public String getTitleEdit() {
+        return titleTxt.getText();
     }
-    public JTextArea getDescription() {
-        return descriptionArea;
+    public String getDescription() {
+        return descriptionArea.getText();
     }
 }
