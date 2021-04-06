@@ -254,6 +254,10 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
         }
         else if (e.getSource() == btnEditGuide) {
             controller.editGuide();
+        } else if (e.getSource() == btnRemoveGuide) {
+            int row = jTableLow.getSelectedRow();
+            String titelToRemove = jTableLow.getModel().getValueAt(row,0).toString();
+            controller.btnDeleteGuide(titelToRemove);
         }
 
     }

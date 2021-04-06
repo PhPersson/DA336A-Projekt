@@ -444,15 +444,15 @@ public class DbCon {
             exception.printStackTrace();
         }
     }
-    public void updateGuide(String title, String description, String index) {
+    public void updateGuide(String title, String description, String titleToChange) {
         try {
             connection.setAutoCommit(false);
-            String query = "UPDATE Guide SET title = ?, description = ? WHERE username = ?";
+            String query = "UPDATE Guide SET title = ?, description = ? WHERE title = ?";
 
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, title);
             ps.setString(2, description);
-            ps.setString(3, index);
+            ps.setString(3, titleToChange);
             ps.execute();
             connection.commit();
             ps.close();
@@ -501,6 +501,23 @@ public class DbCon {
 
     }
 
+    /**
+     * När en användare väljer att ta bort någon av sina egna guider. Enbart en guide åt gången går att ta bort.
+     * @param titelToRemove Baserat på titeln till guiden tas den bort i databasen.
+     */
+    public void deleteGuide(String titelToRemove) {
+        String query = "DELETE FROM GUIDE WHERE title = ?";
+        try {
+            connection.setAutoCommit(false);
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1,titelToRemove);
+            ps.execute();
+            connection.commit();
+            ps.close();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+    }
 }
 
 
