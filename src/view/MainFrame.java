@@ -44,7 +44,6 @@ public class MainFrame extends JFrame {
         return loginFrame.getRegisterFrame().getTxtPassword();
     }
 
-
     public String getTxtPassword() {
         return loginFrame.getRegisterFrame().getTxtConPassword();
     }

@@ -16,6 +16,9 @@ public class GuiUtilities {
         if (reply == JOptionPane.YES_OPTION) {
             reply = 1;
         }
+        else if (reply == JOptionPane.NO_OPTION) {
+            reply = 0;
+        }
         return reply;
     }
 
