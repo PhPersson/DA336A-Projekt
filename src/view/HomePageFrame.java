@@ -157,7 +157,7 @@ public class HomePageFrame extends JFrame implements ActionListener {
             String dateString = table.getModel().getValueAt(row,3).toString();
             String descriptionString = table.getModel().getValueAt(row, 5).toString();
 
-            new ShowGuideGUI(titleString, authorString, dateString, descriptionString);
+            new ShowGuideGUI(controller, titleString, authorString, dateString, descriptionString);
         } else if (e.getSource() == btnSearch){
             controller.btnNoLoginSearchGuide(txtSearch.getText());
         }
