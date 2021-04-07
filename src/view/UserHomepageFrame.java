@@ -208,6 +208,7 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
         btnLogOff.addActionListener(this);
         btnUserSettings.addActionListener(this);
         btnEditGuide.addActionListener(this);
+        btnRemoveGuide.addActionListener(this);
     }
 
     public void setLblloginUser(String name) {
@@ -256,10 +257,10 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
             controller.editGuide();
         } else if (e.getSource() == btnRemoveGuide) {
             int row = jTableLow.getSelectedRow();
-            String titelToRemove = jTableLow.getModel().getValueAt(row,0).toString();
-            controller.btnDeleteGuide(titelToRemove);
-        }
+            String titleToRemove = jTableLow.getModel().getValueAt(row,0).toString();
+            controller.btnDeleteGuide(titleToRemove);
 
+        }
     }
     public JTable getTableLow() {
         return jTableLow;

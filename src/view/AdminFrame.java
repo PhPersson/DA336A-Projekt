@@ -31,7 +31,6 @@ public class AdminFrame extends JFrame implements ActionListener {
         initComponents();
     }
 
-
     private void initComponents() {
         BufferedImage myPicture = null;
         try {
@@ -320,8 +319,11 @@ public class AdminFrame extends JFrame implements ActionListener {
             controller.btnAdminDeleteGuide(indexGuide);
         }
         else if (e.getSource() == btnEditGuide) {
-            //new EditGuideGUI();
+            controller.editGuideAdmin();
         }
+    }
+    public JTable getGuideTable() {
+        return guideTable;
     }
 
 }
