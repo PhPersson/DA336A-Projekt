@@ -343,19 +343,22 @@ public class DbCon {
      * @return Ett helt DefaultTableModel objekt som innehåller alla namnet på den sökta guiden med tillhörande användare som skapade guiden, när guiden skapades och vilket omdöme guiden har.
      */
     public DefaultTableModel searchGuide(String soktext) {
-        DefaultTableModel guideModel = new DefaultTableModel(new String[]{"Titel", "Skapad av:", "Datum", "Betyg"}, 0);
+        DefaultTableModel guideModel = new DefaultTableModel(new String[]{
+                "GuideID", "Titel", "Skapad av:", "Datum", "Betyg", "Beskrivning"}, 0);
         try {
-            String query = "SELECT title, username, date, rating FROM Guide WHERE title LIKE '%" + soktext + "%' OR username LIKE '%" + soktext + "%'";
+            String query = "SELECT guideId, title, username, date, rating, description FROM Guide WHERE title LIKE '%" + soktext + "%' OR username LIKE '%" + soktext + "%'";
             PreparedStatement ps = connection.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
+                int guideID = rs.getInt("guideId");
                 String title = rs.getString("title");
                 String username = rs.getString("username");
                 Date date = rs.getDate("date");
                 int rating = rs.getInt("rating");
+                String description = rs.getString("description");
 
-                guideModel.addRow(new Object[]{title, username, date, rating});
+                guideModel.addRow(new Object[]{guideID,title, username, date, rating, description});
             }
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -503,14 +506,14 @@ public class DbCon {
 
     /**
      * När en användare väljer att ta bort någon av sina egna guider. Enbart en guide åt gången går att ta bort.
-     * @param titelToRemove Baserat på titeln till guiden tas den bort i databasen.
+     * @param titleToRemove Baserat på titeln till guiden tas den bort i databasen.
      */
-    public void deleteGuide(String titelToRemove) {
+    public void deleteGuide(String titleToRemove) {
         String query = "DELETE FROM GUIDE WHERE title = ?";
         try {
             connection.setAutoCommit(false);
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1,titelToRemove);
+            ps.setString(1,titleToRemove);
             ps.execute();
             connection.commit();
             ps.close();

@@ -77,6 +77,7 @@ public class Controller {
             } else {
                 view.getLoginFrame().setVisible(false);
                 adminFrame = new AdminFrame(this);
+                user.setUsername(view.getLoginUsername());
                 adminFrame.updateUserList(con.getUsersAndEmail());
                 adminFrame.updateGuideList(con.getAllGuides());
                 adminFrame.setLblloginAdmin(view.getLoginUsername());
@@ -224,6 +225,7 @@ public class Controller {
     public void btnCreateGuide() {
         con.createGuide(new Guide(makeGuideGui.getTitelGuide(), makeGuideGui.getDescriptionField(), user.getUsername()));
         userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
+        userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
     }
 
     /**
@@ -250,10 +252,31 @@ public class Controller {
         userSettings.setlblEmail(con.getUserEmail(user.getUsername()));
     }
 
-    public void btnSaveGuides() throws SQLException {
-        int row = userHomePageFrame.getTableLow().getSelectedRow();
-        System.out.println(userHomePageFrame.getTableLow().getModel().getValueAt(row, 0).toString());
-        con.updateGuide(editGuideGUI.getTitleEdit(), editGuideGUI.getDescription(), userHomePageFrame.getTableLow().getModel().getValueAt(row, 0).toString());
+    public void btnSaveGuidesHP() throws SQLException {
+        if (user.getUsername() == "admin") {
+            int row = adminFrame.getGuideTable().getSelectedRow();
+
+            con.updateGuide(editGuideGUI.getTitleEdit(), editGuideGUI.getDescription(),
+                    adminFrame.getGuideTable().getModel().getValueAt(row, 0).toString());
+            adminFrame.updateGuideList(con.getAllGuides());
+        }
+        else {
+            int row = userHomePageFrame.getTableLow().getSelectedRow();
+
+            con.updateGuide(editGuideGUI.getTitleEdit(), editGuideGUI.getDescription(),
+                    userHomePageFrame.getTableLow().getModel().getValueAt(row, 0).toString());
+            userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
+            userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
+        }
+
+    }
+    public void btnSaveGuidesAdmin() throws SQLException {
+        int row = adminFrame.getGuideTable().getSelectedRow();
+        System.out.println(adminFrame.getGuideTable().getModel().getValueAt(row, 0).toString());
+        con.updateGuide(editGuideGUI.getTitleEdit(), editGuideGUI.getDescription(),
+                adminFrame.getGuideTable().getModel().getValueAt(row, 0).toString());
+        userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
+        userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
     }
 
     public void editGuide() {
@@ -267,7 +290,21 @@ public class Controller {
         editGuideGUI = new EditGuideGUI(this, titleString, authorString, dateString, descriptionString);
     }
 
-    public void btnDeleteGuide(String titelToRemove) {
-        con.deleteGuide(titelToRemove);
+    public void btnDeleteGuide(String titleToRemove) {
+        con.deleteGuide(titleToRemove);
+        userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
+        userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
+
+    }
+
+    public void editGuideAdmin() {
+        int row = adminFrame.getGuideTable().getSelectedRow();
+
+        String titleString = adminFrame.getGuideTable().getModel().getValueAt(row, 1).toString();
+        String authorString = adminFrame.getGuideTable().getModel().getValueAt(row, 2).toString();
+        String dateString = adminFrame.getGuideTable().getModel().getValueAt(row, 3).toString();
+        String descriptionString = adminFrame.getGuideTable().getModel().getValueAt(row, 5).toString();
+
+        editGuideGUI = new EditGuideGUI(this, titleString, authorString, dateString, descriptionString);
     }
 }

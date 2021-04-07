@@ -170,6 +170,7 @@ public class MakeGuideGui extends JFrame implements ActionListener{
             controller.btnAvbrytGuide();
         } else if (e.getSource() == btnMakeGuide) {
             controller.btnCreateGuide();
+            dispose();
         } else if (e.getSource() == btnAddPicture) {
 //            JFileChooser fileChooser = new JFileChooser();
 //            fileChooser.setMultiSelectionEnabled(true);
