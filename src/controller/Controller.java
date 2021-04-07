@@ -10,7 +10,6 @@ import java.util.ArrayList;
 public class Controller {
     private User user;
     private Guide guide;
-    private UserManager userManager;
     private UserHomepageFrame userHomePageFrame;
     private MainFrame view;
     private DbCon con;
@@ -227,7 +226,7 @@ public class Controller {
      */
 
     public void btnCreateGuide() {
-        con.createGuide(new Guide(makeGuideGui.getTitelGuide(), makeGuideGui.getDescriptionField(), user.getUsername()));
+        con.createGuide(guide = new Guide(makeGuideGui.getTitelGuide(), makeGuideGui.getDescriptionField(), user.getUsername()));
         userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
         userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
     }
