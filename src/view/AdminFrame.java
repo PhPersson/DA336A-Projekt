@@ -285,7 +285,6 @@ public class AdminFrame extends JFrame implements ActionListener {
         return userTable.getSelectedRow();
     }
 
-
     public void updateUserList(DefaultTableModel update) {
         userTable.setModel(update);
     }
@@ -294,9 +293,17 @@ public class AdminFrame extends JFrame implements ActionListener {
         guideTable.setModel(update);
     }
 
-    public void setLblloginAdmin(String name) {
+    public void setLblLoginAdmin(String name) {
         lbladminName.setText(name);
         lbladminName.setForeground(Color.darkGray);
+    }
+
+    public String getAdminName() {
+        return lbladminName.getText();
+    }
+
+    public JTable getGuideTable() {
+        return guideTable;
     }
 
     @Override
@@ -322,8 +329,6 @@ public class AdminFrame extends JFrame implements ActionListener {
             controller.editGuideAdmin();
         }
     }
-    public JTable getGuideTable() {
-        return guideTable;
-    }
+
 
 }

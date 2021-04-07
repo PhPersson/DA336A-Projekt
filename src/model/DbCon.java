@@ -2,14 +2,10 @@ package model;
 
 import controller.Controller;
 
-import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 
 /**
@@ -22,7 +18,7 @@ public class DbCon {
     private String sqlURL = "jdbc:sqlserver://supportme.duckdns.org;databaseName=support_me;";
     private String sqlUsername = "supportmeadmin";
     private String sqlPassword = "hejsanhoppsan";
-    private FileInputStream fis;
+    private FileInputStream fileInputStream;
     private Controller controller;
 
 
@@ -159,11 +155,9 @@ public class DbCon {
             String registerCustomer = "INSERT INTO [User] (username, password, email, role)" + " VALUES (?,?,?,?)";
 
             PreparedStatement register = connection.prepareStatement(registerCustomer);
-
             register.setString(1, user.getUsername());
-
-            register.setString(3, user.getPassword());
-            register.setString(2, user.getEmail());
+            register.setString(2, user.getPassword());
+            register.setString(3, user.getEmail());
             register.setInt(4, 0);
             register.execute();
             connection.commit();
@@ -270,7 +264,7 @@ public class DbCon {
         DefaultTableModel guideModel = new DefaultTableModel(new String[]{
                 "Guide ID", "Titel", "Skapad av:", "Datum", "Betyg", "Beskrivning"}, 0);
         try {
-            String strGetUsers = "Select * FROM GUIDE ORDER BY username ASC";
+            String strGetUsers = "Select * FROM GUIDE ORDER BY guideId ASC";
             PreparedStatement statement = connection.prepareStatement(strGetUsers);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
@@ -383,7 +377,7 @@ public class DbCon {
             create.setString(1, guide.getTitle());
             create.setString(2, guide.getDescription());
             create.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
-            create.setBinaryStream(4, fis);
+            create.setBinaryStream(4, fileInputStream);
             create.setString(5, guide.getAuthor());
             create.execute();
             connection.commit();

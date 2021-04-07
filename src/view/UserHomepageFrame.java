@@ -27,7 +27,6 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
     private JButton btnUserSettings;
     private Controller controller;
 
-
     public UserHomepageFrame(Controller controller){
         this.controller = controller;
         initComponents();
@@ -42,7 +41,7 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
             e.printStackTrace();
         }
         lblLogo = new JLabel(new ImageIcon(myPicture.getScaledInstance(
-                80,24, Image.SCALE_SMOOTH)));
+                140,38, Image.SCALE_SMOOTH)));
 
         txtSearch = new JTextField();
         btnSearch = new JButton();

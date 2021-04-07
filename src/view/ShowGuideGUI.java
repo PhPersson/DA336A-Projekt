@@ -62,7 +62,7 @@ public class ShowGuideGUI extends JFrame implements ActionListener {
             e.printStackTrace();
         }
         JLabel picLogo = new JLabel(new ImageIcon(myPicture.getScaledInstance(
-                    140,46, Image.SCALE_SMOOTH)));
+                    140,38, Image.SCALE_SMOOTH)));
         logoPanel.add(picLogo, BorderLayout.WEST);
 
         descriptionArea.setText(indexGuide);

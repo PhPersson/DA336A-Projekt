@@ -110,9 +110,10 @@ public class RegisterFrame extends JFrame implements ActionListener {
             }else{
                 util.showDialog("Lösenorden stämmer inte överrens");
             }
-        } else {
-            util.showConfirmationDialog("Säker att du vill avbryta registreringen?");
-           // setVisible(false);
+        } else if (e.getSource() == btnCancel){
+            if (util.showConfirmationDialog("Säker att du vill avbryta registreringen?") == 1) {
+                setVisible(false);
+            }
 
         }
 
