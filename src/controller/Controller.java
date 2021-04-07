@@ -71,6 +71,7 @@ public class Controller {
                 //user.setEmail();
                 view.getLoginFrame().setVisible(false);
                 userHomePageFrame = new UserHomepageFrame(this);
+                System.out.println(user.getUsername());
                 userHomePageFrame.setLblloginUser(user.getUsername());
                 userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
                 userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
@@ -78,9 +79,10 @@ public class Controller {
                 view.getLoginFrame().setVisible(false);
                 adminFrame = new AdminFrame(this);
                 user.setUsername(view.getLoginUsername());
+                System.out.println(user.getUsername());
                 adminFrame.updateUserList(con.getUsersAndEmail());
                 adminFrame.updateGuideList(con.getAllGuides());
-                adminFrame.setLblloginAdmin(view.getLoginUsername());
+                adminFrame.setLblLoginAdmin(view.getLoginUsername());
             }
         } else {
             util.showErrorDialog("Fel användarnamn eller lösenord!");
@@ -116,6 +118,10 @@ public class Controller {
                 con.deleteGuideBasedOnUsername(username);
                 con.deleteAUser(username);
             }
+        }
+        else {
+            con.deleteGuideBasedOnUsername(username);
+            con.deleteAUser(username);
         }
         adminFrame.updateUserList(con.getUsersAndEmail());
         adminFrame.updateGuideList(con.getAllGuides());
@@ -253,18 +259,23 @@ public class Controller {
     }
 
     public void btnSaveGuidesHP() throws SQLException {
-        if (user.getUsername() == "admin") {
+        if (adminFrame.isVisible()) {
+            System.out.println("1");
             int row = adminFrame.getGuideTable().getSelectedRow();
 
             con.updateGuide(editGuideGUI.getTitleEdit(), editGuideGUI.getDescription(),
-                    adminFrame.getGuideTable().getModel().getValueAt(row, 0).toString());
-            adminFrame.updateGuideList(con.getAllGuides());
+                    adminFrame.getGuideTable().getModel().getValueAt(row, 1).toString());
+
+            adminFrame.updateGuideList(con.getAllGuidesUserSearch());
+            System.out.println("klar");
         }
         else {
+            System.out.println("2");
             int row = userHomePageFrame.getTableLow().getSelectedRow();
 
             con.updateGuide(editGuideGUI.getTitleEdit(), editGuideGUI.getDescription(),
                     userHomePageFrame.getTableLow().getModel().getValueAt(row, 0).toString());
+
             userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
             userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
         }
@@ -290,13 +301,6 @@ public class Controller {
         editGuideGUI = new EditGuideGUI(this, titleString, authorString, dateString, descriptionString);
     }
 
-    public void btnDeleteGuide(String titleToRemove) {
-        con.deleteGuide(titleToRemove);
-        userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
-        userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
-
-    }
-
     public void editGuideAdmin() {
         int row = adminFrame.getGuideTable().getSelectedRow();
 
@@ -306,5 +310,12 @@ public class Controller {
         String descriptionString = adminFrame.getGuideTable().getModel().getValueAt(row, 5).toString();
 
         editGuideGUI = new EditGuideGUI(this, titleString, authorString, dateString, descriptionString);
+    }
+
+    public void btnDeleteGuide(String titleToRemove) {
+        con.deleteGuide(titleToRemove);
+        userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
+        userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
+
     }
 }
