@@ -3,12 +3,7 @@ package controller;
 import model.*;
 import view.*;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 
@@ -24,6 +19,7 @@ public class Controller {
     private HomePageFrame homePageFrame;
     private MakeGuideGui makeGuideGui;
     private UserSettings userSettings;
+    private EditGuideGUI editGuideGUI;
 
     /**
      *
@@ -52,7 +48,7 @@ public class Controller {
         } else {
             if (Email.isValidEmailAddress(view.getTxtEmail())) {
                 Email.sendMail(view.getTxtEmail(), view.getTxtUsername());
-                con.registerNewCustomer(new User(view.getTxtUsername(), view.getTxtEmail(), view.getTxtUsername(),0));
+                con.registerNewCustomer(new User(view.getTxtUsername(), view.getTxtEmail(), view.getTxtUsername(), 0));
 
                 util.showDialog("Registration OK \nYou can now log in");
                 view.getRegisterFrame().setVisible(false);
@@ -73,7 +69,6 @@ public class Controller {
             if (!con.getRole(view.getLoginUsername(), view.getLoginPassword())) {
                 user.setUsername(view.getLoginUsername());
                 //user.setEmail();
-
                 view.getLoginFrame().setVisible(false);
                 userHomePageFrame = new UserHomepageFrame(this);
                 userHomePageFrame.setLblloginUser(user.getUsername());
@@ -82,12 +77,13 @@ public class Controller {
             } else {
                 view.getLoginFrame().setVisible(false);
                 adminFrame = new AdminFrame(this);
+                user.setUsername(view.getLoginUsername());
                 adminFrame.updateUserList(con.getUsersAndEmail());
                 adminFrame.updateGuideList(con.getAllGuides());
                 adminFrame.setLblloginAdmin(view.getLoginUsername());
             }
         } else {
-            util.showErrorDialog("Wrong username or password");
+            util.showErrorDialog("Fel användarnamn eller lösenord!");
         }
 
     }
@@ -111,11 +107,12 @@ public class Controller {
 
     /**
      * Admin tar bort en användare i databasen.
+     *
      * @param username Användarnamn för raden man vill ta bort.
      */
     public void btnAdminDeleteUser(String username) {
         if (con.checkIfUserHaveGuides(username)) {
-            if (util.showConfirmationDialog("User still have active guides! \nDo you want to remove all guides?") == 1) {
+            if (util.showConfirmationDialog("Användaren har fortfarande aktiva guider! \nVill du ta bort alla guider också?") == 1) {
                 con.deleteGuideBasedOnUsername(username);
                 con.deleteAUser(username);
             }
@@ -126,6 +123,7 @@ public class Controller {
 
     /**
      * Admin söker efter användare.
+     *
      * @param soktext input av sträng man vill söka med.
      */
     public void btnAdminSearchUser(String soktext) {
@@ -134,6 +132,7 @@ public class Controller {
 
     /**
      * Admin söker efter guider.
+     *
      * @param soktext input av sträng man vill söka med.
      */
     public void btnAdminSearchGuide(String soktext) {
@@ -142,6 +141,7 @@ public class Controller {
 
     /**
      * Admin tar bort guide i databasen.
+     *
      * @param indexToRemove input av sträng som är Guide_ID i databasen.
      */
     public void btnAdminDeleteGuide(String indexToRemove) {
@@ -150,78 +150,21 @@ public class Controller {
     }
 
     /**
-     *
      * @param text
      */
-    public void btntSearchGuideNotLoggedInPressed(String text) {
+    public void btnSearchGuideNotLoggedInPressed(String text) {
         con.searchGuide(text);
     }
 
     /**
      * Visa guide för användare som inte loggat in.
+     *
      * @param indexGuide
      */
-    public void btnShowGuide(String indexGuide, String titleString, String dateString, String authorString) throws IOException {
-        JFrame frame = new JFrame(titleString);
-        frame.setLayout(new BorderLayout());
-        JPanel centerPanel = new JPanel(new FlowLayout());
-        JPanel southPanel = new JPanel(new BorderLayout());
-        JPanel logoPanel = new JPanel(new BorderLayout());
+    public void btnShowGuide(String indexGuide, String titleString, String dateString, String authorString) {
 
-        JTextArea area = new JTextArea();
-        JLabel titleTxt, authorTxt, dateTxt, titleLbl, authorLbl, dateLbl, ratingLbl;
-        Font bold = new Font("", Font.BOLD, 14);
-        Font plain = new Font("", Font.PLAIN, 14);
-
-        titleLbl = new JLabel("Titel:");
-        titleLbl.setFont(bold);
-        titleTxt = new JLabel(titleString);
-        titleTxt.setFont(plain);
-
-        authorLbl = new JLabel("Skapad av:");
-        authorLbl.setFont(bold);
-        authorTxt = new JLabel(authorString);
-        authorTxt.setFont(plain);
-
-        dateLbl = new JLabel("Datum:");
-        dateLbl.setFont(bold);
-        dateTxt = new JLabel(dateString);
-        dateTxt.setFont(plain);
-
-        BufferedImage myPicture = ImageIO.read(new File("files/Logga2.png"));
-        JLabel picLabel = new JLabel(new ImageIcon(myPicture.getScaledInstance(
-                140,46, Image.SCALE_SMOOTH)));
-        logoPanel.add(picLabel, BorderLayout.WEST);
-
-        area.setText(indexGuide);
-        area.setEditable(false);
-        area.setPreferredSize(new Dimension(500,400));
-
-        JScrollPane scroll = new JScrollPane(area);
-        scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-
-        frame.add(logoPanel, BorderLayout.NORTH);
-        frame.add(centerPanel, BorderLayout.CENTER);
-        frame.add(southPanel, BorderLayout.SOUTH);
-
-        centerPanel.add(titleLbl);
-        centerPanel.add(titleTxt);
-        centerPanel.add(authorLbl);
-        centerPanel.add(authorTxt);
-        centerPanel.add(dateLbl);
-        centerPanel.add(dateTxt);
-
-        southPanel.add(scroll);
-
-        centerPanel.setBorder(BorderFactory.createEmptyBorder(0,20,20,20));
-        southPanel.setBorder(BorderFactory.createEmptyBorder(10,10,20,10));
-
-        frame.setResizable(false);
-        frame.setLocationRelativeTo(null);
-        frame.setSize(800,800);
-        frame.setVisible(true);
-        frame.pack();
     }
+
     /**
      * Användare loggar in från homePageFrame
      */
@@ -233,13 +176,12 @@ public class Controller {
     /**
      * Användare loggar ut, Ny loginFrame öppnas
      */
-    public void btnUserLoggOff(){
+    public void btnUserLoggOff() {
         userHomePageFrame.setVisible(false);
         view.getLoginFrame().setVisible(true);
     }
 
     /**
-     *
      * @param soktext
      */
     public void btnUserSearchGuide(String soktext) {
@@ -247,7 +189,6 @@ public class Controller {
     }
 
     /**
-     *
      * @param soktext
      */
     public void btnNoLoginSearchGuide(String soktext) {
@@ -255,17 +196,16 @@ public class Controller {
     }
 
     /**
-     *
      * @return
      */
-    public ArrayList <String> getUsersFromDb(){
+    public ArrayList<String> getUsersFromDb() {
         return con.getAllUsers();
     }
 
     /**
      *
      */
-    public void btnOpenCreateGuideFrame(){
+    public void btnOpenCreateGuideFrame() {
         makeGuideGui = new MakeGuideGui(this);
         makeGuideGui.setVisible(true);
     }
@@ -273,7 +213,7 @@ public class Controller {
     /**
      *
      */
-    public void btnAvbrtyGuide(){
+    public void btnAvbrytGuide() {
         makeGuideGui.setVisible(false);
         System.out.println(user.getUsername());
     }
@@ -282,13 +222,13 @@ public class Controller {
      *
      */
 
-    public void btnCreateGuide(){
-        con.createGuide(new Guide(makeGuideGui.getTitelGuide(),makeGuideGui.getDescriptionField(),user.getUsername()));
+    public void btnCreateGuide() {
+        con.createGuide(new Guide(makeGuideGui.getTitelGuide(), makeGuideGui.getDescriptionField(), user.getUsername()));
         userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
+        userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
     }
 
     /**
-     *
      * @return
      */
     public GuiUtilities getUtil() {
@@ -301,19 +241,70 @@ public class Controller {
         userSettings.setVisible(true);
         userSettings.setLblUsername(user.getUsername());
         userSettings.setlblEmail(con.getUserEmail(user.getUsername()));
-
-
-    }
-    public void changePasswordUser(){
-
-       con.updateUserPassword(userSettings.getPassField1(), user.getUsername());
-
     }
 
+    public void changePasswordUser() {
+        con.updateUserPassword(userSettings.getPassField1(), user.getUsername());
+    }
 
     public void changeEmailUser() {
-
-        con.updateUserEmail(userSettings.getEmailField(),user.getUsername());
+        con.updateUserEmail(userSettings.getEmailField(), user.getUsername());
         userSettings.setlblEmail(con.getUserEmail(user.getUsername()));
+    }
+
+    public void btnSaveGuidesHP() throws SQLException {
+        if (user.getUsername() == "admin") {
+            int row = adminFrame.getGuideTable().getSelectedRow();
+
+            con.updateGuide(editGuideGUI.getTitleEdit(), editGuideGUI.getDescription(),
+                    adminFrame.getGuideTable().getModel().getValueAt(row, 0).toString());
+            adminFrame.updateGuideList(con.getAllGuides());
+        }
+        else {
+            int row = userHomePageFrame.getTableLow().getSelectedRow();
+
+            con.updateGuide(editGuideGUI.getTitleEdit(), editGuideGUI.getDescription(),
+                    userHomePageFrame.getTableLow().getModel().getValueAt(row, 0).toString());
+            userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
+            userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
+        }
+
+    }
+    public void btnSaveGuidesAdmin() throws SQLException {
+        int row = adminFrame.getGuideTable().getSelectedRow();
+        System.out.println(adminFrame.getGuideTable().getModel().getValueAt(row, 0).toString());
+        con.updateGuide(editGuideGUI.getTitleEdit(), editGuideGUI.getDescription(),
+                adminFrame.getGuideTable().getModel().getValueAt(row, 0).toString());
+        userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
+        userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
+    }
+
+    public void editGuide() {
+        int row = userHomePageFrame.getTableLow().getSelectedRow();
+
+        String titleString = userHomePageFrame.getTableLow().getModel().getValueAt(row, 0).toString();
+        String authorString = userHomePageFrame.getTableLow().getModel().getValueAt(row, 1).toString();
+        String dateString = userHomePageFrame.getTableLow().getModel().getValueAt(row, 2).toString();
+        String descriptionString = userHomePageFrame.getTableLow().getModel().getValueAt(row, 4).toString();
+
+        editGuideGUI = new EditGuideGUI(this, titleString, authorString, dateString, descriptionString);
+    }
+
+    public void btnDeleteGuide(String titleToRemove) {
+        con.deleteGuide(titleToRemove);
+        userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
+        userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
+
+    }
+
+    public void editGuideAdmin() {
+        int row = adminFrame.getGuideTable().getSelectedRow();
+
+        String titleString = adminFrame.getGuideTable().getModel().getValueAt(row, 1).toString();
+        String authorString = adminFrame.getGuideTable().getModel().getValueAt(row, 2).toString();
+        String dateString = adminFrame.getGuideTable().getModel().getValueAt(row, 3).toString();
+        String descriptionString = adminFrame.getGuideTable().getModel().getValueAt(row, 5).toString();
+
+        editGuideGUI = new EditGuideGUI(this, titleString, authorString, dateString, descriptionString);
     }
 }

@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 
 
 public class UserHomepageFrame extends JFrame implements ActionListener {
@@ -206,6 +207,8 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
         btnShowGuideUpper.addActionListener(this);
         btnLogOff.addActionListener(this);
         btnUserSettings.addActionListener(this);
+        btnEditGuide.addActionListener(this);
+        btnRemoveGuide.addActionListener(this);
     }
 
     public void setLblloginUser(String name) {
@@ -230,27 +233,36 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
         } else if (e.getSource() == btnSearch) {
             controller.btnUserSearchGuide(txtSearch.getText());
         } else if (e.getSource() == btnShowGuideUpper) {
-            int column = 4;
             int row = jTableUp.getSelectedRow();
-            String indexGuide = jTableUp.getModel().getValueAt(row, column).toString();
-            String titleString = jTableUp.getModel().getValueAt(row,0).toString();
-            String authorString = jTableUp.getModel().getValueAt(row,1).toString();
-            String dateString = jTableUp.getModel().getValueAt(row,2).toString();
 
-            new ShowGuideGUI(titleString, authorString, dateString, indexGuide);
+            String titleString = jTableUp.getModel().getValueAt(row,1).toString();
+            String authorString = jTableUp.getModel().getValueAt(row,2).toString();
+            String dateString = jTableUp.getModel().getValueAt(row,3).toString();
+            String descriptionString = jTableUp.getModel().getValueAt(row, 5).toString();
+
+            new ShowGuideGUI(titleString, authorString, dateString, descriptionString);
         } else if (e.getSource() == btnShowGuideLower) {
-            int column = 4;
             int row = jTableLow.getSelectedRow();
-            String indexGuide = jTableLow.getModel().getValueAt(row, column).toString();
+
             String titleString = jTableLow.getModel().getValueAt(row,0).toString();
             String authorString = jTableLow.getModel().getValueAt(row,1).toString();
             String dateString = jTableLow.getModel().getValueAt(row,2).toString();
+            String descriptionString = jTableLow.getModel().getValueAt(row, 4).toString();
 
-            new ShowGuideGUI(titleString, authorString, dateString, indexGuide);
+            new ShowGuideGUI(titleString, authorString, dateString, descriptionString);
         } else if (e.getSource() == btnUserSettings) {
             controller.btnUserSettings();
+        }
+        else if (e.getSource() == btnEditGuide) {
+            controller.editGuide();
+        } else if (e.getSource() == btnRemoveGuide) {
+            int row = jTableLow.getSelectedRow();
+            String titleToRemove = jTableLow.getModel().getValueAt(row,0).toString();
+            controller.btnDeleteGuide(titleToRemove);
 
         }
-
+    }
+    public JTable getTableLow() {
+        return jTableLow;
     }
 }

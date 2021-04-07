@@ -49,7 +49,7 @@ public class MakeGuideGui extends JFrame implements ActionListener{
         btnCancel = new JButton();
 
         jInternalFrame1.setVisible(true);
-
+        setTitle("Skapa guide");
         GroupLayout jInternalFrame1Layout = new GroupLayout(jInternalFrame1.getContentPane());
         jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
         jInternalFrame1Layout.setHorizontalGroup(
@@ -167,9 +167,10 @@ public class MakeGuideGui extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnCancel) {
-            controller.btnAvbrtyGuide();
+            controller.btnAvbrytGuide();
         } else if (e.getSource() == btnMakeGuide) {
             controller.btnCreateGuide();
+            dispose();
         } else if (e.getSource() == btnAddPicture) {
 //            JFileChooser fileChooser = new JFileChooser();
 //            fileChooser.setMultiSelectionEnabled(true);
