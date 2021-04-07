@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 
 
 /**
+ * Autogenererad av Netbeans och redigerad utav:
  * @author Alexander Olsson
  * @author Philip Persson
  */
@@ -57,7 +58,7 @@ public class UserSettings extends JFrame implements ActionListener {
                 jFrame1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGap(0, 300, Short.MAX_VALUE));
 
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
 
         changePassLabel2.setText("Bekräfta lösenord");

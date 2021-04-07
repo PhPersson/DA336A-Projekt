@@ -20,6 +20,7 @@ public class Controller {
     private MakeGuideGui makeGuideGui;
     private UserSettings userSettings;
     private EditGuideGUI editGuideGUI;
+    private PictureGUI pictureGUI;
 
     /**
      *
@@ -306,5 +307,10 @@ public class Controller {
         String descriptionString = adminFrame.getGuideTable().getModel().getValueAt(row, 5).toString();
 
         editGuideGUI = new EditGuideGUI(this, titleString, authorString, dateString, descriptionString);
+    }
+
+    public void PictureGUI(){
+        pictureGUI = new PictureGUI();
+        pictureGUI.setVisible(true);
     }
 }

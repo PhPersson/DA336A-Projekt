@@ -240,7 +240,7 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
             String dateString = jTableUp.getModel().getValueAt(row,3).toString();
             String descriptionString = jTableUp.getModel().getValueAt(row, 5).toString();
 
-            new ShowGuideGUI(titleString, authorString, dateString, descriptionString);
+            new ShowGuideGUI(controller,titleString, authorString, dateString, descriptionString);
         } else if (e.getSource() == btnShowGuideLower) {
             int row = jTableLow.getSelectedRow();
 
@@ -249,7 +249,7 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
             String dateString = jTableLow.getModel().getValueAt(row,2).toString();
             String descriptionString = jTableLow.getModel().getValueAt(row, 4).toString();
 
-            new ShowGuideGUI(titleString, authorString, dateString, descriptionString);
+            new ShowGuideGUI(controller,titleString, authorString, dateString, descriptionString);
         } else if (e.getSource() == btnUserSettings) {
             controller.btnUserSettings();
         }

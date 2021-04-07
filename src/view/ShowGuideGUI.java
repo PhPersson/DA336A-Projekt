@@ -1,5 +1,7 @@
 package view;
 
+import controller.Controller;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -17,9 +19,11 @@ public class ShowGuideGUI extends JFrame implements ActionListener {
     private Font bold, plain;
     private JButton btnClose, btnShowPics;
     private JScrollPane scroll;
+    private Controller controller;
 
-    public ShowGuideGUI (String titleString, String authorString, String dateString, String indexGuide) {
+    public ShowGuideGUI (Controller controller, String titleString, String authorString, String dateString, String indexGuide) {
 
+        this.controller = controller;
         frame = new JFrame(titleString);
         frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 
@@ -107,6 +111,7 @@ public class ShowGuideGUI extends JFrame implements ActionListener {
             frame.dispose();
         }
         else if (e.getSource() == btnShowPics) {
+            controller.PictureGUI();
 
         }
     }
