@@ -11,7 +11,7 @@ public class MainFrame extends JFrame {
 
     private LoginFrame loginFrame;
     private UserHomepageFrame hpf;
-    private HomePageFrame hpFrameNotLoggedIn;
+    private oldHomePageFrame hpFrameNotLoggedIn;
 
     private Controller controller;
     private GuiUtilities util;
