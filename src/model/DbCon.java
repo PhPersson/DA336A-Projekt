@@ -159,11 +159,9 @@ public class DbCon {
             String registerCustomer = "INSERT INTO [User] (username, password, email, role)" + " VALUES (?,?,?,?)";
 
             PreparedStatement register = connection.prepareStatement(registerCustomer);
-
             register.setString(1, user.getUsername());
-
-            register.setString(3, user.getPassword());
-            register.setString(2, user.getEmail());
+            register.setString(2, user.getPassword());
+            register.setString(3, user.getEmail());
             register.setInt(4, 0);
             register.execute();
             connection.commit();
