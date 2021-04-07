@@ -38,7 +38,7 @@ public class HomePageFrame extends JFrame implements ActionListener {
             e.printStackTrace();
         }
         lblLogo = new JLabel(new ImageIcon(myPicture.getScaledInstance(
-                80,24, Image.SCALE_SMOOTH)));
+                140,38, Image.SCALE_SMOOTH)));
 
         txtSearch = new JTextField();
         btnSearch = new JButton();
