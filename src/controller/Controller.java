@@ -48,7 +48,7 @@ public class Controller {
         } else {
             if (Email.isValidEmailAddress(view.getTxtEmail())) {
                 Email.sendMail(view.getTxtEmail(), view.getTxtUsername());
-                con.registerNewCustomer(new User(view.getTxtUsername(), view.getTxtEmail(), view.getTxtUsername(), 0));
+                con.registerNewCustomer(new User(view.getTxtUsername(), view.getTxtEmail(), view.gettxtPassword(), 0));
 
                 util.showDialog("Registration OK \nYou can now log in");
                 view.getRegisterFrame().setVisible(false);
