@@ -66,7 +66,7 @@ public class LoginFrame extends JFrame implements ActionListener {
             e.printStackTrace();
         }
         lblLogo = new JLabel(new ImageIcon(myPicture.getScaledInstance(
-                120,38, Image.SCALE_SMOOTH)));
+                140,38, Image.SCALE_SMOOTH)));
 
         txtUsername = new JTextField();
         txtPassword = new JPasswordField();
