@@ -25,8 +25,8 @@ public class Controller {
      */
     public Controller() {
         view = new MainFrame(this);
-        con = new DbCon(this);
         util = new GuiUtilities();
+        con = new DbCon(this);
         user = new User();
         guide = new Guide();
 
@@ -63,7 +63,6 @@ public class Controller {
      * Andra IF-satsen: Om användaren inte har en roll satt i databasen så körs userHomePageFrame. Annars: Användaren har en roll, vilket betyder att det är en admin. adminFrame körs.
      */
     public void btnLoginClicked() {
-
         if (con.getAllUserAndPass(view.getLoginUsername(), view.getLoginPassword())) {
             if (!con.getRole(view.getLoginUsername(), view.getLoginPassword())) {
                 user.setUsername(view.getLoginUsername());
@@ -84,8 +83,9 @@ public class Controller {
         } else {
             util.showErrorDialog("Fel användarnamn eller lösenord!");
         }
-
     }
+
+
 
     /**
      * Användare väljer att starta programmet utan att logga in. homePageFrame körs.
@@ -115,8 +115,7 @@ public class Controller {
                 con.deleteGuideBasedOnUsername(username);
                 con.deleteAUser(username);
             }
-        }
-        else {
+        } else {
             con.deleteGuideBasedOnUsername(username);
             con.deleteAUser(username);
         }
@@ -261,8 +260,7 @@ public class Controller {
             con.updateGuide(editGuideGUI.getTitleEdit(), editGuideGUI.getDescription(),
                     adminFrame.getGuideTable().getModel().getValueAt(row, 1).toString());
             adminFrame.updateGuideList(con.getAllGuides());
-        }
-        else {
+        } else {
             System.out.println("2");
             int row = userHomePageFrame.getTableLow().getSelectedRow();
             con.updateGuide(editGuideGUI.getTitleEdit(), editGuideGUI.getDescription(),
