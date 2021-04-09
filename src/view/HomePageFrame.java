@@ -74,6 +74,8 @@ public class HomePageFrame extends JFrame implements ActionListener {
         btnLogin.setFont(new java.awt.Font("Tahoma", 0, 14));
         btnLogin.setText("Logga in");
 
+        table.setDefaultEditor(Object.class, null);
+
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

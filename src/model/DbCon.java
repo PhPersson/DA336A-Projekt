@@ -280,11 +280,11 @@ public class DbCon {
         }
         return guideModel;
     }
-
-
     public DefaultTableModel getAllGuidesUser(String user) {
         DefaultTableModel guideModel = new DefaultTableModel(new String[]{
                 "Titel", "Skapad av:", "Datum", "Betyg", "Beskrivning"}, 0);
+
+
         try {
             String strGetUsers = "Select * FROM GUIDE WHERE username = ?";
             PreparedStatement statement = connection.prepareStatement(strGetUsers);

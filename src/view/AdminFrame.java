@@ -105,6 +105,9 @@ public class AdminFrame extends JFrame implements ActionListener {
                 }
         ));
 
+        userTable.setDefaultEditor(Object.class, null);
+        guideTable.setDefaultEditor(Object.class, null);
+
         guideTableScroll.setViewportView(guideTable);
 
         lblGuideSearch.setText("Guide");
