@@ -13,7 +13,6 @@ import java.util.ArrayList;
  */
 public class DbCon {
 
-    private User user;
     private Connection connection;
     private String sqlURL = "jdbc:sqlserver://supportme.duckdns.org;databaseName=support_me;";
     private String sqlUsername = "supportmeadmin";
@@ -41,8 +40,8 @@ public class DbCon {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             connection = DriverManager.getConnection(sqlURL, sqlUsername, sqlPassword);
         } catch (ClassNotFoundException | SQLException exception) {
-            exception.printStackTrace();
             controller.getUtil().showErrorDialog("Couldn't connect to the database. \nPlease contact the systemadministrator");
+            exception.printStackTrace();
         }
     }
 
