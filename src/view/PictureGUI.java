@@ -16,15 +16,13 @@ public class PictureGUI extends JFrame implements ActionListener {
     private JButton btnNext, btnBack;
 
     public PictureGUI() {
-
-        frame = new JFrame();
-        frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(),BoxLayout.X_AXIS));
-        frame.setLayout(new BorderLayout());
+        getContentPane().setLayout(new BoxLayout(getContentPane(),BoxLayout.X_AXIS));
+        setLayout(new BorderLayout());
 
         centerPanel = new JPanel();
         southPanel = new JPanel(new FlowLayout());
 
-       // lblPicture.setIcon();
+        //lblPicture.setIcon();
 
         lblPicture = new JLabel();
         lblPicture.setPreferredSize(new Dimension(500,400));
@@ -34,28 +32,26 @@ public class PictureGUI extends JFrame implements ActionListener {
         btnNext = new JButton("next");
 
         centerPanel.add(lblPicture);
+
         Border b2 = BorderFactory.createTitledBorder("Feta brudar och feta mopeder");
 
         centerPanel.setBorder(b2);
 
-
         southPanel.add(btnBack);
         southPanel.add(btnNext);
 
+        add(centerPanel, BorderLayout.CENTER);
+        add(southPanel, BorderLayout.SOUTH);
 
-        frame.add(centerPanel, BorderLayout.CENTER);
-        frame.add(southPanel, BorderLayout.SOUTH);
-
-
-        frame.setSize(800,800);
-        frame.pack();
-        frame.setResizable(false);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-        addListners();
+        setSize(800,800);
+        pack();
+        setResizable(false);
+        setLocationRelativeTo(null);
+        setVisible(true);
+        addListeners();
     }
 
-    public void addListners(){
+    public void addListeners(){
         btnNext.addActionListener(this);
         btnBack.addActionListener(this);
     }
