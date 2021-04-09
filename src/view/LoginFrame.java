@@ -39,13 +39,13 @@ public class LoginFrame extends JFrame implements ActionListener {
         setTitle("Login");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
-        setSize(400,200);
+        setSize(400,220);
         setLayout(new BorderLayout());
 
         GridLayout layout = new GridLayout(3, 3, 0, 8);
 
         Border emptyBorder = BorderFactory.createEmptyBorder(0, 10, 10, 10);
-        Border southBorder = BorderFactory.createEmptyBorder(0,70,0,70);
+        Border southBorder = BorderFactory.createEmptyBorder(0,70,10,70);
 
         panel = new JPanel();
         panelLogo = new JPanel(new BorderLayout());
