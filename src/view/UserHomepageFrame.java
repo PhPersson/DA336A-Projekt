@@ -106,6 +106,8 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
         btnUserSettings.setFont(new Font("Tahoma", 0, 10));
         btnUserSettings.setText("Inställningar");
 
+        jTableUp.setDefaultEditor(Object.class, null);
+        jTableLow.setDefaultEditor(Object.class, null);
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
