@@ -70,7 +70,6 @@ public class Controller {
                 //user.setEmail();
                 view.getLoginFrame().setVisible(false);
                 userHomePageFrame = new UserHomepageFrame(this);
-                System.out.println(user.getUsername());
                 userHomePageFrame.setLblloginUser(user.getUsername());
                 userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
                 userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
@@ -270,18 +269,8 @@ public class Controller {
             userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
             userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
         }
-
-//        int row = guideTable.getSelectedRow();
-//        String indexGuide = guideTable.getModel().getValueAt(row, column).toString();
     }
-//    public void btnSaveGuidesAdmin() throws SQLException {
-//        int row = adminFrame.getGuideTable().getSelectedRow();
-//        System.out.println(adminFrame.getGuideTable().getModel().getValueAt(row, 0).toString());
-//        con.updateGuide(editGuideGUI.getTitleEdit(), editGuideGUI.getDescription(),
-//                adminFrame.getGuideTable().getModel().getValueAt(row, 0).toString());
-//        userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
-//        userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
-//    }
+
 
     public void editGuide() {
         int row = userHomePageFrame.getTableLow().getSelectedRow();
@@ -294,6 +283,7 @@ public class Controller {
         editGuideGUI = new EditGuideGUI(this, titleString, authorString, dateString, descriptionString);
     }
 
+
     public void editGuideAdmin() {
         int row = adminFrame.getGuideTable().getSelectedRow();
 
@@ -305,7 +295,7 @@ public class Controller {
         editGuideGUI = new EditGuideGUI(this, titleString, authorString, dateString, descriptionString);
     }
 
-    public void PictureGUI(){
+    public void pictureGUI(){
         pictureGUI = new PictureGUI();
         pictureGUI.setVisible(true);
     }

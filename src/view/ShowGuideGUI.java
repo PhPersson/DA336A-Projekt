@@ -111,7 +111,7 @@ public class ShowGuideGUI extends JFrame implements ActionListener {
             frame.dispose();
         }
         else if (e.getSource() == btnShowPics) {
-            controller.PictureGUI();
+            controller.pictureGUI();
 
         }
     }
