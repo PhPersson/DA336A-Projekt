@@ -240,7 +240,7 @@ public class DbCon {
         DefaultTableModel guideModel = new DefaultTableModel(new String[]{
                 "Guide ID", "Titel", "Skapad av:", "Datum", "Betyg", "Beskrivning"}, 0);
         try {
-            String strGetUsers = "Select * FROM GUIDE ORDER BY username ASC";
+            String strGetUsers = "Select * FROM GUIDE ORDER BY guideId ASC";
             PreparedStatement statement = connection.prepareStatement(strGetUsers);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
@@ -261,7 +261,7 @@ public class DbCon {
     //
     public DefaultTableModel getAllGuidesUserSearch() {
         DefaultTableModel guideModel = new DefaultTableModel(new String[]{
-                "Guide ID", "Titel", "Skapad av:", "Datum", "Betyg", "Beskrivning"}, 0);
+                "GuideId", "Titel", "Skapad av:", "Datum", "Betyg", "Beskrivning"}, 0);
         try {
             String strGetUsers = "Select * FROM GUIDE ORDER BY guideId ASC";
             PreparedStatement statement = connection.prepareStatement(strGetUsers);
@@ -280,24 +280,25 @@ public class DbCon {
         }
         return guideModel;
     }
+
     public DefaultTableModel getAllGuidesUser(String user) {
         DefaultTableModel guideModel = new DefaultTableModel(new String[]{
-                "Titel", "Skapad av:", "Datum", "Betyg", "Beskrivning"}, 0);
-
+                "GuideId", "Titel", "Skapad av:", "Datum", "Betyg", "Beskrivning"}, 0);
 
         try {
-            String strGetUsers = "Select * FROM GUIDE WHERE username = ?";
+            String strGetUsers = "Select * FROM GUIDE WHERE username = ? ORDER BY guideId ASC";
             PreparedStatement statement = connection.prepareStatement(strGetUsers);
             statement.setString(1, user);
 
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
+                int guideId = rs.getInt("guideId");
                 String title = rs.getString("title");
                 String username = rs.getString("username");
                 Date date = rs.getDate("date");
                 int rating = rs.getInt("rating");
                 String description = rs.getString("description");
-                guideModel.addRow(new Object[]{title, username, date, rating, description});
+                guideModel.addRow(new Object[]{guideId, title, username, date, rating, description});
             }
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -440,22 +441,22 @@ public class DbCon {
             exception.printStackTrace();
         }
     }
-    public void updateGuide(String title, String description, String titleToChange) {
+    public void updateGuide(String title, String description, String guideId) {
         try {
             connection.setAutoCommit(false);
-            String query = "UPDATE Guide SET title = ?, description = ? WHERE title = ?";
 
+            String query = "UPDATE Guide SET title = ?, description = ? WHERE guideId = ?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, title);
             ps.setString(2, description);
-            ps.setString(3, titleToChange);
+            ps.setString(3, guideId);
             ps.execute();
             connection.commit();
             ps.close();
+
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
-
     }
 
 
@@ -514,6 +515,8 @@ public class DbCon {
             exception.printStackTrace();
         }
     }
+
+
 }
 
 
