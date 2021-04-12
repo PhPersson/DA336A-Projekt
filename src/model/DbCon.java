@@ -12,7 +12,6 @@ import java.util.ArrayList;
  * @author Philip Persson
  */
 public class DbCon {
-
     private Connection connection;
     private String sqlURL = "jdbc:sqlserver://supportme.duckdns.org;databaseName=support_me;";
     private String sqlUsername = "supportmeadmin";

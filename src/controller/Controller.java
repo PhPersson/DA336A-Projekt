@@ -254,7 +254,7 @@ public class Controller {
 
     public void btnSaveGuidesHP() {
 
-        if (adminFrame.isVisible()) {
+        if (user.getUsername() == "admin") {
             int row = adminFrame.getGuideTable().getSelectedRow();
             con.updateGuide(editGuideGUI.getTitleEdit(), editGuideGUI.getDescription(),
                     adminFrame.getGuideTable().getModel().getValueAt(row, 0).toString());
@@ -268,9 +268,8 @@ public class Controller {
         }
     }
 
-
     public void editGuide() {
-        if (adminFrame.isVisible()) {
+        if (user.getUsername() == "admin") {
             int row = adminFrame.getGuideTable().getSelectedRow();
 
             String titleString = adminFrame.getGuideTable().getModel().getValueAt(row, 1).toString();
