@@ -24,7 +24,7 @@ public class EditGuideGUI extends JFrame implements ActionListener {
     private JScrollPane scroll;
     private Controller controller;
 
-    public EditGuideGUI (Controller controller, String titleString, String authorString, String dateString, String descriptionString) {
+    public EditGuideGUI(Controller controller, String titleString, String authorString, String dateString, String descriptionString) {
         this.controller = controller;
         frame = new JFrame("Edit guide");
         frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
@@ -64,12 +64,12 @@ public class EditGuideGUI extends JFrame implements ActionListener {
             e.printStackTrace();
         }
         JLabel picLogo = new JLabel(new ImageIcon(myPicture.getScaledInstance(
-                140,38, Image.SCALE_SMOOTH)));
+                140, 38, Image.SCALE_SMOOTH)));
         logoPanel.add(picLogo, BorderLayout.WEST);
 
         descriptionArea.setText(descriptionString);
         descriptionArea.setEditable(true);
-        descriptionArea.setPreferredSize(new Dimension(500,400));
+        descriptionArea.setPreferredSize(new Dimension(500, 400));
 
         scroll = new JScrollPane(descriptionArea);
         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -86,9 +86,9 @@ public class EditGuideGUI extends JFrame implements ActionListener {
         centerPanel.add(dateLbl);
         centerPanel.add(dateTxt);
 
-        centerPanel.setBorder(BorderFactory.createEmptyBorder(0,15,10,10));
+        centerPanel.setBorder(BorderFactory.createEmptyBorder(0, 15, 10, 10));
 
-        southPanel.setBorder(BorderFactory.createEmptyBorder(10,15,5,15));
+        southPanel.setBorder(BorderFactory.createEmptyBorder(10, 15, 5, 15));
         southPanel.add(scroll);
 
         buttonPanel.add(btnClose);
@@ -96,7 +96,7 @@ public class EditGuideGUI extends JFrame implements ActionListener {
 
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
-        frame.setSize(800,800);
+        frame.setSize(800, 800);
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
         frame.pack();
@@ -113,19 +113,16 @@ public class EditGuideGUI extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnClose) {
             frame.dispose();
-        }
-        else if (e.getSource() == btnSaveGuide) {
-            try {
-                controller.btnSaveGuidesHP();
-                frame.dispose();
-            } catch (SQLException exception) {
-                exception.printStackTrace();
-            }
+        } else if (e.getSource() == btnSaveGuide) {
+            controller.btnSaveGuidesHP();
+            frame.dispose();
         }
     }
+
     public String getTitleEdit() {
         return titleTxt.getText();
     }
+
     public String getDescription() {
         return descriptionArea.getText();
     }

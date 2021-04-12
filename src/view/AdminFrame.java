@@ -329,7 +329,7 @@ public class AdminFrame extends JFrame implements ActionListener {
             controller.btnAdminDeleteGuide(indexGuide);
         }
         else if (e.getSource() == btnEditGuide) {
-            controller.editGuideAdmin();
+            controller.editGuide();
         }
     }
 
