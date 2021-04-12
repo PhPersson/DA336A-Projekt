@@ -142,6 +142,9 @@ public class MakeGuideGui extends JFrame implements ActionListener{
                                         .addComponent(btnCancel, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE))
                                 .addGap(20, 20, 20))
         );
+
+        SwingUtilities.getRootPane(btnMakeGuide).setDefaultButton(btnMakeGuide);
+
         pack();
         setLocationRelativeTo(null);
         setVisible(true);

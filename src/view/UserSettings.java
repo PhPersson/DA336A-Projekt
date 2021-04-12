@@ -48,7 +48,7 @@ public class UserSettings extends JFrame implements ActionListener {
         emailField = new JTextField();
         changEmailLabel = new JLabel();
         btnEmail = new JButton();
-        setTitle("Användar inställningar");
+        setTitle("Användarinställningar");
         GroupLayout jFrame1Layout = new GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
         jFrame1Layout.setHorizontalGroup(

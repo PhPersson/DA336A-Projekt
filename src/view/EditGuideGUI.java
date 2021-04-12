@@ -94,6 +94,8 @@ public class EditGuideGUI extends JFrame implements ActionListener {
         buttonPanel.add(btnClose);
         buttonPanel.add(btnSaveGuide);
 
+        SwingUtilities.getRootPane(btnSaveGuide).setDefaultButton(btnSaveGuide);
+
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setSize(800, 800);

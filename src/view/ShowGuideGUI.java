@@ -92,11 +92,14 @@ public class ShowGuideGUI extends JFrame implements ActionListener {
         buttonPanel.add(btnClose);
         buttonPanel.add(btnShowPics);
 
+        SwingUtilities.getRootPane(btnShowPics).setDefaultButton(btnShowPics);
+
         frame.setSize(800,800);
         frame.pack();
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+
         addListeners();
     }
 
