@@ -27,6 +27,7 @@ public class User {
     public int getRole(){
         return role;
     }
+
     public void setRole(){
         this.role=role;
     }
@@ -46,9 +47,6 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
-
-
 
     @Override
     public String toString() {

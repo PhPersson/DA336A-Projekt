@@ -11,7 +11,9 @@ public class MainFrame extends JFrame {
 
     private LoginFrame loginFrame;
     private UserHomepageFrame hpf;
-    private HomePageFrame hpFrameNotLoggedIn;
+
+    private HomePageFrame homePageFrame;
+
 
     private Controller controller;
     private GuiUtilities util;
@@ -43,7 +45,6 @@ public class MainFrame extends JFrame {
     public String gettxtPassword() {
         return loginFrame.getRegisterFrame().getTxtPassword();
     }
-
 
     public String getTxtPassword() {
         return loginFrame.getRegisterFrame().getTxtConPassword();
