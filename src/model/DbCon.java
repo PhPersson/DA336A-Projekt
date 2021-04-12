@@ -502,7 +502,7 @@ public class DbCon {
      * @param titleToRemove Baserat på titeln till guiden tas den bort i databasen.
      */
     public void deleteGuide(String titleToRemove) {
-        String query = "DELETE FROM GUIDE WHERE title = ?";
+        String query = "DELETE FROM GUIDE WHERE guideId = ?";
         try {
             connection.setAutoCommit(false);
             PreparedStatement ps = connection.prepareStatement(query);
