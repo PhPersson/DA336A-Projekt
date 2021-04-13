@@ -5,7 +5,10 @@ import view.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-
+/**
+ * @author Philip Persson
+ * @author Simon Pizevski
+ */
 
 public class Controller {
     private User user;
@@ -254,7 +257,7 @@ public class Controller {
 
     public void btnSaveGuidesHP() {
 
-        if (user.getUsername() == "admin") {
+        if (adminFrame.isVisible()) {
             int row = adminFrame.getGuideTable().getSelectedRow();
             con.updateGuide(editGuideGUI.getTitleEdit(), editGuideGUI.getDescription(),
                     adminFrame.getGuideTable().getModel().getValueAt(row, 0).toString());
@@ -269,7 +272,7 @@ public class Controller {
     }
 
     public void editGuide() {
-        if (user.getUsername() == "admin") {
+        if (adminFrame.isVisible()) {
             int row = adminFrame.getGuideTable().getSelectedRow();
 
             String titleString = adminFrame.getGuideTable().getModel().getValueAt(row, 1).toString();
