@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 /**
  * @author Philip Persson
+ * @author Simon Pizevski
  */
 public class DbCon {
     private Connection connection;
