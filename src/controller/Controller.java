@@ -50,10 +50,10 @@ public class Controller {
                 Email.sendMail(view.getTxtEmail(), view.getTxtUsername());
                 con.registerNewCustomer(new User(view.getTxtUsername(), view.getTxtEmail(), view.gettxtPassword(), 0));
 
-                util.showDialog("Registration OK \nYou can now log in");
+                util.showDialog("Registreringen OK \nDu kan nu återgå och logga in");
                 view.getRegisterFrame().setVisible(false);
             } else {
-                util.showErrorDialog("The email is not valid");
+                util.showErrorDialog("Det är ingen gilltig e-postadress! \nAnge en gilltig e-postadress och försök igen!");
             }
         }
     }
