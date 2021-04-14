@@ -26,7 +26,6 @@ public class DbCon {
      * Konstruktorn som även öppnar en anslutning till databasen.
      */
     public DbCon(Controller controller) {
-
         this.controller = controller;
         connectToDatabase();
     }
@@ -39,7 +38,7 @@ public class DbCon {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             connection = DriverManager.getConnection(sqlURL, sqlUsername, sqlPassword);
         } catch (ClassNotFoundException | SQLException exception) {
-            controller.getUtil().showErrorDialog("Couldn't connect to the database. \nPlease contact the systemadministrator");
+            controller.getUtil().showErrorDialog("Kunde inte ansluta till databsen. \nVänligen kontakta systemadministratören!");
             exception.printStackTrace();
         }
     }

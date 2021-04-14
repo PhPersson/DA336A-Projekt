@@ -64,23 +64,28 @@ public class Controller {
      * Andra IF-satsen: Om användaren inte har en roll satt i databasen så körs userHomePageFrame. Annars: Användaren har en roll, vilket betyder att det är en admin. adminFrame körs.
      */
     public void btnLoginClicked() {
-        if (con.getAllUserAndPass(view.getLoginUsername(), view.getLoginPassword())) {
-            if (!con.getRole(view.getLoginUsername(), view.getLoginPassword())) {
-                user.setUsername(view.getLoginUsername());
-                view.getLoginFrame().setVisible(false);
-                userHomePageFrame = new UserHomepageFrame(this);
-                userHomePageFrame.setLblloginUser(user.getUsername());
-                userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
-                userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
+        try {
+            if (con.getAllUserAndPass(view.getLoginUsername(), view.getLoginPassword())) {
+                if (!con.getRole(view.getLoginUsername(), view.getLoginPassword())) {
+                    user.setUsername(view.getLoginUsername());
+                    view.getLoginFrame().setVisible(false);
+                    userHomePageFrame = new UserHomepageFrame(this);
+                    userHomePageFrame.setLblloginUser(user.getUsername());
+                    userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
+                    userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
+                } else {
+                    view.getLoginFrame().setVisible(false);
+                    adminFrame = new AdminFrame(this);
+                    adminFrame.updateUserList(con.getUsersAndEmail());
+                    adminFrame.updateGuideList(con.getAllGuides());
+                    adminFrame.setLblLoginAdmin(view.getLoginUsername());
+                }
             } else {
-                view.getLoginFrame().setVisible(false);
-                adminFrame = new AdminFrame(this);
-                adminFrame.updateUserList(con.getUsersAndEmail());
-                adminFrame.updateGuideList(con.getAllGuides());
-                adminFrame.setLblLoginAdmin(view.getLoginUsername());
+                util.showErrorDialog("Fel användarnamn eller lösenord!");
             }
-        } else {
-            util.showErrorDialog("Fel användarnamn eller lösenord!");
+        } catch (NullPointerException exception) {
+            util.showErrorDialog("Verkar om du inte har någon internetanslutning \nKvarstår problemet kontakta systemadministratören!");
+            exception.printStackTrace();
         }
     }
 
