@@ -10,7 +10,7 @@ public class MainFrame extends JFrame {
     private int margin = 5;
 
     private LoginFrame loginFrame;
-    private UserHomepageFrame hpf;
+    private UserHomepageFrame userHomePageFrame;
 
     private HomePageFrame homePageFrame;
 
