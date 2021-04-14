@@ -17,15 +17,15 @@ public class MakeGuideGui extends JFrame implements ActionListener{
     private Controller controller;
 
     private JButton btnCancel,btnMakeGuide,btnAddPicture;
-    private JTextArea InputTextArea;
-    private JComboBox<String> KategoriComboBox;
-    private JLabel SkapaguideLabel;
-    private JTextField TitelField;
-    private JComboBox<String> TypeComboBox;
+    private JTextArea inputTextArea;
+    private JComboBox<String> categoryComboBox;
+    private JLabel lblCreateGuide;
+    private JTextField titleField;
+    private JComboBox<String> typeComboBox;
     private JInternalFrame jInternalFrame1;
     private JInternalFrame jInternalFrame2;
     private JScrollPane jScrollPane1;
-    private MakeGuideGui skapaGuideGui;
+    private MakeGuideGui createGuideGUI;
 
 
     public MakeGuideGui(Controller controller) {
@@ -39,13 +39,13 @@ public class MakeGuideGui extends JFrame implements ActionListener{
         jInternalFrame1 = new JInternalFrame();
         jInternalFrame2 = new JInternalFrame();
         jScrollPane1 = new JScrollPane();
-        InputTextArea = new JTextArea();
-        TypeComboBox = new JComboBox<>();
-        KategoriComboBox = new JComboBox<>();
-        TitelField = new JTextField();
+        inputTextArea = new JTextArea();
+        typeComboBox = new JComboBox<>();
+        categoryComboBox = new JComboBox<>();
+        titleField = new JTextField();
         btnMakeGuide = new JButton();
         btnAddPicture = new JButton();
-        SkapaguideLabel = new JLabel();
+        lblCreateGuide = new JLabel();
         btnCancel = new JButton();
 
         jInternalFrame1.setVisible(true);
@@ -74,17 +74,17 @@ public class MakeGuideGui extends JFrame implements ActionListener{
                         .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        InputTextArea.setColumns(20);
-        InputTextArea.setRows(5);
-        InputTextArea.setText("Beskrivning.");
-        jScrollPane1.setViewportView(InputTextArea);
+        inputTextArea.setColumns(20);
+        inputTextArea.setRows(5);
+        inputTextArea.setText("Beskrivning.");
+        jScrollPane1.setViewportView(inputTextArea);
 
-        TypeComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
+        typeComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
 
 
-        KategoriComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
+        categoryComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
 
-        TitelField.setText("Titel");
+        titleField.setText("Titel");
 
 
         btnMakeGuide.setText("Skapa Guide");
@@ -94,8 +94,8 @@ public class MakeGuideGui extends JFrame implements ActionListener{
         btnAddPicture.setText("Lägg till Bild");
 
 
-        SkapaguideLabel.setFont(new Font("Tahoma", 1, 14)); // NOI18N
-        SkapaguideLabel.setText("Skapa ny Guide");
+        lblCreateGuide.setFont(new Font("Tahoma", 1, 14)); // NOI18N
+        lblCreateGuide.setText("Skapa ny Guide");
 
         btnCancel.setText("Avbryt");
 
@@ -111,28 +111,28 @@ public class MakeGuideGui extends JFrame implements ActionListener{
                                                         .addComponent(btnCancel, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
                                                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                         .addComponent(btnMakeGuide, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE))
-                                                .addComponent(TitelField, GroupLayout.Alignment.LEADING)
+                                                .addComponent(titleField, GroupLayout.Alignment.LEADING)
                                                 .addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                        .addComponent(TypeComboBox, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(typeComboBox, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE)
                                                         .addGap(18, 18, 18)
-                                                        .addComponent(KategoriComboBox, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(categoryComboBox, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE)
                                                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                                                         .addComponent(btnAddPicture, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE))
                                                 .addComponent(jScrollPane1, GroupLayout.Alignment.LEADING))
-                                        .addComponent(SkapaguideLabel, GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(lblCreateGuide, GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap(63, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addGap(21, 21, 21)
-                                .addComponent(SkapaguideLabel, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblCreateGuide, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(TitelField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(titleField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(TypeComboBox, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(KategoriComboBox, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(typeComboBox, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(categoryComboBox, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
                                         .addComponent(btnAddPicture, GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
                                 .addGap(18, 18, 18)
                                 .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 368, GroupLayout.PREFERRED_SIZE)
@@ -159,10 +159,10 @@ public class MakeGuideGui extends JFrame implements ActionListener{
     }
 
     public String getTitelGuide() {
-        return TitelField.getText();
+        return titleField.getText();
     }
     public String getDescriptionField() {
-        return InputTextArea.getText();
+        return inputTextArea.getText();
     }
 
 
