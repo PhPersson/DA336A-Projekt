@@ -246,11 +246,11 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
             int guideId = (int) jTableLow.getModel().getValueAt(jTableLow.getSelectedRow(),0);
             int row = jTableLow.getSelectedRow();
 
+
             controller.openGuide(guideId,jTableLow.getModel().getValueAt(row,0).toString(),
                     jTableLow.getModel().getValueAt(row,1).toString(),
                     jTableLow.getModel().getValueAt(row,2).toString(),
                     jTableLow.getModel().getValueAt(row, 4).toString());
-
         } else if (e.getSource() == btnUserSettings) {
             controller.btnUserSettings();
         }

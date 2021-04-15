@@ -4,7 +4,6 @@ import javax.swing.*;
 
 public class GuiUtilities {
 
-
     public void showDialog(String message) {
         JOptionPane.showMessageDialog(null,message);
     }

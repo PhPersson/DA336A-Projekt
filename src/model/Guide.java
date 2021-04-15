@@ -13,7 +13,7 @@ public class Guide {
     private Date datetime;
     private int rating;
     private int views;
-    private int nbrofratings;
+    private int nbrOfRatings;
     private File[] files;
 
     private String category;
@@ -21,7 +21,6 @@ public class Guide {
     private String type;
 
     public Guide(){
-
     }
 
     public Guide(String title,String description,String author, File[] files) {
@@ -44,8 +43,6 @@ public class Guide {
         this.author = author;
         this.description = description;
     }
-
-
 
     public String getTitle() {
         return title;
@@ -78,7 +75,6 @@ public class Guide {
     public void setDescription(String description) {
         this.description = description;
     }
-
 
     public String getAuthor() {
         return author;

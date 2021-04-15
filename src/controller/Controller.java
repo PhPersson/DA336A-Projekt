@@ -227,7 +227,7 @@ public class Controller {
      */
 
     public void btnCreateGuide() {
-        con.createGuide(guide = new Guide(makeGuideGUI.getTitelGuide(), makeGuideGUI.getDescriptionField(), user.getUsername()));
+        con.createGuide(guide = new Guide(makeGuideGUI.getTitleGuide(), makeGuideGUI.getDescriptionField(), user.getUsername()));
         userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
         userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
     }
@@ -248,11 +248,11 @@ public class Controller {
     }
 
     public void changePasswordUser() {
-        con.updateUserPassword(userSettings.getPassField1(), user.getUsername());
+        con.updateUserPassword(userSettings.getFieldPass1(), user.getUsername());
     }
 
     public void changeEmailUser() {
-        con.updateUserEmail(userSettings.getEmailField(), user.getUsername());
+        con.updateUserEmail(userSettings.getFieldEmail(), user.getUsername());
         userSettings.setlblEmail(con.getUserEmail(user.getUsername()));
     }
 
