@@ -15,7 +15,6 @@ public class RegisterFrame extends JFrame implements ActionListener {
     private JTextField txtUsername, txtEmail, txtPassword, txtConPassword;
     private JButton btnRegister;
     private JButton btnCancel;
-
     private Controller controller;
     private GuiUtilities util;
 
@@ -37,7 +36,6 @@ public class RegisterFrame extends JFrame implements ActionListener {
         Dimension fieldSize = new Dimension(180, 30);
 
         panel = new JPanel();
-
 
         panel.setLayout(layout);
         panel.setSize(new Dimension(250, 500));
@@ -114,11 +112,6 @@ public class RegisterFrame extends JFrame implements ActionListener {
             if (util.showConfirmationDialog("Säker att du vill avbryta registreringen?") == 1) {
                 setVisible(false);
             }
-
         }
-
-
     }
-
-
 }

@@ -7,20 +7,19 @@ import javax.mail.internet.*;
 
 public class Email {
 
-    private String recepient;
+    private String recipient;
     private String username;
 
-
-    public Email(String recepient, String username) {
-        this.recepient = recepient;
+    public Email(String recipient, String username) {
+        this.recipient = recipient;
         this.username = username;
     }
 
     public static boolean isValidEmailAddress(String email) {
         boolean result = true;
         try {
-            InternetAddress emailAddr = new InternetAddress(email);
-            emailAddr.validate();
+            InternetAddress emailAddress = new InternetAddress(email);
+            emailAddress.validate();
         } catch (AddressException exception) {
             exception.printStackTrace();
             result = false;
@@ -28,13 +27,13 @@ public class Email {
         return result;
     }
 
-    public static void sendMail(String recepient, String username) {
+    public static void sendMail(String recipient, String username) {
         {
             // Sender's email ID needs to be mentioned
             final String from = "supmeg25@gmail.com";
             final String pass = "supportme25";
             // Recipient's email ID needs to be mentioned.
-            String to = recepient;
+            String to = recipient;
 
             String host = "smtp.gmail.com";
 
@@ -53,7 +52,7 @@ public class Email {
 
             try {
 
-                InternetAddress emailAddr = new InternetAddress(recepient);
+                InternetAddress emailAddr = new InternetAddress(recipient);
                 emailAddr.validate();
 
                 // Create a default MimeMessage object.

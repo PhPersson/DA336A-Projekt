@@ -7,7 +7,7 @@ package model;
  */
 public class User {
 
-    private String Username;
+    private String username;
     private String email;
     private String password;
     private int role;
@@ -15,18 +15,18 @@ public class User {
     public User(){}
 
     public User(String username, String email, String password, int role) {
-        this.Username = username;
+        this.username = username;
         this.email = email;
         this.password = password;
         this.role = role;
     }
 
     public String getUsername() {
-        return Username;
+        return username;
     }
 
     public void setUsername(String username) {
-        this.Username = username;
+        this.username = username;
     }
 
     public int getRole(){
@@ -56,7 +56,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "fName='" + Username + '\'' +
+                "fName='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 '}';
