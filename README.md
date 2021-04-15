@@ -2,7 +2,7 @@
 
 <img src="https://github.com/PhPersson/Support_Me/blob/main/files/Logga2.png" width=300 align=topleft>
 
-* [Delaktiga](#Delaktiga)
+
 * [Projektbeskrivning](#Projektbeskrivning)
 * [Github](#Github)
 
@@ -21,4 +21,4 @@ SupportMe är en desktopapplikation som går ut på att hjälpa användaren med 
 3. För att kunna logga in som användare krävs det att du anger ett användarnamn, gilltig epost samt ett lösenord.
 
 
-Länk till källkoden finns på [GitHub](https://github.com/PhPersson/DA336A-Projekt/tree/RS1/src)
+Länk till källkoden finns på [GitHub](https://github.com/PhPersson/DA336A-Projekt/tree/RS2/src)
