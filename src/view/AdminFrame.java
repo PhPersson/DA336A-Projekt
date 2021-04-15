@@ -1,10 +1,7 @@
 package view;
 
 import controller.Controller;
-
-
 import javax.imageio.ImageIO;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -13,6 +10,12 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+
+
+/**
+ * @author Philip Persson
+ * @version 1.0
+ */
 
 public class AdminFrame extends JFrame implements ActionListener {
 
@@ -72,10 +75,10 @@ public class AdminFrame extends JFrame implements ActionListener {
 
         jComboBox2.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        btnDeleteGuide.setFont(new Font("Tahoma", 0, 12)); // NOI18N
+        btnDeleteGuide.setFont(new Font("Tahoma", 0, 12));
         btnDeleteGuide.setText("Ta bort");
 
-        btnEditGuide.setFont(new Font("Tahoma", 0, 12)); // NOI18N
+        btnEditGuide.setFont(new Font("Tahoma", 0, 12));
         btnEditGuide.setText("Redigera");
 
         userTable.setModel(new DefaultTableModel(
@@ -124,17 +127,17 @@ public class AdminFrame extends JFrame implements ActionListener {
 
         guideSearch.setText("");
 
-        btnSearchGuide.setFont(new Font("Tahoma", 0, 12)); // NOI18N
+        btnSearchGuide.setFont(new Font("Tahoma", 0, 12));
         btnSearchGuide.setText("Sök");
 
         jComboBox1.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jComboBox2.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        btnDeleteGuide.setFont(new Font("Tahoma", 0, 12)); // NOI18N
+        btnDeleteGuide.setFont(new Font("Tahoma", 0, 12));
         btnDeleteGuide.setText("Ta bort");
 
-        btnEditGuide.setFont(new Font("Tahoma", 0, 12)); // NOI18N
+        btnEditGuide.setFont(new Font("Tahoma", 0, 12));
         btnEditGuide.setText("Redigera");
 
         userTable.setModel(new DefaultTableModel(

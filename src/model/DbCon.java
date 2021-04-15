@@ -1,7 +1,6 @@
 package model;
 
 import controller.Controller;
-
 import javax.swing.table.DefaultTableModel;
 import java.io.FileInputStream;
 import java.sql.*;
@@ -9,6 +8,7 @@ import java.util.ArrayList;
 
 
 /**
+ * @version 1.0
  * @author Philip Persson
  * @author Simon Pizevski
  */
@@ -507,6 +507,21 @@ public class DbCon {
             connection.setAutoCommit(false);
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1,titleToRemove);
+            ps.execute();
+            connection.commit();
+            ps.close();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    public void addView(int guideId){
+        String query = "UPDATE Guide SET views = views + 1 WHERE guideId = ?";
+
+        try {
+            connection.setAutoCommit(false);
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1,guideId);
             ps.execute();
             connection.commit();
             ps.close();

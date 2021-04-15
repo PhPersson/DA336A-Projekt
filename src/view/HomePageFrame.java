@@ -12,6 +12,11 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * @author Philip Persson
+ * @version 1.0
+ */
+
 public class HomePageFrame extends JFrame implements ActionListener {
 
     private JButton btnLogin,btnSearch,btnShowGuides;
@@ -149,14 +154,14 @@ public class HomePageFrame extends JFrame implements ActionListener {
         } else if (e.getSource() == btnLogin) {
             controller.btnHomePageFrameLogin();
         } else if (e.getSource() == btnShowGuides){ // Visa den markerade guiden // Baserat på vilket index man står på i raden.
+            int guideId = (int) table.getModel().getValueAt(table.getSelectedRow(),0);
             int row = table.getSelectedRow();
 
-            String titleString = table.getModel().getValueAt(row,1).toString();
-            String authorString = table.getModel().getValueAt(row,2).toString();
-            String dateString = table.getModel().getValueAt(row,3).toString();
-            String descriptionString = table.getModel().getValueAt(row, 5).toString();
+            controller.openGuide(guideId,table.getModel().getValueAt(row,1).toString(),
+                    table.getModel().getValueAt(row,2).toString(),
+                    table.getModel().getValueAt(row,3).toString(),
+                    table.getModel().getValueAt(row,5).toString());
 
-            new ShowGuideGUI(controller, titleString, authorString, dateString, descriptionString);
         } else if (e.getSource() == btnSearch){
             controller.btnNoLoginSearchGuide(txtSearch.getText());
         }
