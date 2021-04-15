@@ -118,11 +118,7 @@ public class EditGuideGUI extends JFrame implements ActionListener {
         if (e.getSource() == btnClose) {
             frame.dispose();
         } else if (e.getSource() == btnSaveGuide) {
-            try {
-                controller.btnSaveGuidesHP();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
+            controller.btnSaveGuidesHP();
             frame.dispose();
         }
     }
