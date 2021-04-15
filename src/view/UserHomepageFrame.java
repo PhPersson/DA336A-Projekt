@@ -240,7 +240,9 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
         else if (e.getSource() == btnShowGuideUpper) {
             int guideId = (int) jTableUp.getModel().getValueAt(jTableUp.getSelectedRow(),0);
             int row = jTableUp.getSelectedRow();
-            controller.openGuide(guideId,jTableUp.getModel().getValueAt(row,1).toString(),
+            controller.openGuide(
+                    guideId,
+                    jTableUp.getModel().getValueAt(row,1).toString(),
                     jTableUp.getModel().getValueAt(row,2).toString(),
                     jTableUp.getModel().getValueAt(row,3).toString(),
                     jTableUp.getModel().getValueAt(row, 5).toString());
@@ -250,10 +252,11 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
             int row = jTableLow.getSelectedRow();
 
 
-            controller.openGuide(guideId,jTableLow.getModel().getValueAt(row,0).toString(),
+            controller.openGuide(guideId,
                     jTableLow.getModel().getValueAt(row,1).toString(),
                     jTableLow.getModel().getValueAt(row,2).toString(),
-                    jTableLow.getModel().getValueAt(row, 4).toString());
+                    jTableLow.getModel().getValueAt(row,3).toString(),
+                    jTableLow.getModel().getValueAt(row,5).toString());
         } else if (e.getSource() == btnUserSettings) {
             controller.btnUserSettings();
         }

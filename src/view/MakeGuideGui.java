@@ -164,7 +164,7 @@ public class MakeGuideGui extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnCancel) {
-            controller.btnAvbrytGuide();
+            controller.btnCancelGuide();
         } else if (e.getSource() == btnMakeGuide) {
             controller.btnCreateGuide();
             dispose();
