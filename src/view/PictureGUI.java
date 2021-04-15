@@ -8,11 +8,8 @@ import java.awt.event.ActionListener;
 
 public class PictureGUI extends JFrame implements ActionListener {
 
-    private JPanel panel;
-    private JFrame frame;
     private JPanel centerPanel, southPanel;
     private JLabel lblPicture;
-
     private JButton btnNext, btnBack;
 
     public PictureGUI() {
@@ -59,10 +56,9 @@ public class PictureGUI extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnBack){
-            System.out.println("bajs");
+            System.out.println("1");
         } else if (e.getSource() == btnNext){
-            System.out.println("Kiss");
+            System.out.println("2");
         }
-
     }
 }
