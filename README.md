@@ -4,7 +4,7 @@
 
 
 * [Projektbeskrivning](#Projektbeskrivning)
-* [Github](#Github)
+* [Github](#https://github.com/PhPersson/DA336A-Projekt/tree/RS2/src)
 
 Delaktiga:
 1. Philip Persson, 
