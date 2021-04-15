@@ -161,8 +161,6 @@ public class Controller {
         con.searchGuide(text);
     }
 
-
-
     /**
      * Användare loggar in från homePageFrame
      */
@@ -180,10 +178,10 @@ public class Controller {
     }
 
     /**
-     * @param soktext
+     * @param searchText
      */
-    public void btnUserSearchGuide(String soktext) {
-        userHomePageFrame.updateUserSearchGuideList(con.searchGuide(soktext));
+    public void btnUserSearchGuide(String searchText) {
+        userHomePageFrame.updateUserSearchGuideList(con.searchGuide(searchText));
     }
 
     /**
@@ -211,7 +209,7 @@ public class Controller {
     /**
      *
      */
-    public void btnAvbrytGuide() {
+    public void btnCancelGuide() {
         makeGuideGUI.setVisible(false);
         System.out.println(user.getUsername());
     }
@@ -233,7 +231,6 @@ public class Controller {
         return util;
     }
 
-
     public void btnUserSettings() {
         userSettings = new UserSettings(this);
         userSettings.setVisible(true);
@@ -251,7 +248,6 @@ public class Controller {
     }
 
     public void btnSaveGuidesHP() {
-
         if (user.getUsername() == "admin") {
             int row = adminFrame.getGuideTable().getSelectedRow();
             con.updateGuide(editGuideGUI.getTitleEdit(), editGuideGUI.getDescription(),
@@ -296,8 +292,8 @@ public class Controller {
 
     }
 
-    public void openGuide(int guideId, String titel, String author, String date, String description) {
-        new ShowGuideGUI(this, titel,author,date,description);
+    public void openGuide(int guideId, String title, String author, String date, String description) {
+        new ShowGuideGUI(this, title,author,date,description);
         con.addView(guideId);
     }
 }
