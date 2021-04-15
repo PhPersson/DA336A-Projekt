@@ -13,7 +13,7 @@ public class Guide {
     private Date datetime;
     private int rating;
     private int views;
-    private int nbrOfRatings;
+    private int nbrofratings;
     private File[] files;
 
     private String category;
