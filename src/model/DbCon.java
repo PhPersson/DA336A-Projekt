@@ -515,6 +515,21 @@ public class DbCon {
         }
     }
 
+    public void addView(int guideId){
+        String query = "UPDATE Guide SET views = views + 1 WHERE guideId = ?";
+
+        try {
+            connection.setAutoCommit(false);
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1,guideId);
+            ps.execute();
+            connection.commit();
+            ps.close();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+    }
+
 
 }
 

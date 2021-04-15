@@ -303,4 +303,9 @@ public class Controller {
         userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
 
     }
+
+    public void openGuide(int guideId, String titel, String author, String date, String description) {
+        new ShowGuideGUI(this, titel,author,date,description);
+        con.addView(guideId);
+    }
 }

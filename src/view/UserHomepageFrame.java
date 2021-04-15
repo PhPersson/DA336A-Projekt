@@ -234,23 +234,23 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
         } else if (e.getSource() == btnSearch) {
             controller.btnUserSearchGuide(txtSearch.getText());
         } else if (e.getSource() == btnShowGuideUpper) {
+            int guideId = (int) jTableUp.getModel().getValueAt(jTableUp.getSelectedRow(),0);
             int row = jTableUp.getSelectedRow();
-
-            String titleString = jTableUp.getModel().getValueAt(row,1).toString();
-            String authorString = jTableUp.getModel().getValueAt(row,2).toString();
-            String dateString = jTableUp.getModel().getValueAt(row,3).toString();
-            String descriptionString = jTableUp.getModel().getValueAt(row, 5).toString();
-
-            new ShowGuideGUI(controller,titleString, authorString, dateString, descriptionString);
+            System.out.println(guideId);
+            controller.openGuide(guideId,jTableUp.getModel().getValueAt(row,1).toString(),
+                    jTableUp.getModel().getValueAt(row,2).toString(),
+                    jTableUp.getModel().getValueAt(row,3).toString(),
+                    jTableUp.getModel().getValueAt(row, 5).toString());
         } else if (e.getSource() == btnShowGuideLower) {
+
+            int guideId = (int) jTableLow.getModel().getValueAt(jTableLow.getSelectedRow(),0);
             int row = jTableLow.getSelectedRow();
 
-            String titleString = jTableLow.getModel().getValueAt(row,0).toString();
-            String authorString = jTableLow.getModel().getValueAt(row,1).toString();
-            String dateString = jTableLow.getModel().getValueAt(row,2).toString();
-            String descriptionString = jTableLow.getModel().getValueAt(row, 4).toString();
+            controller.openGuide(guideId,jTableLow.getModel().getValueAt(row,0).toString(),
+                    jTableLow.getModel().getValueAt(row,1).toString(),
+                    jTableLow.getModel().getValueAt(row,2).toString(),
+                    jTableLow.getModel().getValueAt(row, 4).toString());
 
-            new ShowGuideGUI(controller,titleString, authorString, dateString, descriptionString);
         } else if (e.getSource() == btnUserSettings) {
             controller.btnUserSettings();
         }
@@ -266,4 +266,6 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
     public JTable getTableLow() {
         return jTableLow;
     }
+
+    public JTable getjTableUp() {return jTableUp;}
 }
