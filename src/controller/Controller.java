@@ -3,7 +3,6 @@ package controller;
 import model.*;
 import view.*;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 /**
  * @author Philip Persson
@@ -19,7 +18,7 @@ public class Controller {
     private GuiUtilities util;
     private AdminFrame adminFrame;
     private HomePageFrame homePageFrame;
-    private MakeGuideGui makeGuideGui;
+    private MakeGuideGui makeGuideGUI;
     private UserSettings userSettings;
     private EditGuideGUI editGuideGUI;
     private PictureGUI pictureGUI;
@@ -214,15 +213,15 @@ public class Controller {
      *
      */
     public void btnOpenCreateGuideFrame() {
-        makeGuideGui = new MakeGuideGui(this);
-        makeGuideGui.setVisible(true);
+        makeGuideGUI = new MakeGuideGui(this);
+        makeGuideGUI.setVisible(true);
     }
 
     /**
      *
      */
     public void btnAvbrytGuide() {
-        makeGuideGui.setVisible(false);
+        makeGuideGUI.setVisible(false);
         System.out.println(user.getUsername());
     }
 
@@ -231,7 +230,7 @@ public class Controller {
      */
 
     public void btnCreateGuide() {
-        con.createGuide(guide = new Guide(makeGuideGui.getTitelGuide(), makeGuideGui.getDescriptionField(), user.getUsername()));
+        con.createGuide(guide = new Guide(makeGuideGUI.getTitelGuide(), makeGuideGUI.getDescriptionField(), user.getUsername()));
         userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
         userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
     }
@@ -262,7 +261,7 @@ public class Controller {
 
     public void btnSaveGuidesHP() {
 
-        if (adminFrame.isVisible()) {
+        if (user.getUsername() == "admin") {
             int row = adminFrame.getGuideTable().getSelectedRow();
             con.updateGuide(editGuideGUI.getTitleEdit(), editGuideGUI.getDescription(),
                     adminFrame.getGuideTable().getModel().getValueAt(row, 0).toString());
@@ -277,7 +276,7 @@ public class Controller {
     }
 
     public void editGuide() {
-        if (adminFrame.isVisible()) {
+        if (user.getUsername() == "admin") {
             int row = adminFrame.getGuideTable().getSelectedRow();
 
             String titleString = adminFrame.getGuideTable().getModel().getValueAt(row, 1).toString();
@@ -297,27 +296,14 @@ public class Controller {
         }
     }
 
-
-//    public void editGuideAdmin() {
-//        int row = adminFrame.getGuideTable().getSelectedRow();
-//
-//        String titleString = adminFrame.getGuideTable().getModel().getValueAt(row, 1).toString();
-//        String authorString = adminFrame.getGuideTable().getModel().getValueAt(row, 2).toString();
-//        String dateString = adminFrame.getGuideTable().getModel().getValueAt(row, 3).toString();
-//        String descriptionString = adminFrame.getGuideTable().getModel().getValueAt(row, 5).toString();
-//
-//        editGuideGUI = new EditGuideGUI(this, titleString, authorString, dateString, descriptionString);
-//    }
-
-        public void pictureGUI () {
-            pictureGUI = new PictureGUI();
-            pictureGUI.setVisible(true);
-        }
-
-        public void btnDeleteGuide (String titleToRemove){
-            con.deleteGuide(titleToRemove);
-            userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
-            userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
-
-        }
+    public void pictureGUI () {
+        pictureGUI = new PictureGUI();
+        pictureGUI.setVisible(true);
     }
+
+    public void btnDeleteGuide (String titleToRemove){
+        con.deleteGuide(titleToRemove);
+        userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
+        userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
+    }
+}
