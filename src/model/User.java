@@ -1,5 +1,10 @@
 package model;
 
+
+/**
+ * @version 1.0
+ * @author Philip Persson
+ */
 public class User {
 
     private String Username;

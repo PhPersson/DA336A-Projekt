@@ -2,9 +2,10 @@ package controller;
 
 import model.*;
 import view.*;
-
 import java.util.ArrayList;
+
 /**
+ * @version 1.0
  * @author Philip Persson
  * @author Simon Pizevski
  */
@@ -160,14 +161,7 @@ public class Controller {
         con.searchGuide(text);
     }
 
-    /**
-     * Visa guide för användare som inte loggat in.
-     *
-     * @param indexGuide
-     */
-    public void btnShowGuide(String indexGuide, String titleString, String dateString, String authorString) {
 
-    }
 
     /**
      * Användare loggar in från homePageFrame
@@ -273,22 +267,20 @@ public class Controller {
     }
 
     public void editGuide() {
-        if (user.getUsername() == "admin") {
+        if (adminFrame.isVisible()) {
             int row = adminFrame.getGuideTable().getSelectedRow();
 
-            String titleString = adminFrame.getGuideTable().getModel().getValueAt(row, 1).toString();
-            String authorString = adminFrame.getGuideTable().getModel().getValueAt(row, 2).toString();
-            String dateString = adminFrame.getGuideTable().getModel().getValueAt(row, 3).toString();
-            String descriptionString = adminFrame.getGuideTable().getModel().getValueAt(row, 5).toString();
-            editGuideGUI = new EditGuideGUI(this, titleString, authorString, dateString, descriptionString);
+            editGuideGUI = new EditGuideGUI(this, adminFrame.getGuideTable().getModel().getValueAt(row, 1).toString(),
+                    adminFrame.getGuideTable().getModel().getValueAt(row, 2).toString(),
+                    adminFrame.getGuideTable().getModel().getValueAt(row, 3).toString(),
+                    adminFrame.getGuideTable().getModel().getValueAt(row, 5).toString());
         } else {
             int row = userHomePageFrame.getTableLow().getSelectedRow();
 
-            String titleString = userHomePageFrame.getTableLow().getModel().getValueAt(row, 1).toString();
-            String authorString = userHomePageFrame.getTableLow().getModel().getValueAt(row, 2).toString();
-            String dateString = userHomePageFrame.getTableLow().getModel().getValueAt(row, 3).toString();
-            String descriptionString = userHomePageFrame.getTableLow().getModel().getValueAt(row, 5).toString();
-            editGuideGUI = new EditGuideGUI(this, titleString, authorString, dateString, descriptionString);
+            editGuideGUI = new EditGuideGUI(this, userHomePageFrame.getTableLow().getModel().getValueAt(row, 1).toString(),
+                    userHomePageFrame.getTableLow().getModel().getValueAt(row, 2).toString(),
+                    userHomePageFrame.getTableLow().getModel().getValueAt(row, 3).toString(),
+                    userHomePageFrame.getTableLow().getModel().getValueAt(row, 5).toString());
         }
     }
 

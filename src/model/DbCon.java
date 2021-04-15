@@ -1,7 +1,6 @@
 package model;
 
 import controller.Controller;
-
 import javax.swing.table.DefaultTableModel;
 import java.io.FileInputStream;
 import java.sql.*;
@@ -9,6 +8,7 @@ import java.util.ArrayList;
 
 
 /**
+ * @version 1.0
  * @author Philip Persson
  * @author Simon Pizevski
  */
