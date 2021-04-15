@@ -155,7 +155,7 @@ public class DbCon {
             register.setString(1, user.getUsername());
             register.setString(2, user.getPassword());
             register.setString(3, user.getEmail());
-            register.setInt(4, 0);
+            register.setInt(4, 0); // user.gerRole()
             register.execute();
             connection.commit();
             register.close();
