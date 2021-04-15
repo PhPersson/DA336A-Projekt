@@ -19,10 +19,10 @@ public class AdminFrame extends JFrame implements ActionListener {
     private JTable userTable,guideTable;
     private JButton btnDeleteGuide,btnDeleteUser,btnEditGuide,btnLogOff,btnSearchGuide,btnSearchUser;
     private JScrollPane guideTableScroll,userTableScroll;
-    private JTextField guideSearch, userSearch;
+    private JTextField guidesearch,userSearch;
     private JComboBox<String> jComboBox1;
     private JComboBox<String> jComboBox2;
-    private JLabel lblGuideSearch,lblLogo,lblUserSearch, lblAdminName, lblLogin;
+    private JLabel lblGuideSearch,lblLogo,lblUserSearch,lbladminName,lbllogin;
 
     private Controller controller;
 
@@ -42,7 +42,7 @@ public class AdminFrame extends JFrame implements ActionListener {
                 180 ,50, Image.SCALE_SMOOTH)));
 
 
-        guideSearch = new JTextField();
+        guidesearch = new JTextField();
         btnSearchGuide = new JButton();
         jComboBox1 = new JComboBox<>();
         jComboBox2 = new JComboBox<>();
@@ -56,15 +56,15 @@ public class AdminFrame extends JFrame implements ActionListener {
         lblGuideSearch = new JLabel();
         userSearch = new JTextField();
         btnSearchUser = new JButton();
-        lblLogin = new JLabel();
-        lblAdminName = new JLabel();
+        lbllogin = new JLabel();
+        lbladminName = new JLabel();
         btnLogOff = new JButton();
         btnDeleteUser = new JButton();
         lblUserSearch = new JLabel();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        guideSearch.setText("");
+        guidesearch.setText("");
         setTitle("Admninistratör");
         btnSearchGuide.setFont(new Font("Tahoma", 0, 12));
         btnSearchGuide.setText("Sök");
@@ -117,15 +117,15 @@ public class AdminFrame extends JFrame implements ActionListener {
         btnSearchUser.setFont(new Font("Tahoma", 0, 12));
         btnSearchUser.setText("Sök");
 
-        lblLogin.setText("Inloggad:");
+        lbllogin.setText("Inloggad:");
 
-        lblAdminName.setText("\"\"");
+        lbladminName.setText("\"\"");
 
 
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        guideSearch.setText("");
+        guidesearch.setText("");
 
         btnSearchGuide.setFont(new Font("Tahoma", 0, 12)); // NOI18N
         btnSearchGuide.setText("Sök");
@@ -175,9 +175,9 @@ public class AdminFrame extends JFrame implements ActionListener {
         btnSearchUser.setFont(new Font("Tahoma", 0, 12));
         btnSearchUser.setText("Sök");
 
-        lblLogin.setText("Inloggad:");
+        lbllogin.setText("Inloggad:");
 
-        lblAdminName.setText("\"\"");
+        lbladminName.setText("\"\"");
 
 
         btnLogOff.setFont(new Font("Tahoma", 0, 12));
@@ -200,7 +200,7 @@ public class AdminFrame extends JFrame implements ActionListener {
                                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
                                                                 .addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                                        .addComponent(guideSearch, GroupLayout.PREFERRED_SIZE, 340, GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(guidesearch, GroupLayout.PREFERRED_SIZE, 340, GroupLayout.PREFERRED_SIZE)
                                                                         .addGap(18, 18, 18)
                                                                         .addComponent(btnSearchGuide, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE))
                                                                 .addGroup(layout.createSequentialGroup()
@@ -225,9 +225,9 @@ public class AdminFrame extends JFrame implements ActionListener {
                                                                 .addGroup(GroupLayout.Alignment.TRAILING, layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                                                                         .addComponent(btnLogOff, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                                         .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                                                .addComponent(lblLogin)
+                                                                                .addComponent(lbllogin)
                                                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                                                                .addComponent(lblAdminName))))
+                                                                                .addComponent(lbladminName))))
                                                         .addComponent(btnDeleteUser, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE))))
                                 .addContainerGap(40, Short.MAX_VALUE))
         );
@@ -237,8 +237,8 @@ public class AdminFrame extends JFrame implements ActionListener {
                                 .addGap(21, 21, 21)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addComponent(lblLogo)
-                                        .addComponent(lblLogin)
-                                        .addComponent(lblAdminName))
+                                        .addComponent(lbllogin)
+                                        .addComponent(lbladminName))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnLogOff)
                                 .addGap(18, 18, Short.MAX_VALUE)
@@ -247,7 +247,7 @@ public class AdminFrame extends JFrame implements ActionListener {
                                         .addComponent(lblUserSearch))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                        .addComponent(guideSearch, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(guidesearch, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
                                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                                 .addComponent(userSearch, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(btnSearchUser, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
@@ -297,12 +297,12 @@ public class AdminFrame extends JFrame implements ActionListener {
     }
 
     public void setLblLoginAdmin(String name) {
-        lblAdminName.setText(name);
-        lblAdminName.setForeground(Color.darkGray);
+        lbladminName.setText(name);
+        lbladminName.setForeground(Color.darkGray);
     }
 
     public String getAdminName() {
-        return lblAdminName.getText();
+        return lbladminName.getText();
     }
 
     public JTable getGuideTable() {
@@ -319,7 +319,7 @@ public class AdminFrame extends JFrame implements ActionListener {
         } else if (e.getSource() == btnSearchUser) {
             controller.btnAdminSearchUser(userSearch.getText());
         } else if (e.getSource() == btnSearchGuide) {
-            controller.btnAdminSearchGuide(guideSearch.getText());
+            controller.btnAdminSearchGuide(guidesearch.getText());
         } else if (e.getSource() == btnLogOff) {
             controller.btnLoggOffAdmin();
         } else if (e.getSource() == btnDeleteGuide) {
