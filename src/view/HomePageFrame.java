@@ -14,7 +14,6 @@ import java.io.IOException;
 
 public class HomePageFrame extends JFrame implements ActionListener {
 
-
     private JButton btnLogin,btnSearch,btnShowGuides;
     private JScrollPane jScrollPane1;
     private JTable table;
@@ -22,12 +21,10 @@ public class HomePageFrame extends JFrame implements ActionListener {
     private JTextField txtSearch;
     private Controller controller;
 
-
     public HomePageFrame(Controller controller) {
         this.controller = controller;
         initComponents();
     }
-
 
     private void initComponents() {
 

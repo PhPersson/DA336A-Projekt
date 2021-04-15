@@ -245,10 +245,10 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
         } else if (e.getSource() == btnShowGuideLower) {
             int row = jTableLow.getSelectedRow();
 
-            String titleString = jTableLow.getModel().getValueAt(row,0).toString();
-            String authorString = jTableLow.getModel().getValueAt(row,1).toString();
-            String dateString = jTableLow.getModel().getValueAt(row,2).toString();
-            String descriptionString = jTableLow.getModel().getValueAt(row, 4).toString();
+            String titleString = jTableLow.getModel().getValueAt(row,1).toString();
+            String authorString = jTableLow.getModel().getValueAt(row,2).toString();
+            String dateString = jTableLow.getModel().getValueAt(row,3).toString();
+            String descriptionString = jTableLow.getModel().getValueAt(row, 5).toString();
 
             new ShowGuideGUI(controller,titleString, authorString, dateString, descriptionString);
         } else if (e.getSource() == btnUserSettings) {
