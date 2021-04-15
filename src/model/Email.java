@@ -1,11 +1,8 @@
-package controller;
+package model;
 
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
-
-
-import static javax.tools.JavaFileObject.Kind.HTML;
 
 
 public class Email {
@@ -70,11 +67,7 @@ public class Email {
                         new InternetAddress(to));
 
                 // Set Subject: header field
-
-                message.setSubject("Välkommen " +username + " till SupportMe!");
-
                 message.setSubject("Välkommen " + username + " till SupportMe!");
-
 
                 // Now set the actual message
                 message.setContent("<h1>Välkommen!</h1>" + "\n" + "<p>Vi på SupportMe är glada att ha dig som kund hos oss!.</p>", "text/html");
@@ -85,8 +78,8 @@ public class Email {
                 transport.sendMessage(message, message.getAllRecipients());
                 transport.close();
                 System.out.println("Sent message successfully....");
-            } catch (MessagingException mex) {
-                mex.printStackTrace();
+            } catch (MessagingException exception) {
+                exception.printStackTrace();
             }
         }
     }

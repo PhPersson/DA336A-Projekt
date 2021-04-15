@@ -3,7 +3,6 @@ package controller;
 import model.*;
 import view.*;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 /**
  * @author Philip Persson
@@ -36,7 +35,6 @@ public class Controller {
 
     }
 
-    // Kanske skapa ett helt User objekt istället?
 
     /**
      * Registrera en ny användare.
@@ -45,7 +43,6 @@ public class Controller {
      * Om det är valid så läggs den nya användare in i databasen med parapetrar: Username, Email, Password.
      */
     public void btnRegisterClicked() {
-
         if (con.getAllUsernames(view.getTxtUsername())) {
             util.showDialog("TAKEN!!!!!");
         } else {
@@ -87,11 +84,10 @@ public class Controller {
                 util.showErrorDialog("Fel användarnamn eller lösenord!");
             }
         } catch (NullPointerException exception) {
-            util.showErrorDialog("Verkar om du inte har någon internetanslutning \nKvarstår problemet kontakta systemadministratören!");
+            util.showErrorDialog("Verkar om du inte har någon internetanslutning. \nKvarstår problemet kontakta systemadministratören!");
             exception.printStackTrace();
         }
     }
-
 
     /**
      * Användare väljer att starta programmet utan att logga in. homePageFrame körs.
@@ -293,31 +289,17 @@ public class Controller {
             String dateString = userHomePageFrame.getTableLow().getModel().getValueAt(row, 3).toString();
             String descriptionString = userHomePageFrame.getTableLow().getModel().getValueAt(row, 5).toString();
             editGuideGUI = new EditGuideGUI(this, titleString, authorString, dateString, descriptionString);
-
         }
     }
 
-
-//    public void editGuideAdmin() {
-//        int row = adminFrame.getGuideTable().getSelectedRow();
-//
-//        String titleString = adminFrame.getGuideTable().getModel().getValueAt(row, 1).toString();
-//        String authorString = adminFrame.getGuideTable().getModel().getValueAt(row, 2).toString();
-//        String dateString = adminFrame.getGuideTable().getModel().getValueAt(row, 3).toString();
-//        String descriptionString = adminFrame.getGuideTable().getModel().getValueAt(row, 5).toString();
-//
-//        editGuideGUI = new EditGuideGUI(this, titleString, authorString, dateString, descriptionString);
-//    }
-
-        public void pictureGUI () {
+    public void pictureGUI () {
             pictureGUI = new PictureGUI();
             pictureGUI.setVisible(true);
         }
 
-        public void btnDeleteGuide (String titleToRemove){
+    public void btnDeleteGuide (String titleToRemove){
             con.deleteGuide(titleToRemove);
             userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
             userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
-
         }
     }
