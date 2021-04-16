@@ -369,7 +369,7 @@ public class DbCon {
         try {
             connection.setAutoCommit(false);
 
-            String createGuide = "INSERT INTO [Guide] ( title, description, date, picture, username)" + " VALUES (?,?,?,?,?)";
+            String createGuide = "INSERT INTO [Guide] ( title, description, date, picture, username, views)" + " VALUES (?,?,?,?,?,?)";
             PreparedStatement create = connection.prepareStatement(createGuide);
 
             create.setString(1, guide.getTitle());
@@ -377,6 +377,7 @@ public class DbCon {
             create.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
             create.setBinaryStream(4, fileInputStream);
             create.setString(5, guide.getAuthor());
+            create.setInt(6,0);
             create.execute();
             connection.commit();
             create.close();
