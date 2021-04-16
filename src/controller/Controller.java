@@ -295,5 +295,8 @@ public class Controller {
     public void openGuide(int guideId, String title, String author, String date, String description) {
         new ShowGuideGUI(this, title,author,date,description);
         con.addView(guideId);
+        // Uppdaterar gui också med antalet views. Smartare sätt finns kanske?
+        userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
+        userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
     }
 }
