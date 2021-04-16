@@ -295,7 +295,7 @@ public class AdminFrame extends JFrame implements ActionListener {
     }
 
     public void setLblLoginAdmin(String name) {
-        lblAdminName.setText(name);
+        lblAdminName.setText(name.substring(0, 1).toUpperCase() + name.substring(1));
         lblAdminName.setForeground(Color.darkGray);
     }
 
