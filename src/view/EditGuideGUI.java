@@ -130,4 +130,8 @@ public class EditGuideGUI extends JFrame implements ActionListener {
     public String getDescription() {
         return descriptionArea.getText();
     }
+
+    public JFrame getFrame() {
+        return frame;
+    }
 }
