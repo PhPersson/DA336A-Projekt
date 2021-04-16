@@ -214,8 +214,8 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
         btnRemoveGuide.addActionListener(this);
     }
 
-    public void setLblloginUser(String name) {
-        lblLoggedIn.setText(name);
+    public void setLblLoginUser(String name) {
+        lblLoggedIn.setText(name.substring(0, 1).toUpperCase() + name.substring(1));
         lblLoggedIn.setForeground(Color.darkGray);
     }
 
@@ -240,8 +240,7 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
         else if (e.getSource() == btnShowGuideUpper) {
             int guideId = (int) jTableUp.getModel().getValueAt(jTableUp.getSelectedRow(),0);
             int row = jTableUp.getSelectedRow();
-            controller.openGuide(
-                    guideId,
+            controller.openGuide(guideId,
                     jTableUp.getModel().getValueAt(row,1).toString(),
                     jTableUp.getModel().getValueAt(row,2).toString(),
                     jTableUp.getModel().getValueAt(row,3).toString(),
@@ -250,8 +249,6 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
         else if (e.getSource() == btnShowGuideLower) {
             int guideId = (int) jTableLow.getModel().getValueAt(jTableLow.getSelectedRow(),0);
             int row = jTableLow.getSelectedRow();
-
-
             controller.openGuide(guideId,
                     jTableLow.getModel().getValueAt(row,1).toString(),
                     jTableLow.getModel().getValueAt(row,2).toString(),
@@ -263,8 +260,13 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
         else if (e.getSource() == btnEditGuide) {
             controller.editGuide();
         } else if (e.getSource() == btnRemoveGuide) {
-            String titleToRemove = jTableLow.getModel().getValueAt(jTableLow.getSelectedRow(),0).toString();
-            controller.btnDeleteGuide(titleToRemove);
+            try {
+                String titleToRemove = jTableLow.getModel().getValueAt(jTableLow.getSelectedRow(),0).toString();
+                controller.btnDeleteGuide(titleToRemove);
+            } catch (ArrayIndexOutOfBoundsException exception) {
+
+            }
+
 
         }
     }

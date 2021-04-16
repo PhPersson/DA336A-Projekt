@@ -34,9 +34,7 @@ public class Controller {
         con = new DbCon(this);
         user = new User();
         guide = new Guide();
-
     }
-
 
     /**
      * Registrera en ny användare.
@@ -72,7 +70,7 @@ public class Controller {
                     user.setUsername(view.getLoginUsername());
                     view.getLoginFrame().setVisible(false);
                     userHomePageFrame = new UserHomepageFrame(this);
-                    userHomePageFrame.setLblloginUser(user.getUsername());
+                    userHomePageFrame.setLblLoginUser(user.getUsername());
                     userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
                     userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
                 } else {
@@ -205,10 +203,10 @@ public class Controller {
     }
 
     /**
-     * @param soktext
+     * @param searchText
      */
-    public void btnNoLoginSearchGuide(String soktext) {
-        homePageFrame.updateSearchGuideList(con.searchGuide(soktext));
+    public void btnNoLoginSearchGuide(String searchText) {
+        homePageFrame.updateSearchGuideList(con.searchGuide(searchText));
     }
 
     /**
@@ -239,7 +237,7 @@ public class Controller {
      */
 
     public void btnCreateGuide() {
-        con.createGuide(guide = new Guide(makeGuideGUI.getTitleGuide(), makeGuideGUI.getDescriptionField(), user.getUsername()));
+        con.createGuide(guide = new Guide(makeGuideGUI.getTitleGuide(), makeGuideGUI.getDescriptionField(), user.getUsername().substring(0, 1).toUpperCase() + user.getUsername().substring(1)));
         userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
         userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
     }
@@ -267,37 +265,49 @@ public class Controller {
         userSettings.setlblEmail(con.getUserEmail(user.getUsername()));
     }
 
-    public void btnSaveGuidesHP() {
-        if (user.getUsername() == "admin") {
+    public void btnSaveGuide() {
+        if (adminFrame != null || userHomePageFrame == null) {
             int row = adminFrame.getGuideTable().getSelectedRow();
-            con.updateGuide(editGuideGUI.getTitleEdit(), editGuideGUI.getDescription(),
+            con.updateGuide(
+                    editGuideGUI.getTitleEdit(),
+                    editGuideGUI.getDescription(),
                     adminFrame.getGuideTable().getModel().getValueAt(row, 0).toString());
+
             adminFrame.updateGuideList(con.getAllGuides());
         } else {
             int row = userHomePageFrame.getTableLow().getSelectedRow();
-            con.updateGuide(editGuideGUI.getTitleEdit(), editGuideGUI.getDescription(),
+            con.updateGuide(
+                    editGuideGUI.getTitleEdit(),
+                    editGuideGUI.getDescription(),
                     userHomePageFrame.getTableLow().getModel().getValueAt(row, 0).toString());
+
             userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
             userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
         }
     }
 
     public void editGuide() {
-        if (adminFrame.isVisible()) {
-            int row = adminFrame.getGuideTable().getSelectedRow();
 
-            editGuideGUI = new EditGuideGUI(this, adminFrame.getGuideTable().getModel().getValueAt(row, 1).toString(),
+        if (adminFrame != null || userHomePageFrame == null) {
+            int row = adminFrame.getGuideTable().getSelectedRow();
+            editGuideGUI = new EditGuideGUI(this,
+                    adminFrame.getGuideTable().getModel().getValueAt(row, 1).toString(),
                     adminFrame.getGuideTable().getModel().getValueAt(row, 2).toString(),
                     adminFrame.getGuideTable().getModel().getValueAt(row, 3).toString(),
                     adminFrame.getGuideTable().getModel().getValueAt(row, 5).toString());
         } else {
-            int row = userHomePageFrame.getTableLow().getSelectedRow();
 
-            editGuideGUI = new EditGuideGUI(this, userHomePageFrame.getTableLow().getModel().getValueAt(row, 1).toString(),
+            int row = userHomePageFrame.getTableLow().getSelectedRow();
+            editGuideGUI = new EditGuideGUI(this,
+                    userHomePageFrame.getTableLow().getModel().getValueAt(row, 1).toString(),
                     userHomePageFrame.getTableLow().getModel().getValueAt(row, 2).toString(),
                     userHomePageFrame.getTableLow().getModel().getValueAt(row, 3).toString(),
                     userHomePageFrame.getTableLow().getModel().getValueAt(row, 5).toString());
         }
+    }
+
+    public void editGuideAdmin() {
+
     }
 
     public void pictureGUI () {
@@ -309,7 +319,6 @@ public class Controller {
         con.deleteGuide(titleToRemove);
         userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
         userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
-
     }
 
     public void openGuide(int guideId, String title, String author, String date, String description) {
@@ -322,6 +331,5 @@ public class Controller {
         } catch (NullPointerException e) {
 
         }
-
     }
 }
