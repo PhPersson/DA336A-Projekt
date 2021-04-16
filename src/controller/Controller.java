@@ -23,6 +23,7 @@ public class Controller {
     private UserSettings userSettings;
     private EditGuideGUI editGuideGUI;
     private PictureGUI pictureGUI;
+    private ShowGuideGUI showGuideGUI;
 
     /**
      *
@@ -105,6 +106,11 @@ public class Controller {
     public void btnLoggOffAdmin() {
         adminFrame.setVisible(false);
         view.getLoginFrame().setVisible(true);
+        try {
+            editGuideGUI.getFrame().dispose();
+        } catch (NullPointerException e) {
+
+        }
     }
 
     /**
@@ -167,6 +173,11 @@ public class Controller {
     public void btnHomePageFrameLogin() {
         homePageFrame.setVisible(false);
         view.getLoginFrame().setVisible(true);
+        try {
+            showGuideGUI.getFrame().dispose();
+        } catch (NullPointerException e) {
+
+        }
     }
 
     /**
@@ -175,6 +186,15 @@ public class Controller {
     public void btnUserLoggOff() {
         userHomePageFrame.setVisible(false);
         view.getLoginFrame().setVisible(true);
+        try {
+            editGuideGUI.getFrame().dispose();
+        } catch (NullPointerException e) {
+        }
+        try {
+            showGuideGUI.getFrame().dispose();
+        } catch (NullPointerException e) {
+
+        }
     }
 
     /**
@@ -293,7 +313,15 @@ public class Controller {
     }
 
     public void openGuide(int guideId, String title, String author, String date, String description) {
-        new ShowGuideGUI(this, title,author,date,description);
+        showGuideGUI = new ShowGuideGUI(this, title,author,date,description);
         con.addView(guideId);
+        try {
+            userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
+            userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
+            homePageFrame.updateSearchGuideList(con.getAllGuides());
+        } catch (NullPointerException e) {
+
+        }
+
     }
 }
