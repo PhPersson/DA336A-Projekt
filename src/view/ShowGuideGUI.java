@@ -96,6 +96,7 @@ public class ShowGuideGUI extends JFrame implements ActionListener {
         buttonPanel.add(btnShowPics);
 
         SwingUtilities.getRootPane(btnShowPics).setDefaultButton(btnShowPics);
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         frame.setSize(800,800);
         frame.pack();
