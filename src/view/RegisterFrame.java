@@ -72,7 +72,9 @@ public class RegisterFrame extends JFrame implements ActionListener {
         panel.add(txtConPassword);
         panel.add(btnRegister);
         panel.add(btnCancel);
+
         add(panel);
+
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
