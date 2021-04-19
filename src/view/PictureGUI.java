@@ -23,14 +23,14 @@ public class PictureGUI extends JFrame implements ActionListener {
 
         lblPicture = new JLabel();
         lblPicture.setPreferredSize(new Dimension(500,400));
-        lblPicture.setText("sadasdasd");
+        lblPicture.setText("Bild");
 
-        btnBack = new JButton("back");
-        btnNext = new JButton("next");
+        btnBack = new JButton("Föregående bild");
+        btnNext = new JButton("Nästa bild");
 
         centerPanel.add(lblPicture);
 
-        Border b2 = BorderFactory.createTitledBorder("Feta brudar och feta mopeder");
+        Border b2 = BorderFactory.createTitledBorder("Visa bilder");
 
         centerPanel.setBorder(b2);
 
