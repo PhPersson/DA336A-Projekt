@@ -7,6 +7,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -105,7 +107,7 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
         btnRemoveGuide.setFont(new Font("Tahoma", 0, 14));
         btnRemoveGuide.setText("Ta Bort");
 
-        btnUserSettings.setFont(new Font("Tahoma", 0, 10));
+        btnUserSettings.setFont(new Font("Tahoma", 0, 14));
         btnUserSettings.setText("Inställningar");
 
         jTableUp.setDefaultEditor(Object.class, null);
@@ -172,7 +174,7 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addComponent(btnLogOff, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(btnUserSettings, GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE))
+                                        .addComponent(btnUserSettings, GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addComponent(txtSearch, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
@@ -201,6 +203,18 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         setResizable(false);
         addListeners();
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                int resp = JOptionPane.showConfirmDialog(null, "Stäng progammet?",
+                        "Stäng", JOptionPane.YES_NO_OPTION);
+                if (resp == JOptionPane.YES_OPTION) {
+                    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                } else {
+                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                }
+            }
+        });
     }
 
     public void addListeners() {

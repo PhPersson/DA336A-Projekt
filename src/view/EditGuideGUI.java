@@ -103,6 +103,7 @@ public class EditGuideGUI extends JFrame implements ActionListener {
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
         frame.pack();
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         addListeners();
     }

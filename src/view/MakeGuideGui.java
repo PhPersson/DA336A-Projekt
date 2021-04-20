@@ -17,9 +17,9 @@ import java.io.File;
 public class MakeGuideGui extends JFrame implements ActionListener {
 
     private Controller controller;
-    private JButton btnCancel, btnMakeGuide, btnAddPicture;
-    private JTextArea InputTextArea;
-    private JComboBox<String> KategoriComboBox;
+    private JButton btnCancel,btnMakeGuide,btnAddPicture;
+    private JTextArea textAreaInput;
+    private JComboBox<String> categoryComboBox;
     private JLabel lblMakeGuide;
     private JTextField fieldTitle;
     private JComboBox<String> typeComboBox;
@@ -38,9 +38,9 @@ public class MakeGuideGui extends JFrame implements ActionListener {
         jInternalFrame1 = new JInternalFrame();
         jInternalFrame2 = new JInternalFrame();
         jScrollPane1 = new JScrollPane();
-        InputTextArea = new JTextArea();
+        textAreaInput = new JTextArea();
         typeComboBox = new JComboBox<>();
-        KategoriComboBox = new JComboBox<>();
+        categoryComboBox = new JComboBox<>();
         fieldTitle = new JTextField();
         btnMakeGuide = new JButton();
         btnAddPicture = new JButton();
@@ -73,15 +73,15 @@ public class MakeGuideGui extends JFrame implements ActionListener {
                         .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        InputTextArea.setColumns(20);
-        InputTextArea.setRows(5);
-        InputTextArea.setText("Beskrivning.");
-        jScrollPane1.setViewportView(InputTextArea);
+        textAreaInput.setColumns(20);
+        textAreaInput.setRows(5);
+        textAreaInput.setText("Beskrivning.");
+        jScrollPane1.setViewportView(textAreaInput);
 
         typeComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
 
 
-        KategoriComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
+        categoryComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
 
         fieldTitle.setText("Titel");
 
@@ -114,7 +114,7 @@ public class MakeGuideGui extends JFrame implements ActionListener {
                                                 .addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                                         .addComponent(typeComboBox, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE)
                                                         .addGap(18, 18, 18)
-                                                        .addComponent(KategoriComboBox, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(categoryComboBox, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE)
                                                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                                                         .addComponent(btnAddPicture, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE))
                                                 .addComponent(jScrollPane1, GroupLayout.Alignment.LEADING))
@@ -131,7 +131,7 @@ public class MakeGuideGui extends JFrame implements ActionListener {
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addComponent(typeComboBox, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(KategoriComboBox, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(categoryComboBox, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
                                         .addComponent(btnAddPicture, GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
                                 .addGap(18, 18, 18)
                                 .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 368, GroupLayout.PREFERRED_SIZE)
@@ -161,7 +161,7 @@ public class MakeGuideGui extends JFrame implements ActionListener {
     }
 
     public String getDescriptionField() {
-        return InputTextArea.getText();
+        return textAreaInput.getText();
     }
 
     @Override

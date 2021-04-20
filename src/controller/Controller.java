@@ -48,7 +48,7 @@ public class Controller {
         } else {
             if (Email.isValidEmailAddress(view.getTxtEmail())) {
                 Email.sendMail(view.getTxtEmail(), view.getTxtUsername());
-                con.registerNewCustomer(new User(view.getTxtUsername(), view.getTxtEmail(), view.gettxtPassword(), 0));
+                con.registerNewCustomer(new User(view.getTxtUsername().substring(0, 1).toUpperCase() + view.getTxtUsername().substring(1), view.getTxtEmail(), view.gettxtPassword(), 0));
 
                 util.showDialog("Registreringen OK \nDu kan nu återgå och logga in");
                 view.getRegisterFrame().setVisible(false);
@@ -107,7 +107,6 @@ public class Controller {
         try {
             editGuideGUI.getFrame().dispose();
         } catch (NullPointerException e) {
-
         }
     }
 
@@ -191,7 +190,6 @@ public class Controller {
         try {
             showGuideGUI.getFrame().dispose();
         } catch (NullPointerException e) {
-
         }
     }
 
