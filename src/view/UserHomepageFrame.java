@@ -107,7 +107,7 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
         btnRemoveGuide.setFont(new Font("Tahoma", 0, 14));
         btnRemoveGuide.setText("Ta Bort");
 
-        btnUserSettings.setFont(new Font("Tahoma", 0, 10));
+        btnUserSettings.setFont(new Font("Tahoma", 0, 14));
         btnUserSettings.setText("Inställningar");
 
         jTableUp.setDefaultEditor(Object.class, null);
@@ -174,7 +174,7 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addComponent(btnLogOff, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(btnUserSettings, GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE))
+                                        .addComponent(btnUserSettings, GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addComponent(txtSearch, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
