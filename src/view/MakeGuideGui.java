@@ -2,16 +2,19 @@ package view;
 
 import controller.Controller;
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 /**
  *
  * @author Alexander Olsson
  */
 
-public class MakeGuideGui extends JFrame implements ActionListener{
+public class MakeGuideGui extends JFrame implements ActionListener {
 
     private Controller controller;
     private JButton btnCancel,btnMakeGuide,btnAddPicture;
@@ -169,11 +172,15 @@ public class MakeGuideGui extends JFrame implements ActionListener{
             controller.btnCreateGuide();
             dispose();
         } else if (e.getSource() == btnAddPicture) {
-//            JFileChooser fileChooser = new JFileChooser();
-//            fileChooser.setMultiSelectionEnabled(true);
-//            fileChooser.setFileFilter(new FileNameExtensionFilter("Pictures","jpg","png"));
-//            int result = fileChooser.showSaveDialog(null);
-//            File[] files = fileChooser.getSelectedFiles();
+            JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+            fileChooser.setMultiSelectionEnabled(true);
+            fileChooser.setFileFilter(new FileNameExtensionFilter("Bilder", "jpg", "png"));
+            fileChooser.showOpenDialog(null);
+            if (JFileChooser.APPROVE_OPTION == 0) {
+                String selectedFile = fileChooser.getSelectedFile().getPath();
+                System.out.println(selectedFile);
+                controller.addPicturesToDb(selectedFile);
+            }
         }
     }
 }
