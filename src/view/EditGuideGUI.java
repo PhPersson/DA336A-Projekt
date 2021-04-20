@@ -1,7 +1,6 @@
 package view;
 
 import controller.Controller;
-import model.DbCon;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -11,7 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
+
 /**
  * @author Simon Pizevski
  */
@@ -118,7 +117,7 @@ public class EditGuideGUI extends JFrame implements ActionListener {
         if (e.getSource() == btnClose) {
             frame.dispose();
         } else if (e.getSource() == btnSaveGuide) {
-            controller.btnSaveGuidesHP();
+            controller.btnSaveGuide();
             frame.dispose();
         }
     }
@@ -129,5 +128,9 @@ public class EditGuideGUI extends JFrame implements ActionListener {
 
     public String getDescription() {
         return descriptionArea.getText();
+    }
+
+    public JFrame getFrame() {
+        return frame;
     }
 }

@@ -120,4 +120,8 @@ public class ShowGuideGUI extends JFrame implements ActionListener {
             controller.pictureGUI();
         }
     }
+
+    public JFrame getFrame() {
+        return frame;
+    }
 }
