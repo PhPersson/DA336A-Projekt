@@ -12,6 +12,7 @@ import java.io.File;
 /**
  *
  * @author Alexander Olsson
+ * @author Philip Persson
  */
 
 public class MakeGuideGui extends JFrame implements ActionListener {
@@ -179,7 +180,7 @@ public class MakeGuideGui extends JFrame implements ActionListener {
             if (JFileChooser.APPROVE_OPTION == 0) {
                 String selectedFile = fileChooser.getSelectedFile().getPath();
                 System.out.println(selectedFile);
-                controller.addPicturesToDb(selectedFile);
+//                controller.addPicturesToDb(selectedFile);
             }
         }
     }

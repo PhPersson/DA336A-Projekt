@@ -333,6 +333,7 @@ public class Controller {
         }
     }
 
-    public void addPicturesToDb(String selectedFile) {
-    }
+//    public void addPicturesToDb(String selectedFile) {
+//        con.addPictureToGuide(selectedFile)
+//    }
 }
