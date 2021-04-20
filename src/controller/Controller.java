@@ -332,4 +332,7 @@ public class Controller {
 
         }
     }
+
+    public void addPicturesToDb(String selectedFile) {
+    }
 }
