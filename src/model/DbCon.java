@@ -7,12 +7,14 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
  * @version 1.0
  * @author Philip Persson
  * @author Simon Pizevski
+ * @author Alexander Olsson
  */
 public class DbCon {
     private Connection connection;
@@ -260,7 +262,11 @@ public class DbCon {
         return guideModel;
     }
 
-    //
+    /**
+     * Hämtar allt från Guide-tabellen i databasen
+     * @return data i from av TableModel
+     */
+
     public DefaultTableModel getAllGuidesUserSearch() {
         DefaultTableModel guideModel = new DefaultTableModel(new String[]{
                 "GuideId", "Titel", "Skapad av:", "Datum", "Betyg", "Beskrivning", "Visningar"}, 0);
@@ -283,6 +289,12 @@ public class DbCon {
         }
         return guideModel;
     }
+
+    /**
+     * Hämtar alla guider från en specifik användare
+     * @param user användaren som man söker med.
+     * @return Guider i from av tableModel
+     */
 
     public DefaultTableModel getAllGuidesUser(String user) {
         DefaultTableModel guideModel = new DefaultTableModel(new String[]{
@@ -391,6 +403,12 @@ public class DbCon {
         }
     }
 
+    /**
+     * Kollar om användare har guider. Används i metod för att ta bort en användare.
+     * @param username Användaren man söker efter
+     * @return True/False
+     */
+
     public boolean checkIfUserHaveGuides(String username){
         boolean userHaveGuides = false;
         try {
@@ -414,6 +432,11 @@ public class DbCon {
         return userHaveGuides;
     }
 
+    /**
+     * Tar bort en guide från databasen.
+     * @param username
+     */
+
     public void deleteGuideBasedOnUsername(String username) {
         try {
             connection.setAutoCommit(false);
@@ -428,6 +451,12 @@ public class DbCon {
             exception.printStackTrace();
         }
     }
+
+    /**
+     * Uppdatera en existerande användares lösenord.
+     * @param password
+     * @param indexToUpdate
+     */
 
     public void updateUserPassword(String password, String indexToUpdate) {
         try {
@@ -444,6 +473,13 @@ public class DbCon {
             exception.printStackTrace();
         }
     }
+
+    /**
+     * Uppdaterar en existerande guide.
+     * @param title , Titel på guiden
+     * @param description , Innehållstexen i guiden
+     * @param guideId , GuideId som är identifierare.
+     */
 
     public void updateGuide(String title, String description, String guideId) {
         try {
@@ -463,6 +499,12 @@ public class DbCon {
         }
     }
 
+    /**
+     * Uppdaterar en användares Emailadress.
+     * @param email
+     * @param inedxToUpdate
+     */
+
     public void updateUserEmail(String email, String inedxToUpdate) {
         try {
             connection.setAutoCommit(false);
@@ -479,6 +521,12 @@ public class DbCon {
             exception.printStackTrace();
         }
     }
+
+    /**
+     * Hämtar emailadressen för en specifik användare.
+     * @param username
+     * @return Emailadressen.
+     */
 
     public String getUserEmail(String username){
 
@@ -519,6 +567,11 @@ public class DbCon {
         }
     }
 
+    /**
+     * Uppdaterar hur många som har tittat på en guide.
+     * @param guideId , Identifierare för vilken guide som det berör.
+     */
+
     public void addView(int guideId){
         String query = "UPDATE Guide SET views = views + 1 WHERE guideId = ?";
 
@@ -534,6 +587,28 @@ public class DbCon {
         }
     }
 
+    /*
+    public String[] getAllTypes(){
+        String query = "Select * from Type";
+        String[] type = null;
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                type = rs.getString("username") + ", " + (rs.getString("email"));
+                type = rs.getString(1)
+            }
+
+
+        } catch (SQLException exception)
+            exception.printStackTrace();
+        }
+        return type;
+    }
+
+
+     */
 
     public void addPictureToGuide(String selectedFile) {
         String query = "INSERT INTO Picture(picture,guideId) VALUES(?,?)";
