@@ -624,6 +624,17 @@ public class DbCon {
         }
 
     }
+
+    /*
+    public void getAllPicturesGuide(int GuideId){
+        String query = "Select * FROM Picture Where guideId = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+
+        }
+    }
+    
+     */
 }
 
 
