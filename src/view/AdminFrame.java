@@ -13,8 +13,11 @@ import java.io.IOException;
 
 /**
  * @author Philip Persson
+ * @author
+ * @author
  * @version 1.0
  */
+
 
 public class AdminFrame extends JFrame implements ActionListener {
 
@@ -66,7 +69,7 @@ public class AdminFrame extends JFrame implements ActionListener {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         guideSearch.setText("");
-        setTitle("Admninistratör");
+        setTitle("SupportME");
         btnSearchGuide.setFont(new Font("Tahoma", 0, 12));
         btnSearchGuide.setText("Sök");
 

@@ -4,8 +4,13 @@ import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
 
-
-public class Email {
+/**
+ * @author Philip Persson
+ * @author
+ * @author
+ * @version
+ */
+public class Email { // TODO KOMMENTERA DENNA KLASSEN!!!
 
     private String recipient;
     private String username;

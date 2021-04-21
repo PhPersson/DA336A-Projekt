@@ -15,8 +15,11 @@ import java.io.IOException;
 
 /**
  * @author Philip Persson
+ * @author
+ * @author
  * @version 1.0
  */
+
 
 public class UserHomepageFrame extends JFrame implements ActionListener {
 
@@ -37,7 +40,7 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
     }
 
     private void initComponents() {
-
+        setTitle("SupportME");
         BufferedImage myPicture = null;
         try {
             myPicture = ImageIO.read(new File("files/Logga2.png"));

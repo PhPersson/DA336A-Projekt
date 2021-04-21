@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * @author Simon Pizevski
  */
 
-public class Controller {
+public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
     private User user;
     private Guide guide;
     private UserHomepageFrame userHomePageFrame;
@@ -335,6 +335,7 @@ public class Controller {
         }
     }
 
+
     public void downloadGuide(){
         try {
             File file = new File("src/files");
@@ -349,4 +350,8 @@ public class Controller {
             exception.printStackTrace();
         }
     }
+//    public void addPicturesToDb(String selectedFile) {
+//        con.addPictureToGuide(selectedFile)
+//    }
+
 }
