@@ -13,7 +13,12 @@ import java.io.IOException;
 
 /**
  * @author Simon Pizevski
+ * @author Philip Persson
+ * @author
+ * @author
+ * @version 1.0
  */
+
 public class EditGuideGUI extends JFrame implements ActionListener {
     private JFrame frame;
     private JPanel centerPanel, southPanel, logoPanel, buttonPanel;

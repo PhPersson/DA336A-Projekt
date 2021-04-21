@@ -13,8 +13,11 @@ import java.io.IOException;
 
 /**
  * @author Philip Persson
+ * @author
+ * @author
  * @version 1.0
  */
+
 
 public class AdminFrame extends JFrame implements ActionListener {
 

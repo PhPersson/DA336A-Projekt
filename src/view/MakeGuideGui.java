@@ -13,6 +13,9 @@ import java.io.File;
  *
  * @author Alexander Olsson
  * @author Philip Persson
+ * @author
+ * @version 1.0
+ *
  */
 
 public class MakeGuideGui extends JFrame implements ActionListener {
