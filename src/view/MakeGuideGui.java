@@ -31,6 +31,7 @@ public class MakeGuideGui extends JFrame implements ActionListener {
     private JInternalFrame jInternalFrame2;
     private JScrollPane jScrollPane1;
     private MakeGuideGui makeGuideGui;
+    private String selectedFile;
 
     public MakeGuideGui(Controller controller) {
         this.controller = controller;
@@ -173,7 +174,7 @@ public class MakeGuideGui extends JFrame implements ActionListener {
         if (e.getSource() == btnCancel) {
             controller.btnCancelGuide();
         } else if (e.getSource() == btnMakeGuide) {
-            controller.btnCreateGuide();
+            controller.btnCreateGuide(selectedFile);
             dispose();
         } else if (e.getSource() == btnAddPicture) {
             JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
@@ -181,9 +182,8 @@ public class MakeGuideGui extends JFrame implements ActionListener {
             fileChooser.setFileFilter(new FileNameExtensionFilter("Bilder", "jpg", "png"));
             fileChooser.showOpenDialog(null);
             if (JFileChooser.APPROVE_OPTION == 0) {
-                String selectedFile = fileChooser.getSelectedFile().getPath();
+                selectedFile = fileChooser.getSelectedFile().getPath();
                 System.out.println(selectedFile);
-//                controller.addPicturesToDb(selectedFile);
             }
         }
     }

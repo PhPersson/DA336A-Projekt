@@ -6,25 +6,29 @@ import javax.mail.internet.*;
 
 /**
  * @author Philip Persson
- * @author
- * @author
- * @version
+ * @author Alexander Olsson
+ * @version 1.0
  */
 public class Email { // TODO KOMMENTERA DENNA KLASSEN!!!
 
-    private String recipient;
-    private String username;
+    private String recipient,username;
 
     public Email(String recipient, String username) {
         this.recipient = recipient;
         this.username = username;
     }
 
+    /**
+     * Statsik klass för att kontrollera om användaren emailadress är gilltig.
+     * @param email emailaddressen som skall kontrolleras om den är gilltig eller inte
+     * @return Retunerar om det är en giltig emailaddress eller inte.
+     */
     public static boolean isValidEmailAddress(String email) {
-        boolean result = true;
+        boolean result;
         try {
             InternetAddress emailAddress = new InternetAddress(email);
             emailAddress.validate();
+            result = true;
         } catch (AddressException exception) {
             exception.printStackTrace();
             result = false;
@@ -32,6 +36,12 @@ public class Email { // TODO KOMMENTERA DENNA KLASSEN!!!
         return result;
     }
 
+
+    /**
+     * Statisk metod för att skicka iväg ett mail till användaren som registrerade sig.
+     * @param recipient Mottagarens email address
+     * @param username Användarnamnet som skall välkomna användaren.
+     */
     public static void sendMail(String recipient, String username) {
         {
             // Sender's email ID needs to be mentioned
@@ -81,7 +91,6 @@ public class Email { // TODO KOMMENTERA DENNA KLASSEN!!!
                 transport.connect(host, from, pass);
                 transport.sendMessage(message, message.getAllRecipients());
                 transport.close();
-                System.out.println("Sent message successfully....");
             } catch (MessagingException exception) {
                 exception.printStackTrace();
             }

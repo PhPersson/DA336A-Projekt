@@ -242,8 +242,9 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
     /**
      * Användare skapar en guide.
      */
-    public void btnCreateGuide() {
-        con.createGuide(guide = new Guide(makeGuideGUI.getTitleGuide(), makeGuideGUI.getDescriptionField(), user.getUsername().substring(0, 1).toUpperCase() + user.getUsername().substring(1)));
+
+    public void btnCreateGuide(String picture) {
+        con.createGuide(guide = new Guide(makeGuideGUI.getTitleGuide(), makeGuideGUI.getDescriptionField(), user.getUsername().substring(0, 1).toUpperCase() + user.getUsername().substring(1)),picture);
         userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
         userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
     }
@@ -365,6 +366,9 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
         }
     }
 
+    public void addPicturesToDb(String selectedFile) {
+        con.addPictureToGuide(selectedFile);
+    }
 
 //  public void addPicturesToDb(String selectedFile) {
 //      con.addPictureToGuide(selectedFile)
