@@ -15,8 +15,11 @@ import java.io.IOException;
 
 /**
  * @author Philip Persson
+ * @author
+ * @author
  * @version 1.0
  */
+
 
 public class UserHomepageFrame extends JFrame implements ActionListener {
 
