@@ -8,6 +8,8 @@ import java.util.ArrayList;
  * @version 1.0
  * @author Philip Persson
  * @author Simon Pizevski
+ * @author Måns Olsson
+ * @author Alexander Olsson
  */
 
 public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
@@ -44,7 +46,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
      */
     public void btnRegisterClicked() {
         if (con.getAllUsernames(view.getTxtUsername())) {
-            util.showDialog("TAKEN!!!!!");
+            util.showDialog("Detta användarnam finns redan, vänligen ange ett nytt");
         } else {
             if (Email.isValidEmailAddress(view.getTxtEmail())) {
                 Email.sendMail(view.getTxtEmail(), view.getTxtUsername());
@@ -112,8 +114,9 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
 
     /**
      * Admin tar bort en användare i databasen.
-     *
      * @param username Användarnamn för raden man vill ta bort.
+     * If-satsen: Kollar om användaren har aktiva guider, då kan man välja att ta bort guiderna.
+     * Annars: Behåller guiderna kopplade till den användaren.
      */
     public void btnAdminDeleteUser(String username) {
         if (con.checkIfUserHaveGuides(username)) {
@@ -132,19 +135,19 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
     /**
      * Admin söker efter användare.
      *
-     * @param soktext input av sträng man vill söka med.
+     * @param searchText input av sträng man vill söka med.
      */
-    public void btnAdminSearchUser(String soktext) {
-        adminFrame.updateUserList(con.searchUser(soktext));
+    public void btnAdminSearchUser(String searchText) {
+        adminFrame.updateUserList(con.searchUser(searchText));
     }
 
     /**
      * Admin söker efter guider.
      *
-     * @param soktext input av sträng man vill söka med.
+     * @param searchText input av sträng man vill söka med.
      */
-    public void btnAdminSearchGuide(String soktext) {
-        adminFrame.updateGuideList(con.searchGuide(soktext));
+    public void btnAdminSearchGuide(String searchText) {
+        adminFrame.updateGuideList(con.searchGuide(searchText));
     }
 
     /**
@@ -165,7 +168,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
     }
 
     /**
-     * Användare loggar in från homePageFrame
+     * Användare öppnar in från homePageFrame utan att logga in med ett konto.
      */
     public void btnHomePageFrameLogin() {
         homePageFrame.setVisible(false);
@@ -178,7 +181,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
     }
 
     /**
-     * Användare loggar ut, Ny loginFrame öppnas
+     * Inloggad användare loggar ut, ny loginFrame öppnas.
      */
     public void btnUserLoggOff() {
         userHomePageFrame.setVisible(false);
@@ -194,14 +197,16 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
     }
 
     /**
-     * @param searchText
+     * Inloggad användare kan söka på guider efter användarnamn och titel i sökfältet.
+     * @param searchText input av sträng man vill söka med.
      */
     public void btnUserSearchGuide(String searchText) {
         userHomePageFrame.updateUserSearchGuideList(con.searchGuide(searchText));
     }
 
     /**
-     * @param searchText
+     * Ej inloggad användare kan söka på guider efter användarnamn och titel i sökfältet.
+     * @param searchText input av sträng man vill söka med.
      */
     public void btnNoLoginSearchGuide(String searchText) {
         homePageFrame.updateSearchGuideList(con.searchGuide(searchText));
@@ -215,7 +220,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
     }
 
     /**
-     *
+     * Användare väljer att påbärja skapandet av en guide.
      */
     public void btnOpenCreateGuideFrame() {
         makeGuideGUI = new MakeGuideGui(this);
@@ -223,7 +228,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
     }
 
     /**
-     *
+     * Användare väljer att avbryta skapandet av en guide.
      */
     public void btnCancelGuide() {
         makeGuideGUI.setVisible(false);
@@ -231,9 +236,8 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
     }
 
     /**
-     *
+     * Användare skapar en guide.
      */
-
     public void btnCreateGuide() {
         con.createGuide(guide = new Guide(makeGuideGUI.getTitleGuide(), makeGuideGUI.getDescriptionField(), user.getUsername().substring(0, 1).toUpperCase() + user.getUsername().substring(1)));
         userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
@@ -241,12 +245,15 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
     }
 
     /**
-     * @return
+     * @return referens till GuiUtilities objektet.
      */
     public GuiUtilities getUtil() {
         return util;
     }
 
+    /**
+     * Användare väljer att öppna användarinställningar.
+     */
     public void btnUserSettings() {
         userSettings = new UserSettings(this);
         userSettings.setVisible(true);
@@ -254,15 +261,25 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
         userSettings.setlblEmail(con.getUserEmail(user.getUsername()));
     }
 
+    /**
+     * Användare ändrar lösenordet kopplat till sitt konto.
+     */
     public void changePasswordUser() {
         con.updateUserPassword(userSettings.getFieldPass1(), user.getUsername());
     }
 
+    /**
+     * Användare ändrar email-konto kopplat till sitt konto.
+     */
     public void changeEmailUser() {
         con.updateUserEmail(userSettings.getFieldEmail(), user.getUsername());
         userSettings.setlblEmail(con.getUserEmail(user.getUsername()));
     }
 
+    /**
+     * Användare eller Admin sparar en guide efter att ha valt att redigera en guide.
+     * If-satsen avgör om AdminFrame eller UserHomePageFrame.
+     */
     public void btnSaveGuide() {
         if (adminFrame != null || userHomePageFrame == null) {
             int row = adminFrame.getGuideTable().getSelectedRow();
@@ -284,6 +301,10 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
         }
     }
 
+    /**
+     * Användare eller Admin väljer att redigera en guide. Innehållet från guiden hämtas till EditGuideGUI.
+     * If-satsen avgör om AdminFrame eller UserHomePageFrame är öppen.
+     */
     public void editGuide() {
 
         if (adminFrame != null || userHomePageFrame == null) {
@@ -308,17 +329,26 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
 
     }
 
+    /**
+     * Användare väljer att kolla på bilderna som finnns kopplade till en guide.
+     */
     public void pictureGUI () {
         pictureGUI = new PictureGUI();
         pictureGUI.setVisible(true);
     }
 
+    /**
+     * Användare väljer att ta bort en egen guide.
+     */
     public void btnDeleteGuide (String titleToRemove){
         con.deleteGuide(titleToRemove);
         userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
         userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
     }
 
+    /**
+     * Inloggad Användare eller ej inloggad Användaren väljer att öppna o kolla på en guide.
+     */
     public void openGuide(int guideId, String title, String author, String date, String description) {
         showGuideGUI = new ShowGuideGUI(this, title,author,date,description);
         con.addView(guideId);
@@ -331,7 +361,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
         }
     }
 
-//    public void addPicturesToDb(String selectedFile) {
-//        con.addPictureToGuide(selectedFile)
+//  public void addPicturesToDb(String selectedFile) {
+//      con.addPictureToGuide(selectedFile)
 //    }
 }
