@@ -1,26 +1,21 @@
 package model;
 import java.awt.*;
 import java.io.File;
-import java.util.Date;
 
+/**
+ * @author Philip Persson
+ * @author
+ * @author
+ * @version 1.0
+ */
 public class Guide {
 
-    private int guideId;
-    private String title;
     private Image pic;
-    private String description;
-    private String author;
-    private Date datetime;
-    private int rating;
-    private int views;
-    private int nbrOfRatings;
+    private String description,category,type,author,title;
     private File[] files;
 
-    private String category;
 
-    private String type;
-
-    public Guide(){
+    public Guide(){ //TODO KOMMENTERA DENNA KLASSEN
     }
 
     public Guide(String title,String description,String author, File[] files) {

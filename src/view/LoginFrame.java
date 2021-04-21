@@ -14,6 +14,7 @@ import java.io.IOException;
 /**
  * @author Philip Persson
  * @author Simon Pizevski
+ * @version
  */
 public class LoginFrame extends JFrame implements ActionListener {
 
