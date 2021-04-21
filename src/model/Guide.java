@@ -5,20 +5,10 @@ import java.util.Date;
 
 public class Guide {
 
-    private int guideId;
-    private String title;
     private Image pic;
-    private String description;
-    private String author;
-    private Date datetime;
-    private int rating;
-    private int views;
-    private int nbrOfRatings;
+    private String description,category,type,author,title;
     private File[] files;
 
-    private String category;
-
-    private String type;
 
     public Guide(){
     }
