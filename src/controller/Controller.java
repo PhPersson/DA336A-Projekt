@@ -349,8 +349,9 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
         } catch (IOException exception) {
             exception.printStackTrace();
         }
-
+    }
 //    public void addPicturesToDb(String selectedFile) {
 //        con.addPictureToGuide(selectedFile)
 //    }
+
 }
