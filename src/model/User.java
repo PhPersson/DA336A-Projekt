@@ -4,7 +4,7 @@ package model;
 /**
  * @version 1.0
  * @author Philip Persson
- * @author
+ * @author Alexander Olsson
  * @author
  */
 public class User { // TODO KOMMENTERA DENNA KLASSEN
@@ -15,6 +15,14 @@ public class User { // TODO KOMMENTERA DENNA KLASSEN
     private int role;
 
     public User(){}
+
+    /**
+     * Konstruktor för att lägga till en ny användare.
+     * @param username
+     * @param email
+     * @param password
+     * @param role
+     */
 
     public User(String username, String email, String password, int role) {
         this.username = username;

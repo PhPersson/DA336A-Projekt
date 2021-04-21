@@ -4,7 +4,7 @@ import java.io.File;
 
 /**
  * @author Philip Persson
- * @author
+ * @author Alexander Olsson
  * @author
  * @version 1.0
  */
@@ -32,6 +32,13 @@ public class Guide {
         this.author = author;
         this.description = description;
     }
+
+    /**
+     * Konstruktor för att skapa en guide.
+     * @param title
+     * @param description
+     * @param author
+     */
 
     public Guide(String title, String description, String author) {
         this.title = title;
