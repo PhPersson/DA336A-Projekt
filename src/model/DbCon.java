@@ -2,7 +2,9 @@ package model;
 
 import controller.Controller;
 import javax.swing.table.DefaultTableModel;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -365,24 +367,26 @@ public class DbCon {
      * Skapar en guide i databasen
      *
      */
-    public void createGuide(Guide guide) {
+    public void createGuide(Guide guide, String picture) {
         try {
             connection.setAutoCommit(false);
+            File file=new File(picture);
+            FileInputStream fis =new FileInputStream(file);
 
-            String createGuide = "INSERT INTO [Guide] ( title, description, date, picture, username, views)" + " VALUES (?,?,?,?,?,?)";
+            String createGuide = "INSERT INTO [Guide] ( title, description, date, picture, username, views)"  + "VALUES (?,?,?,?,?,?)";
             PreparedStatement create = connection.prepareStatement(createGuide);
 
             create.setString(1, guide.getTitle());
             create.setString(2, guide.getDescription());
             create.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
-            create.setBinaryStream(4, fileInputStream);
+            create.setBinaryStream(4, fis); // Göra hur för att referera till Picture table?
             create.setString(5, guide.getAuthor());
-            create.setInt(6,0);
+            create.setInt(6,0); // Sätt views
             create.execute();
             connection.commit();
             create.close();
 
-        } catch (SQLException  exception) {
+        } catch (SQLException | FileNotFoundException exception) {
             exception.printStackTrace();
         }
     }
@@ -531,6 +535,20 @@ public class DbCon {
     }
 
 
+    public void addPictureToGuide(String selectedFile) {
+        String query = "INSERT INTO Picture(picture,guideId) VALUES(?,?)";
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            File file=new File(selectedFile);
+            FileInputStream fis =new FileInputStream(file);
+            ps.setBinaryStream(1,fis);
+            ps.setInt(2,67);
+            ps.executeUpdate();
+        } catch (FileNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
 }
 
 
