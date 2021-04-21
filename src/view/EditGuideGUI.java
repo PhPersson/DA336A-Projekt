@@ -27,7 +27,7 @@ public class EditGuideGUI extends JFrame implements ActionListener {
 
     public EditGuideGUI(Controller controller, String titleString, String authorString, String dateString, String descriptionString) {
         this.controller = controller;
-        frame = new JFrame("Edit guide");
+        frame = new JFrame("Redigera guide");
         frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 
         centerPanel = new JPanel(new GridLayout(3, 2, 0, 5));

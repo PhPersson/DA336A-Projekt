@@ -13,6 +13,7 @@ public class PictureGUI extends JFrame implements ActionListener {
     private JButton btnNext, btnBack;
 
     public PictureGUI() {
+        setTitle("SupportME");
         getContentPane().setLayout(new BoxLayout(getContentPane(),BoxLayout.X_AXIS));
         setLayout(new BorderLayout());
 
