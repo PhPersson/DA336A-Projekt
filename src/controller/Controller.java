@@ -3,14 +3,18 @@ package controller;
 import model.*;
 import view.*;
 
-import java.sql.SQLException;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+
 /**
+ * @version 1.0
  * @author Philip Persson
  * @author Simon Pizevski
  */
 
-public class Controller {
+public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
     private User user;
     private Guide guide;
     private UserHomepageFrame userHomePageFrame;
@@ -19,10 +23,11 @@ public class Controller {
     private GuiUtilities util;
     private AdminFrame adminFrame;
     private HomePageFrame homePageFrame;
-    private MakeGuideGui makeGuideGui;
+    private MakeGuideGui makeGuideGUI;
     private UserSettings userSettings;
     private EditGuideGUI editGuideGUI;
     private PictureGUI pictureGUI;
+    private ShowGuideGUI showGuideGUI;
 
     /**
      *
@@ -33,10 +38,7 @@ public class Controller {
         con = new DbCon(this);
         user = new User();
         guide = new Guide();
-
     }
-
-    // Kanske skapa ett helt User objekt istället?
 
     /**
      * Registrera en ny användare.
@@ -45,13 +47,12 @@ public class Controller {
      * Om det är valid så läggs den nya användare in i databasen med parapetrar: Username, Email, Password.
      */
     public void btnRegisterClicked() {
-
         if (con.getAllUsernames(view.getTxtUsername())) {
             util.showDialog("TAKEN!!!!!");
         } else {
             if (Email.isValidEmailAddress(view.getTxtEmail())) {
                 Email.sendMail(view.getTxtEmail(), view.getTxtUsername());
-                con.registerNewCustomer(new User(view.getTxtUsername(), view.getTxtEmail(), view.gettxtPassword(), 0));
+                con.registerNewCustomer(new User(view.getTxtUsername().substring(0, 1).toUpperCase() + view.getTxtUsername().substring(1), view.getTxtEmail(), view.gettxtPassword(), 0));
 
                 util.showDialog("Registreringen OK \nDu kan nu återgå och logga in");
                 view.getRegisterFrame().setVisible(false);
@@ -73,7 +74,7 @@ public class Controller {
                     user.setUsername(view.getLoginUsername());
                     view.getLoginFrame().setVisible(false);
                     userHomePageFrame = new UserHomepageFrame(this);
-                    userHomePageFrame.setLblloginUser(user.getUsername());
+                    userHomePageFrame.setLblLoginUser(user.getUsername());
                     userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
                     userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
                 } else {
@@ -87,11 +88,10 @@ public class Controller {
                 util.showErrorDialog("Fel användarnamn eller lösenord!");
             }
         } catch (NullPointerException exception) {
-            util.showErrorDialog("Verkar om du inte har någon internetanslutning \nKvarstår problemet kontakta systemadministratören!");
+            util.showErrorDialog("Verkar om du inte har någon internetanslutning. \nKvarstår problemet kontakta systemadministratören!");
             exception.printStackTrace();
         }
     }
-
 
     /**
      * Användare väljer att starta programmet utan att logga in. homePageFrame körs.
@@ -108,6 +108,10 @@ public class Controller {
     public void btnLoggOffAdmin() {
         adminFrame.setVisible(false);
         view.getLoginFrame().setVisible(true);
+        try {
+            editGuideGUI.getFrame().dispose();
+        } catch (NullPointerException e) {
+        }
     }
 
     /**
@@ -165,20 +169,16 @@ public class Controller {
     }
 
     /**
-     * Visa guide för användare som inte loggat in.
-     *
-     * @param indexGuide
-     */
-    public void btnShowGuide(String indexGuide, String titleString, String dateString, String authorString) {
-
-    }
-
-    /**
      * Användare loggar in från homePageFrame
      */
     public void btnHomePageFrameLogin() {
         homePageFrame.setVisible(false);
         view.getLoginFrame().setVisible(true);
+        try {
+            showGuideGUI.getFrame().dispose();
+        } catch (NullPointerException e) {
+
+        }
     }
 
     /**
@@ -187,20 +187,28 @@ public class Controller {
     public void btnUserLoggOff() {
         userHomePageFrame.setVisible(false);
         view.getLoginFrame().setVisible(true);
+        try {
+            editGuideGUI.getFrame().dispose();
+        } catch (NullPointerException e) {
+        }
+        try {
+            showGuideGUI.getFrame().dispose();
+        } catch (NullPointerException e) {
+        }
     }
 
     /**
-     * @param soktext
+     * @param searchText
      */
-    public void btnUserSearchGuide(String soktext) {
-        userHomePageFrame.updateUserSearchGuideList(con.searchGuide(soktext));
+    public void btnUserSearchGuide(String searchText) {
+        userHomePageFrame.updateUserSearchGuideList(con.searchGuide(searchText));
     }
 
     /**
-     * @param soktext
+     * @param searchText
      */
-    public void btnNoLoginSearchGuide(String soktext) {
-        homePageFrame.updateSearchGuideList(con.searchGuide(soktext));
+    public void btnNoLoginSearchGuide(String searchText) {
+        homePageFrame.updateSearchGuideList(con.searchGuide(searchText));
     }
 
     /**
@@ -214,15 +222,15 @@ public class Controller {
      *
      */
     public void btnOpenCreateGuideFrame() {
-        makeGuideGui = new MakeGuideGui(this);
-        makeGuideGui.setVisible(true);
+        makeGuideGUI = new MakeGuideGui(this);
+        makeGuideGUI.setVisible(true);
     }
 
     /**
      *
      */
-    public void btnAvbrytGuide() {
-        makeGuideGui.setVisible(false);
+    public void btnCancelGuide() {
+        makeGuideGUI.setVisible(false);
         System.out.println(user.getUsername());
     }
 
@@ -231,7 +239,7 @@ public class Controller {
      */
 
     public void btnCreateGuide() {
-        con.createGuide(guide = new Guide(makeGuideGui.getTitelGuide(), makeGuideGui.getDescriptionField(), user.getUsername()));
+        con.createGuide(guide = new Guide(makeGuideGUI.getTitleGuide(), makeGuideGUI.getDescriptionField(), user.getUsername().substring(0, 1).toUpperCase() + user.getUsername().substring(1)));
         userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
         userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
     }
@@ -243,7 +251,6 @@ public class Controller {
         return util;
     }
 
-
     public void btnUserSettings() {
         userSettings = new UserSettings(this);
         userSettings.setVisible(true);
@@ -252,72 +259,99 @@ public class Controller {
     }
 
     public void changePasswordUser() {
-        con.updateUserPassword(userSettings.getPassField1(), user.getUsername());
+        con.updateUserPassword(userSettings.getFieldPass1(), user.getUsername());
     }
 
     public void changeEmailUser() {
-        con.updateUserEmail(userSettings.getEmailField(), user.getUsername());
+        con.updateUserEmail(userSettings.getFieldEmail(), user.getUsername());
         userSettings.setlblEmail(con.getUserEmail(user.getUsername()));
     }
 
-    public void btnSaveGuidesHP() {
-
-        if (adminFrame.isVisible()) {
+    public void btnSaveGuide() {
+        if (adminFrame != null || userHomePageFrame == null) {
             int row = adminFrame.getGuideTable().getSelectedRow();
-            con.updateGuide(editGuideGUI.getTitleEdit(), editGuideGUI.getDescription(),
+            con.updateGuide(
+                    editGuideGUI.getTitleEdit(),
+                    editGuideGUI.getDescription(),
                     adminFrame.getGuideTable().getModel().getValueAt(row, 0).toString());
+
             adminFrame.updateGuideList(con.getAllGuides());
         } else {
             int row = userHomePageFrame.getTableLow().getSelectedRow();
-            con.updateGuide(editGuideGUI.getTitleEdit(), editGuideGUI.getDescription(),
+            con.updateGuide(
+                    editGuideGUI.getTitleEdit(),
+                    editGuideGUI.getDescription(),
                     userHomePageFrame.getTableLow().getModel().getValueAt(row, 0).toString());
+
             userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
             userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
         }
     }
 
     public void editGuide() {
-        if (adminFrame.isVisible()) {
+
+        if (adminFrame != null || userHomePageFrame == null) {
             int row = adminFrame.getGuideTable().getSelectedRow();
-
-            String titleString = adminFrame.getGuideTable().getModel().getValueAt(row, 1).toString();
-            String authorString = adminFrame.getGuideTable().getModel().getValueAt(row, 2).toString();
-            String dateString = adminFrame.getGuideTable().getModel().getValueAt(row, 3).toString();
-            String descriptionString = adminFrame.getGuideTable().getModel().getValueAt(row, 5).toString();
-            editGuideGUI = new EditGuideGUI(this, titleString, authorString, dateString, descriptionString);
+            editGuideGUI = new EditGuideGUI(this,
+                    adminFrame.getGuideTable().getModel().getValueAt(row, 1).toString(),
+                    adminFrame.getGuideTable().getModel().getValueAt(row, 2).toString(),
+                    adminFrame.getGuideTable().getModel().getValueAt(row, 3).toString(),
+                    adminFrame.getGuideTable().getModel().getValueAt(row, 5).toString());
         } else {
+
             int row = userHomePageFrame.getTableLow().getSelectedRow();
-
-            String titleString = userHomePageFrame.getTableLow().getModel().getValueAt(row, 1).toString();
-            String authorString = userHomePageFrame.getTableLow().getModel().getValueAt(row, 2).toString();
-            String dateString = userHomePageFrame.getTableLow().getModel().getValueAt(row, 3).toString();
-            String descriptionString = userHomePageFrame.getTableLow().getModel().getValueAt(row, 5).toString();
-            editGuideGUI = new EditGuideGUI(this, titleString, authorString, dateString, descriptionString);
-
+            editGuideGUI = new EditGuideGUI(this,
+                    userHomePageFrame.getTableLow().getModel().getValueAt(row, 1).toString(),
+                    userHomePageFrame.getTableLow().getModel().getValueAt(row, 2).toString(),
+                    userHomePageFrame.getTableLow().getModel().getValueAt(row, 3).toString(),
+                    userHomePageFrame.getTableLow().getModel().getValueAt(row, 5).toString());
         }
     }
 
+    public void editGuideAdmin() {
 
-//    public void editGuideAdmin() {
-//        int row = adminFrame.getGuideTable().getSelectedRow();
-//
-//        String titleString = adminFrame.getGuideTable().getModel().getValueAt(row, 1).toString();
-//        String authorString = adminFrame.getGuideTable().getModel().getValueAt(row, 2).toString();
-//        String dateString = adminFrame.getGuideTable().getModel().getValueAt(row, 3).toString();
-//        String descriptionString = adminFrame.getGuideTable().getModel().getValueAt(row, 5).toString();
-//
-//        editGuideGUI = new EditGuideGUI(this, titleString, authorString, dateString, descriptionString);
-//    }
+    }
 
-        public void pictureGUI () {
-            pictureGUI = new PictureGUI();
-            pictureGUI.setVisible(true);
-        }
+    public void pictureGUI () {
+        pictureGUI = new PictureGUI();
+        pictureGUI.setVisible(true);
+    }
 
-        public void btnDeleteGuide (String titleToRemove){
-            con.deleteGuide(titleToRemove);
+    public void btnDeleteGuide (String titleToRemove){
+        con.deleteGuide(titleToRemove);
+        userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
+        userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
+    }
+
+    public void openGuide(int guideId, String title, String author, String date, String description) {
+        showGuideGUI = new ShowGuideGUI(this, title,author,date,description);
+        con.addView(guideId);
+        try {
             userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
             userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
+            homePageFrame.updateSearchGuideList(con.getAllGuides());
+        } catch (NullPointerException e) {
 
         }
     }
+
+
+    public void downloadGuide(){
+        try {
+            File file = new File("src/files");
+            file.setWritable(true);
+            file.setReadable(true);
+
+            FileWriter myWriter = new FileWriter("filename.txt");
+
+            myWriter.write("Hejsanhoppsan");
+            myWriter.close();
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+    }
+//    public void addPicturesToDb(String selectedFile) {
+//        con.addPictureToGuide(selectedFile)
+//    }
+
+}

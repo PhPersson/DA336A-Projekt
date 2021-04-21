@@ -1,7 +1,6 @@
 package view;
 
 import controller.Controller;
-import model.DbCon;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -11,10 +10,15 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
+
 /**
  * @author Simon Pizevski
+ * @author Philip Persson
+ * @author
+ * @author
+ * @version 1.0
  */
+
 public class EditGuideGUI extends JFrame implements ActionListener {
     private JFrame frame;
     private JPanel centerPanel, southPanel, logoPanel, buttonPanel;
@@ -28,7 +32,7 @@ public class EditGuideGUI extends JFrame implements ActionListener {
 
     public EditGuideGUI(Controller controller, String titleString, String authorString, String dateString, String descriptionString) {
         this.controller = controller;
-        frame = new JFrame("Edit guide");
+        frame = new JFrame("Redigera guide");
         frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 
         centerPanel = new JPanel(new GridLayout(3, 2, 0, 5));
@@ -104,6 +108,7 @@ public class EditGuideGUI extends JFrame implements ActionListener {
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
         frame.pack();
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         addListeners();
     }
@@ -118,7 +123,7 @@ public class EditGuideGUI extends JFrame implements ActionListener {
         if (e.getSource() == btnClose) {
             frame.dispose();
         } else if (e.getSource() == btnSaveGuide) {
-            controller.btnSaveGuidesHP();
+            controller.btnSaveGuide();
             frame.dispose();
         }
     }
@@ -129,5 +134,9 @@ public class EditGuideGUI extends JFrame implements ActionListener {
 
     public String getDescription() {
         return descriptionArea.getText();
+    }
+
+    public JFrame getFrame() {
+        return frame;
     }
 }

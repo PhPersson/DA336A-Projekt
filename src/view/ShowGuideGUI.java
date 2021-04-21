@@ -17,10 +17,10 @@ import java.io.IOException;
 public class ShowGuideGUI extends JFrame implements ActionListener {
     private JFrame frame;
     private JPanel centerPanel, southPanel, logoPanel, buttonPanel;
-    private JLabel titleTxt, authorTxt, dateTxt, titleLbl, authorLbl, dateLbl;
+    private JLabel txtTitle, txtAuthor, txtDate, lblTitle, lblAuthor, lblDate;
     private JTextArea descriptionArea;
     private Font bold, plain;
-    private JButton btnClose, btnShowPics;
+    private JButton btnClose, btnShowPics, btnDownload;
     private JScrollPane scroll;
     private Controller controller;
 
@@ -40,23 +40,24 @@ public class ShowGuideGUI extends JFrame implements ActionListener {
         bold = new Font("", Font.BOLD, 14);
         plain = new Font("", Font.PLAIN, 14);
 
-        titleLbl = new JLabel("Titel:");
-        titleLbl.setFont(bold);
-        titleTxt = new JLabel(titleString);
-        titleTxt.setFont(plain);
+        lblTitle = new JLabel("Titel:");
+        lblTitle.setFont(bold);
+        txtTitle = new JLabel(titleString);
+        txtTitle.setFont(plain);
 
-        authorLbl = new JLabel("Skapad av:");
-        authorLbl.setFont(bold);
-        authorTxt = new JLabel(authorString);
-        authorTxt.setFont(plain);
+        lblAuthor = new JLabel("Skapad av:");
+        lblAuthor.setFont(bold);
+        txtAuthor = new JLabel(authorString);
+        txtAuthor.setFont(plain);
 
-        dateLbl = new JLabel("Datum:");
-        dateLbl.setFont(bold);
-        dateTxt = new JLabel(dateString);
-        dateTxt.setFont(plain);
+        lblDate = new JLabel("Datum:");
+        lblDate.setFont(bold);
+        txtDate = new JLabel(dateString);
+        txtDate.setFont(plain);
 
         btnClose = new JButton("Stäng");
         btnShowPics = new JButton("Visa bilder");
+        btnDownload = new JButton("Ladda ner guide");
         setTitle("Visa Guide");
         BufferedImage myPicture = null;
         try {
@@ -80,12 +81,12 @@ public class ShowGuideGUI extends JFrame implements ActionListener {
         frame.add(southPanel);
         frame.add(buttonPanel);
 
-        centerPanel.add(titleLbl);
-        centerPanel.add(titleTxt);
-        centerPanel.add(authorLbl);
-        centerPanel.add(authorTxt);
-        centerPanel.add(dateLbl);
-        centerPanel.add(dateTxt);
+        centerPanel.add(lblTitle);
+        centerPanel.add(txtTitle);
+        centerPanel.add(lblAuthor);
+        centerPanel.add(txtAuthor);
+        centerPanel.add(lblDate);
+        centerPanel.add(txtDate);
 
         centerPanel.setBorder(BorderFactory.createEmptyBorder(0,15,10,10));
 
@@ -94,8 +95,10 @@ public class ShowGuideGUI extends JFrame implements ActionListener {
 
         buttonPanel.add(btnClose);
         buttonPanel.add(btnShowPics);
+        buttonPanel.add(btnDownload);
 
         SwingUtilities.getRootPane(btnShowPics).setDefaultButton(btnShowPics);
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         frame.setSize(800,800);
         frame.pack();
@@ -109,6 +112,7 @@ public class ShowGuideGUI extends JFrame implements ActionListener {
     public void addListeners() {
         btnClose.addActionListener(this);
         btnShowPics.addActionListener(this);
+        btnDownload.addActionListener(this);
     }
 
     @Override
@@ -118,7 +122,14 @@ public class ShowGuideGUI extends JFrame implements ActionListener {
         }
         else if (e.getSource() == btnShowPics) {
             controller.pictureGUI();
-
         }
+        else if (e.getSource() == btnDownload) {
+            System.out.println("ladda ner");
+            controller.downloadGuide();
+        }
+    }
+
+    public JFrame getFrame() {
+        return frame;
     }
 }

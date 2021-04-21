@@ -1,9 +1,14 @@
 package view;
 
 import controller.Controller;
-
 import javax.swing.*;
 
+/**
+ * @author Philip Persson
+ * @author
+ * @author
+ * @version 1.0
+ */
 public class MainFrame extends JFrame {
     private int width = 1000;
     private int height = 600;
@@ -11,10 +16,7 @@ public class MainFrame extends JFrame {
 
     private LoginFrame loginFrame;
     private UserHomepageFrame hpf;
-
     private HomePageFrame homePageFrame;
-
-
     private Controller controller;
     private GuiUtilities util;
 

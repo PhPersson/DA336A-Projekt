@@ -8,12 +8,18 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class HomePageFrame extends JFrame implements ActionListener {
+/**
+ * @author Philip Persson
+ * @version 1.0
+ */
 
+public class HomePageFrame extends JFrame implements ActionListener {
 
     private JButton btnLogin,btnSearch,btnShowGuides;
     private JScrollPane jScrollPane1;
@@ -22,15 +28,13 @@ public class HomePageFrame extends JFrame implements ActionListener {
     private JTextField txtSearch;
     private Controller controller;
 
-
     public HomePageFrame(Controller controller) {
         this.controller = controller;
         initComponents();
     }
 
-
     private void initComponents() {
-
+        setTitle("SupportME");
         BufferedImage myPicture = null;
         try {
             myPicture = ImageIO.read(new File("files/Logga2.png"));
@@ -132,6 +136,18 @@ public class HomePageFrame extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         setVisible(true);
         addListeners();
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                int resp = JOptionPane.showConfirmDialog(null, "Stäng progammet?",
+                        "Stäng", JOptionPane.YES_NO_OPTION);
+                if (resp == JOptionPane.YES_OPTION) {
+                    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                } else {
+                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                }
+            }
+        });
     }
 
     public void addListeners() {
@@ -152,14 +168,16 @@ public class HomePageFrame extends JFrame implements ActionListener {
         } else if (e.getSource() == btnLogin) {
             controller.btnHomePageFrameLogin();
         } else if (e.getSource() == btnShowGuides){ // Visa den markerade guiden // Baserat på vilket index man står på i raden.
+            int guideId = (int) table.getModel().getValueAt(table.getSelectedRow(),0);
             int row = table.getSelectedRow();
 
-            String titleString = table.getModel().getValueAt(row,1).toString();
-            String authorString = table.getModel().getValueAt(row,2).toString();
-            String dateString = table.getModel().getValueAt(row,3).toString();
-            String descriptionString = table.getModel().getValueAt(row, 5).toString();
+            controller.openGuide(
+                    guideId,
+                    table.getModel().getValueAt(row,1).toString(),
+                    table.getModel().getValueAt(row,2).toString(),
+                    table.getModel().getValueAt(row,3).toString(),
+                    table.getModel().getValueAt(row,5).toString());
 
-            new ShowGuideGUI(controller, titleString, authorString, dateString, descriptionString);
         } else if (e.getSource() == btnSearch){
             controller.btnNoLoginSearchGuide(txtSearch.getText());
         }
