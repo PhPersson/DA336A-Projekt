@@ -1,8 +1,13 @@
 package model;
 import java.awt.*;
 import java.io.File;
-import java.util.Date;
 
+/**
+ * @author Philip Persson
+ * @author
+ * @author
+ * @version 1.0
+ */
 public class Guide {
 
     private Image pic;
@@ -10,7 +15,7 @@ public class Guide {
     private File[] files;
 
 
-    public Guide(){
+    public Guide(){ //TODO KOMMENTERA DENNA KLASSEN
     }
 
     public Guide(String title,String description,String author, File[] files) {

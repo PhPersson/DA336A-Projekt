@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * @author Simon Pizevski
  */
 
-public class Controller {
+public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
     private User user;
     private Guide guide;
     private UserHomepageFrame userHomePageFrame;
