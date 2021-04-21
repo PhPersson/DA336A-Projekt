@@ -8,13 +8,20 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * @author Philip Persson
+ * @author
+ * @author
+ * @version 1.0
+ */
+
+
 public class RegisterFrame extends JFrame implements ActionListener {
 
     private JPanel panel;
     private JLabel lblUsername, lblEmail, lblPassword, lblConPassword;
     private JTextField txtUsername, txtEmail, txtPassword, txtConPassword;
-    private JButton btnRegister;
-    private JButton btnCancel;
+    private JButton btnRegister,btnCancel;
     private Controller controller;
     private GuiUtilities util;
 

@@ -6,6 +6,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
+/**
+ * @author Philip Persson
+ * @author
+ * @author
+ * @version 1.0
+ */
+
 public class PictureGUI extends JFrame implements ActionListener {
 
     private JPanel centerPanel, southPanel;
@@ -13,6 +21,7 @@ public class PictureGUI extends JFrame implements ActionListener {
     private JButton btnNext, btnBack;
 
     public PictureGUI() {
+        setTitle("SupportME");
         getContentPane().setLayout(new BoxLayout(getContentPane(),BoxLayout.X_AXIS));
         setLayout(new BorderLayout());
 

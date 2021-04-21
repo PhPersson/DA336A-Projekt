@@ -14,6 +14,7 @@ import java.io.IOException;
 /**
  * @author Philip Persson
  * @author Simon Pizevski
+ * @version
  */
 public class LoginFrame extends JFrame implements ActionListener {
 
@@ -34,7 +35,7 @@ public class LoginFrame extends JFrame implements ActionListener {
 
     public void createComponents() {
 
-        setTitle("Login");
+        setTitle("Inloggning");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setSize(400,220);

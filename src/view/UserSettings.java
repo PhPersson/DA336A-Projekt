@@ -171,7 +171,6 @@ public class UserSettings extends JFrame implements ActionListener {
         if (e.getSource() == btnPassword) {
             if (getFieldPass1().equals(getFieldPass2())) {
                 controller.changePasswordUser();
-                System.out.println("lyckades");
                 setVisible(false);
             } else {
                 util.showErrorDialog("Lösenorden stämmer inte överrens");

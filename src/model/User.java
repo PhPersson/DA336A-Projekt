@@ -4,8 +4,10 @@ package model;
 /**
  * @version 1.0
  * @author Philip Persson
+ * @author
+ * @author
  */
-public class User {
+public class User { // TODO KOMMENTERA DENNA KLASSEN
 
     private String username;
     private String email;

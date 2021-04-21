@@ -34,7 +34,7 @@ public class HomePageFrame extends JFrame implements ActionListener {
     }
 
     private void initComponents() {
-
+        setTitle("SupportME");
         BufferedImage myPicture = null;
         try {
             myPicture = ImageIO.read(new File("files/Logga2.png"));
