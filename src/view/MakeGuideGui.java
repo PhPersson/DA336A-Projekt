@@ -184,7 +184,6 @@ public class MakeGuideGui extends JFrame implements ActionListener {
             if (JFileChooser.APPROVE_OPTION == 0) {
                 selectedFile = fileChooser.getSelectedFile().getPath();
                 System.out.println(selectedFile);
-
             }
         }
     }
