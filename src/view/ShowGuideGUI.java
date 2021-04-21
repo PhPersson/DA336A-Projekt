@@ -20,7 +20,7 @@ public class ShowGuideGUI extends JFrame implements ActionListener {
     private JLabel txtTitle, txtAuthor, txtDate, lblTitle, lblAuthor, lblDate;
     private JTextArea descriptionArea;
     private Font bold, plain;
-    private JButton btnClose, btnShowPics;
+    private JButton btnClose, btnShowPics, btnDownload;
     private JScrollPane scroll;
     private Controller controller;
 
@@ -57,6 +57,7 @@ public class ShowGuideGUI extends JFrame implements ActionListener {
 
         btnClose = new JButton("Stäng");
         btnShowPics = new JButton("Visa bilder");
+        btnDownload = new JButton("Ladda ner guide");
         setTitle("Visa Guide");
         BufferedImage myPicture = null;
         try {
@@ -94,6 +95,7 @@ public class ShowGuideGUI extends JFrame implements ActionListener {
 
         buttonPanel.add(btnClose);
         buttonPanel.add(btnShowPics);
+        buttonPanel.add(btnDownload);
 
         SwingUtilities.getRootPane(btnShowPics).setDefaultButton(btnShowPics);
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -110,6 +112,7 @@ public class ShowGuideGUI extends JFrame implements ActionListener {
     public void addListeners() {
         btnClose.addActionListener(this);
         btnShowPics.addActionListener(this);
+        btnDownload.addActionListener(this);
     }
 
     @Override
@@ -119,6 +122,10 @@ public class ShowGuideGUI extends JFrame implements ActionListener {
         }
         else if (e.getSource() == btnShowPics) {
             controller.pictureGUI();
+        }
+        else if (e.getSource() == btnDownload) {
+            System.out.println("ladda ner");
+            controller.downloadGuide();
         }
     }
 

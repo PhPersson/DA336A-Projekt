@@ -2,6 +2,10 @@ package controller;
 
 import model.*;
 import view.*;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -328,6 +332,21 @@ public class Controller {
             homePageFrame.updateSearchGuideList(con.getAllGuides());
         } catch (NullPointerException e) {
 
+        }
+    }
+
+    public void downloadGuide(){
+        try {
+            File file = new File("src/files");
+            file.setWritable(true);
+            file.setReadable(true);
+
+            FileWriter myWriter = new FileWriter("filename.txt");
+
+            myWriter.write("Hejsanhoppsan");
+            myWriter.close();
+        } catch (IOException exception) {
+            exception.printStackTrace();
         }
     }
 }
