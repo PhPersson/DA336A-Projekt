@@ -35,7 +35,7 @@ public class MakeGuideGui extends JFrame implements ActionListener {
     }
 
     private void initComponents() {
-
+        setTitle("SupportME");
         jInternalFrame1 = new JInternalFrame();
         jInternalFrame2 = new JInternalFrame();
         jScrollPane1 = new JScrollPane();
