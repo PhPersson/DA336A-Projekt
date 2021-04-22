@@ -38,6 +38,8 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
         view = new MainFrame(this);
         util = new GuiUtilities();
         con = new DbCon(this);
+        con.getAPic();
+        //addPicturesToDb("C:\\Users\\phili\\Pictures\\Backgrundsbilder\\federico-beccari-cyg3DD6Y69A-unsplash.jpg");
         user = new User();
         guide = new Guide();
     }
@@ -388,6 +390,9 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
             exception.printStackTrace();
         }
     }
+
+
+
 //    public void addPicturesToDb(String selectedFile) {
 //        con.addPictureToGuide(selectedFile)
 
