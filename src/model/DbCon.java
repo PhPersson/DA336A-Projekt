@@ -1,6 +1,8 @@
 package model;
 
 import controller.Controller;
+
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.io.File;
 import java.io.FileInputStream;
@@ -586,28 +588,7 @@ public class DbCon {
         }
     }
 
-    /*
-    public String[] getAllTypes(){
-        String query = "Select * from Type";
-        String[] type = null;
 
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()) {
-                type = rs.getString("username") + ", " + (rs.getString("email"));
-                type = rs.getString(1)
-            }
-
-
-        } catch (SQLException exception)
-            exception.printStackTrace();
-        }
-        return type;
-    }
-
-
-     */
 
     public void addPictureToGuide(String selectedFile) {
         String query = "INSERT INTO Picture(picture) VALUES(?)";
@@ -624,16 +605,20 @@ public class DbCon {
 
     }
 
-    /*
-    public void getAllPicturesGuide(int GuideId){
-        String query = "Select * FROM Picture Where guideId = ?";
+    public void getAPic(){
+        String query = "SELECT picture from Picture WHERE guideId = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1,67);
+            ResultSet rs = ps.executeQuery();
 
+            while (rs.next()){
+                JOptionPane.showMessageDialog(null,new ImageIcon((byte[]) rs.getObject("picture")));
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
         }
     }
-
-     */
 }
 
 
