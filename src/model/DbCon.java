@@ -7,6 +7,7 @@ import javax.swing.table.DefaultTableModel;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.lang.reflect.Type;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -243,7 +244,7 @@ public class DbCon {
      */
     public DefaultTableModel getAllGuides() {
         DefaultTableModel guideModel = new DefaultTableModel(new String[]{
-                "Guide ID", "Titel", "Skapad av:", "Datum", "Betyg", "Beskrivning", "Visningar"}, 0);
+                "Guide ID", "Titel", "Skapad av:", "Datum", "Betyg", "Beskrivning", "Visningar", "Typ", "Kategori"}, 0);
         try {
             String strGetUsers = "Select * FROM GUIDE ORDER BY guideId ASC";
             PreparedStatement statement = connection.prepareStatement(strGetUsers);
@@ -256,7 +257,9 @@ public class DbCon {
                 int rating = rs.getInt("rating");
                 String description = rs.getString("description");
                 int views = rs.getInt("views");
-                guideModel.addRow(new Object[]{guideId, title, username, date, rating, description, views});
+                String type = rs.getString("Type");
+                String category = rs.getString("category");
+                guideModel.addRow(new Object[]{guideId, title, username, date, rating, description, views, type, category});
             }
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -271,7 +274,7 @@ public class DbCon {
 
     public DefaultTableModel getAllGuidesUserSearch() {
         DefaultTableModel guideModel = new DefaultTableModel(new String[]{
-                "GuideId", "Titel", "Skapad av:", "Datum", "Betyg", "Beskrivning", "Visningar"}, 0);
+                "GuideId", "Titel", "Skapad av:", "Datum", "Betyg", "Beskrivning", "Visningar", "Typ", "Kategori"}, 0);
         try {
             String strGetUsers = "Select * FROM GUIDE ORDER BY guideId ASC";
             PreparedStatement statement = connection.prepareStatement(strGetUsers);
@@ -284,7 +287,10 @@ public class DbCon {
                 int rating = rs.getInt("rating");
                 String description = rs.getString("description");
                 int views = rs.getInt("views");
-                guideModel.addRow(new Object[]{guideId, title, username, date, rating, description, views});
+                String type = rs.getString("Type");
+                String category = rs.getString("category");
+                guideModel.addRow(new Object[]{guideId, title, username, date, rating, description, views, type, category});
+
             }
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -300,7 +306,7 @@ public class DbCon {
 
     public DefaultTableModel getAllGuidesUser(String user) {
         DefaultTableModel guideModel = new DefaultTableModel(new String[]{
-                "GuideId", "Titel", "Skapad av:", "Datum", "Betyg", "Beskrivning", "Visningar"}, 0);
+                "GuideId", "Titel", "Skapad av:", "Datum", "Betyg", "Beskrivning", "Visningar", "Typ", "Kategori"}, 0);
 
         try {
             String strGetUsers = "Select * FROM GUIDE WHERE username = ? ORDER BY guideId ASC";
@@ -316,7 +322,9 @@ public class DbCon {
                 int rating = rs.getInt("rating");
                 String description = rs.getString("description");
                 int views = rs.getInt("views");
-                guideModel.addRow(new Object[]{guideId, title, username, date, rating, description, views});
+                String type = rs.getString("Type");
+                String category = rs.getString("category");
+                guideModel.addRow(new Object[]{guideId, title, username, date, rating, description, views, type, category});
             }
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -355,9 +363,9 @@ public class DbCon {
      */
     public DefaultTableModel searchGuide(String searchText) {
         DefaultTableModel guideModel = new DefaultTableModel(new String[]{
-                "GuideID", "Titel", "Skapad av:", "Datum", "Betyg", "Beskrivning", "Visningar"}, 0);
+                "GuideID", "Titel", "Skapad av:", "Datum", "Betyg", "Beskrivning", "Visningar", "Typ", "Kategori"}, 0);
         try {
-            String query = "SELECT guideId, title, username, date, rating, description, views FROM Guide WHERE title LIKE '%" + searchText + "%' OR username LIKE '%" + searchText + "%'";
+            String query = "SELECT guideId, title, username, date, rating, description, views, Type, category FROM Guide WHERE title LIKE '%" + searchText + "%' OR username LIKE '%" + searchText + "%' OR Type LIKE '%" + searchText + "%' OR category LIKE '%" + searchText + "%'";
             PreparedStatement ps = connection.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
 
@@ -369,7 +377,9 @@ public class DbCon {
                 int rating = rs.getInt("rating");
                 String description = rs.getString("description");
                 int views = rs.getInt("views");
-                guideModel.addRow(new Object[]{guideId, title, username, date, rating, description, views});
+                String type = rs.getString("Type");
+                String category = rs.getString("category");
+                guideModel.addRow(new Object[]{guideId, title, username, date, rating, description, views, type, category});
             }
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -385,13 +395,13 @@ public class DbCon {
         try {
             connection.setAutoCommit(false);
 
-            String createGuide = "INSERT INTO [Guide] ( title, description, date, Type, category, username, views)"  + "VALUES (?,?,?,?,?,?,?)";
+            String createGuide = "INSERT INTO [Guide] (title, description, date, Type, category, username, views)"  + "VALUES (?,?,?,?,?,?,?)";
             PreparedStatement create = connection.prepareStatement(createGuide);
 
             create.setString(1, guide.getTitle());
             create.setString(2, guide.getDescription());
             create.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
-            create.setString(4, guide.getType() );
+            create.setString(4, guide.getType());
             create.setString(5, guide.getCategory());
             create.setString(6, guide.getAuthor());
             create.setInt(7,0); // Sätt views
