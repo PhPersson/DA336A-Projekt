@@ -38,7 +38,11 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
         view = new MainFrame(this);
         util = new GuiUtilities();
         con = new DbCon(this);
-        con.getAPic();
+
+        //con.getAPic();
+
+     
+
         //addPicturesToDb("C:\\Users\\phili\\Pictures\\Backgrundsbilder\\federico-beccari-cyg3DD6Y69A-unsplash.jpg");
         user = new User();
         guide = new Guide();
@@ -293,6 +297,8 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
             con.updateGuide(
                     editGuideGUI.getTitleEdit(),
                     editGuideGUI.getDescription(),
+                    editGuideGUI.getTypeString(),
+                    editGuideGUI.getCategoryString(),
                     adminFrame.getGuideTable().getModel().getValueAt(row, 0).toString());
 
             adminFrame.updateGuideList(con.getAllGuides());
@@ -301,6 +307,8 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
             con.updateGuide(
                     editGuideGUI.getTitleEdit(),
                     editGuideGUI.getDescription(),
+                    editGuideGUI.getTypeString(),
+                    editGuideGUI.getCategoryString(),
                     userHomePageFrame.getTableLow().getModel().getValueAt(row, 0).toString());
 
             userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
@@ -320,7 +328,9 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
                     adminFrame.getGuideTable().getModel().getValueAt(row, 1).toString(),
                     adminFrame.getGuideTable().getModel().getValueAt(row, 2).toString(),
                     adminFrame.getGuideTable().getModel().getValueAt(row, 3).toString(),
-                    adminFrame.getGuideTable().getModel().getValueAt(row, 5).toString());
+                    adminFrame.getGuideTable().getModel().getValueAt(row, 5).toString(),
+                    adminFrame.getGuideTable().getModel().getValueAt(row,7).toString(),
+                    adminFrame.getGuideTable().getModel().getValueAt(row,8).toString());
         } else {
 
             int row = userHomePageFrame.getTableLow().getSelectedRow();
@@ -328,7 +338,9 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
                     userHomePageFrame.getTableLow().getModel().getValueAt(row, 1).toString(),
                     userHomePageFrame.getTableLow().getModel().getValueAt(row, 2).toString(),
                     userHomePageFrame.getTableLow().getModel().getValueAt(row, 3).toString(),
-                    userHomePageFrame.getTableLow().getModel().getValueAt(row, 5).toString());
+                    userHomePageFrame.getTableLow().getModel().getValueAt(row, 5).toString(),
+                    userHomePageFrame.getTableLow().getModel().getValueAt(row,7).toString(),
+                    userHomePageFrame.getTableLow().getModel().getValueAt(row,8).toString());
         }
     }
 

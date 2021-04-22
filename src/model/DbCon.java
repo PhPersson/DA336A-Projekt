@@ -492,15 +492,17 @@ public class DbCon {
      * @param guideId , GuideId som är identifierare.
      */
 
-    public void updateGuide(String title, String description, String guideId) {
+    public void updateGuide(String title, String description, String type, String category, String guideId) {
         try {
             connection.setAutoCommit(false);
 
-            String query = "UPDATE Guide SET title = ?, description = ? WHERE guideId = ?";
+            String query = "UPDATE Guide SET title = ?, description = ?, Type = ?, category = ? WHERE guideId = ?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, title);
             ps.setString(2, description);
-            ps.setString(3, guideId);
+            ps.setString(3, type);
+            ps.setString(4, category);
+            ps.setString(5, guideId);
             ps.execute();
             connection.commit();
             ps.close();

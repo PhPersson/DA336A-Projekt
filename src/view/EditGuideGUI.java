@@ -31,7 +31,7 @@ public class EditGuideGUI extends JFrame implements ActionListener {
     private Controller controller;
     private JComboBox typeComboBox, categoryComboBox;
 
-    public EditGuideGUI(Controller controller, String titleString, String authorString, String dateString, String descriptionString) {
+    public EditGuideGUI(Controller controller, String titleString, String authorString, String dateString, String descriptionString, String type, String category) {
         this.controller = controller;
         frame = new JFrame("Redigera guide");
         frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
