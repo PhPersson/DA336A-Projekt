@@ -381,26 +381,25 @@ public class DbCon {
      * Skapar en guide i databasen
      *
      */
-    public void createGuide(Guide guide, String picture) {
+    public void createGuide(Guide guide) {
         try {
             connection.setAutoCommit(false);
-            File file=new File(picture);
-            FileInputStream fis =new FileInputStream(file);
 
-            String createGuide = "INSERT INTO [Guide] ( title, description, date, picture, username, views)"  + "VALUES (?,?,?,?,?,?)";
+            String createGuide = "INSERT INTO [Guide] ( title, description, date, Type, category, username, views)"  + "VALUES (?,?,?,?,?,?,?)";
             PreparedStatement create = connection.prepareStatement(createGuide);
 
             create.setString(1, guide.getTitle());
             create.setString(2, guide.getDescription());
             create.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
-            create.setBinaryStream(4, fis); // Göra hur för att referera till Picture table?
-            create.setString(5, guide.getAuthor());
-            create.setInt(6,0); // Sätt views
+            create.setString(4, guide.getType() );
+            create.setString(5, guide.getCategory());
+            create.setString(6, guide.getAuthor());
+            create.setInt(7,0); // Sätt views
             create.execute();
             connection.commit();
             create.close();
 
-        } catch (SQLException | FileNotFoundException exception) {
+        } catch (SQLException exception) {
             exception.printStackTrace();
         }
     }
@@ -592,19 +591,20 @@ public class DbCon {
 
 
     public void addPictureToGuide(String selectedFile) {
-        String query = "INSERT INTO Picture(picture,guideId) VALUES(?,?)";
+        String query = "INSERT INTO Picture(picture) VALUES(?)";
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             File file=new File(selectedFile);
             FileInputStream fis =new FileInputStream(file);
             ps.setBinaryStream(1,fis);
-            ps.setInt(2,67);
+           // ps.setInt(2,67);
             ps.executeUpdate();
         } catch (FileNotFoundException | SQLException e) {
             e.printStackTrace();
         }
 
     }
+
     public void getAPic(){
         String query = "SELECT picture from Picture WHERE guideId = ?";
         try {
@@ -619,7 +619,6 @@ public class DbCon {
             exception.printStackTrace();
         }
     }
-
 }
 
 

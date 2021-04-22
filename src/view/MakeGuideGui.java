@@ -83,10 +83,10 @@ public class MakeGuideGui extends JFrame implements ActionListener {
         textAreaInput.setText("Beskrivning.");
         jScrollPane1.setViewportView(textAreaInput);
 
-        typeComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
+        typeComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Software", "Hardware", "Quick Guide"}));
 
 
-        categoryComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
+        categoryComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Internet", "Dator", "Mobil", "Övrigt"}));
 
         fieldTitle.setText("Titel");
 
@@ -169,6 +169,14 @@ public class MakeGuideGui extends JFrame implements ActionListener {
         return textAreaInput.getText();
     }
 
+    public String getTypeString(){
+        return typeComboBox.getSelectedItem().toString();
+    }
+
+    public String getCategoryString(){
+        return categoryComboBox.getSelectedItem().toString();
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnCancel) {
@@ -183,7 +191,10 @@ public class MakeGuideGui extends JFrame implements ActionListener {
             fileChooser.showOpenDialog(null);
             if (JFileChooser.APPROVE_OPTION == 0) {
                 selectedFile = fileChooser.getSelectedFile().getPath();
+                controller.addPicturesToDb(selectedFile);
                 System.out.println(selectedFile);
+
+
             }
         }
     }
