@@ -3,6 +3,7 @@ package controller;
 import model.*;
 import view.*;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -30,6 +31,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
     private EditGuideGUI editGuideGUI;
     private PictureGUI pictureGUI;
     private ShowGuideGUI showGuideGUI;
+    private int guidenum;
 
     /**
      *
@@ -253,6 +255,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
         con.createGuide(guide = new Guide(makeGuideGUI.getTitleGuide(), makeGuideGUI.getDescriptionField(), user.getUsername().substring(0, 1).toUpperCase() + user.getUsername().substring(1), makeGuideGUI.getTypeString(), makeGuideGUI.getCategoryString()));
         userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
         userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
+
     }
 
     /**
@@ -352,7 +355,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
      * Användare väljer att kolla på bilderna som finnns kopplade till en guide.
      */
     public void pictureGUI () {
-        pictureGUI = new PictureGUI();
+        pictureGUI = new PictureGUI(this);
         pictureGUI.setVisible(true);
     }
 
@@ -371,6 +374,8 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
     public void openGuide(int guideId, String title, String author, String date, String description) {
         showGuideGUI = new ShowGuideGUI(this, title,author,date,description);
         con.addView(guideId);
+        setGuideId(guideId);
+
         try {
             userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
             userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
@@ -378,6 +383,14 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
         } catch (NullPointerException e) {
 
         }
+    }
+
+    public void setGuideId(int guideId) {
+        this.guidenum = guideId;
+    }
+    public int getGuidenum(){
+        System.out.println(guidenum);
+        return this.guidenum;
     }
 
     public void addPicturesToDb(String selectedFile) {
@@ -403,6 +416,12 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
         }
     }
 
+    public Icon getPicture() {
+
+
+        return con.getAPic(getGuidenum());
+
+    }
 
 
 //    public void addPicturesToDb(String selectedFile) {
