@@ -247,16 +247,7 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnNewGuide) {
-            //Skapa tom guide här innan.
-
-            controller.createTempGuide();
-
-
             controller.btnOpenCreateGuideFrame();
-
-
-            controller.test(); // Hämtar högsta GuideId från databasen
-
 
         }  else if (e.getSource() == btnLogOff) {
             controller.btnUserLoggOff();

@@ -26,6 +26,7 @@ public class DbCon {
     private String sqlPassword = "hejsanhoppsan";
     private FileInputStream fileInputStream;
     private Controller controller;
+    private int guideId;
 
 
     /**
@@ -404,8 +405,9 @@ public class DbCon {
         try {
             connection.setAutoCommit(false);
 
-            String createGuide = "INSERT INTO [Guide] (title, description, date, Type, category, username, views)" + "VALUES (?,?,?,?,?,?,?)";
+            String createGuide = "INSERT INTO [Guide] (title, description, date, Type, category, username, views) OUTPUT inserted.guideId VALUES (?,?,?,?,?,?,?)";
             PreparedStatement create = connection.prepareStatement(createGuide);
+
 
             create.setString(1, guide.getTitle());
             create.setString(2, guide.getDescription());
@@ -414,7 +416,16 @@ public class DbCon {
             create.setString(5, guide.getCategory());
             create.setString(6, guide.getAuthor());
             create.setInt(7, 0); // Sätt views
-            create.execute();
+            ResultSet rs = create.executeQuery();
+
+            while (rs.next()) {
+                guideId = rs.getInt("guideId");
+                System.out.println(guideId);
+
+            }
+
+
+            //create.execute();
             connection.commit();
             create.close();
 
@@ -625,7 +636,7 @@ public class DbCon {
             File file = new File(selectedFile);
             FileInputStream fis = new FileInputStream(file);
             ps.setBinaryStream(1, fis);
-            ps.setInt(2, 67);
+            ps.setInt(2, guideId);
             ps.executeUpdate();
         } catch (FileNotFoundException | SQLException e) {
             e.printStackTrace();
@@ -655,38 +666,7 @@ public class DbCon {
         return icon;
     }
 
-    public int getNewGuide() {
-        String query = "SELECT MAX(GuideId) from Guide";
-        int max = 0;
-        try {
-            PreparedStatement ps = connection.prepareStatement(query);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                max = rs.getInt(1);
-            }
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
-        return max;
-    }
 
-
-    public void tempGuide(){
-        try {
-            connection.setAutoCommit(false);
-
-            String tempTitle = "TEMP";
-
-            String query = "INSERT INTO [Guide] (Title)" + "VALUES (?)";
-            PreparedStatement create = connection.prepareStatement(query);
-
-            create.setString(1, tempTitle);
-
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
-
-    }
 }
 
 
