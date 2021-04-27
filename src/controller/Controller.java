@@ -244,7 +244,6 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
      */
     public void btnCancelGuide() {
         makeGuideGUI.setVisible(false);
-        System.out.println(user.getUsername());
     }
 
     /**
@@ -388,10 +387,10 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
     public void setGuideId(int guideId) {
         this.guidenum = guideId;
     }
-    public int getGuidenum(){
-        System.out.println(guidenum);
-        return this.guidenum;
-    }
+//    public int getGuidenum(){
+//        System.out.println(guidenum);
+//        return this.guidenum;
+//    }
 
     public void addPicturesToDb(String selectedFile) {
         con.addPictureToGuide(selectedFile);
@@ -416,22 +415,6 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
         }
     }
 
-    public Icon getPicture() {
-
-
-        return con.getAPic(getGuidenum());
-
-    }
-
-    public void createTempGuide(){
-
-        con.tempGuide();
-
-    }
-
-    public void test() {
-        System.out.println(con.getNewGuide());
-    }
 
 
 //    public void addPicturesToDb(String selectedFile) {

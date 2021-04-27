@@ -37,7 +37,7 @@ public class PictureGUI extends JFrame implements ActionListener {
 
         lblPicture = new JLabel();
         lblPicture.setPreferredSize(new Dimension(500,400));
-        lblPicture.setIcon(controller.getPicture());
+//        lblPicture.setIcon(controller.getPicture());
 
         btnBack = new JButton("Föregående bild");
         btnNext = new JButton("Nästa bild");

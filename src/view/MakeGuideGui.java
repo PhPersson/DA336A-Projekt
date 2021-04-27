@@ -179,9 +179,6 @@ public class MakeGuideGui extends JFrame implements ActionListener {
             controller.btnCancelGuide();
         } else if (e.getSource() == btnMakeGuide) {
             controller.btnCreateGuide(selectedFile);
-
-            //Sätta GuideId här till bilder????
-
             dispose();
         } else if (e.getSource() == btnAddPicture) {
             JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
