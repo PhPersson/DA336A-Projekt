@@ -603,13 +603,13 @@ public class DbCon {
 
 
     public void addPictureToGuide(String selectedFile) {
-        String query = "INSERT INTO Picture(picture) VALUES(?)";
+        String query = "INSERT INTO Picture(picture, GuideId) VALUES(?,?)";
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             File file=new File(selectedFile);
             FileInputStream fis =new FileInputStream(file);
             ps.setBinaryStream(1,fis);
-           // ps.setInt(2,67);
+            ps.setInt(2,67);
             ps.executeUpdate();
         } catch (FileNotFoundException | SQLException e) {
             e.printStackTrace();
@@ -617,19 +617,26 @@ public class DbCon {
 
     }
 
-    public void getAPic(){
+    public ImageIcon getAPic(int guideId){
         String query = "SELECT picture from Picture WHERE guideId = ?";
+        ImageIcon icon = new ImageIcon();
+
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1,67);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()){
-                JOptionPane.showMessageDialog(null,new ImageIcon((byte[]) rs.getObject("picture")));
+
+                icon = new ImageIcon((byte[]) rs.getObject("picture"));
+                return icon;
+
             }
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
+        System.out.println(icon + " Här");
+        return icon;
     }
 }
 
