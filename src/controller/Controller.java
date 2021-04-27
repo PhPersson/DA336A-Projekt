@@ -423,6 +423,16 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
 
     }
 
+    public void createTempGuide(){
+
+        con.tempGuide();
+
+    }
+
+    public void test() {
+        System.out.println(con.getNewGuide());
+    }
+
 
 //    public void addPicturesToDb(String selectedFile) {
 //        con.addPictureToGuide(selectedFile)
