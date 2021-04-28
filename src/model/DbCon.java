@@ -626,6 +626,7 @@ public class DbCon {
             FileInputStream fis = new FileInputStream(file);
             ps.setBinaryStream(1, fis);
             ps.setInt(2, 67);
+            //ps.setInt(2, controller.getGuidenum());
             ps.executeUpdate();
         } catch (FileNotFoundException | SQLException e) {
             e.printStackTrace();
@@ -639,6 +640,7 @@ public class DbCon {
 
         try {
             PreparedStatement ps = connection.prepareStatement(query);
+            //ps.setInt(1, controller.getGuidenum());
             ps.setInt(1, 67);
             ResultSet rs = ps.executeQuery();
 
@@ -677,7 +679,7 @@ public class DbCon {
 
             String tempTitle = "TEMP";
 
-            String query = "INSERT INTO [Guide] (Title)" + "VALUES (?)";
+            String query = "INSERT INTO [Guide] (title)" + "VALUES (?)";
             PreparedStatement create = connection.prepareStatement(query);
 
             create.setString(1, tempTitle);
