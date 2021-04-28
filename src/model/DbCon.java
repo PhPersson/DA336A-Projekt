@@ -1,16 +1,13 @@
 package model;
 
-import controller.Controller;
-
+import controller.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.lang.reflect.Type;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -21,10 +18,8 @@ import java.util.List;
  */
 public class DbCon {
     private Connection connection;
-    private String sqlURL = "jdbc:sqlserver://supportme.duckdns.org;databaseName=support_me;";
-    private String sqlUsername = "supportmeadmin";
     private String sqlPassword = "hejsanhoppsan";
-    private FileInputStream fileInputStream;
+    private int guideId;
     private Controller controller;
 
 
@@ -43,7 +38,7 @@ public class DbCon {
     public void connectToDatabase() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            connection = DriverManager.getConnection(sqlURL, sqlUsername, sqlPassword);
+            connection = DriverManager.getConnection(Values.getSqlUrl(), Values.getSqlUsername(), Values.getSqlPassword());
         } catch (ClassNotFoundException | SQLException exception) {
             controller.getUtil().showErrorDialog("Kunde inte ansluta till databsen. \nVänligen kontakta systemadministratören!");
             exception.printStackTrace();
@@ -79,23 +74,30 @@ public class DbCon {
      * @param password Lösenordet som användaren matar in vid
      * @return retunerar true om användaren finns. Annars retuneras false.
      */
-    public boolean getAllUserAndPass(String username, String password) {
-
-        String query = "SELECT username FROM [User] WHERE username = ? AND password = ?";  //get username
+    public boolean getUserAndPass(String username, String password) {
+        boolean valid = false;
+        String hasedPassword;
+        String query = "SELECT username,password FROM [User] WHERE username = ?";  //get username
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, username);
-            preparedStatement.setString(2, password);
+
             ResultSet rs = preparedStatement.executeQuery();
+
             if (rs.next()) {
-                return true;
-            } else {
-                return false;
-            }
+                hasedPassword = rs.getString("password");
+                if (!hasedPassword.startsWith(("$2a$"))) {
+                    valid = true;
+                }
+                    else if (Hash.checkHash(password, hasedPassword)) {
+                        valid = true;
+                    }
+                }
+
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
+        return valid;
     }
 
     /**
@@ -404,8 +406,9 @@ public class DbCon {
         try {
             connection.setAutoCommit(false);
 
-            String createGuide = "INSERT INTO [Guide] (title, description, date, Type, category, username, views)" + "VALUES (?,?,?,?,?,?,?)";
+            String createGuide = "INSERT INTO [Guide] (title, description, date, Type, category, username, views) OUTPUT inserted.guideId VALUES (?,?,?,?,?,?,?)";
             PreparedStatement create = connection.prepareStatement(createGuide);
+
 
             create.setString(1, guide.getTitle());
             create.setString(2, guide.getDescription());
@@ -414,7 +417,16 @@ public class DbCon {
             create.setString(5, guide.getCategory());
             create.setString(6, guide.getAuthor());
             create.setInt(7, 0); // Sätt views
-            create.execute();
+            ResultSet rs = create.executeQuery();
+
+            while (rs.next()) {
+                guideId = rs.getInt("guideId");
+                System.out.println(guideId);
+
+            }
+
+
+            //create.execute();
             connection.commit();
             create.close();
 
@@ -625,8 +637,9 @@ public class DbCon {
             File file = new File(selectedFile);
             FileInputStream fis = new FileInputStream(file);
             ps.setBinaryStream(1, fis);
-            ps.setInt(2, 67);
-            //ps.setInt(2, controller.getGuidenum());
+
+            ps.setInt(2, guideId);
+
             ps.executeUpdate();
         } catch (FileNotFoundException | SQLException e) {
             e.printStackTrace();
@@ -657,38 +670,8 @@ public class DbCon {
         return icon;
     }
 
-    public int getNewGuide() {
-        String query = "SELECT MAX(GuideId) from Guide";
-        int max = 0;
-        try {
-            PreparedStatement ps = connection.prepareStatement(query);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                max = rs.getInt(1);
-            }
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
-        return max;
-    }
 
 
-    public void tempGuide(){
-        try {
-            connection.setAutoCommit(false);
-
-            String tempTitle = "TEMP";
-
-            String query = "INSERT INTO [Guide] (title)" + "VALUES (?)";
-            PreparedStatement create = connection.prepareStatement(query);
-
-            create.setString(1, tempTitle);
-
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
-
-    }
 }
 
 
