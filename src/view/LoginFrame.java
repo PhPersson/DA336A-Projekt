@@ -11,22 +11,21 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
+/**
+ * @author Philip Persson
+ * @author Simon Pizevski
+ * @version
+ */
 public class LoginFrame extends JFrame implements ActionListener {
 
-    private JPanel panel;
-    private JPanel panelLogo;
-    private JPanel panelNoLog;
-
+    private JPanel panel, panelLogo, panelNoLog;
     private JLabel lblUsername, lblPassword, lblLogo;
     private JTextField txtUsername;
     private JPasswordField txtPassword;
     private JButton btnRegister, btnLogin;
     private JButton btnNoLogin;
-
     private RegisterFrame registerFrame;
     private UserHomepageFrame homePageFrame;
-
     private Controller controller;
 
     public LoginFrame(Controller controller) {
@@ -36,7 +35,7 @@ public class LoginFrame extends JFrame implements ActionListener {
 
     public void createComponents() {
 
-        setTitle("Login");
+        setTitle("Inloggning");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setSize(400,220);
@@ -104,8 +103,6 @@ public class LoginFrame extends JFrame implements ActionListener {
 
     public RegisterFrame getRegisterFrame() { return registerFrame; }
 
-
-
     public void addListeners() {
         btnRegister.addActionListener(this);
         btnLogin.addActionListener(this);
@@ -118,7 +115,6 @@ public class LoginFrame extends JFrame implements ActionListener {
             registerFrame = new RegisterFrame(controller);
         } else if (e.getSource() == btnLogin) {
           controller.btnLoginClicked();
-
         } else if (e.getSource() == btnNoLogin) {
             controller.btnNoLoginClicked();
 

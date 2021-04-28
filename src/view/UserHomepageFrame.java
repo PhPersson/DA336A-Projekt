@@ -1,17 +1,24 @@
 package view;
 
 import controller.Controller;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
+
+/**
+ * @author Philip Persson
+ * @author
+ * @author
+ * @version 1.0
+ */
 
 
 public class UserHomepageFrame extends JFrame implements ActionListener {
@@ -33,7 +40,7 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
     }
 
     private void initComponents() {
-
+        setTitle("SupportME");
         BufferedImage myPicture = null;
         try {
             myPicture = ImageIO.read(new File("files/Logga2.png"));
@@ -103,7 +110,7 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
         btnRemoveGuide.setFont(new Font("Tahoma", 0, 14));
         btnRemoveGuide.setText("Ta Bort");
 
-        btnUserSettings.setFont(new Font("Tahoma", 0, 10));
+        btnUserSettings.setFont(new Font("Tahoma", 0, 14));
         btnUserSettings.setText("Inställningar");
 
         jTableUp.setDefaultEditor(Object.class, null);
@@ -170,7 +177,7 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addComponent(btnLogOff, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(btnUserSettings, GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE))
+                                        .addComponent(btnUserSettings, GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addComponent(txtSearch, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
@@ -199,6 +206,18 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         setResizable(false);
         addListeners();
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                int resp = JOptionPane.showConfirmDialog(null, "Stäng progammet?",
+                        "Stäng", JOptionPane.YES_NO_OPTION);
+                if (resp == JOptionPane.YES_OPTION) {
+                    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                } else {
+                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                }
+            }
+        });
     }
 
     public void addListeners() {
@@ -212,8 +231,8 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
         btnRemoveGuide.addActionListener(this);
     }
 
-    public void setLblloginUser(String name) {
-        lblLoggedIn.setText(name);
+    public void setLblLoginUser(String name) {
+        lblLoggedIn.setText(name.substring(0, 1).toUpperCase() + name.substring(1));
         lblLoggedIn.setForeground(Color.darkGray);
     }
 
@@ -229,41 +248,49 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnNewGuide) {
             controller.btnOpenCreateGuideFrame();
+
         }  else if (e.getSource() == btnLogOff) {
             controller.btnUserLoggOff();
-        } else if (e.getSource() == btnSearch) {
+        }
+        else if (e.getSource() == btnSearch) {
             controller.btnUserSearchGuide(txtSearch.getText());
-        } else if (e.getSource() == btnShowGuideUpper) {
+        }
+        else if (e.getSource() == btnShowGuideUpper) {
+            int guideId = (int) jTableUp.getModel().getValueAt(jTableUp.getSelectedRow(),0);
             int row = jTableUp.getSelectedRow();
-
-            String titleString = jTableUp.getModel().getValueAt(row,1).toString();
-            String authorString = jTableUp.getModel().getValueAt(row,2).toString();
-            String dateString = jTableUp.getModel().getValueAt(row,3).toString();
-            String descriptionString = jTableUp.getModel().getValueAt(row, 5).toString();
-
-            new ShowGuideGUI(controller,titleString, authorString, dateString, descriptionString);
-        } else if (e.getSource() == btnShowGuideLower) {
+            controller.openGuide(guideId,
+                    jTableUp.getModel().getValueAt(row,1).toString(),
+                    jTableUp.getModel().getValueAt(row,2).toString(),
+                    jTableUp.getModel().getValueAt(row,3).toString(),
+                    jTableUp.getModel().getValueAt(row, 5).toString());
+        }
+        else if (e.getSource() == btnShowGuideLower) {
+            int guideId = (int) jTableLow.getModel().getValueAt(jTableLow.getSelectedRow(),0);
             int row = jTableLow.getSelectedRow();
-
-            String titleString = jTableLow.getModel().getValueAt(row,0).toString();
-            String authorString = jTableLow.getModel().getValueAt(row,1).toString();
-            String dateString = jTableLow.getModel().getValueAt(row,2).toString();
-            String descriptionString = jTableLow.getModel().getValueAt(row, 4).toString();
-
-            new ShowGuideGUI(controller,titleString, authorString, dateString, descriptionString);
+            controller.openGuide(guideId,
+                    jTableLow.getModel().getValueAt(row,1).toString(),
+                    jTableLow.getModel().getValueAt(row,2).toString(),
+                    jTableLow.getModel().getValueAt(row,3).toString(),
+                    jTableLow.getModel().getValueAt(row,5).toString());
         } else if (e.getSource() == btnUserSettings) {
             controller.btnUserSettings();
         }
         else if (e.getSource() == btnEditGuide) {
             controller.editGuide();
         } else if (e.getSource() == btnRemoveGuide) {
-            int row = jTableLow.getSelectedRow();
-            String titleToRemove = jTableLow.getModel().getValueAt(row,0).toString();
-            controller.btnDeleteGuide(titleToRemove);
+            try {
+                String titleToRemove = jTableLow.getModel().getValueAt(jTableLow.getSelectedRow(),0).toString();
+                controller.btnDeleteGuide(titleToRemove);
+            } catch (ArrayIndexOutOfBoundsException exception) {
+
+            }
+
 
         }
     }
     public JTable getTableLow() {
         return jTableLow;
     }
+
+    public JTable getjTableUp() {return jTableUp;}
 }

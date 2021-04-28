@@ -1,27 +1,42 @@
 package model;
 
-public class User {
 
-    private String Username;
+/**
+ * @version 1.0
+ * @author Philip Persson
+ * @author Alexander Olsson
+ * @author
+ */
+public class User { // TODO KOMMENTERA DENNA KLASSEN
+
+    private String username;
     private String email;
     private String password;
     private int role;
 
     public User(){}
 
+    /**
+     * Konstruktor för att lägga till en ny användare.
+     * @param username
+     * @param email
+     * @param password
+     * @param role
+     */
+
     public User(String username, String email, String password, int role) {
-        this.Username = username;
+        this.username = username;
         this.email = email;
         this.password = password;
         this.role = role;
     }
 
     public String getUsername() {
-        return Username;
+        return username;
     }
 
     public void setUsername(String username) {
-        this.Username = username;
+        this.username = username;
     }
 
     public int getRole(){
@@ -51,7 +66,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "fName='" + Username + '\'' +
+                "fName='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 '}';

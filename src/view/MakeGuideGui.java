@@ -2,50 +2,54 @@ package view;
 
 import controller.Controller;
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 /**
  *
  * @author Alexander Olsson
+ * @author Philip Persson
+ * @author
+ * @version 1.0
+ *
  */
 
-public class MakeGuideGui extends JFrame implements ActionListener{
-
+public class MakeGuideGui extends JFrame implements ActionListener {
 
     private Controller controller;
-
     private JButton btnCancel,btnMakeGuide,btnAddPicture;
-    private JTextArea InputTextArea;
-    private JComboBox<String> KategoriComboBox;
-    private JLabel SkapaguideLabel;
-    private JTextField TitelField;
-    private JComboBox<String> TypeComboBox;
+    private JTextArea textAreaInput;
+    private JComboBox<String> categoryComboBox;
+    private JLabel lblMakeGuide;
+    private JTextField fieldTitle;
+    private JComboBox<String> typeComboBox;
     private JInternalFrame jInternalFrame1;
     private JInternalFrame jInternalFrame2;
     private JScrollPane jScrollPane1;
-    private MakeGuideGui skapaGuideGui;
-
+    private MakeGuideGui makeGuideGui;
+    private String selectedFile;
 
     public MakeGuideGui(Controller controller) {
         this.controller = controller;
         initComponents();
     }
 
-
     private void initComponents() {
-
+        setTitle("SupportME");
         jInternalFrame1 = new JInternalFrame();
         jInternalFrame2 = new JInternalFrame();
         jScrollPane1 = new JScrollPane();
-        InputTextArea = new JTextArea();
-        TypeComboBox = new JComboBox<>();
-        KategoriComboBox = new JComboBox<>();
-        TitelField = new JTextField();
+        textAreaInput = new JTextArea();
+        typeComboBox = new JComboBox<>();
+        categoryComboBox = new JComboBox<>();
+        fieldTitle = new JTextField();
         btnMakeGuide = new JButton();
         btnAddPicture = new JButton();
-        SkapaguideLabel = new JLabel();
+        lblMakeGuide = new JLabel();
         btnCancel = new JButton();
 
         jInternalFrame1.setVisible(true);
@@ -74,28 +78,24 @@ public class MakeGuideGui extends JFrame implements ActionListener{
                         .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        InputTextArea.setColumns(20);
-        InputTextArea.setRows(5);
-        InputTextArea.setText("Beskrivning.");
-        jScrollPane1.setViewportView(InputTextArea);
+        textAreaInput.setColumns(20);
+        textAreaInput.setRows(5);
+        textAreaInput.setText("Beskrivning");
+        jScrollPane1.setViewportView(textAreaInput);
 
-        TypeComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
+        typeComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Mjukvara", "Hårdvara", "Snabbguide"}));
 
+        categoryComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Internet", "Dator", "Mobil", "Övrigt"}));
 
-        KategoriComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
+        fieldTitle.setText("Titel");
 
-        TitelField.setText("Titel");
-
-
-        btnMakeGuide.setText("Skapa Guide");
-
+        btnMakeGuide.setText("Skapa guide");
 
         btnAddPicture.setFont(new Font("Tahoma", 0, 14)); // NOI18N
-        btnAddPicture.setText("Lägg till Bild");
+        btnAddPicture.setText("Lägg till bild");
 
-
-        SkapaguideLabel.setFont(new Font("Tahoma", 1, 14)); // NOI18N
-        SkapaguideLabel.setText("Skapa ny Guide");
+        lblMakeGuide.setFont(new Font("Tahoma", 1, 14)); // NOI18N
+        lblMakeGuide.setText("Skapa ny guide");
 
         btnCancel.setText("Avbryt");
 
@@ -111,28 +111,28 @@ public class MakeGuideGui extends JFrame implements ActionListener{
                                                         .addComponent(btnCancel, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
                                                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                         .addComponent(btnMakeGuide, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE))
-                                                .addComponent(TitelField, GroupLayout.Alignment.LEADING)
+                                                .addComponent(fieldTitle, GroupLayout.Alignment.LEADING)
                                                 .addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                        .addComponent(TypeComboBox, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(typeComboBox, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE)
                                                         .addGap(18, 18, 18)
-                                                        .addComponent(KategoriComboBox, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(categoryComboBox, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE)
                                                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                                                         .addComponent(btnAddPicture, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE))
                                                 .addComponent(jScrollPane1, GroupLayout.Alignment.LEADING))
-                                        .addComponent(SkapaguideLabel, GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(lblMakeGuide, GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap(63, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addGap(21, 21, 21)
-                                .addComponent(SkapaguideLabel, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblMakeGuide, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(TitelField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(fieldTitle, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(TypeComboBox, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(KategoriComboBox, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(typeComboBox, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(categoryComboBox, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
                                         .addComponent(btnAddPicture, GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
                                 .addGap(18, 18, 18)
                                 .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 368, GroupLayout.PREFERRED_SIZE)
@@ -142,11 +142,13 @@ public class MakeGuideGui extends JFrame implements ActionListener{
                                         .addComponent(btnCancel, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE))
                                 .addGap(20, 20, 20))
         );
+
+        SwingUtilities.getRootPane(btnMakeGuide).setDefaultButton(btnMakeGuide);
+
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
         addListeners();
-
     }
 
     public void addListeners() {
@@ -155,31 +157,40 @@ public class MakeGuideGui extends JFrame implements ActionListener{
         btnAddPicture.addActionListener(this);
     }
 
-    public String getTitelGuide() {
-        return TitelField.getText();
+    public String getTitleGuide() {
+        return fieldTitle.getText();
     }
+
     public String getDescriptionField() {
-        return InputTextArea.getText();
+        return textAreaInput.getText();
     }
 
+    public String getTypeString(){
+        return typeComboBox.getSelectedItem().toString();
+    }
 
+    public String getCategoryString(){
+        return categoryComboBox.getSelectedItem().toString();
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnCancel) {
-            controller.btnAvbrytGuide();
+            controller.btnCancelGuide();
         } else if (e.getSource() == btnMakeGuide) {
-            controller.btnCreateGuide();
+            controller.btnCreateGuide(selectedFile);
             dispose();
         } else if (e.getSource() == btnAddPicture) {
-//            JFileChooser fileChooser = new JFileChooser();
-//            fileChooser.setMultiSelectionEnabled(true);
-//            fileChooser.setFileFilter(new FileNameExtensionFilter("Pictures","jpg","png"));
-//            int result = fileChooser.showSaveDialog(null);
-//            File[] files = fileChooser.getSelectedFiles();
-
+            JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+            fileChooser.setMultiSelectionEnabled(true);
+            fileChooser.setFileFilter(new FileNameExtensionFilter("Bilder", "jpg", "png"));
+            fileChooser.showOpenDialog(null);
+            if (JFileChooser.APPROVE_OPTION == 0) {
+                selectedFile = fileChooser.getSelectedFile().getPath();
+                controller.addPicturesToDb(selectedFile);
+                System.out.println(selectedFile);
+            }
         }
+
     }
-
-
 }

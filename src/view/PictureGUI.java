@@ -1,21 +1,32 @@
 package view;
 
+import controller.Controller;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
+/**
+ * @author Philip Persson
+ * @author
+ * @author
+ * @version 1.0
+ */
+
 public class PictureGUI extends JFrame implements ActionListener {
 
-    private JPanel panel;
-    private JFrame frame;
     private JPanel centerPanel, southPanel;
     private JLabel lblPicture;
-
     private JButton btnNext, btnBack;
+    private Controller controller;
 
-    public PictureGUI() {
+    public PictureGUI(Controller controller) {
+        this.controller = controller;
+
+        setTitle("SupportME");
         getContentPane().setLayout(new BoxLayout(getContentPane(),BoxLayout.X_AXIS));
         setLayout(new BorderLayout());
 
@@ -26,14 +37,14 @@ public class PictureGUI extends JFrame implements ActionListener {
 
         lblPicture = new JLabel();
         lblPicture.setPreferredSize(new Dimension(500,400));
-        lblPicture.setText("sadasdasd");
+//        lblPicture.setIcon(controller.getPicture());
 
-        btnBack = new JButton("back");
-        btnNext = new JButton("next");
+        btnBack = new JButton("Föregående bild");
+        btnNext = new JButton("Nästa bild");
 
         centerPanel.add(lblPicture);
 
-        Border b2 = BorderFactory.createTitledBorder("Feta brudar och feta mopeder");
+        Border b2 = BorderFactory.createTitledBorder("Visa bilder");
 
         centerPanel.setBorder(b2);
 
@@ -56,13 +67,14 @@ public class PictureGUI extends JFrame implements ActionListener {
         btnBack.addActionListener(this);
     }
 
+
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnBack){
-            System.out.println("bajs");
+            System.out.println("1");
         } else if (e.getSource() == btnNext){
-            System.out.println("Kiss");
+            System.out.println("2");
         }
-
     }
 }

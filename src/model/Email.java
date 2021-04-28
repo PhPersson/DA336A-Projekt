@@ -1,29 +1,34 @@
-package controller;
+package model;
 
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
 
+/**
+ * @author Philip Persson
+ * @author Alexander Olsson
+ * @version 1.0
+ */
+public class Email { // TODO KOMMENTERA DENNA KLASSEN!!!
 
-import static javax.tools.JavaFileObject.Kind.HTML;
+    private String recipient,username;
 
-
-public class Email {
-
-    private String recepient;
-    private String username;
-
-
-    public Email(String recepient, String username) {
-        this.recepient = recepient;
+    public Email(String recipient, String username) {
+        this.recipient = recipient;
         this.username = username;
     }
 
+    /**
+     * Statsik klass för att kontrollera om användaren emailadress är gilltig.
+     * @param email emailaddressen som skall kontrolleras om den är gilltig eller inte
+     * @return Retunerar om det är en giltig emailaddress eller inte.
+     */
     public static boolean isValidEmailAddress(String email) {
-        boolean result = true;
+        boolean result;
         try {
-            InternetAddress emailAddr = new InternetAddress(email);
-            emailAddr.validate();
+            InternetAddress emailAddress = new InternetAddress(email);
+            emailAddress.validate();
+            result = true;
         } catch (AddressException exception) {
             exception.printStackTrace();
             result = false;
@@ -31,13 +36,19 @@ public class Email {
         return result;
     }
 
-    public static void sendMail(String recepient, String username) {
+
+    /**
+     * Statisk metod för att skicka iväg ett mail till användaren som registrerade sig.
+     * @param recipient Mottagarens email address
+     * @param username Användarnamnet som skall välkomna användaren.
+     */
+    public static void sendMail(String recipient, String username) {
         {
             // Sender's email ID needs to be mentioned
             final String from = "supmeg25@gmail.com";
             final String pass = "supportme25";
             // Recipient's email ID needs to be mentioned.
-            String to = recepient;
+            String to = recipient;
 
             String host = "smtp.gmail.com";
 
@@ -56,7 +67,7 @@ public class Email {
 
             try {
 
-                InternetAddress emailAddr = new InternetAddress(recepient);
+                InternetAddress emailAddr = new InternetAddress(recipient);
                 emailAddr.validate();
 
                 // Create a default MimeMessage object.
@@ -70,11 +81,7 @@ public class Email {
                         new InternetAddress(to));
 
                 // Set Subject: header field
-
-                message.setSubject("Välkommen " +username + " till SupportMe!");
-
                 message.setSubject("Välkommen " + username + " till SupportMe!");
-
 
                 // Now set the actual message
                 message.setContent("<h1>Välkommen!</h1>" + "\n" + "<p>Vi på SupportMe är glada att ha dig som kund hos oss!.</p>", "text/html");
@@ -84,9 +91,8 @@ public class Email {
                 transport.connect(host, from, pass);
                 transport.sendMessage(message, message.getAllRecipients());
                 transport.close();
-                System.out.println("Sent message successfully....");
-            } catch (MessagingException mex) {
-                mex.printStackTrace();
+            } catch (MessagingException exception) {
+                exception.printStackTrace();
             }
         }
     }

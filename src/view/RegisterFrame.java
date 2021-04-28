@@ -8,14 +8,20 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * @author Philip Persson
+ * @author
+ * @author
+ * @version 1.0
+ */
+
+
 public class RegisterFrame extends JFrame implements ActionListener {
 
     private JPanel panel;
     private JLabel lblUsername, lblEmail, lblPassword, lblConPassword;
     private JTextField txtUsername, txtEmail, txtPassword, txtConPassword;
-    private JButton btnRegister;
-    private JButton btnCancel;
-
+    private JButton btnRegister,btnCancel;
     private Controller controller;
     private GuiUtilities util;
 
@@ -37,7 +43,6 @@ public class RegisterFrame extends JFrame implements ActionListener {
         Dimension fieldSize = new Dimension(180, 30);
 
         panel = new JPanel();
-
 
         panel.setLayout(layout);
         panel.setSize(new Dimension(250, 500));
@@ -74,7 +79,9 @@ public class RegisterFrame extends JFrame implements ActionListener {
         panel.add(txtConPassword);
         panel.add(btnRegister);
         panel.add(btnCancel);
+
         add(panel);
+
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
@@ -114,11 +121,6 @@ public class RegisterFrame extends JFrame implements ActionListener {
             if (util.showConfirmationDialog("Säker att du vill avbryta registreringen?") == 1) {
                 setVisible(false);
             }
-
         }
-
-
     }
-
-
 }

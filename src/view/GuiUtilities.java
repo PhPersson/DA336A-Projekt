@@ -2,8 +2,14 @@ package view;
 
 import javax.swing.*;
 
-public class GuiUtilities {
+/**
+ * @author Philip Persson
+ * @author
+ * @author
+ * @version 1.0
+ */
 
+public class GuiUtilities { // TODO KOMMENTERA KLASSEN
 
     public void showDialog(String message) {
         JOptionPane.showMessageDialog(null,message);
@@ -21,7 +27,5 @@ public class GuiUtilities {
         }
         return reply;
     }
-
-
 
 }

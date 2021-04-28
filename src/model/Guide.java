@@ -1,27 +1,21 @@
 package model;
 import java.awt.*;
 import java.io.File;
-import java.util.Date;
 
+/**
+ * @author Philip Persson
+ * @author Alexander Olsson
+ * @author
+ * @version 1.0
+ */
 public class Guide {
 
-    private int guideId;
-    private String title;
     private Image pic;
-    private String description;
-    private String author;
-    private Date datetime;
-    private int rating;
-    private int views;
-    private int nbrofratings;
+    private String description,category,type,author,title;
     private File[] files;
 
-    private String category;
 
-    private String type;
-
-    public Guide(){
-
+    public Guide(){ //TODO KOMMENTERA DENNA KLASSEN
     }
 
     public Guide(String title,String description,String author, File[] files) {
@@ -39,13 +33,20 @@ public class Guide {
         this.description = description;
     }
 
-    public Guide(String title, String description, String author) {
+    /**
+     * Konstruktor för att skapa en guide.
+     * @param title
+     * @param description
+     * @param author
+     */
+
+    public Guide(String title, String description, String author, String type, String category) {
         this.title = title;
         this.author = author;
         this.description = description;
+        this.type = type;
+        this.category = category;
     }
-
-
 
     public String getTitle() {
         return title;
@@ -71,6 +72,13 @@ public class Guide {
         this.type = type;
     }
 
+    public String getCategory(){
+        return category;
+    }
+
+    public void setCategory(String category){
+        this.category = category;
+    }
     public String getDescription() {
         return description;
     }
@@ -78,7 +86,6 @@ public class Guide {
     public void setDescription(String description) {
         this.description = description;
     }
-
 
     public String getAuthor() {
         return author;
