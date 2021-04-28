@@ -1,16 +1,13 @@
 package model;
 
-import controller.Controller;
-
+import controller.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.lang.reflect.Type;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -21,12 +18,9 @@ import java.util.List;
  */
 public class DbCon {
     private Connection connection;
-    private String sqlURL = "jdbc:sqlserver://supportme.duckdns.org;databaseName=support_me;";
-    private String sqlUsername = "supportmeadmin";
     private String sqlPassword = "hejsanhoppsan";
-    private FileInputStream fileInputStream;
-    private Controller controller;
     private int guideId;
+    private Controller controller;
 
 
     /**
@@ -44,7 +38,7 @@ public class DbCon {
     public void connectToDatabase() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            connection = DriverManager.getConnection(sqlURL, sqlUsername, sqlPassword);
+            connection = DriverManager.getConnection(Values.getSqlUrl(), Values.getSqlUsername(), Values.getSqlPassword());
         } catch (ClassNotFoundException | SQLException exception) {
             controller.getUtil().showErrorDialog("Kunde inte ansluta till databsen. \nVänligen kontakta systemadministratören!");
             exception.printStackTrace();
@@ -80,23 +74,30 @@ public class DbCon {
      * @param password Lösenordet som användaren matar in vid
      * @return retunerar true om användaren finns. Annars retuneras false.
      */
-    public boolean getAllUserAndPass(String username, String password) {
-
-        String query = "SELECT username FROM [User] WHERE username = ? AND password = ?";  //get username
+    public boolean getUserAndPass(String username, String password) {
+        boolean valid = false;
+        String hasedPassword;
+        String query = "SELECT username,password FROM [User] WHERE username = ?";  //get username
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, username);
-            preparedStatement.setString(2, password);
+
             ResultSet rs = preparedStatement.executeQuery();
+
             if (rs.next()) {
-                return true;
-            } else {
-                return false;
-            }
+                hasedPassword = rs.getString("password");
+                if (!hasedPassword.startsWith(("$2a$"))) {
+                    valid = true;
+                }
+                    else if (Hash.checkHash(password, hasedPassword)) {
+                        valid = true;
+                    }
+                }
+
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
+        return valid;
     }
 
     /**

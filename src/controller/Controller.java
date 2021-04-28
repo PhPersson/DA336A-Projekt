@@ -2,8 +2,6 @@ package controller;
 
 import model.*;
 import view.*;
-
-import javax.swing.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -40,12 +38,6 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
         view = new MainFrame(this);
         util = new GuiUtilities();
         con = new DbCon(this);
-
-        //con.getAPic();
-
-     
-
-        //addPicturesToDb("C:\\Users\\phili\\Pictures\\Backgrundsbilder\\federico-beccari-cyg3DD6Y69A-unsplash.jpg");
         user = new User();
         guide = new Guide();
     }
@@ -62,7 +54,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
         } else {
             if (Email.isValidEmailAddress(view.getTxtEmail())) {
                 Email.sendMail(view.getTxtEmail(), view.getTxtUsername());
-                con.registerNewCustomer(new User(view.getTxtUsername().substring(0, 1).toUpperCase() + view.getTxtUsername().substring(1), view.getTxtEmail(), view.gettxtPassword(), 0));
+                con.registerNewCustomer(new User(view.getTxtUsername().substring(0, 1).toUpperCase() + view.getTxtUsername().substring(1), view.getTxtEmail(), Hash.hashPass(view.gettxtPassword()), 0));
 
                 util.showDialog("Registreringen OK \nDu kan nu återgå och logga in");
                 view.getRegisterFrame().setVisible(false);
@@ -79,16 +71,16 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
      */
     public void btnLoginClicked() {
         try {
-            if (con.getAllUserAndPass(view.getLoginUsername(), view.getLoginPassword())) {
+            if (con.getUserAndPass(view.getLoginUsername(), view.getLoginPassword())) {
                 if (!con.getRole(view.getLoginUsername(), view.getLoginPassword())) {
                     user.setUsername(view.getLoginUsername());
-                    view.getLoginFrame().setVisible(false);
+                    view.getLoginFrame().dispose();
                     userHomePageFrame = new UserHomepageFrame(this);
                     userHomePageFrame.setLblLoginUser(user.getUsername());
                     userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
                     userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
                 } else {
-                    view.getLoginFrame().setVisible(false);
+                    view.getLoginFrame().dispose();
                     adminFrame = new AdminFrame(this);
                     adminFrame.updateUserList(con.getUsersAndEmail());
                     adminFrame.updateGuideList(con.getAllGuides());
