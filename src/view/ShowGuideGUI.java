@@ -17,14 +17,16 @@ import java.io.IOException;
 public class ShowGuideGUI extends JFrame implements ActionListener {
     private JFrame frame;
     private JPanel centerPanel, southPanel, logoPanel, buttonPanel;
-    private JLabel txtTitle, txtAuthor, txtDate, lblTitle, lblAuthor, lblDate;
+    private JLabel txtTitle, txtAuthor, txtDate, lblTitle, lblAuthor,
+            lblDate, lblCategory, lblCategoryTxt, lblType, lblTypeTxt;
     private JTextArea descriptionArea;
     private Font bold, plain;
     private JButton btnClose, btnShowPics, btnDownload;
     private JScrollPane scroll;
     private Controller controller;
 
-    public ShowGuideGUI (Controller controller, String titleString, String authorString, String dateString, String indexGuide) {
+    public ShowGuideGUI (Controller controller, String titleString, String authorString, String dateString,
+                         String indexGuide) {
 
         this.controller = controller;
         frame = new JFrame(titleString);
@@ -54,6 +56,16 @@ public class ShowGuideGUI extends JFrame implements ActionListener {
         lblDate.setFont(bold);
         txtDate = new JLabel(dateString);
         txtDate.setFont(plain);
+
+        lblType = new JLabel("Typ:");
+        lblType.setFont(bold);
+        lblTypeTxt = new JLabel();
+        lblTypeTxt.setFont(plain);
+
+        lblCategory = new JLabel("Kategori:");
+        lblCategory.setFont(bold);
+        lblCategoryTxt = new JLabel();
+        lblCategoryTxt.setFont(plain);
 
         btnClose = new JButton("Stäng");
         btnShowPics = new JButton("Visa bilder");

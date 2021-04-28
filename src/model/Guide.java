@@ -4,7 +4,7 @@ import java.io.File;
 
 /**
  * @author Philip Persson
- * @author
+ * @author Alexander Olsson
  * @author
  * @version 1.0
  */
@@ -33,10 +33,19 @@ public class Guide {
         this.description = description;
     }
 
-    public Guide(String title, String description, String author) {
+    /**
+     * Konstruktor för att skapa en guide.
+     * @param title
+     * @param description
+     * @param author
+     */
+
+    public Guide(String title, String description, String author, String type, String category) {
         this.title = title;
         this.author = author;
         this.description = description;
+        this.type = type;
+        this.category = category;
     }
 
     public String getTitle() {
@@ -63,6 +72,13 @@ public class Guide {
         this.type = type;
     }
 
+    public String getCategory(){
+        return category;
+    }
+
+    public void setCategory(String category){
+        this.category = category;
+    }
     public String getDescription() {
         return description;
     }

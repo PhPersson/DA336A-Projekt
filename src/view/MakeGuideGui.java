@@ -31,6 +31,7 @@ public class MakeGuideGui extends JFrame implements ActionListener {
     private JInternalFrame jInternalFrame2;
     private JScrollPane jScrollPane1;
     private MakeGuideGui makeGuideGui;
+    private String selectedFile;
 
     public MakeGuideGui(Controller controller) {
         this.controller = controller;
@@ -79,26 +80,22 @@ public class MakeGuideGui extends JFrame implements ActionListener {
 
         textAreaInput.setColumns(20);
         textAreaInput.setRows(5);
-        textAreaInput.setText("Beskrivning.");
+        textAreaInput.setText("Beskrivning");
         jScrollPane1.setViewportView(textAreaInput);
 
-        typeComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
+        typeComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Mjukvara", "Hårdvara", "Snabbguide"}));
 
-
-        categoryComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
+        categoryComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Internet", "Dator", "Mobil", "Övrigt"}));
 
         fieldTitle.setText("Titel");
 
-
-        btnMakeGuide.setText("Skapa Guide");
-
+        btnMakeGuide.setText("Skapa guide");
 
         btnAddPicture.setFont(new Font("Tahoma", 0, 14)); // NOI18N
-        btnAddPicture.setText("Lägg till Bild");
-
+        btnAddPicture.setText("Lägg till bild");
 
         lblMakeGuide.setFont(new Font("Tahoma", 1, 14)); // NOI18N
-        lblMakeGuide.setText("Skapa ny Guide");
+        lblMakeGuide.setText("Skapa ny guide");
 
         btnCancel.setText("Avbryt");
 
@@ -168,12 +165,23 @@ public class MakeGuideGui extends JFrame implements ActionListener {
         return textAreaInput.getText();
     }
 
+    public String getTypeString(){
+        return typeComboBox.getSelectedItem().toString();
+    }
+
+    public String getCategoryString(){
+        return categoryComboBox.getSelectedItem().toString();
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnCancel) {
             controller.btnCancelGuide();
         } else if (e.getSource() == btnMakeGuide) {
-            controller.btnCreateGuide();
+            controller.btnCreateGuide(selectedFile);
+
+            //Sätta GuideId här till bilder????
+
             dispose();
         } else if (e.getSource() == btnAddPicture) {
             JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
@@ -181,9 +189,9 @@ public class MakeGuideGui extends JFrame implements ActionListener {
             fileChooser.setFileFilter(new FileNameExtensionFilter("Bilder", "jpg", "png"));
             fileChooser.showOpenDialog(null);
             if (JFileChooser.APPROVE_OPTION == 0) {
-                String selectedFile = fileChooser.getSelectedFile().getPath();
+                selectedFile = fileChooser.getSelectedFile().getPath();
+                controller.addPicturesToDb(selectedFile);
                 System.out.println(selectedFile);
-//                controller.addPicturesToDb(selectedFile);
             }
         }
     }

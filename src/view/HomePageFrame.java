@@ -160,6 +160,11 @@ public class HomePageFrame extends JFrame implements ActionListener {
         table.setModel(update);
     }
 
+    public int getGuideId(){
+        int guideId = (int) table.getModel().getValueAt(table.getSelectedRow(),0);
+        return guideId;
+    }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {

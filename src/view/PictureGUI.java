@@ -1,5 +1,7 @@
 package view;
 
+import controller.Controller;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -19,8 +21,11 @@ public class PictureGUI extends JFrame implements ActionListener {
     private JPanel centerPanel, southPanel;
     private JLabel lblPicture;
     private JButton btnNext, btnBack;
+    private Controller controller;
 
-    public PictureGUI() {
+    public PictureGUI(Controller controller) {
+        this.controller = controller;
+
         setTitle("SupportME");
         getContentPane().setLayout(new BoxLayout(getContentPane(),BoxLayout.X_AXIS));
         setLayout(new BorderLayout());
@@ -32,7 +37,7 @@ public class PictureGUI extends JFrame implements ActionListener {
 
         lblPicture = new JLabel();
         lblPicture.setPreferredSize(new Dimension(500,400));
-        lblPicture.setText("Bild");
+        lblPicture.setIcon(controller.getPicture());
 
         btnBack = new JButton("Föregående bild");
         btnNext = new JButton("Nästa bild");
@@ -61,6 +66,8 @@ public class PictureGUI extends JFrame implements ActionListener {
         btnNext.addActionListener(this);
         btnBack.addActionListener(this);
     }
+
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
