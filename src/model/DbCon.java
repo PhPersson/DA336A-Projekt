@@ -18,7 +18,6 @@ import java.util.ArrayList;
  */
 public class DbCon {
     private Connection connection;
-    private String sqlPassword = "hejsanhoppsan";
     private int guideId;
     private Controller controller;
 

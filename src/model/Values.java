@@ -2,20 +2,10 @@ package model;
 
 public  class Values {
 
-    private final static String sqlPassword = "hejsanhoppsanSupportMe25";
-    private final static String sqlUrl = "jdbc:sqlserver://supportme.duckdns.org;databaseName=support_me";
-    private final static String sqlUsername = "supportmeadmin";
-
-
-    public static String getSqlPassword() {
-        return sqlPassword;
-    }
+    private final static String sqlUrl = "jdbc:sqlserver://supportme.database.windows.net:1433;database=SupportME;user=supportmeadmin@supportme;password=supportme.25;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
 
     public static String getSqlUrl() {
         return sqlUrl;
     }
 
-    public static String getSqlUsername() {
-        return sqlUsername;
-    }
 }
