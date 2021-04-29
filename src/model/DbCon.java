@@ -1,16 +1,13 @@
 package model;
 
-import controller.Controller;
-
+import controller.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.lang.reflect.Type;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -21,17 +18,14 @@ import java.util.List;
  */
 public class DbCon {
     private Connection connection;
-    private String sqlURL = "jdbc:sqlserver://supportme.duckdns.org;databaseName=support_me;";
-    private String sqlUsername = "supportmeadmin";
     private String sqlPassword = "hejsanhoppsan";
-    private FileInputStream fileInputStream;
+    private int guideId;
     private Controller controller;
 
 
     /**
-     *
      * @param controller Tar emot ett controller objekt för att kunna komunicera tillbaka till controller klassen.
-     * Konstruktorn som även öppnar en anslutning till databasen.
+     *                   Konstruktorn som även öppnar en anslutning till databasen.
      */
     public DbCon(Controller controller) {
         this.controller = controller;
@@ -44,7 +38,7 @@ public class DbCon {
     public void connectToDatabase() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            connection = DriverManager.getConnection(sqlURL, sqlUsername, sqlPassword);
+            connection = DriverManager.getConnection(Values.getSqlUrl(), Values.getSqlUsername(), Values.getSqlPassword());
         } catch (ClassNotFoundException | SQLException exception) {
             controller.getUtil().showErrorDialog("Kunde inte ansluta till databsen. \nVänligen kontakta systemadministratören!");
             exception.printStackTrace();
@@ -52,7 +46,6 @@ public class DbCon {
     }
 
     /**
-     *
      * @param username Anänvdarnamet tas emot som en paramter. Söker sedan igenom hela databsen.
      * @return om användaren finns i databasen retuneras true, annars retuneras false.
      */
@@ -76,31 +69,40 @@ public class DbCon {
 
     /**
      * Kontrollerar om användaren redan finns i databasen eller inte.
+     *
      * @param username Användarnamnet som användaren skriver inte
      * @param password Lösenordet som användaren matar in vid
      * @return retunerar true om användaren finns. Annars retuneras false.
      */
-    public boolean getAllUserAndPass(String username, String password) {
-
-        String query = "SELECT username FROM [User] WHERE username = ? AND password = ?";  //get username
+    public boolean getUserAndPass(String username, String password) {
+        boolean valid = false;
+        String hasedPassword;
+        String query = "SELECT username,password FROM [User] WHERE username = ?";  //get username
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, username);
-            preparedStatement.setString(2, password);
+
             ResultSet rs = preparedStatement.executeQuery();
+
             if (rs.next()) {
-                return true;
-            } else {
-                return false;
-            }
+                hasedPassword = rs.getString("password");
+                if (!hasedPassword.startsWith(("$2a$"))) {
+                    valid = true;
+                }
+                    else if (Hash.checkHash(password, hasedPassword)) {
+                        valid = true;
+                    }
+                }
+
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
+        return valid;
     }
 
     /**
      * Hämtar vilken roll användaren har i databsen. Om rollen är 1 räknas detta som att användaren är en administratör.
+     *
      * @param username Användarnamet att kolla upp i databsen
      * @param password Lösenorder att kolla upp i databasen,
      * @return Om användaren är administratör så retuneras true.
@@ -130,6 +132,7 @@ public class DbCon {
 
     /**
      * Hämtar alla alla användare som finns registrerade i databsen.
+     *
      * @return Retunerar alla användare i en lista.
      */
     public ArrayList<String> getAllUsers() {
@@ -151,6 +154,7 @@ public class DbCon {
 
     /**
      * Registrear en ny användare i databasen.
+     *
      * @param user
      */
     public void registerNewCustomer(User user) {
@@ -175,6 +179,7 @@ public class DbCon {
 
     /**
      * Raderar en användaren från databsen. Detta kan enbart göras av de som är administratörer.
+     *
      * @param username Användarnamnet på den användaren som skall tas bort från databsen
      */
     public void deleteAUser(String username) {
@@ -196,6 +201,7 @@ public class DbCon {
 
     /**
      * En administratör kan ta bort en hel guide via administratörs GUI
+     *
      * @param guideId Baserat på GuidId vet databsen vilken guide om skall raderas.
      */
     public void deleteGuideAdmin(String guideId) {
@@ -218,6 +224,7 @@ public class DbCon {
 
     /**
      * Populerar UserTable i GUI med användare och dess tillhörande epostadress.
+     *
      * @return Ett helt DefaultTableModel objekt som innehåller användarens Användarnamn och email.
      */
     public DefaultTableModel getUsersAndEmail() {
@@ -240,6 +247,7 @@ public class DbCon {
 
     /**
      * Populerar GuideTable med alla guider samt deras Titel, skapare och vilket datum guiden skapades.
+     *
      * @return Ett helt DefaultTableModel objekt som innehåller alla guider med tillhörande Titel på guiden, vem som skapade guiden och vilket datum guiden skapades.
      */
     public DefaultTableModel getAllGuides() {
@@ -269,6 +277,7 @@ public class DbCon {
 
     /**
      * Hämtar allt från Guide-tabellen i databasen
+     *
      * @return data i from av TableModel
      */
 
@@ -300,6 +309,7 @@ public class DbCon {
 
     /**
      * Hämtar alla guider från en specifik användare
+     *
      * @param user användaren som man söker med.
      * @return Guider i from av tableModel
      */
@@ -335,6 +345,7 @@ public class DbCon {
 
     /**
      * Söker igeon databasen efter en specefik användare baserat på användarnamnet.
+     *
      * @param soktext Sträng som innehåller ord som databasen ska söka på.
      * @return Ett helt DefaultTableModel objekt som innehåller alla namnet på den sökta användaren och tillhörande e-postaddress.
      */
@@ -358,6 +369,7 @@ public class DbCon {
 
     /**
      * Söker igeon databasen efter en specefik guide baserat på vem som skapade den eller titlen på guide.
+     *
      * @param searchText Sträng som innehåller ord som databasen ska söka på.
      * @return Ett helt DefaultTableModel objekt som innehåller alla namnet på den sökta guiden med tillhörande användare som skapade guiden, när guiden skapades och vilket omdöme guiden har.
      */
@@ -389,14 +401,14 @@ public class DbCon {
 
     /**
      * Skapar en guide i databasen
-     *
      */
     public void createGuide(Guide guide) {
         try {
             connection.setAutoCommit(false);
 
-            String createGuide = "INSERT INTO [Guide] (title, description, date, Type, category, username, views)"  + "VALUES (?,?,?,?,?,?,?)";
+            String createGuide = "INSERT INTO [Guide] (title, description, date, Type, category, username, views) OUTPUT inserted.guideId VALUES (?,?,?,?,?,?,?)";
             PreparedStatement create = connection.prepareStatement(createGuide);
+
 
             create.setString(1, guide.getTitle());
             create.setString(2, guide.getDescription());
@@ -404,8 +416,17 @@ public class DbCon {
             create.setString(4, guide.getType());
             create.setString(5, guide.getCategory());
             create.setString(6, guide.getAuthor());
-            create.setInt(7,0); // Sätt views
-            create.execute();
+            create.setInt(7, 0); // Sätt views
+            ResultSet rs = create.executeQuery();
+
+            while (rs.next()) {
+                guideId = rs.getInt("guideId");
+                System.out.println(guideId);
+
+            }
+
+
+            //create.execute();
             connection.commit();
             create.close();
 
@@ -416,17 +437,18 @@ public class DbCon {
 
     /**
      * Kollar om användare har guider. Används i metod för att ta bort en användare.
+     *
      * @param username Användaren man söker efter
      * @return True/False
      */
 
-    public boolean checkIfUserHaveGuides(String username){
+    public boolean checkIfUserHaveGuides(String username) {
         boolean userHaveGuides = false;
         try {
             connection.setAutoCommit(false);
             String query = "SELECT COUNT(guide.guideId) FROM Guide WHERE username = ?";
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1,username);
+            ps.setString(1, username);
 
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -445,6 +467,7 @@ public class DbCon {
 
     /**
      * Tar bort en guide från databasen.
+     *
      * @param username
      */
 
@@ -454,7 +477,7 @@ public class DbCon {
             String deleteGuide = "DELETE FROM GUIDE WHERE username = ?";
 
             PreparedStatement ps = connection.prepareStatement(deleteGuide);
-            ps.setString(1,username);
+            ps.setString(1, username);
             ps.execute();
             connection.commit();
             ps.close();
@@ -465,6 +488,7 @@ public class DbCon {
 
     /**
      * Uppdatera en existerande användares lösenord.
+     *
      * @param password
      * @param indexToUpdate
      */
@@ -475,8 +499,8 @@ public class DbCon {
             String query = "UPDATE [User] SET password = ? WHERE username = ?";
 
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1,password);
-            ps.setString(2,indexToUpdate);
+            ps.setString(1, password);
+            ps.setString(2, indexToUpdate);
             ps.execute();
             connection.commit();
             ps.close();
@@ -487,9 +511,10 @@ public class DbCon {
 
     /**
      * Uppdaterar en existerande guide.
-     * @param title , Titel på guiden
+     *
+     * @param title       , Titel på guiden
      * @param description , Innehållstexen i guiden
-     * @param guideId , GuideId som är identifierare.
+     * @param guideId     , GuideId som är identifierare.
      */
 
     public void updateGuide(String title, String description, String type, String category, String guideId) {
@@ -514,6 +539,7 @@ public class DbCon {
 
     /**
      * Uppdaterar en användares Emailadress.
+     *
      * @param email
      * @param inedxToUpdate
      */
@@ -524,8 +550,8 @@ public class DbCon {
             String query = "UPDATE [User] SET email = ? WHERE username = ?";
 
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1,email);
-            ps.setString(2,inedxToUpdate);
+            ps.setString(1, email);
+            ps.setString(2, inedxToUpdate);
             ps.execute();
             connection.commit();
             ps.close();
@@ -537,11 +563,12 @@ public class DbCon {
 
     /**
      * Hämtar emailadressen för en specifik användare.
+     *
      * @param username
      * @return Emailadressen.
      */
 
-    public String getUserEmail(String username){
+    public String getUserEmail(String username) {
 
         String query = "SELECT email FROM [User] WHERE username = ?";
         String email = null;
@@ -551,7 +578,7 @@ public class DbCon {
 
             ResultSet rs = preparedStatement.executeQuery();
 
-            while (rs.next()){
+            while (rs.next()) {
                 email = rs.getString(1);
             }
         } catch (SQLException exception) {
@@ -564,6 +591,7 @@ public class DbCon {
 
     /**
      * När en användare väljer att ta bort någon av sina egna guider. Enbart en guide åt gången går att ta bort.
+     *
      * @param titleToRemove Baserat på titeln till guiden tas den bort i databasen.
      */
     public void deleteGuide(String titleToRemove) {
@@ -571,7 +599,7 @@ public class DbCon {
         try {
             connection.setAutoCommit(false);
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1,titleToRemove);
+            ps.setString(1, titleToRemove);
             ps.execute();
             connection.commit();
             ps.close();
@@ -582,16 +610,17 @@ public class DbCon {
 
     /**
      * Uppdaterar hur många som har tittat på en guide.
+     *
      * @param guideId , Identifierare för vilken guide som det berör.
      */
 
-    public void addView(int guideId){
+    public void addView(int guideId) {
         String query = "UPDATE Guide SET views = views + 1 WHERE guideId = ?";
 
         try {
             connection.setAutoCommit(false);
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setInt(1,guideId);
+            ps.setInt(1, guideId);
             ps.execute();
             connection.commit();
             ps.close();
@@ -601,15 +630,16 @@ public class DbCon {
     }
 
 
-
     public void addPictureToGuide(String selectedFile) {
         String query = "INSERT INTO Picture(picture, GuideId) VALUES(?,?)";
         try {
             PreparedStatement ps = connection.prepareStatement(query);
-            File file=new File(selectedFile);
-            FileInputStream fis =new FileInputStream(file);
-            ps.setBinaryStream(1,fis);
-            ps.setInt(2,67);
+            File file = new File(selectedFile);
+            FileInputStream fis = new FileInputStream(file);
+            ps.setBinaryStream(1, fis);
+
+            ps.setInt(2, guideId);
+
             ps.executeUpdate();
         } catch (FileNotFoundException | SQLException e) {
             e.printStackTrace();
@@ -617,16 +647,17 @@ public class DbCon {
 
     }
 
-    public ImageIcon getAPic(int guideId){
+    public ImageIcon getAPic(int guideId) {
         String query = "SELECT picture from Picture WHERE guideId = ?";
         ImageIcon icon = new ImageIcon();
 
         try {
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setInt(1,67);
+            //ps.setInt(1, controller.getGuidenum());
+            ps.setInt(1, 67);
             ResultSet rs = ps.executeQuery();
 
-            while (rs.next()){
+            while (rs.next()) {
 
                 icon = new ImageIcon((byte[]) rs.getObject("picture"));
                 return icon;
@@ -638,6 +669,9 @@ public class DbCon {
         System.out.println(icon + " Här");
         return icon;
     }
+
+
+
 }
 
 

@@ -248,6 +248,7 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnNewGuide) {
             controller.btnOpenCreateGuideFrame();
+
         }  else if (e.getSource() == btnLogOff) {
             controller.btnUserLoggOff();
         }
