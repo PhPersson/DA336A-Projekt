@@ -150,8 +150,8 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
      *
      * @param searchText input av sträng man vill söka med.
      */
-    public void btnAdminSearchGuide(String searchText) {
-        adminFrame.updateGuideList(con.searchGuide(searchText));
+    public void btnAdminSearchGuide(String searchText, String type, String category) {
+        adminFrame.updateGuideList(con.searchGuideAdmin(searchText, type, category));
     }
 
     /**
@@ -338,10 +338,6 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
         }
     }
 
-    public void editGuideAdmin() {
-
-    }
-
     /**
      * Användare väljer att kolla på bilderna som finnns kopplade till en guide.
      */
@@ -372,7 +368,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
             userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
             homePageFrame.updateSearchGuideList(con.getAllGuides());
         } catch (NullPointerException e) {
-
+            util.showErrorDialog("Visa");
         }
     }
 

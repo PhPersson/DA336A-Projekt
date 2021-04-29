@@ -9,6 +9,7 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 
 /**
@@ -17,17 +18,15 @@ import java.io.IOException;
  * @author
  * @version 1.0
  */
-
-
 public class AdminFrame extends JFrame implements ActionListener {
 
-    private JTable userTable,guideTable;
-    private JButton btnDeleteGuide,btnDeleteUser,btnEditGuide,btnLogOff,btnSearchGuide,btnSearchUser;
-    private JScrollPane guideTableScroll,userTableScroll;
-    private JTextField guideSearch,userSearch;
+    private JTable userTable, guideTable;
+    private JButton btnDeleteGuide, btnDeleteUser, btnEditGuide, btnLogOff, btnSearchGuide, btnSearchUser;
+    private JScrollPane guideTableScroll, userTableScroll;
+    private JTextField guideSearch, userSearch;
     private JComboBox<String> jComboBox1;
     private JComboBox<String> jComboBox2;
-    private JLabel lblGuideSearch,lblLogo,lblUserSearch, lblAdminName, lblLogin;
+    private JLabel lblGuideSearch, lblLogo, lblUserSearch, lblAdminName, lblLogin;
 
     private Controller controller;
 
@@ -44,7 +43,7 @@ public class AdminFrame extends JFrame implements ActionListener {
             e.printStackTrace();
         }
         lblLogo = new JLabel(new ImageIcon(myPicture.getScaledInstance(
-                180 ,50, Image.SCALE_SMOOTH)));
+                180, 50, Image.SCALE_SMOOTH)));
 
         guideSearch = new JTextField();
         btnSearchGuide = new JButton();
@@ -73,9 +72,9 @@ public class AdminFrame extends JFrame implements ActionListener {
         btnSearchGuide.setFont(new Font("Tahoma", 0, 12));
         btnSearchGuide.setText("Sök");
 
-        jComboBox1.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setModel(new DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
 
-        jComboBox2.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox2.setModel(new DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
 
         btnDeleteGuide.setFont(new Font("Tahoma", 0, 12));
         btnDeleteGuide.setText("Ta bort");
@@ -84,13 +83,13 @@ public class AdminFrame extends JFrame implements ActionListener {
         btnEditGuide.setText("Redigera");
 
         userTable.setModel(new DefaultTableModel(
-                new Object [][] {
+                new Object[][]{
                         {null, null, null, null},
                         {null, null, null, null},
                         {null, null, null, null},
                         {null, null, null, null}
                 },
-                new String [] {
+                new String[]{
                         "Title 1", "Title 2", "Title 3", "Title 4"
                 }
         ));
@@ -98,13 +97,13 @@ public class AdminFrame extends JFrame implements ActionListener {
         userTableScroll.setViewportView(userTable);
 
         guideTable.setModel(new DefaultTableModel(
-                new Object [][] {
+                new Object[][]{
                         {null, null, null, null},
                         {null, null, null, null},
                         {null, null, null, null},
                         {null, null, null, null}
                 },
-                new String [] {
+                new String[]{
                         "Title 1", "Title 2", "Title 3", "Title 4"
                 }
         ));
@@ -143,13 +142,13 @@ public class AdminFrame extends JFrame implements ActionListener {
         btnEditGuide.setText("Redigera");
 
         userTable.setModel(new DefaultTableModel(
-                new Object [][] {
+                new Object[][]{
                         {null, null, null, null},
                         {null, null, null, null},
                         {null, null, null, null},
                         {null, null, null, null}
                 },
-                new String [] {
+                new String[]{
                         "Title 1", "Title 2", "Title 3", "Title 4"
                 }
         ));
@@ -157,13 +156,13 @@ public class AdminFrame extends JFrame implements ActionListener {
         userTableScroll.setViewportView(userTable);
 
         guideTable.setModel(new DefaultTableModel(
-                new Object [][] {
+                new Object[][]{
                         {null, null, null, null},
                         {null, null, null, null},
                         {null, null, null, null},
                         {null, null, null, null}
                 },
-                new String [] {
+                new String[]{
                         "Title 1", "Title 2", "Title 3", "Title 4"
                 }
         ));
@@ -294,6 +293,20 @@ public class AdminFrame extends JFrame implements ActionListener {
         btnLogOff.addActionListener(this);
         btnDeleteGuide.addActionListener(this);
         btnEditGuide.addActionListener(this);
+        jComboBox1.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                controller.btnAdminSearchGuide(guideSearch.getSelectedText(), String.valueOf(jComboBox1.getSelectedItem()), String.valueOf(jComboBox2.getSelectedItem()));
+            }
+        });
+        jComboBox2.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    controller.btnAdminSearchGuide(guideSearch.getSelectedText(), String.valueOf(jComboBox1.getSelectedItem()), String.valueOf(jComboBox2.getSelectedItem()));
+                }
+            }
+        });
     }
 
     public int getTableIndex() {
@@ -331,7 +344,7 @@ public class AdminFrame extends JFrame implements ActionListener {
         } else if (e.getSource() == btnSearchUser) {
             controller.btnAdminSearchUser(userSearch.getText());
         } else if (e.getSource() == btnSearchGuide) {
-            controller.btnAdminSearchGuide(guideSearch.getText());
+            controller.btnAdminSearchGuide(guideSearch.getText(), String.valueOf(jComboBox1.getSelectedItem()), String.valueOf(jComboBox2.getSelectedItem()));
         } else if (e.getSource() == btnLogOff) {
             controller.btnLoggOffAdmin();
         } else if (e.getSource() == btnDeleteGuide) {
@@ -343,6 +356,4 @@ public class AdminFrame extends JFrame implements ActionListener {
             controller.editGuide();
         }
     }
-
-
 }
