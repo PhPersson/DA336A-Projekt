@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component inherit-compiler-output="true" inheritJdk="true">
+	<exclude-output/>
+	<contentEntry url="file://$MODULE_DIR$"/>
+	<levels>
+		<level name="activation" value="project"/>
+		<level name="spring-security-crypto-5.4.6" value="project"/>
+		<level name="JarSupportMe" value="project"/>
+	</levels>
+</component>

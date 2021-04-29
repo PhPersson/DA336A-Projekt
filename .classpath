@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="/DA336A-Projekt/src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/activation"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/spring-security-crypto-5.4.6"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JarSupportMe"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

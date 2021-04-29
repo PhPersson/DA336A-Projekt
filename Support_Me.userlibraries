@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eclipse-userlibraries>
+  <library name="JarSupportMe">
+    <archive path="C:/Users/HAL-9001/Documents/GitHub/Support_Me/JarSupportMe/activation.jar" />
+    <archive path="C:/Users/HAL-9001/Documents/GitHub/Support_Me/JarSupportMe/javax.mail.jar" />
+    <archive path="C:/Users/HAL-9001/Documents/GitHub/Support_Me/JarSupportMe/mssql-jdbc-9.2.0.jre15.jar" />
+    <archive path="C:/Users/HAL-9001/Documents/GitHub/Support_Me/JarSupportMe/spring-security-crypto-5.4.6.jar" />
+  </library>
+</eclipse-userlibraries>
+
