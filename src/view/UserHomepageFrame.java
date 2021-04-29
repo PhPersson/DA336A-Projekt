@@ -256,36 +256,47 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
             controller.btnUserSearchGuide(txtSearch.getText());
         }
         else if (e.getSource() == btnShowGuideUpper) {
-            int guideId = (int) jTableUp.getModel().getValueAt(jTableUp.getSelectedRow(),0);
-            int row = jTableUp.getSelectedRow();
-            controller.openGuide(guideId,
-                    jTableUp.getModel().getValueAt(row,1).toString(),
-                    jTableUp.getModel().getValueAt(row,2).toString(),
-                    jTableUp.getModel().getValueAt(row,3).toString(),
-                    jTableUp.getModel().getValueAt(row, 5).toString());
+            try {
+                int guideId = (int) jTableUp.getModel().getValueAt(jTableUp.getSelectedRow(), 0);
+                int row = jTableUp.getSelectedRow();
+                controller.openGuide(guideId,
+                        jTableUp.getModel().getValueAt(row, 1).toString(),
+                        jTableUp.getModel().getValueAt(row, 2).toString(),
+                        jTableUp.getModel().getValueAt(row, 3).toString(),
+                        jTableUp.getModel().getValueAt(row, 5).toString());
+            } catch (ArrayIndexOutOfBoundsException exception) {
+                controller.getUtil().showErrorDialog("Du har inte valt någon guide!");
+            }
         }
         else if (e.getSource() == btnShowGuideLower) {
-            int guideId = (int) jTableLow.getModel().getValueAt(jTableLow.getSelectedRow(),0);
-            int row = jTableLow.getSelectedRow();
-            controller.openGuide(guideId,
-                    jTableLow.getModel().getValueAt(row,1).toString(),
-                    jTableLow.getModel().getValueAt(row,2).toString(),
-                    jTableLow.getModel().getValueAt(row,3).toString(),
-                    jTableLow.getModel().getValueAt(row,5).toString());
+            try {
+                int guideId = (int) jTableLow.getModel().getValueAt(jTableLow.getSelectedRow(), 0);
+                int row = jTableLow.getSelectedRow();
+                controller.openGuide(guideId,
+                        jTableLow.getModel().getValueAt(row, 1).toString(),
+                        jTableLow.getModel().getValueAt(row, 2).toString(),
+                        jTableLow.getModel().getValueAt(row, 3).toString(),
+                        jTableLow.getModel().getValueAt(row, 5).toString());
+            } catch (ArrayIndexOutOfBoundsException exception) {
+                controller.getUtil().showErrorDialog("Du har inte valt någon guide!");
+            }
         } else if (e.getSource() == btnUserSettings) {
             controller.btnUserSettings();
         }
         else if (e.getSource() == btnEditGuide) {
-            controller.editGuide();
-        } else if (e.getSource() == btnRemoveGuide) {
+            try {
+                controller.editGuide();
+            } catch (ArrayIndexOutOfBoundsException exception) {
+                controller.getUtil().showErrorDialog("Du har ännu inte valt någon guide!");
+            }
+        }
+        else if (e.getSource() == btnRemoveGuide) {
             try {
                 String titleToRemove = jTableLow.getModel().getValueAt(jTableLow.getSelectedRow(),0).toString();
                 controller.btnDeleteGuide(titleToRemove);
             } catch (ArrayIndexOutOfBoundsException exception) {
-
+                controller.getUtil().showErrorDialog("Du har ännu inte valt någon guide!");
             }
-
-
         }
     }
     public JTable getTableLow() {
