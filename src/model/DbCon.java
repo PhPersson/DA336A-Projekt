@@ -264,7 +264,7 @@ public class DbCon {
                 int rating = rs.getInt("rating");
                 String description = rs.getString("description");
                 int views = rs.getInt("views");
-                String type = rs.getString("Type");
+                String type = rs.getString("type");
                 String category = rs.getString("category");
                 guideModel.addRow(new Object[]{guideId, title, username, date, rating, description, views, type, category});
             }
@@ -295,7 +295,7 @@ public class DbCon {
                 int rating = rs.getInt("rating");
                 String description = rs.getString("description");
                 int views = rs.getInt("views");
-                String type = rs.getString("Type");
+                String type = rs.getString("type");
                 String category = rs.getString("category");
                 guideModel.addRow(new Object[]{guideId, title, username, date, rating, description, views, type, category});
 
@@ -331,7 +331,7 @@ public class DbCon {
                 int rating = rs.getInt("rating");
                 String description = rs.getString("description");
                 int views = rs.getInt("views");
-                String type = rs.getString("Type");
+                String type = rs.getString("type");
                 String category = rs.getString("category");
                 guideModel.addRow(new Object[]{guideId, title, username, date, rating, description, views, type, category});
             }
@@ -341,17 +341,16 @@ public class DbCon {
         return guideModel;
     }
 
-
     /**
      * Söker igeon databasen efter en specefik användare baserat på användarnamnet.
      *
-     * @param soktext Sträng som innehåller ord som databasen ska söka på.
+     * @param searchText Sträng som innehåller ord som databasen ska söka på.
      * @return Ett helt DefaultTableModel objekt som innehåller alla namnet på den sökta användaren och tillhörande e-postaddress.
      */
-    public DefaultTableModel searchUser(String soktext) {
+    public DefaultTableModel searchUser(String searchText) {
         DefaultTableModel userModel = new DefaultTableModel(new String[]{"Användarnamn", "Email"}, 0);
         try {
-            String query = "SELECT username, email FROM [User] WHERE username LIKE '%" + soktext + "%' OR email LIKE '%" + soktext + "%' ";
+            String query = "SELECT username, email FROM [User] WHERE username LIKE '%" + searchText + "%' OR email LIKE '%" + searchText + "%' ";
 
             PreparedStatement ps = connection.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
@@ -376,7 +375,7 @@ public class DbCon {
         DefaultTableModel guideModel = new DefaultTableModel(new String[]{
                 "GuideID", "Titel", "Skapad av:", "Datum", "Betyg", "Beskrivning", "Visningar", "Typ", "Kategori"}, 0);
         try {
-            String query = "SELECT guideId, title, username, date, rating, description, views, Type, category FROM Guide WHERE title LIKE '%" + searchText + "%' OR username LIKE '%" + searchText + "%' OR Type LIKE '%" + searchText + "%' OR category LIKE '%" + searchText + "%'";
+            String query = "SELECT guideId, title, username, date, rating, description, views, type, category FROM Guide WHERE title LIKE '%" + searchText + "%' OR username LIKE '%" + searchText + "%' OR Type LIKE '%" + searchText + "%' OR category LIKE '%" + searchText + "%'";
             PreparedStatement ps = connection.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
 
@@ -388,7 +387,35 @@ public class DbCon {
                 int rating = rs.getInt("rating");
                 String description = rs.getString("description");
                 int views = rs.getInt("views");
-                String type = rs.getString("Type");
+                String type = rs.getString("type");
+                String category = rs.getString("category");
+                guideModel.addRow(new Object[]{guideId, title, username, date, rating, description, views, type, category});
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        return guideModel;
+    }
+
+    //BARA TEMPORÄR
+
+    public DefaultTableModel searchGuideAdmin(String searchText, String typeSearch, String categorySearch) {
+        DefaultTableModel guideModel = new DefaultTableModel(new String[]{
+                "GuideID", "Titel", "Skapad av:", "Datum", "Betyg", "Beskrivning", "Visningar", "Typ", "Kategori"}, 0);
+        try {
+            String query = "SELECT guideId, title, username, date, rating, description, views, type, category FROM Guide WHERE title LIKE '%" + searchText + "%' OR username LIKE '%" + searchText + "%' OR type LIKE '%" + typeSearch + "%' OR category LIKE '%" + categorySearch + "%'";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int guideId = rs.getInt("guideId");
+                String title = rs.getString("title");
+                String username = rs.getString("username");
+                Date date = rs.getDate("date");
+                int rating = rs.getInt("rating");
+                String description = rs.getString("description");
+                int views = rs.getInt("views");
+                String type = rs.getString("type");
                 String category = rs.getString("category");
                 guideModel.addRow(new Object[]{guideId, title, username, date, rating, description, views, type, category});
             }
@@ -405,7 +432,7 @@ public class DbCon {
         try {
             connection.setAutoCommit(false);
 
-            String createGuide = "INSERT INTO [Guide] (title, description, date, Type, category, username, views) OUTPUT inserted.guideId VALUES (?,?,?,?,?,?,?)";
+            String createGuide = "INSERT INTO [Guide] (title, description, date, type, category, username, views) OUTPUT inserted.guideId VALUES (?,?,?,?,?,?,?)";
             PreparedStatement create = connection.prepareStatement(createGuide);
 
 
