@@ -637,7 +637,9 @@ public class DbCon {
             File file = new File(selectedFile);
             FileInputStream fis = new FileInputStream(file);
             ps.setBinaryStream(1, fis);
+
             ps.setInt(2, guideId);
+
             ps.executeUpdate();
         } catch (FileNotFoundException | SQLException e) {
             e.printStackTrace();
@@ -651,6 +653,7 @@ public class DbCon {
 
         try {
             PreparedStatement ps = connection.prepareStatement(query);
+            //ps.setInt(1, controller.getGuidenum());
             ps.setInt(1, 67);
             ResultSet rs = ps.executeQuery();
 
@@ -666,6 +669,7 @@ public class DbCon {
         System.out.println(icon + " Här");
         return icon;
     }
+
 
 
 }

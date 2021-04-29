@@ -1,3 +1,4 @@
+
 package model;
 
 import org.springframework.security.crypto.bcrypt.*;
@@ -21,6 +22,4 @@ public class Hash {
         return(password_verified);
     }
     }
-
-
 
