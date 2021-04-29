@@ -72,7 +72,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
     public void btnLoginClicked() {
         try {
             if (con.getUserAndPass(view.getLoginUsername(), view.getLoginPassword())) {
-                if (!con.getRole(view.getLoginUsername(), view.getLoginPassword())) {
+                if (!con.getRole(view.getLoginUsername())) {
                     user.setUsername(view.getLoginUsername());
                     view.getLoginFrame().dispose();
                     userHomePageFrame = new UserHomepageFrame(this);
