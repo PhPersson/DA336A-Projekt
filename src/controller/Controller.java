@@ -274,7 +274,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
      * Användare ändrar lösenordet kopplat till sitt konto.
      */
     public void changePasswordUser() {
-        con.updateUserPassword(userSettings.getFieldPass1(), user.getUsername());
+        con.updateUserPassword(Hash.hashPass(userSettings.getFieldPass1()), user.getUsername());
     }
 
     /**
