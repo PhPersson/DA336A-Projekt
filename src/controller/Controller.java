@@ -51,7 +51,9 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
     public void btnRegisterClicked() {
         if (con.getAllUsernames(view.getTxtUsername())) {
             util.showDialog("Detta användarnam finns redan, vänligen ange ett nytt");
-        } else {
+        }
+        if (!view.getRegisterFrame().getTxtPassword().isEmpty()) {
+
             if (Email.isValidEmailAddress(view.getTxtEmail())) {
                 Email.sendMail(view.getTxtEmail(), view.getTxtUsername());
                 con.registerNewCustomer(new User(view.getTxtUsername().substring(0, 1).toUpperCase() + view.getTxtUsername().substring(1), view.getTxtEmail(), Hash.hashPass(view.gettxtPassword()), 0));
@@ -61,6 +63,8 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
             } else {
                 util.showErrorDialog("Det är ingen gilltig e-postadress! \nAnge en gilltig e-postadress och försök igen!");
             }
+        } else {
+            util.showErrorDialog("Du måste fylla i ett lösenord!");
         }
     }
 
