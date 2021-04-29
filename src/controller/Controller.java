@@ -372,7 +372,6 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
             userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
             homePageFrame.updateSearchGuideList(con.getAllGuides());
         } catch (NullPointerException e) {
-
         }
     }
 
