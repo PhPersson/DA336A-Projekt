@@ -1,0 +1,9 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "JarSupportMe/activation.jar",
+        "JarSupportMe/javax.mail.jar",
+        "JarSupportMe/mssql-jdbc-9.2.0.jre15.jar",
+        "JarSupportMe/spring-security-crypto-5.4.6.jar"
+    ]
+}
