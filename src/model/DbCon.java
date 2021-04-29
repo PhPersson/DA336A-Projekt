@@ -38,7 +38,7 @@ public class DbCon {
     public void connectToDatabase() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            connection = DriverManager.getConnection(Values.getSqlUrl(), Values.getSqlUsername(), Values.getSqlPassword());
+            connection = DriverManager.getConnection(Values.getSqlUrl());
         } catch (ClassNotFoundException | SQLException exception) {
             controller.getUtil().showErrorDialog("Kunde inte ansluta till databsen. \nVänligen kontakta systemadministratören!");
             exception.printStackTrace();
@@ -104,30 +104,30 @@ public class DbCon {
      * Hämtar vilken roll användaren har i databsen. Om rollen är 1 räknas detta som att användaren är en administratör.
      *
      * @param username Användarnamet att kolla upp i databsen
-     * @param password Lösenorder att kolla upp i databasen,
      * @return Om användaren är administratör så retuneras true.
      */
-    public boolean getRole(String username, String password) {
-        String query = "SELECT role FROM [User] WHERE username = ? AND password = ?";
+    public boolean getRole(String username) {
+        boolean roleStatus = false;
+        String query = "SELECT role FROM [User] WHERE username = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, username);
-            preparedStatement.setString(2, password);
+
 
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
                 int role = rs.getInt("role");
                 if (role == 1) {
-                    return true;
+                    roleStatus = true;
                 } else {
-                    return false;
+                    roleStatus = false;
                 }
             }
 
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
-        return true;
+        return roleStatus;
     }
 
     /**
