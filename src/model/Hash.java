@@ -1,11 +1,10 @@
-
 package model;
 
 import org.springframework.security.crypto.bcrypt.*;
 
 public class Hash {
 
-
+    
 
     public static String hashPass(String password){
         return BCrypt.hashpw(password,BCrypt.gensalt());
@@ -22,4 +21,6 @@ public class Hash {
         return(password_verified);
     }
     }
+
+
 
