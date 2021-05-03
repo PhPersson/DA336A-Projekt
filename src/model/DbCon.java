@@ -11,10 +11,10 @@ import java.util.ArrayList;
 
 
 /**
- * @version 1.0
  * @author Philip Persson
  * @author Simon Pizevski
  * @author Alexander Olsson
+ * @version 1.0
  */
 public class DbCon {
     private Connection connection;
@@ -80,19 +80,13 @@ public class DbCon {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, username);
-
             ResultSet rs = preparedStatement.executeQuery();
 
             if (rs.next()) {
                 hasedPassword = rs.getString("password");
-                if (!hasedPassword.startsWith(("$2a$"))) {
-                    valid = true;
-                }
-                    else if (Hash.checkHash(password, hasedPassword)) {
-                        valid = true;
-                    }
-                }
-
+                Hash.checkHash(password, hasedPassword);
+                valid = true;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -166,7 +160,7 @@ public class DbCon {
             register.setString(1, user.getUsername());
             register.setString(2, user.getPassword());
             register.setString(3, user.getEmail());
-            register.setInt(4, 0); // user.gerRole()
+            register.setInt(4, 0);
             register.execute();
             connection.commit();
             register.close();
@@ -695,7 +689,6 @@ public class DbCon {
         System.out.println(icon + " Här");
         return icon;
     }
-
 
 
 }

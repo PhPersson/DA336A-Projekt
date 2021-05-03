@@ -94,7 +94,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
                 util.showErrorDialog("Fel användarnamn eller lösenord!");
             }
         } catch (NullPointerException exception) {
-            util.showErrorDialog("Verkar om du inte har någon internetanslutning. \nKvarstår problemet kontakta systemadministratören!");
+            util.showErrorDialog("Verkar som du inte har någon internetanslutning. \nKvarstår problemet kontakta systemadministratören!");
             exception.printStackTrace();
         }
     }
@@ -370,9 +370,9 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
         try {
             userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
             userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
-            homePageFrame.updateSearchGuideList(con.getAllGuides());
-        } catch (NullPointerException e) {
-            util.showErrorDialog("Visa");
+            //homePageFrame.updateSearchGuideList(con.getAllGuides()); //TODO VAD GÖR DENNA METODEN HÄR?
+        } catch (NullPointerException exception) {
+            exception.printStackTrace();
         }
     }
 
@@ -401,6 +401,5 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
             exception.printStackTrace();
         }
     }
-
 
 }

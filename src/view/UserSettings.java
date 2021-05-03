@@ -1,7 +1,6 @@
 package view;
 
 import controller.Controller;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -16,8 +15,7 @@ import java.awt.event.ActionListener;
 public class UserSettings extends JFrame implements ActionListener {
 
     private JButton btnEmail, btnPassword;
-    private JLabel lblChangeEmail, lblChangePass1, lblChangePass2, lblTitle, lblEmailTitle, txtUsername,
-            lblUsername, txtEmail;
+    private JLabel lblChangeEmail, lblChangePass1, lblChangePass2, lblTitle, lblEmailTitle, txtUsername,lblUsername, txtEmail;
     private JTextField fieldEmail;
     private JFrame jFrame1;
     private JTextField fieldPass1, fieldPass2;

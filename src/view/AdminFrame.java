@@ -131,9 +131,9 @@ public class AdminFrame extends JFrame implements ActionListener {
         btnSearchGuide.setFont(new Font("Tahoma", 0, 12));
         btnSearchGuide.setText("Sök");
 
-        jComboBox1.setModel(new DefaultComboBoxModel<>(new String[]{"Mjukvara", "Hårdvara", "Snabbguide"}));
+        jComboBox1.setModel(new DefaultComboBoxModel<>(new String[]{"Typ:  ","Mjukvara", "Hårdvara", "Snabbguide"}));
 
-        jComboBox2.setModel(new DefaultComboBoxModel<>(new String[]{"Internet", "Dator", "Mobil", "Övrigt"}));
+        jComboBox2.setModel(new DefaultComboBoxModel<>(new String[]{"Kategori: ","Internet", "Dator", "Mobil", "Övrigt"}));
 
         btnDeleteGuide.setFont(new Font("Tahoma", 0, 12));
         btnDeleteGuide.setText("Ta bort");
