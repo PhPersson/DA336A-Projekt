@@ -149,13 +149,17 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
         adminFrame.updateUserList(con.searchUser(searchText));
     }
 
+    public void comboBoxSearchGuide(String searchText, String type, String category) {
+        adminFrame.updateGuideList(con.searchGuideAdmin(searchText, type, category));
+    }
+
     /**
      * Admin söker efter guider.
      *
      * @param searchText input av sträng man vill söka med.
      */
-    public void btnAdminSearchGuide(String searchText, String type, String category) {
-        adminFrame.updateGuideList(con.searchGuideAdmin(searchText, type, category));
+    public void btnAdminSearchGuide(String searchText) {
+        adminFrame.updateGuideList(con.searchGuide(searchText));
     }
 
     /**
