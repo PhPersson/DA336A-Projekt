@@ -63,12 +63,4 @@ public class User { // TODO KOMMENTERA DENNA KLASSEN
         this.password = password;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "fName='" + username + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
 }

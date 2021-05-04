@@ -15,7 +15,7 @@ public class GuiUtilities { // TODO KOMMENTERA KLASSEN
         JOptionPane.showMessageDialog(null,message);
     }
 
-    public void showErrorDialog(String message) {JOptionPane.showMessageDialog(null,message,"ERROR",JOptionPane.ERROR_MESSAGE);}
+    public void showErrorDialog(String message) {JOptionPane.showMessageDialog(null,message,"VARNING",JOptionPane.ERROR_MESSAGE);}
 
     public int showConfirmationDialog(String message) {
         int reply = JOptionPane.showConfirmDialog(null,message);

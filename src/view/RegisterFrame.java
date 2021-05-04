@@ -1,7 +1,6 @@
 package view;
 
 import controller.Controller;
-
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -14,8 +13,6 @@ import java.awt.event.ActionListener;
  * @author
  * @version 1.0
  */
-
-
 public class RegisterFrame extends JFrame implements ActionListener {
 
     private JPanel panel;
@@ -119,7 +116,7 @@ public class RegisterFrame extends JFrame implements ActionListener {
             }
         } else if (e.getSource() == btnCancel){
             if (util.showConfirmationDialog("Säker att du vill avbryta registreringen?") == 1) {
-                setVisible(false);
+                dispose();
             }
         }
     }
