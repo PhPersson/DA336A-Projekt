@@ -271,7 +271,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
         userSettings = new UserSettings(this);
         userSettings.setVisible(true);
         userSettings.setLblUsername(user.getUsername());
-        userSettings.setlblEmail(con.getUserEmail(user.getUsername()));
+        userSettings.setLblEmail(con.getUserEmail(user.getUsername()));
     }
 
     /**
@@ -286,7 +286,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
      */
     public void changeEmailUser() {
         con.updateUserEmail(userSettings.getFieldEmail(), user.getUsername());
-        userSettings.setlblEmail(con.getUserEmail(user.getUsername()));
+        userSettings.setLblEmail(con.getUserEmail(user.getUsername()));
     }
 
     /**

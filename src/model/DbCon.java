@@ -84,11 +84,13 @@ public class DbCon {
 
             if (rs.next()) {
                 hasedPassword = rs.getString("password");
-                Hash.checkHash(password, hasedPassword);
-                valid = true;
+                if (Hash.checkHash(password, hasedPassword)) {
+                    valid = true;
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            valid = false;
         }
         return valid;
     }
