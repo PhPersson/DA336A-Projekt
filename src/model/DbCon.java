@@ -179,7 +179,7 @@ public class DbCon {
         try {
             connection.setAutoCommit(false);
 
-            String deleteUser = "Delete from [User] WHERE username = ?";
+            String deleteUser = "DELETE FROM [User] WHERE username = ?";
 
             PreparedStatement delete = connection.prepareStatement(deleteUser);
             delete.setString(1, username);
@@ -201,7 +201,7 @@ public class DbCon {
         try {
             connection.setAutoCommit(false);
 
-            String deleteUser = "Delete from GUIDE WHERE guideId = ?";
+            String deleteUser = "DELETE FROM GUIDE WHERE guideId = ?";
 
             PreparedStatement delete = connection.prepareStatement(deleteUser);
             delete.setString(1, guideId);
@@ -223,7 +223,7 @@ public class DbCon {
     public DefaultTableModel getUsersAndEmail() {
         DefaultTableModel model = new DefaultTableModel(new String[]{"Användarnamn", "Email"}, 0);
         try {
-            String strGetUsers = "Select * FROM [USER] ORDER BY username ASC";
+            String strGetUsers = "SELECT * FROM [USER] ORDER BY username ASC";
             PreparedStatement statement = connection.prepareStatement(strGetUsers);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
@@ -247,7 +247,7 @@ public class DbCon {
         DefaultTableModel guideModel = new DefaultTableModel(new String[]{
                 "Guide ID", "Titel", "Skapad av:", "Datum", "Betyg", "Beskrivning", "Visningar", "Typ", "Kategori"}, 0);
         try {
-            String strGetUsers = "Select * FROM GUIDE ORDER BY guideId ASC";
+            String strGetUsers = "SELECT * FROM GUIDE ORDER BY guideId ASC";
             PreparedStatement statement = connection.prepareStatement(strGetUsers);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
@@ -277,7 +277,7 @@ public class DbCon {
         DefaultTableModel guideModel = new DefaultTableModel(new String[]{
                 "GuideId", "Titel", "Skapad av:", "Datum", "Betyg", "Beskrivning", "Visningar", "Typ", "Kategori"}, 0);
         try {
-            String strGetUsers = "Select * FROM GUIDE ORDER BY guideId ASC";
+            String strGetUsers = "SELECT * FROM GUIDE ORDER BY guideId ASC";
             PreparedStatement statement = connection.prepareStatement(strGetUsers);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
@@ -310,7 +310,7 @@ public class DbCon {
                 "GuideId", "Titel", "Skapad av:", "Datum", "Betyg", "Beskrivning", "Visningar", "Typ", "Kategori"}, 0);
 
         try {
-            String strGetUsers = "Select * FROM GUIDE WHERE username = ? ORDER BY guideId ASC";
+            String strGetUsers = "SELECT * FROM GUIDE WHERE username = ? ORDER BY guideId ASC";
             PreparedStatement statement = connection.prepareStatement(strGetUsers);
             statement.setString(1, user);
 
