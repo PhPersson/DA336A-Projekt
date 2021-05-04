@@ -84,11 +84,13 @@ public class DbCon {
 
             if (rs.next()) {
                 hasedPassword = rs.getString("password");
-                Hash.checkHash(password, hasedPassword);
-                valid = true;
+                if (Hash.checkHash(password, hasedPassword)) {
+                    valid = true;
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            valid = false;
         }
         return valid;
     }
@@ -106,7 +108,6 @@ public class DbCon {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, username);
 
-
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
                 int role = rs.getInt("role");
@@ -116,7 +117,6 @@ public class DbCon {
                     roleStatus = false;
                 }
             }
-
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
@@ -137,7 +137,6 @@ public class DbCon {
             while (rs.next()) {
                 user.add(rs.getString("username") + ", " + (rs.getString("email")));
             }
-
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
@@ -245,7 +244,7 @@ public class DbCon {
      */
     public DefaultTableModel getAllGuides() {
         DefaultTableModel guideModel = new DefaultTableModel(new String[]{
-                "Guide ID", "Titel", "Skapad av:", "Datum", "Betyg", "Beskrivning", "Visningar", "Typ", "Kategori"}, 0);
+                "GuideID", "Titel", "Skapad av:", "Datum", "Betyg", "Beskrivning", "Visningar", "Typ", "Kategori"}, 0);
         try {
             String strGetUsers = "SELECT * FROM GUIDE ORDER BY guideId ASC";
             PreparedStatement statement = connection.prepareStatement(strGetUsers);
@@ -275,7 +274,7 @@ public class DbCon {
      */
     public DefaultTableModel getAllGuidesUserSearch() {
         DefaultTableModel guideModel = new DefaultTableModel(new String[]{
-                "GuideId", "Titel", "Skapad av:", "Datum", "Betyg", "Beskrivning", "Visningar", "Typ", "Kategori"}, 0);
+                "GuideID", "Titel", "Skapad av:", "Datum", "Betyg", "Beskrivning", "Visningar", "Typ", "Kategori"}, 0);
         try {
             String strGetUsers = "SELECT * FROM GUIDE ORDER BY guideId ASC";
             PreparedStatement statement = connection.prepareStatement(strGetUsers);
@@ -307,7 +306,7 @@ public class DbCon {
      */
     public DefaultTableModel getAllGuidesUser(String user) {
         DefaultTableModel guideModel = new DefaultTableModel(new String[]{
-                "GuideId", "Titel", "Skapad av:", "Datum", "Betyg", "Beskrivning", "Visningar", "Typ", "Kategori"}, 0);
+                "GuideID", "Titel", "Skapad av:", "Datum", "Betyg", "Beskrivning", "Visningar", "Typ", "Kategori"}, 0);
 
         try {
             String strGetUsers = "SELECT * FROM GUIDE WHERE username = ? ORDER BY guideId ASC";
@@ -358,7 +357,7 @@ public class DbCon {
     }
 
     /**
-     * Söker igeon databasen efter en specefik guide baserat på vem som skapade den eller titlen på guide.
+     * Söker igenom databasen efter en specefik guide baserat på vem som skapade den eller titlen på guide.
      *
      * @param searchText Sträng som innehåller ord som databasen ska söka på.
      * @return Ett helt DefaultTableModel objekt som innehåller alla namnet på den sökta guiden med tillhörande användare som skapade guiden, när guiden skapades och vilket omdöme guiden har.

@@ -89,9 +89,9 @@ public class LoginFrame extends JFrame implements ActionListener {
         add(panel, BorderLayout.CENTER);
         add(panelNoLog, BorderLayout.SOUTH);
 
-        SwingUtilities.getRootPane(btnLogin).setDefaultButton(btnLogin);
+        getRootPane().setDefaultButton(btnLogin);
 
-        //frame.pack();
+        //pack();
         setLocationRelativeTo(null);
         setVisible(true);
         addListeners();

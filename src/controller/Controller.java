@@ -59,7 +59,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
                 con.registerNewUser(new User(view.getTxtUsername().substring(0, 1).toUpperCase() + view.getTxtUsername().substring(1), view.getTxtEmail(), Hash.hashPass(view.gettxtPassword()), 0));
 
                 util.showDialog("Registreringen OK \nDu kan nu återgå och logga in");
-                view.getRegisterFrame().setVisible(false);
+                view.getRegisterFrame().dispose();
             } else {
                 util.showErrorDialog("Det är ingen gilltig e-postadress! \nAnge en gilltig e-postadress och försök igen!");
             }
@@ -103,7 +103,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
      * Användare väljer att starta programmet utan att logga in. homePageFrame körs.
      */
     public void btnNoLoginClicked() {
-        view.getLoginFrame().setVisible(false);
+        view.getLoginFrame().dispose();
         homePageFrame = new HomePageFrame(this);
         homePageFrame.updateSearchGuideList(con.getAllGuides());
     }
@@ -112,7 +112,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
      * AdminFrame stängs ner och en ny LoginFrame körs.
      */
     public void btnLoggOffAdmin() {
-        adminFrame.setVisible(false);
+        adminFrame.dispose();
         view.getLoginFrame().setVisible(true);
         try {
             editGuideGUI.getFrame().dispose();
@@ -183,7 +183,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
      * Användare öppnar in från homePageFrame utan att logga in med ett konto.
      */
     public void btnHomePageFrameLogin() {
-        homePageFrame.setVisible(false);
+        homePageFrame.dispose();
         view.getLoginFrame().setVisible(true);
         try {
             showGuideGUI.getFrame().dispose();
@@ -196,7 +196,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
      * Inloggad användare loggar ut, ny loginFrame öppnas.
      */
     public void btnUserLoggOff() {
-        userHomePageFrame.setVisible(false);
+        userHomePageFrame.dispose();
         view.getLoginFrame().setVisible(true);
         try {
             editGuideGUI.getFrame().dispose();
@@ -243,7 +243,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
      * Användare väljer att avbryta skapandet av en guide.
      */
     public void btnCancelGuide() {
-        makeGuideGUI.setVisible(false);
+        makeGuideGUI.dispose();
     }
 
     /**
@@ -271,7 +271,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
         userSettings = new UserSettings(this);
         userSettings.setVisible(true);
         userSettings.setLblUsername(user.getUsername());
-        userSettings.setlblEmail(con.getUserEmail(user.getUsername()));
+        userSettings.setLblEmail(con.getUserEmail(user.getUsername()));
     }
 
     /**
@@ -286,7 +286,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
      */
     public void changeEmailUser() {
         con.updateUserEmail(userSettings.getFieldEmail(), user.getUsername());
-        userSettings.setlblEmail(con.getUserEmail(user.getUsername()));
+        userSettings.setLblEmail(con.getUserEmail(user.getUsername()));
     }
 
     /**
