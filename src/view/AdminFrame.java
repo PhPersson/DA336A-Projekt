@@ -296,14 +296,14 @@ public class AdminFrame extends JFrame implements ActionListener {
         jComboBox1.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                controller.btnAdminSearchGuide(guideSearch.getSelectedText(), String.valueOf(jComboBox1.getSelectedItem()), String.valueOf(jComboBox2.getSelectedItem()));
+                controller.comboBoxSearchGuide(guideSearch.getSelectedText(), String.valueOf(jComboBox1.getSelectedItem()), String.valueOf(jComboBox2.getSelectedItem()));
             }
         });
         jComboBox2.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
-                    controller.btnAdminSearchGuide(guideSearch.getSelectedText(), String.valueOf(jComboBox1.getSelectedItem()), String.valueOf(jComboBox2.getSelectedItem()));
+                    controller.comboBoxSearchGuide(guideSearch.getSelectedText(), String.valueOf(jComboBox1.getSelectedItem()), String.valueOf(jComboBox2.getSelectedItem()));
                 }
             }
         });
@@ -344,7 +344,7 @@ public class AdminFrame extends JFrame implements ActionListener {
         } else if (e.getSource() == btnSearchUser) {
             controller.btnAdminSearchUser(userSearch.getText());
         } else if (e.getSource() == btnSearchGuide) {
-            controller.btnAdminSearchGuide(guideSearch.getText(), String.valueOf(jComboBox1.getSelectedItem()), String.valueOf(jComboBox2.getSelectedItem()));
+            controller.btnAdminSearchGuide(guideSearch.getText());
         } else if (e.getSource() == btnLogOff) {
             controller.btnLoggOffAdmin();
         } else if (e.getSource() == btnDeleteGuide) {

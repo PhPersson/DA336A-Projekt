@@ -150,7 +150,7 @@ public class DbCon {
      *
      * @param user
      */
-    public void registerNewCustomer(User user) {
+    public void registerNewUser(User user) {
         try {
             connection.setAutoCommit(false);
 
@@ -394,7 +394,9 @@ public class DbCon {
         DefaultTableModel guideModel = new DefaultTableModel(new String[]{
                 "GuideID", "Titel", "Skapad av:", "Datum", "Betyg", "Beskrivning", "Visningar", "Typ", "Kategori"}, 0);
         try {
-            String query = "SELECT guideId, title, username, date, rating, description, views, type, category FROM Guide WHERE title LIKE '%" + searchText + "%' OR username LIKE '%" + searchText + "%' OR type LIKE '%" + typeSearch + "%' OR category LIKE '%" + categorySearch + "%'";
+            String query = "SELECT guideId, title, username, date, rating, description, views, type, category FROM Guide " +
+                    "WHERE title LIKE '%" + searchText + "%' OR username LIKE '%" + searchText + "%' OR type LIKE '%" +
+                    typeSearch + "%' OR category LIKE '%" + categorySearch + "%'";
             PreparedStatement ps = connection.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
 

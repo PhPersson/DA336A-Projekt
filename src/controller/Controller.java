@@ -56,7 +56,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
 
             if (Email.isValidEmailAddress(view.getTxtEmail())) {
                 Email.sendMail(view.getTxtEmail(), view.getTxtUsername());
-                con.registerNewCustomer(new User(view.getTxtUsername().substring(0, 1).toUpperCase() + view.getTxtUsername().substring(1), view.getTxtEmail(), Hash.hashPass(view.gettxtPassword()), 0));
+                con.registerNewUser(new User(view.getTxtUsername().substring(0, 1).toUpperCase() + view.getTxtUsername().substring(1), view.getTxtEmail(), Hash.hashPass(view.gettxtPassword()), 0));
 
                 util.showDialog("Registreringen OK \nDu kan nu återgå och logga in");
                 view.getRegisterFrame().setVisible(false);
@@ -149,13 +149,17 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
         adminFrame.updateUserList(con.searchUser(searchText));
     }
 
+    public void comboBoxSearchGuide(String searchText, String type, String category) {
+        adminFrame.updateGuideList(con.searchGuideAdmin(searchText, type, category));
+    }
+
     /**
      * Admin söker efter guider.
      *
      * @param searchText input av sträng man vill söka med.
      */
-    public void btnAdminSearchGuide(String searchText, String type, String category) {
-        adminFrame.updateGuideList(con.searchGuideAdmin(searchText, type, category));
+    public void btnAdminSearchGuide(String searchText) {
+        adminFrame.updateGuideList(con.searchGuide(searchText));
     }
 
     /**
