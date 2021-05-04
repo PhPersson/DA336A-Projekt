@@ -51,7 +51,9 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
     public void btnRegisterClicked() {
         if (con.getAllUsernames(view.getTxtUsername())) {
             util.showDialog("Detta användarnam finns redan, vänligen ange ett nytt");
-        } else {
+        }
+        if (!view.getRegisterFrame().getTxtPassword().isEmpty()) {
+
             if (Email.isValidEmailAddress(view.getTxtEmail())) {
                 Email.sendMail(view.getTxtEmail(), view.getTxtUsername());
                 con.registerNewCustomer(new User(view.getTxtUsername().substring(0, 1).toUpperCase() + view.getTxtUsername().substring(1), view.getTxtEmail(), Hash.hashPass(view.gettxtPassword()), 0));
@@ -61,6 +63,8 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
             } else {
                 util.showErrorDialog("Det är ingen gilltig e-postadress! \nAnge en gilltig e-postadress och försök igen!");
             }
+        } else {
+            util.showErrorDialog("Du måste fylla i ett lösenord!");
         }
     }
 
@@ -150,8 +154,8 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
      *
      * @param searchText input av sträng man vill söka med.
      */
-    public void btnAdminSearchGuide(String searchText) {
-        adminFrame.updateGuideList(con.searchGuide(searchText));
+    public void btnAdminSearchGuide(String searchText, String type, String category) {
+        adminFrame.updateGuideList(con.searchGuideAdmin(searchText, type, category));
     }
 
     /**
@@ -270,7 +274,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
      * Användare ändrar lösenordet kopplat till sitt konto.
      */
     public void changePasswordUser() {
-        con.updateUserPassword(userSettings.getFieldPass1(), user.getUsername());
+        con.updateUserPassword(Hash.hashPass(userSettings.getFieldPass1()), user.getUsername());
     }
 
     /**
@@ -338,10 +342,6 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
         }
     }
 
-    public void editGuideAdmin() {
-
-    }
-
     /**
      * Användare väljer att kolla på bilderna som finnns kopplade till en guide.
      */
@@ -372,24 +372,19 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
             userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
             homePageFrame.updateSearchGuideList(con.getAllGuides());
         } catch (NullPointerException e) {
-
+            util.showErrorDialog("Visa");
         }
     }
 
     public void setGuideId(int guideId) {
         this.guidenum = guideId;
     }
-//    public int getGuidenum(){
-//        System.out.println(guidenum);
-//        return this.guidenum;
-//    }
+
 
     public void addPicturesToDb(String selectedFile) {
         con.addPictureToGuide(selectedFile);
     }
 
-//  public void addPicturesToDb(String selectedFile) {
-//      con.addPictureToGuide(selectedFile)
 
 
     public void downloadGuide(){
@@ -407,11 +402,5 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
         }
     }
 
-
-
-//    public void addPicturesToDb(String selectedFile) {
-//        con.addPictureToGuide(selectedFile)
-
-//    }
 
 }

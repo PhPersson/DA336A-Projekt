@@ -81,7 +81,7 @@ public class RegisterFrame extends JFrame implements ActionListener {
         panel.add(btnCancel);
 
         add(panel);
-
+        rootPane.setDefaultButton(btnRegister);
         pack();
         setLocationRelativeTo(null);
         setVisible(true);

@@ -1,5 +1,6 @@
 package model;
 
+import controller.Controller;
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
@@ -11,12 +12,7 @@ import javax.mail.internet.*;
  */
 public class Email { // TODO KOMMENTERA DENNA KLASSEN!!!
 
-    private String recipient,username;
 
-    public Email(String recipient, String username) {
-        this.recipient = recipient;
-        this.username = username;
-    }
 
     /**
      * Statsik klass för att kontrollera om användaren emailadress är gilltig.
@@ -24,14 +20,18 @@ public class Email { // TODO KOMMENTERA DENNA KLASSEN!!!
      * @return Retunerar om det är en giltig emailaddress eller inte.
      */
     public static boolean isValidEmailAddress(String email) {
-        boolean result;
+        boolean result = false;
         try {
-            InternetAddress emailAddress = new InternetAddress(email);
-            emailAddress.validate();
-            result = true;
+            if (email.contains("@") && email.contains(".com")) {
+                InternetAddress emailAddress = new InternetAddress(email);
+                emailAddress.validate();
+                result = true;
+            } else {
+                result = false;
+            }
         } catch (AddressException exception) {
-            exception.printStackTrace();
             result = false;
+            exception.printStackTrace();
         }
         return result;
     }
