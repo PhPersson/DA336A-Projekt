@@ -156,7 +156,7 @@ public class DbCon {
      *
      * @param user
      */
-    public void registerNewCustomer(User user) {
+    public void registerNewUser(User user) {
         try {
             connection.setAutoCommit(false);
 
