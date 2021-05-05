@@ -22,7 +22,7 @@ public class Email { // TODO KOMMENTERA DENNA KLASSEN!!!
     public static boolean isValidEmailAddress(String email) {
         boolean result = false;
         try {
-            if (email.contains("@") && email.contains(".com")) {
+            if (email.contains("@")) {
                 InternetAddress emailAddress = new InternetAddress(email);
                 emailAddress.validate();
                 result = true;
