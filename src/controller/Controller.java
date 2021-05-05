@@ -51,16 +51,20 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
     public void btnRegisterClicked() {
         if (con.getAllUsernames(view.getTxtUsername())) {
             util.showDialog("Detta användarnam finns redan, vänligen ange ett nytt");
-        } else {
+        }
+        if (!view.getRegisterFrame().getTxtPassword().isEmpty()) {
+
             if (Email.isValidEmailAddress(view.getTxtEmail())) {
                 Email.sendMail(view.getTxtEmail(), view.getTxtUsername());
-                con.registerNewCustomer(new User(view.getTxtUsername().substring(0, 1).toUpperCase() + view.getTxtUsername().substring(1), view.getTxtEmail(), Hash.hashPass(view.gettxtPassword()), 0));
+                con.registerNewUser(new User(view.getTxtUsername().substring(0, 1).toUpperCase() + view.getTxtUsername().substring(1), view.getTxtEmail(), Hash.hashPass(view.gettxtPassword()), 0));
 
                 util.showDialog("Registreringen OK \nDu kan nu återgå och logga in");
-                view.getRegisterFrame().setVisible(false);
+                view.getRegisterFrame().dispose();
             } else {
                 util.showErrorDialog("Det är ingen gilltig e-postadress! \nAnge en gilltig e-postadress och försök igen!");
             }
+        } else {
+            util.showErrorDialog("Du måste fylla i ett lösenord!");
         }
     }
 
@@ -90,7 +94,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
                 util.showErrorDialog("Fel användarnamn eller lösenord!");
             }
         } catch (NullPointerException exception) {
-            util.showErrorDialog("Verkar om du inte har någon internetanslutning. \nKvarstår problemet kontakta systemadministratören!");
+            util.showErrorDialog("Verkar som du inte har någon internetanslutning. \nKvarstår problemet kontakta systemadministratören!");
             exception.printStackTrace();
         }
     }
@@ -99,7 +103,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
      * Användare väljer att starta programmet utan att logga in. homePageFrame körs.
      */
     public void btnNoLoginClicked() {
-        view.getLoginFrame().setVisible(false);
+        view.getLoginFrame().dispose();
         homePageFrame = new HomePageFrame(this);
         homePageFrame.updateSearchGuideList(con.getAllGuides());
     }
@@ -108,7 +112,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
      * AdminFrame stängs ner och en ny LoginFrame körs.
      */
     public void btnLoggOffAdmin() {
-        adminFrame.setVisible(false);
+        adminFrame.dispose();
         view.getLoginFrame().setVisible(true);
         try {
             editGuideGUI.getFrame().dispose();
@@ -145,6 +149,10 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
         adminFrame.updateUserList(con.searchUser(searchText));
     }
 
+    public void comboBoxSearchGuide(String searchText, String type, String category) {
+        adminFrame.updateGuideList(con.searchGuideAdmin(searchText, type, category));
+    }
+
     /**
      * Admin söker efter guider.
      *
@@ -175,7 +183,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
      * Användare öppnar in från homePageFrame utan att logga in med ett konto.
      */
     public void btnHomePageFrameLogin() {
-        homePageFrame.setVisible(false);
+        homePageFrame.dispose();
         view.getLoginFrame().setVisible(true);
         try {
             showGuideGUI.getFrame().dispose();
@@ -188,7 +196,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
      * Inloggad användare loggar ut, ny loginFrame öppnas.
      */
     public void btnUserLoggOff() {
-        userHomePageFrame.setVisible(false);
+        userHomePageFrame.dispose();
         view.getLoginFrame().setVisible(true);
         try {
             editGuideGUI.getFrame().dispose();
@@ -235,7 +243,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
      * Användare väljer att avbryta skapandet av en guide.
      */
     public void btnCancelGuide() {
-        makeGuideGUI.setVisible(false);
+        makeGuideGUI.dispose();
     }
 
     /**
@@ -263,14 +271,14 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
         userSettings = new UserSettings(this);
         userSettings.setVisible(true);
         userSettings.setLblUsername(user.getUsername());
-        userSettings.setlblEmail(con.getUserEmail(user.getUsername()));
+        userSettings.setLblEmail(con.getUserEmail(user.getUsername()));
     }
 
     /**
      * Användare ändrar lösenordet kopplat till sitt konto.
      */
     public void changePasswordUser() {
-        con.updateUserPassword(userSettings.getFieldPass1(), user.getUsername());
+        con.updateUserPassword(Hash.hashPass(userSettings.getFieldPass1()), user.getUsername());
     }
 
     /**
@@ -278,7 +286,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
      */
     public void changeEmailUser() {
         con.updateUserEmail(userSettings.getFieldEmail(), user.getUsername());
-        userSettings.setlblEmail(con.getUserEmail(user.getUsername()));
+        userSettings.setLblEmail(con.getUserEmail(user.getUsername()));
     }
 
     /**
@@ -338,10 +346,6 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
         }
     }
 
-    public void editGuideAdmin() {
-
-    }
-
     /**
      * Användare väljer att kolla på bilderna som finnns kopplade till en guide.
      */
@@ -370,26 +374,21 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
         try {
             userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
             userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
-            homePageFrame.updateSearchGuideList(con.getAllGuides());
-        } catch (NullPointerException e) {
-
+            //homePageFrame.updateSearchGuideList(con.getAllGuides()); //TODO VAD GÖR DENNA METODEN HÄR?
+        } catch (NullPointerException exception) {
+            exception.printStackTrace();
         }
     }
 
     public void setGuideId(int guideId) {
         this.guidenum = guideId;
     }
-//    public int getGuidenum(){
-//        System.out.println(guidenum);
-//        return this.guidenum;
-//    }
+
 
     public void addPicturesToDb(String selectedFile) {
         con.addPictureToGuide(selectedFile);
     }
 
-//  public void addPicturesToDb(String selectedFile) {
-//      con.addPictureToGuide(selectedFile)
 
 
     public void downloadGuide(){
@@ -406,12 +405,5 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
             exception.printStackTrace();
         }
     }
-
-
-
-//    public void addPicturesToDb(String selectedFile) {
-//        con.addPictureToGuide(selectedFile)
-
-//    }
 
 }

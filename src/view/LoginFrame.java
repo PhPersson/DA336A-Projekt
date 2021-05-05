@@ -1,7 +1,6 @@
 package view;
 
 import controller.Controller;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -11,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+
 /**
  * @author Philip Persson
  * @author Simon Pizevski
@@ -25,7 +25,7 @@ public class LoginFrame extends JFrame implements ActionListener {
     private JButton btnRegister, btnLogin;
     private JButton btnNoLogin;
     private RegisterFrame registerFrame;
-    private UserHomepageFrame homePageFrame;
+
     private Controller controller;
 
     public LoginFrame(Controller controller) {
@@ -89,9 +89,9 @@ public class LoginFrame extends JFrame implements ActionListener {
         add(panel, BorderLayout.CENTER);
         add(panelNoLog, BorderLayout.SOUTH);
 
-        SwingUtilities.getRootPane(btnLogin).setDefaultButton(btnLogin);
+        getRootPane().setDefaultButton(btnLogin);
 
-        //frame.pack();
+        //pack();
         setLocationRelativeTo(null);
         setVisible(true);
         addListeners();
@@ -117,9 +117,7 @@ public class LoginFrame extends JFrame implements ActionListener {
           controller.btnLoginClicked();
         } else if (e.getSource() == btnNoLogin) {
             controller.btnNoLoginClicked();
-
         }
     }
-
 
 }

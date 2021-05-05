@@ -1,7 +1,6 @@
 package view;
 
 import controller.Controller;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -16,8 +15,7 @@ import java.awt.event.ActionListener;
 public class UserSettings extends JFrame implements ActionListener {
 
     private JButton btnEmail, btnPassword;
-    private JLabel lblChangeEmail, lblChangePass1, lblChangePass2, lblTitle, lblEmailTitle, txtUsername,
-            lblUsername, txtEmail;
+    private JLabel lblChangeEmail, lblChangePass1, lblChangePass2, lblTitle, lblEmailTitle, txtUsername,lblUsername, txtEmail;
     private JTextField fieldEmail;
     private JFrame jFrame1;
     private JTextField fieldPass1, fieldPass2;
@@ -162,7 +160,7 @@ public class UserSettings extends JFrame implements ActionListener {
         txtUsername.setText(username);
     }
 
-    public void setlblEmail(String email) {
+    public void setLblEmail(String email) {
         txtEmail.setText(email);
     }
 
@@ -171,14 +169,14 @@ public class UserSettings extends JFrame implements ActionListener {
         if (e.getSource() == btnPassword) {
             if (getFieldPass1().equals(getFieldPass2())) {
                 controller.changePasswordUser();
-                util.showDialog("Password changed");
+                util.showDialog("Lösenordet uppdaterat!");
 
             } else {
                 util.showErrorDialog("Lösenorden stämmer inte överrens");
             }
         } else if (e.getSource() == btnEmail) {
             controller.changeEmailUser();
-            util.showDialog("Email changed");
+            util.showDialog("Email är uppdaterat!");
         }
     }
 }

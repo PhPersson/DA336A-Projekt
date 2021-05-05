@@ -21,5 +21,6 @@ public class Hash {
 
         return(password_verified);
     }
-    }
+
+}
 
