@@ -25,7 +25,10 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
     private AdminFrame adminFrame;
     private HomePageFrame homePageFrame;
     private MakeGuideGui makeGuideGUI;
+   // private UserSettingsOld userSettingsOld;   Spara!
+
     private UserSettings userSettings;
+
     private EditGuideGUI editGuideGUI;
     private PictureGUI pictureGUI;
     private ShowGuideGUI showGuideGUI;
@@ -58,7 +61,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
                 Email.sendMail(view.getTxtEmail(), view.getTxtUsername());
                 con.registerNewUser(new User(view.getTxtUsername().substring(0, 1).toUpperCase() + view.getTxtUsername().substring(1), view.getTxtEmail(), Hash.hashPass(view.gettxtPassword()), 0));
 
-                util.showDialog("Registreringen OK \nDu kan nu återgå och logga in");
+                util.showDialog("Registrering av ny användare slutförd \nDu kan nu återgå och logga in");
                 view.getRegisterFrame().dispose();
             } else {
                 util.showErrorDialog("Det är ingen gilltig e-postadress! \nAnge en gilltig e-postadress och försök igen!");

@@ -50,6 +50,7 @@ public class RegisterFrame extends JFrame implements ActionListener {
         lblConPassword = new JLabel("Bekräfta lösenord");
 
         txtUsername = new JTextField();
+        txtUsername.setToolTipText("Användarnamnet används som inloggningsinformation");
         txtEmail = new JTextField();
         txtPassword = new JPasswordField();
         txtConPassword = new JPasswordField();
