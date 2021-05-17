@@ -674,5 +674,22 @@ public class DbCon {
         System.out.println(icon + " Här");
         return icon;
     }
+
+
+    public int getGuideId(String titel){
+        int guideId = 0;
+        String query = "SELECT guideId FROM Guide WHERE titel = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1,titel);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                guideId = rs.getInt("guideID");
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        return guideId;
+    }
 }
 

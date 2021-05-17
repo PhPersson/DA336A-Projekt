@@ -7,7 +7,7 @@ package model;
  * @author Alexander Olsson
  * @author
  */
-public class User { // TODO KOMMENTERA DENNA KLASSEN
+public class User {
 
     private String username;
     private String email;
@@ -23,7 +23,6 @@ public class User { // TODO KOMMENTERA DENNA KLASSEN
      * @param password
      * @param role
      */
-
     public User(String username, String email, String password, int role) {
         this.username = username;
         this.email = email;
@@ -31,6 +30,9 @@ public class User { // TODO KOMMENTERA DENNA KLASSEN
         this.role = role;
     }
 
+    /**
+     * Getters  och setters för klassen
+     */
     public String getUsername() {
         return username;
     }

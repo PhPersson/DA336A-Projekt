@@ -19,20 +19,6 @@ public class Guide {
     public Guide(){ //TODO KOMMENTERA DENNA KLASSEN
     }
 
-    public Guide(String title,String description,String author, File[] files) {
-        this.title = title;
-        this.files = files;
-        this.author = author;
-        this.description = description;
-    }
-
-    public Guide(String title,String description,String author, File[] files, String type ) {
-        this.title = title;
-        this.files = files;
-        this.type = type;
-        this.author = author;
-        this.description = description;
-    }
 
     /**
      * Konstruktor för att skapa en guide.
@@ -40,7 +26,6 @@ public class Guide {
      * @param description
      * @param author
      */
-
     public Guide(String title, String description, String author, String type, String category) {
         this.title = title;
         this.author = author;
@@ -49,6 +34,9 @@ public class Guide {
         this.category = category;
     }
 
+    /**
+     * Getters och setters
+     */
     public String getTitle() {
         return title;
     }
