@@ -25,7 +25,10 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
     private AdminFrame adminFrame;
     private HomePageFrame homePageFrame;
     private MakeGuideGui makeGuideGUI;
+   // private UserSettingsOld userSettingsOld;   Spara!
+
     private UserSettings userSettings;
+
     private EditGuideGUI editGuideGUI;
     private PictureGUI pictureGUI;
     private ShowGuideGUI showGuideGUI;
@@ -58,7 +61,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
                 Email.sendMail(view.getTxtEmail(), view.getTxtUsername());
                 con.registerNewUser(new User(view.getTxtUsername().substring(0, 1).toUpperCase() + view.getTxtUsername().substring(1), view.getTxtEmail(), Hash.hashPass(view.gettxtPassword()), 0));
 
-                util.showDialog("Registreringen OK \nDu kan nu återgå och logga in");
+                util.showDialog("Registrering av ny användare slutförd \nDu kan nu återgå och logga in");
                 view.getRegisterFrame().dispose();
             } else {
                 util.showErrorDialog("Det är ingen gilltig e-postadress! \nAnge en gilltig e-postadress och försök igen!");
@@ -196,15 +199,14 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
      * Inloggad användare loggar ut, ny loginFrame öppnas.
      */
     public void btnUserLoggOff() {
-        userHomePageFrame.dispose();
-        view.getLoginFrame().setVisible(true);
-        try {
-            editGuideGUI.getFrame().dispose();
-        } catch (NullPointerException e) {
-        }
-        try {
-            showGuideGUI.getFrame().dispose();
-        } catch (NullPointerException e) {
+        if (util.showConfirmationDialog("Är du säker att du vill logga ut?") == 1) {
+            userHomePageFrame.dispose();
+            view.getLoginFrame().setVisible(true);
+            try {
+                editGuideGUI.getFrame().dispose();
+                showGuideGUI.getFrame().dispose();
+            } catch (NullPointerException e) {
+            }
         }
     }
 
@@ -358,9 +360,11 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
      * Användare väljer att ta bort en egen guide.
      */
     public void btnDeleteGuide (String titleToRemove){
-        con.deleteGuide(titleToRemove);
-        userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
-        userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
+        if (util.showConfirmationDialog("Är du säker att du vill radera denna guide?\nDetta går inte att ångra!") == 1) {
+            con.deleteGuide(titleToRemove);
+            userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
+            userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
+        }
     }
 
     /**

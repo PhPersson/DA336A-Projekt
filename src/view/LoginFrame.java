@@ -1,9 +1,13 @@
 package view;
 
 import controller.Controller;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.Document;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,9 +18,10 @@ import java.io.IOException;
 /**
  * @author Philip Persson
  * @author Simon Pizevski
+ * @author Alexander Olsson
  * @version
  */
-public class LoginFrame extends JFrame implements ActionListener {
+public class LoginFrame extends JFrame implements ActionListener{
 
     private JPanel panel, panelLogo, panelNoLog;
     private JLabel lblUsername, lblPassword, lblLogo;
@@ -25,12 +30,15 @@ public class LoginFrame extends JFrame implements ActionListener {
     private JButton btnRegister, btnLogin;
     private JButton btnNoLogin;
     private RegisterFrame registerFrame;
+    Document username, password;
 
     private Controller controller;
 
     public LoginFrame(Controller controller) {
         this.controller = controller;
         createComponents();
+
+
     }
 
     public void createComponents() {
@@ -38,10 +46,12 @@ public class LoginFrame extends JFrame implements ActionListener {
         setTitle("Inloggning");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
-        setSize(400,220);
+        setSize(400,255);
         setLayout(new BorderLayout());
 
-        GridLayout layout = new GridLayout(3, 3, 0, 8);
+        GridLayout layout = new GridLayout(2, 2, 0, 8);
+        GridLayout layoutButton = new GridLayout(3, 1, 0, 8);
+
 
         Border emptyBorder = BorderFactory.createEmptyBorder(0, 10, 10, 10);
         Border southBorder = BorderFactory.createEmptyBorder(0,70,10,70);
@@ -70,9 +80,11 @@ public class LoginFrame extends JFrame implements ActionListener {
         txtUsername = new JTextField();
         txtPassword = new JPasswordField();
 
-        btnRegister = new JButton("Registrera");
+        btnRegister = new JButton("Registrera ny användare");
         btnLogin = new JButton("Logga in");
+        btnLogin.setEnabled(false);
         btnNoLogin = new JButton("Fortsätt utan att logga in");
+        btnNoLogin.setToolTipText("Utan inloggning ger en begränsad tillgänglighet till systemet.");
 
         panelLogo.add(lblLogo, BorderLayout.WEST);
 
@@ -80,10 +92,13 @@ public class LoginFrame extends JFrame implements ActionListener {
         panel.add(lblPassword);
         panel.add(txtUsername);
         panel.add(txtPassword);
-        panel.add(btnRegister);
-        panel.add(btnLogin);
 
-        panelNoLog.add(btnNoLogin, BorderLayout.CENTER);
+        panelNoLog.setLayout(layoutButton);
+
+        panelNoLog.add(btnLogin);
+        panelNoLog.add(btnRegister);
+        panelNoLog.add(btnNoLogin);
+
 
         add(panelLogo, BorderLayout.NORTH);
         add(panel, BorderLayout.CENTER);
@@ -95,6 +110,15 @@ public class LoginFrame extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         setVisible(true);
         addListeners();
+
+
+
+       // username = txtUsername.getDocument();
+        password = txtPassword.getDocument();
+        //username.addDocumentListener(new LoginButtonController(btnLogin));
+        password.addDocumentListener(new LoginButtonController(btnLogin));
+
+
     }
 
     public String getLoginUsername() { return txtUsername.getText(); }
@@ -103,7 +127,8 @@ public class LoginFrame extends JFrame implements ActionListener {
 
     public RegisterFrame getRegisterFrame() { return registerFrame; }
 
-    public void addListeners() {
+
+        public void addListeners() {
         btnRegister.addActionListener(this);
         btnLogin.addActionListener(this);
         btnNoLogin.addActionListener(this);
@@ -111,6 +136,8 @@ public class LoginFrame extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
+
         if (e.getSource() == btnRegister) {
             registerFrame = new RegisterFrame(controller);
         } else if (e.getSource() == btnLogin) {
@@ -119,5 +146,40 @@ public class LoginFrame extends JFrame implements ActionListener {
             controller.btnNoLoginClicked();
         }
     }
+
+}
+
+/**
+ * Listner som kollar att användarnamn inte är ifyllt
+ */
+class LoginButtonController implements DocumentListener{
+    private JButton login;
+    private LoginFrame frame;
+
+    LoginButtonController(JButton b){
+        login = b;
+    }
+
+
+    public void insertUpdate(DocumentEvent e) {
+        disableIfEmpty(e);
+    }
+
+    public void removeUpdate(DocumentEvent e) {
+        disableIfEmpty(e);
+
+    }
+
+    public void changedUpdate(DocumentEvent e) {
+        disableIfEmpty(e);
+
+    }
+
+    public void disableIfEmpty(DocumentEvent e){
+
+
+        login.setEnabled(e.getDocument().getLength() > 0);
+    }
+
 
 }
