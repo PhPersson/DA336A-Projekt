@@ -1,7 +1,7 @@
 package view;
 
 import javax.swing.*;
-import java.util.Locale;
+
 
 /**
  * @author Philip Persson
