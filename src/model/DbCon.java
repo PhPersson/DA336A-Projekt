@@ -39,7 +39,7 @@ public class DbCon {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             connection = DriverManager.getConnection(Values.getSqlUrl());
         } catch (ClassNotFoundException | SQLException exception) {
-            controller.getUtil().showErrorDialog("Kunde inte ansluta till databsen. \nVänligen kontakta systemadministratören!");
+            controller.getUtil().showErrorDialog("Kunde inte ansluta till databasen. \nVänligen kontakta systemadministratören!");
             exception.printStackTrace();
         }
     }
@@ -50,7 +50,7 @@ public class DbCon {
      */
     public boolean getAllUsernames(String username) {
 
-        String query = "SELECT username FROM [User] WHERE username = ?";  //get username
+        String query = "SELECT username FROM [User] WHERE username = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, username);
