@@ -235,8 +235,8 @@ class PassButtonController implements DocumentListener {
 
     public void disableIfEmpty(DocumentEvent e){
 
-
         pass.setEnabled(e.getDocument().getLength() > 0);
+
     }
 
 
