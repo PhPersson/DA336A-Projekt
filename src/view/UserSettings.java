@@ -18,14 +18,14 @@ import java.awt.event.ActionListener;
  */
 public class UserSettings extends JFrame implements ActionListener {
 
-    private JButton btnEmail, btnPassword;
+    private JButton btnEmail, btnPassword, btnClose;
     private JLabel lblChangeEmail, lblChangePass1, lblChangePass2, lblTitle, lblEmailTitle, txtUsername, lblUsername, txtEmail;
     private JTextField fieldEmail;
     private JFrame jFrame1;
     private JTextField fieldPass1, fieldPass2;
     private Controller controller;
     private GuiUtilities util;
-    private JPanel panel,panelText;
+    private JPanel panel,panelText,panelSouth;
     private javax.swing.text.Document emailDoc;
     private Document passDoc;
 
@@ -38,7 +38,7 @@ public class UserSettings extends JFrame implements ActionListener {
 
     private void initComponents() {
 
-        setSize(300,425);
+        setSize(300,485);
 
 
         setTitle("Användarinställningar");
@@ -47,7 +47,10 @@ public class UserSettings extends JFrame implements ActionListener {
 
         GridLayout layout = new GridLayout(8,1,0,5);
         GridLayout layoutText = new GridLayout(5, 1, 0, 5 );
+
         Border emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
+        Border emptyBorderButton = BorderFactory.createEmptyBorder(0, 10, 10, 10);
+
 
         //Dimension fieldSize = new Dimension(180, 30);
 
@@ -58,6 +61,10 @@ public class UserSettings extends JFrame implements ActionListener {
         panelText = new JPanel();
         panelText.setLayout(layoutText);
         panelText.setBorder(emptyBorder);
+
+        panelSouth = new JPanel();
+        panelSouth.setBorder(emptyBorderButton);
+
 
 
 
@@ -75,6 +82,7 @@ public class UserSettings extends JFrame implements ActionListener {
         fieldEmail = new JTextField();
         lblChangeEmail = new JLabel();
         btnEmail = new JButton();
+        btnClose = new JButton();
 
         lblChangePass2.setText("Bekräfta lösenord");
         btnPassword.setText("Ändra lösenord");
@@ -89,6 +97,7 @@ public class UserSettings extends JFrame implements ActionListener {
         txtEmail.setText("jLabel4");
         lblChangeEmail.setText("Ändra email");
         btnEmail.setText("Ändra email");
+        btnClose.setText("Stäng");
 
         panelText.add(lblTitle);
         panelText.add(lblUsername);
@@ -103,11 +112,14 @@ public class UserSettings extends JFrame implements ActionListener {
         panel.add(lblChangePass2);
         panel.add(fieldPass2);
         panel.add(btnPassword);
+        panelSouth.add(btnClose);
 
 
         add(panelText, BorderLayout.NORTH);
 
-        add(panel, BorderLayout.SOUTH);
+        add(panel, BorderLayout.CENTER);
+
+        add(panelSouth, BorderLayout.SOUTH);
 
 
         btnEmail.setEnabled(false);

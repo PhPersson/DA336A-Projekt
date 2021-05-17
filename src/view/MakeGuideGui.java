@@ -1,7 +1,9 @@
 package view;
 
 import controller.Controller;
+
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
@@ -21,16 +23,17 @@ import java.io.File;
 public class MakeGuideGui extends JFrame implements ActionListener {
 
     private Controller controller;
+
+    private JPanel top,combo,middle,lower, text, middlePanel;
+
     private JButton btnCancel,btnMakeGuide,btnAddPicture;
     private JTextArea textAreaInput;
     private JComboBox<String> categoryComboBox;
     private JLabel lblMakeGuide;
     private JTextField fieldTitle;
     private JComboBox<String> typeComboBox;
-    private JInternalFrame jInternalFrame1;
-    private JInternalFrame jInternalFrame2;
+
     private JScrollPane jScrollPane1;
-    private MakeGuideGui makeGuideGui;
     private String selectedFile;
 
     public MakeGuideGui(Controller controller) {
@@ -39,11 +42,52 @@ public class MakeGuideGui extends JFrame implements ActionListener {
     }
 
     private void initComponents() {
-        setTitle("SupportME");
-        jInternalFrame1 = new JInternalFrame();
-        jInternalFrame2 = new JInternalFrame();
-        jScrollPane1 = new JScrollPane();
-        textAreaInput = new JTextArea();
+
+        setSize(800,800);
+
+        setTitle("Skapa guide");
+
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setResizable(true);
+
+        GridLayout layoutTop = new GridLayout(1,1,20,10);
+        GridLayout layoutMiddle = new GridLayout(1,3,20,0);
+        GridLayout layoutLower = new GridLayout(1,2,100,0);
+        GridLayout LayoutMiddlePanel = new GridLayout(3,1,0,0);
+
+
+        Border topBorder = BorderFactory.createEmptyBorder(10, 60, 10, 60);
+        Border middleBorder = BorderFactory.createEmptyBorder(10, 60, 10, 60);
+
+
+        top = new JPanel();
+        top.setLayout(layoutTop);
+        top.setBorder(topBorder);
+
+        combo = new JPanel();
+        combo.setLayout(layoutMiddle);
+        combo.setBorder(topBorder);
+
+        middle = new JPanel();
+        middle.setLayout(layoutMiddle);
+        middle.setBorder(middleBorder);
+        middle.setSize(100,100);
+        //middle.setPreferredSize(new Dimension(200,40));
+
+        lower = new JPanel();
+        lower.setLayout(layoutLower);
+        lower.setBorder(middleBorder);
+
+        text = new JPanel();
+        text.setBorder(middleBorder);
+
+        middlePanel = new JPanel();
+        middlePanel.setLayout(LayoutMiddlePanel);
+
+        textAreaInput = new JTextArea(20,40);
+        jScrollPane1 = new JScrollPane(textAreaInput);
+        textAreaInput.setText("Beskrivning");
+
         typeComboBox = new JComboBox<>();
         categoryComboBox = new JComboBox<>();
         fieldTitle = new JTextField();
@@ -52,36 +96,9 @@ public class MakeGuideGui extends JFrame implements ActionListener {
         lblMakeGuide = new JLabel();
         btnCancel = new JButton();
 
-        jInternalFrame1.setVisible(true);
-        setTitle("Skapa guide");
-        GroupLayout jInternalFrame1Layout = new GroupLayout(jInternalFrame1.getContentPane());
-        jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
-        jInternalFrame1Layout.setHorizontalGroup(
-                jInternalFrame1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jInternalFrame1Layout.setVerticalGroup(
-                jInternalFrame1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGap(0, 0, Short.MAX_VALUE)
-        );
 
-        jInternalFrame2.setVisible(true);
 
-        GroupLayout jInternalFrame2Layout = new GroupLayout(jInternalFrame2.getContentPane());
-        jInternalFrame2.getContentPane().setLayout(jInternalFrame2Layout);
-        jInternalFrame2Layout.setHorizontalGroup(
-                jInternalFrame2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jInternalFrame2Layout.setVerticalGroup(
-                jInternalFrame2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        textAreaInput.setColumns(20);
-        textAreaInput.setRows(5);
-        textAreaInput.setText("Beskrivning");
-        jScrollPane1.setViewportView(textAreaInput);
+        //jScrollPane1.setViewportView(textAreaInput);
 
         typeComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Mjukvara", "Hårdvara", "Snabbguide"}));
 
@@ -93,62 +110,50 @@ public class MakeGuideGui extends JFrame implements ActionListener {
 
         btnAddPicture.setFont(new Font("Tahoma", 0, 14)); // NOI18N
         btnAddPicture.setText("Lägg till bild");
+        btnAddPicture.setSize(new Dimension(10,10));
 
         lblMakeGuide.setFont(new Font("Tahoma", 1, 14)); // NOI18N
         lblMakeGuide.setText("Skapa ny guide");
 
         btnCancel.setText("Avbryt");
 
-        GroupLayout layout = new GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGap(57, 57, 57)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
-                                                .addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                        .addComponent(btnCancel, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
-                                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(btnMakeGuide, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE))
-                                                .addComponent(fieldTitle, GroupLayout.Alignment.LEADING)
-                                                .addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                        .addComponent(typeComboBox, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE)
-                                                        .addGap(18, 18, 18)
-                                                        .addComponent(categoryComboBox, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE)
-                                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
-                                                        .addComponent(btnAddPicture, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE))
-                                                .addComponent(jScrollPane1, GroupLayout.Alignment.LEADING))
-                                        .addComponent(lblMakeGuide, GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(63, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addComponent(lblMakeGuide, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(fieldTitle, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(typeComboBox, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(categoryComboBox, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(btnAddPicture, GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
-                                .addGap(18, 18, 18)
-                                .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 368, GroupLayout.PREFERRED_SIZE)
-                                .addGap(27, 27, 27)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(btnMakeGuide, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(btnCancel, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE))
-                                .addGap(20, 20, 20))
-        );
 
-        SwingUtilities.getRootPane(btnMakeGuide).setDefaultButton(btnMakeGuide);
 
-        pack();
+        // SwingUtilities.getRootPane(btnMakeGuide).setDefaultButton(btnMakeGuide);
+
+        top.add(lblMakeGuide);
+        combo.add(fieldTitle);
+
+        middle.add(typeComboBox);
+        middle.add(categoryComboBox);
+        middle.add(btnAddPicture);
+
+        //text.add(textAreaInput);
+        text.add(jScrollPane1);
+        lower.add(btnCancel);
+        lower.add(btnMakeGuide);
+
+        middlePanel.add(top, BorderLayout.NORTH);
+        middlePanel.add(combo, BorderLayout.CENTER);
+        middlePanel.add(middle, BorderLayout.SOUTH);
+        //middlePanel.add(text, BorderLayout.SOUTH);
+
+        add(text, BorderLayout.CENTER);
+        //add(top, BorderLayout.NORTH);
+
+        //add(middle, BorderLayout.CENTER);
+
+        //add(text, BorderLayout.CENTER);
+
+        add(middlePanel, BorderLayout.NORTH);
+
+        add(lower, BorderLayout.SOUTH);
+
+        //pack();
         setLocationRelativeTo(null);
         setVisible(true);
         addListeners();
+        pack();
     }
 
     public void addListeners() {

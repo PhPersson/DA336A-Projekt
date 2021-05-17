@@ -24,6 +24,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
     private GuiUtilities util;
     private AdminFrame adminFrame;
     private HomePageFrame homePageFrame;
+   // private MakeGuideGuiOld makeGuideGUIOld;  Spara!
     private MakeGuideGui makeGuideGUI;
    // private UserSettingsOld userSettingsOld;   Spara!
 
