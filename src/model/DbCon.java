@@ -259,7 +259,7 @@ public class DbCon {
                 int views = rs.getInt("views");
                 String type = rs.getString("type");
                 String category = rs.getString("category");
-                guideModel.addRow(new Object[]{guideId, title, username, date, rating,  views, type, category});
+                guideModel.addRow(new Object[]{guideId, title, username, date, rating, views, type, category});
             }
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -274,7 +274,7 @@ public class DbCon {
      */
     public DefaultTableModel getAllGuidesUserSearch() {
         DefaultTableModel guideModel = new DefaultTableModel(new String[]{
-                "GuideID", "Titel", "Skapad av:", "Datum", "Betyg",  "Visningar", "Typ", "Kategori"}, 0);
+                "GuideID", "Titel", "Skapad av:", "Datum", "Betyg","Visningar", "Typ", "Kategori"}, 0);
         try {
             String strGetUsers = "SELECT * FROM GUIDE ORDER BY guideId ASC";
             PreparedStatement statement = connection.prepareStatement(strGetUsers);
@@ -305,7 +305,7 @@ public class DbCon {
      */
     public DefaultTableModel getAllGuidesUser(String user) {
         DefaultTableModel guideModel = new DefaultTableModel(new String[]{
-                "GuideID", "Titel", "Skapad av:", "Datum", "Betyg",  "Visningar", "Typ", "Kategori"}, 0);
+                "GuideID", "Titel", "Skapad av:", "Datum", "Betyg", "Visningar", "Typ", "Kategori"}, 0);
 
         try {
             String strGetUsers = "SELECT * FROM GUIDE WHERE username = ? ORDER BY guideId ASC";
@@ -322,7 +322,7 @@ public class DbCon {
                 int views = rs.getInt("views");
                 String type = rs.getString("type");
                 String category = rs.getString("category");
-                guideModel.addRow(new Object[]{guideId, title, username, date, rating,  views, type, category});
+                guideModel.addRow(new Object[]{guideId, title, username, date, rating, views, type, category});
             }
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -388,7 +388,7 @@ public class DbCon {
 
     public DefaultTableModel searchGuideAdmin(String searchText, String typeSearch, String categorySearch) {
         DefaultTableModel guideModel = new DefaultTableModel(new String[]{
-                "GuideID", "Titel", "Skapad av:", "Datum", "Betyg", "Visningar", "Typ", "Kategori"}, 0);
+                "GuideID", "Titel", "Skapad av:", "Datum", "Betyg",  "Visningar", "Typ", "Kategori"}, 0);
         try {
             String query = "SELECT guideId, title, username, date, rating, views, type, category FROM Guide " +
                     "WHERE title LIKE '%" + searchText + "%' OR username LIKE '%" + searchText + "%' OR type LIKE '%" +
