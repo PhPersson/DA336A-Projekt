@@ -1,6 +1,7 @@
 package view;
 
 import javax.swing.*;
+import java.util.Locale;
 
 /**
  * @author Philip Persson
@@ -27,5 +28,6 @@ public class GuiUtilities { // TODO KOMMENTERA KLASSEN
         }
         return reply;
     }
+
 
 }
