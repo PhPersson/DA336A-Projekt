@@ -1,12 +1,12 @@
 package view;
 
 import controller.Controller;
-import org.w3c.dom.Document;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.text.Document;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,10 +25,10 @@ public class UserSettings extends JFrame implements ActionListener {
     private JTextField fieldPass1, fieldPass2;
     private Controller controller;
     private GuiUtilities util;
-    private JPanel panel;
+    private JPanel panel,panelText;
     private javax.swing.text.Document emailDoc;
     private Document passDoc;
-    
+
 
     public UserSettings(Controller controller) {
         this.controller = controller;
@@ -38,14 +38,15 @@ public class UserSettings extends JFrame implements ActionListener {
 
     private void initComponents() {
 
-        setSize(300,485);
+        setSize(300,425);
 
 
         setTitle("Användarinställningar");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(false);
 
-        GridLayout layout = new GridLayout(13,1,0,4);
+        GridLayout layout = new GridLayout(8,1,0,5);
+        GridLayout layoutText = new GridLayout(5, 1, 0, 5 );
         Border emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
 
         //Dimension fieldSize = new Dimension(180, 30);
@@ -53,6 +54,10 @@ public class UserSettings extends JFrame implements ActionListener {
         panel = new JPanel();
         panel.setLayout(layout);
         panel.setBorder(emptyBorder);
+
+        panelText = new JPanel();
+        panelText.setLayout(layoutText);
+        panelText.setBorder(emptyBorder);
 
 
 
@@ -85,11 +90,11 @@ public class UserSettings extends JFrame implements ActionListener {
         lblChangeEmail.setText("Ändra email");
         btnEmail.setText("Ändra email");
 
-        panel.add(lblTitle);
-        panel.add(lblUsername);
-        panel.add(txtUsername);
-        panel.add(lblEmailTitle);
-        panel.add(txtEmail);
+        panelText.add(lblTitle);
+        panelText.add(lblUsername);
+        panelText.add(txtUsername);
+        panelText.add(lblEmailTitle);
+        panelText.add(txtEmail);
         panel.add(lblChangeEmail);
         panel.add(fieldEmail);
         panel.add(btnEmail);
@@ -99,9 +104,14 @@ public class UserSettings extends JFrame implements ActionListener {
         panel.add(fieldPass2);
         panel.add(btnPassword);
 
-        add(panel);
+
+        add(panelText, BorderLayout.NORTH);
+
+        add(panel, BorderLayout.SOUTH);
+
 
         btnEmail.setEnabled(false);
+        btnPassword.setEnabled(false);
 
         setLocationRelativeTo(null);
 
@@ -109,6 +119,11 @@ public class UserSettings extends JFrame implements ActionListener {
 
         emailDoc = fieldEmail.getDocument();
         emailDoc.addDocumentListener(new EmailButtonController(btnEmail));
+
+        passDoc = fieldPass2.getDocument();
+        passDoc.addDocumentListener(new PassButtonController(btnPassword));
+
+
     }
 
     private void addListeners() {
@@ -179,6 +194,37 @@ class EmailButtonController implements DocumentListener {
 
 
         email.setEnabled(e.getDocument().getLength() > 0);
+    }
+
+
+}
+
+class PassButtonController implements DocumentListener {
+    private JButton pass;
+
+    PassButtonController(JButton b){
+        pass = b;
+    }
+
+
+    public void insertUpdate(DocumentEvent e) {
+        disableIfEmpty(e);
+    }
+
+    public void removeUpdate(DocumentEvent e) {
+        disableIfEmpty(e);
+
+    }
+
+    public void changedUpdate(DocumentEvent e) {
+        disableIfEmpty(e);
+
+    }
+
+    public void disableIfEmpty(DocumentEvent e){
+
+
+        pass.setEnabled(e.getDocument().getLength() > 0);
     }
 
 

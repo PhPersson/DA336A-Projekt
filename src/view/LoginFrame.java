@@ -113,9 +113,9 @@ public class LoginFrame extends JFrame implements ActionListener{
 
 
 
-        username = txtUsername.getDocument();
+       // username = txtUsername.getDocument();
         password = txtPassword.getDocument();
-        username.addDocumentListener(new LoginButtonController(btnLogin));
+        //username.addDocumentListener(new LoginButtonController(btnLogin));
         password.addDocumentListener(new LoginButtonController(btnLogin));
 
 
