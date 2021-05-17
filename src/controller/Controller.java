@@ -254,6 +254,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
      */
 
     public void btnCreateGuide(String picture) {
+        util.showDialog("Guide '"+makeGuideGUI.getTitleGuide()+"' är skapad");
         con.createGuide(guide = new Guide(makeGuideGUI.getTitleGuide(), makeGuideGUI.getDescriptionField(), user.getUsername().substring(0, 1).toUpperCase() + user.getUsername().substring(1), makeGuideGUI.getTypeString(), makeGuideGUI.getCategoryString()));
         userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
         userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
@@ -297,6 +298,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
      * If-satsen avgör om AdminFrame eller UserHomePageFrame.
      */
     public void btnSaveGuide() {
+        util.showDialog("Guide '"+editGuideGUI.getTitleEdit()+"' redigerad");
         if (adminFrame != null || userHomePageFrame == null) {
             int row = adminFrame.getGuideTable().getSelectedRow();
             con.updateGuide(
@@ -333,9 +335,9 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
                     adminFrame.getGuideTable().getModel().getValueAt(row, 1).toString(),
                     adminFrame.getGuideTable().getModel().getValueAt(row, 2).toString(),
                     adminFrame.getGuideTable().getModel().getValueAt(row, 3).toString(),
-                    adminFrame.getGuideTable().getModel().getValueAt(row, 5).toString(),
-                    adminFrame.getGuideTable().getModel().getValueAt(row,7).toString(),
-                    adminFrame.getGuideTable().getModel().getValueAt(row,8).toString());
+                    adminFrame.getGuideTable().getModel().getValueAt(row, 4).toString(),
+                    adminFrame.getGuideTable().getModel().getValueAt(row,6).toString(),
+                    adminFrame.getGuideTable().getModel().getValueAt(row,7).toString());
         } else {
 
             int row = userHomePageFrame.getTableLow().getSelectedRow();
