@@ -10,5 +10,6 @@
     <orderEntry type="library" name="activation" level="project" />
     <orderEntry type="library" name="JarSupportMe" level="project" />
     <orderEntry type="library" name="spring-security-crypto-5.4.6" level="project" />
+    <orderEntry type="library" name="JarSupportMe1" level="project" />
   </component>
 </module>

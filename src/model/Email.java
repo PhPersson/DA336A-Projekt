@@ -10,9 +10,8 @@ import javax.mail.internet.*;
  * @author Alexander Olsson
  * @version 1.0
  */
+
 public class Email { // TODO KOMMENTERA DENNA KLASSEN!!!
-
-
 
     /**
      * Statsik klass för att kontrollera om användaren emailadress är gilltig.
