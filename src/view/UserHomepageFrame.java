@@ -50,7 +50,7 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
         lblLogo = new JLabel(new ImageIcon(myPicture.getScaledInstance(
                 140,38, Image.SCALE_SMOOTH)));
 
-        txtSearch = new JTextField();
+        txtSearch = new JTextField("Sök efter guide, Sök på titel och skapare...");
         btnSearch = new JButton();
         jScrollPane2 = new JScrollPane();
         jTableLow = new JTable();

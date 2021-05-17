@@ -24,12 +24,12 @@ public class MakeGuideGui extends JFrame implements ActionListener {
 
     private Controller controller;
 
-    private JPanel top,combo,middle,lower, text, middlePanel;
+    private JPanel top,middle,lower, text, middlePanel, lbl;
 
     private JButton btnCancel,btnMakeGuide,btnAddPicture;
     private JTextArea textAreaInput;
     private JComboBox<String> categoryComboBox;
-    private JLabel lblMakeGuide;
+    private JLabel lblMakeGuide, lblType, lblCategory, lblPicture;
     private JTextField fieldTitle;
     private JComboBox<String> typeComboBox;
 
@@ -50,10 +50,12 @@ public class MakeGuideGui extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(true);
 
-        GridLayout layoutTop = new GridLayout(1,1,20,10);
-        GridLayout layoutMiddle = new GridLayout(1,3,20,0);
-        GridLayout layoutLower = new GridLayout(1,2,100,0);
-        GridLayout LayoutMiddlePanel = new GridLayout(3,1,0,0);
+        GridLayout layoutTop = new GridLayout(2,1,20,10);
+        GridLayout layoutMiddleLbl = new GridLayout(1,3,20,0);
+
+        GridLayout layoutMiddle = new GridLayout(2,3,20,0);
+        GridLayout layoutLower = new GridLayout(1,2,150,0);
+        GridLayout LayoutMiddlePanel = new GridLayout(2,1,0,0);
 
 
         Border topBorder = BorderFactory.createEmptyBorder(10, 60, 10, 60);
@@ -64,15 +66,13 @@ public class MakeGuideGui extends JFrame implements ActionListener {
         top.setLayout(layoutTop);
         top.setBorder(topBorder);
 
-        combo = new JPanel();
-        combo.setLayout(layoutMiddle);
-        combo.setBorder(topBorder);
+        lbl = new JPanel();
+        lbl.setLayout(layoutMiddleLbl);
+        lbl.setBorder(topBorder);
 
         middle = new JPanel();
         middle.setLayout(layoutMiddle);
         middle.setBorder(middleBorder);
-        middle.setSize(100,100);
-        //middle.setPreferredSize(new Dimension(200,40));
 
         lower = new JPanel();
         lower.setLayout(layoutLower);
@@ -86,7 +86,7 @@ public class MakeGuideGui extends JFrame implements ActionListener {
 
         textAreaInput = new JTextArea(20,40);
         jScrollPane1 = new JScrollPane(textAreaInput);
-        textAreaInput.setText("Beskrivning");
+        textAreaInput.setText("Lägg till titel på din guide här...");
 
         typeComboBox = new JComboBox<>();
         categoryComboBox = new JComboBox<>();
@@ -94,17 +94,17 @@ public class MakeGuideGui extends JFrame implements ActionListener {
         btnMakeGuide = new JButton();
         btnAddPicture = new JButton();
         lblMakeGuide = new JLabel();
+        lblCategory = new JLabel();
+        lblType = new JLabel();
+        lblPicture = new JLabel();
         btnCancel = new JButton();
 
 
+        typeComboBox.setModel(new DefaultComboBoxModel<>(new String[]{ "Mjukvara", "Hårdvara", "Snabbguide"}));
 
-        //jScrollPane1.setViewportView(textAreaInput);
+        categoryComboBox.setModel(new DefaultComboBoxModel<>(new String[]{ "Internet", "Dator", "Mobil", "Övrigt"}));
 
-        typeComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Mjukvara", "Hårdvara", "Snabbguide"}));
-
-        categoryComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Internet", "Dator", "Mobil", "Övrigt"}));
-
-        fieldTitle.setText("Titel");
+        fieldTitle.setText("Lägg till beskrivning på din guide här...");
 
         btnMakeGuide.setText("Skapa guide");
 
@@ -115,35 +115,42 @@ public class MakeGuideGui extends JFrame implements ActionListener {
         lblMakeGuide.setFont(new Font("Tahoma", 1, 14)); // NOI18N
         lblMakeGuide.setText("Skapa ny guide");
 
-        btnCancel.setText("Avbryt");
+        lblType.setFont(new Font("Tahoma", 1, 11));
+        lblType.setText("Typ av guide");
+
+        lblCategory.setFont(new Font("Tahoma", 1, 11));
+        lblCategory.setText("Kategori av guide");
+
+        lblPicture.setFont(new Font("Tahoma", 1, 11));
+        lblPicture.setText("Bifoga bilder i guide");
+
+        btnCancel.setText("Stäng");
 
 
 
-        // SwingUtilities.getRootPane(btnMakeGuide).setDefaultButton(btnMakeGuide);
 
-        top.add(lblMakeGuide);
-        combo.add(fieldTitle);
+        top.add(lblMakeGuide, BorderLayout.NORTH);
+        top.add(fieldTitle, BorderLayout.SOUTH);
 
+
+        middle.add(lblType);
+        middle.add(lblCategory);
+        middle.add(lblPicture);
         middle.add(typeComboBox);
         middle.add(categoryComboBox);
         middle.add(btnAddPicture);
 
-        //text.add(textAreaInput);
+
+
         text.add(jScrollPane1);
         lower.add(btnCancel);
         lower.add(btnMakeGuide);
 
         middlePanel.add(top, BorderLayout.NORTH);
-        middlePanel.add(combo, BorderLayout.CENTER);
+
         middlePanel.add(middle, BorderLayout.SOUTH);
-        //middlePanel.add(text, BorderLayout.SOUTH);
 
         add(text, BorderLayout.CENTER);
-        //add(top, BorderLayout.NORTH);
-
-        //add(middle, BorderLayout.CENTER);
-
-        //add(text, BorderLayout.CENTER);
 
         add(middlePanel, BorderLayout.NORTH);
 
