@@ -199,15 +199,14 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
      * Inloggad användare loggar ut, ny loginFrame öppnas.
      */
     public void btnUserLoggOff() {
-        userHomePageFrame.dispose();
-        view.getLoginFrame().setVisible(true);
-        try {
-            editGuideGUI.getFrame().dispose();
-        } catch (NullPointerException e) {
-        }
-        try {
-            showGuideGUI.getFrame().dispose();
-        } catch (NullPointerException e) {
+        if (util.showConfirmationDialog("Är du säker att du vill logga ut?") == 1) {
+            userHomePageFrame.dispose();
+            view.getLoginFrame().setVisible(true);
+            try {
+                editGuideGUI.getFrame().dispose();
+                showGuideGUI.getFrame().dispose();
+            } catch (NullPointerException e) {
+            }
         }
     }
 
@@ -361,9 +360,11 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
      * Användare väljer att ta bort en egen guide.
      */
     public void btnDeleteGuide (String titleToRemove){
-        con.deleteGuide(titleToRemove);
-        userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
-        userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
+        if (util.showConfirmationDialog("Är du säker att du vill radera denna guide?\nDetta går inte att ångra!") == 1) {
+            con.deleteGuide(titleToRemove);
+            userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
+            userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
+        }
     }
 
     /**
