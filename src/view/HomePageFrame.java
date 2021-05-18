@@ -27,6 +27,10 @@ public class HomePageFrame extends JFrame implements ActionListener {
     private JLabel lblLogo,lblSearchResult;
     private JTextField txtSearch;
     private Controller controller;
+    private String btnSearchToolTip = "<html><p style='font-style:italic;color:black;'>" +
+            "Sök efter en guide baserat på användarnamn och/eller titel</p></html> ";
+    private String btnShowGuideToolTip = "<html><p style='font-style:italic;color:black'>" +
+                        "Markera den guide du vill se" + " Tryck sedan här igen</p></html> ";
 
     public HomePageFrame(Controller controller) {
         this.controller = controller;
@@ -59,6 +63,7 @@ public class HomePageFrame extends JFrame implements ActionListener {
 
         btnSearch.setFont(new Font("Tahoma", 0, 14));
         btnSearch.setText("Sök");
+        btnSearch.setToolTipText(btnSearchToolTip);
 
         table.setModel(new DefaultTableModel(
                 new Object [][] {
@@ -72,10 +77,11 @@ public class HomePageFrame extends JFrame implements ActionListener {
         lblSearchResult.setFont(new Font("Tahoma", 0, 14));
         lblSearchResult.setText("Sökresultat:");
 
-        btnShowGuides.setFont(new java.awt.Font("Tahoma", 0, 14));
+        btnShowGuides.setFont(new Font("Tahoma", 0, 14));
         btnShowGuides.setText("Visa");
+        btnShowGuides.setToolTipText(btnShowGuideToolTip);
 
-        btnLogin.setFont(new java.awt.Font("Tahoma", 0, 14));
+        btnLogin.setFont(new Font("Tahoma", 0, 14));
         btnLogin.setText("Logga in");
 
         table.setDefaultEditor(Object.class, null);
