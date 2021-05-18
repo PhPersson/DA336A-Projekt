@@ -57,11 +57,11 @@ public class RegisterFrame extends JFrame implements ActionListener {
         txtUsername = new JTextField();
         txtUsername.setToolTipText("Användarnamnet används som inloggningsinformation");
         txtEmail = new JTextField();
-        txtUsername.setToolTipText("Ange en giltig emailadress");
+        txtEmail.setToolTipText("Ange en giltig emailadress");
         txtPassword = new JPasswordField();
-        txtUsername.setToolTipText("Lösenord för att logga in med");
+        txtPassword.setToolTipText("Lösenord för att logga in med");
         txtConPassword = new JPasswordField();
-        txtUsername.setToolTipText("Fyll i lösenord igen");
+        txtConPassword.setToolTipText("Fyll i lösenord igen");
 
 
         txtUsername.setPreferredSize(fieldSize);
