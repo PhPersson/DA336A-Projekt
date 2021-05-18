@@ -30,7 +30,11 @@ public class LoginFrame extends JFrame implements ActionListener{
     private JButton btnRegister, btnLogin;
     private JButton btnNoLogin;
     private RegisterFrame registerFrame;
-    Document username, password;
+    private Document username, password;
+    private String btnnoLoginToolTip = "<html><p style='font-style:italic;color:black'>" +
+            "Utan inloggning ges en begränsad tillgänglighet till systemet</p></html>";
+    private String txtUsernameToolTip = "<html><p style='font-style:italic;color:black;'>" +
+            "Ditt unika användarnamn för att logga in till systemet</p></html>";
 
     private Controller controller;
 
@@ -78,13 +82,15 @@ public class LoginFrame extends JFrame implements ActionListener{
                 140,38, Image.SCALE_SMOOTH)));
 
         txtUsername = new JTextField();
+        txtUsername.setToolTipText(txtUsernameToolTip);
         txtPassword = new JPasswordField();
+
 
         btnRegister = new JButton("Registrera ny användare");
         btnLogin = new JButton("Logga in");
         btnLogin.setEnabled(false);
         btnNoLogin = new JButton("Fortsätt utan att logga in");
-        btnNoLogin.setToolTipText("Utan inloggning ger en begränsad tillgänglighet till systemet.");
+        btnNoLogin.setToolTipText(btnnoLoginToolTip);
 
         panelLogo.add(lblLogo, BorderLayout.WEST);
 
