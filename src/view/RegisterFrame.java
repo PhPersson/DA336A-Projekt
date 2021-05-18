@@ -1,8 +1,12 @@
 package view;
 
 import controller.Controller;
+
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.Document;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,6 +25,7 @@ public class RegisterFrame extends JFrame implements ActionListener {
     private JButton btnRegister,btnCancel;
     private Controller controller;
     private GuiUtilities util;
+    private Document pass;
 
     public RegisterFrame(Controller controller) {
         this.controller = controller;
@@ -52,8 +57,12 @@ public class RegisterFrame extends JFrame implements ActionListener {
         txtUsername = new JTextField();
         txtUsername.setToolTipText("Användarnamnet används som inloggningsinformation");
         txtEmail = new JTextField();
+        txtEmail.setToolTipText("Ange en giltig emailadress");
         txtPassword = new JPasswordField();
+        txtPassword.setToolTipText("Lösenord för att logga in med");
         txtConPassword = new JPasswordField();
+        txtConPassword.setToolTipText("Fyll i lösenord igen");
+
 
         txtUsername.setPreferredSize(fieldSize);
         txtEmail.setPreferredSize(fieldSize);
@@ -84,6 +93,14 @@ public class RegisterFrame extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         setVisible(true);
         addListeners();
+
+        btnRegister.setEnabled(false);
+
+        pass = txtConPassword.getDocument();
+        pass.addDocumentListener(new RegButtonController(btnRegister));
+
+
+
     }
 
     public void addListeners() {
@@ -121,4 +138,36 @@ public class RegisterFrame extends JFrame implements ActionListener {
             }
         }
     }
+}
+
+class RegButtonController implements DocumentListener {
+    private JButton reg;
+    private LoginFrame frame;
+
+    RegButtonController(JButton b){
+        reg = b;
+    }
+
+
+    public void insertUpdate(DocumentEvent e) {
+        disableIfEmpty(e);
+    }
+
+    public void removeUpdate(DocumentEvent e) {
+        disableIfEmpty(e);
+
+    }
+
+    public void changedUpdate(DocumentEvent e) {
+        disableIfEmpty(e);
+
+    }
+
+    public void disableIfEmpty(DocumentEvent e){
+
+
+        reg.setEnabled(e.getDocument().getLength() > 0);
+    }
+
+
 }
