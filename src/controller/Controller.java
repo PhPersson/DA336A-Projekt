@@ -23,6 +23,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
     private DbCon con;
     private GuiUtilities util;
     private AdminFrame adminFrame;
+    //private HomePageFrameOld homePageFrameOld;  Spara!
     private HomePageFrame homePageFrame;
    // private MakeGuideGuiOld makeGuideGUIOld;  Spara!
     private MakeGuideGui makeGuideGUI;
