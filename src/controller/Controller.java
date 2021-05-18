@@ -305,22 +305,24 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
         util.showDialog("Guide '"+editGuideGUI.getTitleEdit()+"' redigerad");
         if (adminFrame != null || userHomePageFrame == null) {
             int row = adminFrame.getGuideTable().getSelectedRow();
+            String oldTitel = adminFrame.getGuideTable().getModel().getValueAt(row,1).toString();
             con.updateGuide(
                     editGuideGUI.getTitleEdit(),
                     editGuideGUI.getDescription(),
                     editGuideGUI.getTypeString(),
                     editGuideGUI.getCategoryString(),
-                    adminFrame.getGuideTable().getModel().getValueAt(row, 0).toString());
+                    oldTitel);
 
             adminFrame.updateGuideList(con.getAllGuides());
         } else {
             int row = userHomePageFrame.getTableLow().getSelectedRow();
+            String oldTitel = userHomePageFrame.getTableLow().getValueAt(row,0).toString();
             con.updateGuide(
                     editGuideGUI.getTitleEdit(),
                     editGuideGUI.getDescription(),
                     editGuideGUI.getTypeString(),
                     editGuideGUI.getCategoryString(),
-                    userHomePageFrame.getTableLow().getModel().getValueAt(row, 0).toString());
+                    oldTitel);
 
             userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
             userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
@@ -347,12 +349,12 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
 
             int row = userHomePageFrame.getTableLow().getSelectedRow();
             editGuideGUI = new EditGuideGUI(this,
+                    userHomePageFrame.getTableLow().getModel().getValueAt(row, 0).toString(),
                     userHomePageFrame.getTableLow().getModel().getValueAt(row, 1).toString(),
                     userHomePageFrame.getTableLow().getModel().getValueAt(row, 2).toString(),
-                    userHomePageFrame.getTableLow().getModel().getValueAt(row, 3).toString(),
+                    getGuideDescription(getGuideId(userHomePageFrame.getTableLow().getModel().getValueAt(row, 0).toString())),
                     userHomePageFrame.getTableLow().getModel().getValueAt(row, 5).toString(),
-                    userHomePageFrame.getTableLow().getModel().getValueAt(row, 7).toString(),
-                    userHomePageFrame.getTableLow().getModel().getValueAt(row, 8).toString());
+                    userHomePageFrame.getTableLow().getModel().getValueAt(row, 6).toString());
         }
     }
 

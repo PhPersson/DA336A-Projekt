@@ -313,14 +313,13 @@ public class DbCon {
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 String title = rs.getString("title");
-                String description = rs.getString("description");
                 String username = rs.getString("username");
                 Date date = rs.getDate("date");
                 int rating = rs.getInt("rating");
                 int views = rs.getInt("views");
                 String type = rs.getString("type");
                 String category = rs.getString("category");
-                guideModel.addRow(new Object[]{title, description, username, date, rating, views, type, category});
+                guideModel.addRow(new Object[]{title, username, date, views, rating, type, category});
             }
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -385,7 +384,7 @@ public class DbCon {
 
     public DefaultTableModel searchGuideAdmin(String searchText, String typeSearch, String categorySearch) {
         DefaultTableModel guideModel = new DefaultTableModel(new String[]{
-                "GuideID", "Titel", "Skapad av:", "Datum", "Betyg", "Visningar", "Typ", "Kategori"}, 0);
+                "Titel", "Skapad av:", "Datum", "Betyg", "Visningar", "Typ", "Kategori"}, 0);
         try {
             String query = "SELECT guideId, title, username, date, rating, views, type, category FROM Guide " +
                     "WHERE title LIKE '%" + searchText + "%' OR username LIKE '%" + searchText + "%' OR type LIKE '%" +
@@ -394,7 +393,6 @@ public class DbCon {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                int guideId = rs.getInt("guideId");
                 String title = rs.getString("title");
                 String username = rs.getString("username");
                 Date date = rs.getDate("date");
@@ -402,7 +400,7 @@ public class DbCon {
                 int views = rs.getInt("views");
                 String type = rs.getString("type");
                 String category = rs.getString("category");
-                guideModel.addRow(new Object[]{guideId, title, username, date, rating, views, type, category});
+                guideModel.addRow(new Object[]{title, username, date, rating, views, type, category});
             }
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -516,22 +514,22 @@ public class DbCon {
 
     /**
      * Uppdaterar en existerande guide.
-     *
-     * @param title       , Titel på guiden
+     *  @param title       , Titel på guiden
      * @param description , Innehållstexen i guiden
-     * @param guideId     , GuideId som är identifierare.
+     * @param oldTitel
      */
-    public void updateGuide(String title, String description, String type, String category, String guideId) {
+    public void updateGuide(String title, String description, String type, String category, String oldTitel) {
         try {
-            connection.setAutoCommit(false);
-
+            int guideId = getGuideId(title);
+            System.out.println(guideId);
             String query = "UPDATE Guide SET title = ?, description = ?, Type = ?, category = ? WHERE guideId = ?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, title);
             ps.setString(2, description);
             ps.setString(3, type);
             ps.setString(4, category);
-            ps.setString(5, guideId);
+            ps.setInt(5, getGuideId(oldTitel));
+
             ps.execute();
             connection.commit();
             ps.close();
@@ -676,7 +674,9 @@ public class DbCon {
             ps.setString(1, titel);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                guideId = rs.getInt("guideID");
+                guideId = rs.getInt("guideId");
+                return guideId;
+
             }
         } catch (SQLException exception) {
             exception.printStackTrace();

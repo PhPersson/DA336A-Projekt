@@ -289,6 +289,7 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
             try {
                 controller.editGuide();
             } catch (ArrayIndexOutOfBoundsException exception) {
+                exception.printStackTrace();
                 controller.getUtil().showErrorDialog("Du har ännu inte valt någon guide!");
             }
         }
