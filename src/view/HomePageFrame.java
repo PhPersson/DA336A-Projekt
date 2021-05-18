@@ -172,16 +172,15 @@ public class HomePageFrame extends JFrame implements ActionListener {
             controller.btnNoLoginSearchGuide(txtSearch.getText());
         } else if (e.getSource() == btnLogin) {
             controller.btnHomePageFrameLogin();
-        } else if (e.getSource() == btnShowGuides){ // Visa den markerade guiden // Baserat på vilket index man står på i raden.
+        } else if (e.getSource() == btnShowGuides){
 
             int row = table.getSelectedRow();
-//            System.out.println(controller.getGuideId(table.getModel().getValueAt(row,1).toString()));
-            int guideId = controller.getGuideId(table.getModel().getValueAt(row,1).toString());
+            int guideId = controller.getGuideId(table.getModel().getValueAt(row,0).toString());
             controller.homeOpenGuide(
                     guideId,
+                    table.getModel().getValueAt(row,0).toString(),
                     table.getModel().getValueAt(row,1).toString(),
                     table.getModel().getValueAt(row,2).toString(),
-                    table.getModel().getValueAt(row,3).toString(),
                     controller.getGuideDescription(guideId));
 
         } else if (e.getSource() == btnSearch){

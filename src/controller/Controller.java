@@ -338,13 +338,13 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
         if (adminFrame != null || userHomePageFrame == null) {
             int row = adminFrame.getGuideTable().getSelectedRow();
             editGuideGUI = new EditGuideGUI(this,
+                    adminFrame.getGuideTable().getModel().getValueAt(row, 0).toString(),
                     adminFrame.getGuideTable().getModel().getValueAt(row, 1).toString(),
                     adminFrame.getGuideTable().getModel().getValueAt(row, 2).toString(),
-                    adminFrame.getGuideTable().getModel().getValueAt(row, 3).toString(),
+                    getGuideDescription(getGuideId(adminFrame.getGuideTable().getModel().getValueAt(row,0).toString())),
 
-                    adminFrame.getGuideTable().getModel().getValueAt(row, 4).toString(),
-                    adminFrame.getGuideTable().getModel().getValueAt(row,6).toString(),
-                    adminFrame.getGuideTable().getModel().getValueAt(row,7).toString());
+                    adminFrame.getGuideTable().getModel().getValueAt(row,5).toString(),
+                    adminFrame.getGuideTable().getModel().getValueAt(row,6).toString());
         } else {
 
             int row = userHomePageFrame.getTableLow().getSelectedRow();

@@ -194,16 +194,16 @@ public class DbCon {
     /**
      * En administratör kan ta bort en hel guide via administratörs GUI
      *
-     * @param guideId Baserat på GuidId vet databsen vilken guide om skall raderas.
+     * @param titel Baserat på titel vet databsen vilken guide om skall raderas.
      */
-    public void deleteGuideAdmin(String guideId) {
+    public void deleteGuideAdmin(String titel) {
         try {
             connection.setAutoCommit(false);
 
             String deleteUser = "DELETE FROM GUIDE WHERE guideId = ?";
 
             PreparedStatement delete = connection.prepareStatement(deleteUser);
-            delete.setString(1, guideId);
+            delete.setInt(1, getGuideId(titel));
             delete.execute();
             connection.commit();
             delete.close();
@@ -254,11 +254,11 @@ public class DbCon {
                 String username = rs.getString("username");
                 Date date = rs.getDate("date");
                 int rating = rs.getInt("rating");
-                String description = rs.getString("description");
                 int views = rs.getInt("views");
                 String type = rs.getString("type");
                 String category = rs.getString("category");
-                guideModel.addRow(new Object[]{title, username, description, date, rating, views, type, category});
+                guideModel.addRow(new Object[]{title, username, date, rating, views, type, category});
+
             }
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -395,6 +395,7 @@ public class DbCon {
             while (rs.next()) {
                 String title = rs.getString("title");
                 String username = rs.getString("username");
+
                 Date date = rs.getDate("date");
                 int rating = rs.getInt("rating");
                 int views = rs.getInt("views");
@@ -672,6 +673,7 @@ public class DbCon {
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, titel);
+
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 guideId = rs.getInt("guideId");

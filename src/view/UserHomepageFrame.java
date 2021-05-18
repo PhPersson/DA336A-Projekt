@@ -273,14 +273,15 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
             try {
                 int row = jTableLow.getSelectedRow();
                 int guideId = controller.getGuideId(jTableLow.getModel().getValueAt(row, 0).toString());
-
                 controller.userHomeOpenGuide(guideId,
                         jTableLow.getModel().getValueAt(row, 0).toString(),
                         jTableLow.getModel().getValueAt(row, 1).toString(),
                         jTableLow.getModel().getValueAt(row, 2).toString(),
+
                         controller.getGuideDescription(guideId));
             } catch (ArrayIndexOutOfBoundsException exception) {
                 controller.getUtil().showErrorDialog("Du har inte valt någon guide!");
+                exception.printStackTrace();
             }
         } else if (e.getSource() == btnUserSettings) {
             controller.btnUserSettings();
