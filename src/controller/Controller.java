@@ -2,17 +2,18 @@ package controller;
 
 import model.*;
 import view.*;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * @version 1.0
  * @author Philip Persson
  * @author Simon Pizevski
  * @author Måns Olsson
  * @author Alexander Olsson
+ * @version 1.0
  */
 
 public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
@@ -26,7 +27,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
     private HomePageFrame homePageFrame;
    // private MakeGuideGuiOld makeGuideGUIOld;  Spara!
     private MakeGuideGui makeGuideGUI;
-   // private UserSettingsOld userSettingsOld;   Spara!
+    // private UserSettingsOld userSettingsOld;   Spara!
 
     private UserSettings userSettings;
 
@@ -126,9 +127,10 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
 
     /**
      * Admin tar bort en användare i databasen.
+     *
      * @param username Användarnamn för raden man vill ta bort.
-     * If-satsen: Kollar om användaren har aktiva guider, då kan man välja att ta bort guiderna.
-     * Annars: Behåller guiderna kopplade till den användaren.
+     *                 If-satsen: Kollar om användaren har aktiva guider, då kan man välja att ta bort guiderna.
+     *                 Annars: Behåller guiderna kopplade till den användaren.
      */
     public void btnAdminDeleteUser(String username) {
         if (con.checkIfUserHaveGuides(username)) {
@@ -213,6 +215,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
 
     /**
      * Inloggad användare kan söka på guider efter användarnamn och titel i sökfältet.
+     *
      * @param searchText input av sträng man vill söka med.
      */
     public void btnUserSearchGuide(String searchText) {
@@ -221,6 +224,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
 
     /**
      * Ej inloggad användare kan söka på guider efter användarnamn och titel i sökfältet.
+     *
      * @param searchText input av sträng man vill söka med.
      */
     public void btnNoLoginSearchGuide(String searchText) {
@@ -335,6 +339,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
                     adminFrame.getGuideTable().getModel().getValueAt(row, 1).toString(),
                     adminFrame.getGuideTable().getModel().getValueAt(row, 2).toString(),
                     adminFrame.getGuideTable().getModel().getValueAt(row, 3).toString(),
+
                     adminFrame.getGuideTable().getModel().getValueAt(row, 4).toString(),
                     adminFrame.getGuideTable().getModel().getValueAt(row,6).toString(),
                     adminFrame.getGuideTable().getModel().getValueAt(row,7).toString());
@@ -346,15 +351,15 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
                     userHomePageFrame.getTableLow().getModel().getValueAt(row, 2).toString(),
                     userHomePageFrame.getTableLow().getModel().getValueAt(row, 3).toString(),
                     userHomePageFrame.getTableLow().getModel().getValueAt(row, 5).toString(),
-                    userHomePageFrame.getTableLow().getModel().getValueAt(row,7).toString(),
-                    userHomePageFrame.getTableLow().getModel().getValueAt(row,8).toString());
+                    userHomePageFrame.getTableLow().getModel().getValueAt(row, 7).toString(),
+                    userHomePageFrame.getTableLow().getModel().getValueAt(row, 8).toString());
         }
     }
 
     /**
      * Användare väljer att kolla på bilderna som finnns kopplade till en guide.
      */
-    public void pictureGUI () {
+    public void pictureGUI() {
         pictureGUI = new PictureGUI(this);
         pictureGUI.setVisible(true);
     }
@@ -362,7 +367,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
     /**
      * Användare väljer att ta bort en egen guide.
      */
-    public void btnDeleteGuide (String titleToRemove){
+    public void btnDeleteGuide(String titleToRemove) {
         if (util.showConfirmationDialog("Är du säker att du vill radera denna guide?\nDetta går inte att ångra!") == 1) {
             con.deleteGuide(titleToRemove);
             userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
@@ -373,18 +378,26 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
     /**
      * Inloggad Användare eller ej inloggad Användaren väljer att öppna o kolla på en guide.
      */
-    public void openGuide(int guideId, String title, String author, String date, String description) {
-        showGuideGUI = new ShowGuideGUI(this, title,author,date,description);
+    public void userHomeOpenGuide(int guideId, String title, String author, String date, String description) {
+        showGuideGUI = new ShowGuideGUI(this, title, author, date, description);
         con.addView(guideId);
         setGuideId(guideId);
 
         try {
             userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
             userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
-            //homePageFrame.updateSearchGuideList(con.getAllGuides()); //TODO VAD GÖR DENNA METODEN HÄR?
+
         } catch (NullPointerException exception) {
             exception.printStackTrace();
         }
+    }
+
+    public void homeOpenGuide(int guideId, String title, String author, String date, String description) {
+        showGuideGUI = new ShowGuideGUI(this, title, author, date, description);
+        con.addView(guideId);
+        setGuideId(guideId);
+
+        homePageFrame.updateSearchGuideList(con.getAllGuides());
     }
 
     public void setGuideId(int guideId) {
@@ -397,8 +410,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
     }
 
 
-
-    public void downloadGuide(){
+    public void downloadGuide() {
         try {
             File file = new File("src/files");
             file.setWritable(true);
@@ -411,6 +423,15 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
         } catch (IOException exception) {
             exception.printStackTrace();
         }
+    }
+
+    public int getGuideId(String titel){
+        return con.getGuideId(titel);
+    }
+
+
+    public String getGuideDescription(int guideID){
+        return con.getGuideDescription(guideID);
     }
 
 }
