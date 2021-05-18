@@ -259,7 +259,6 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
             try {
 
                 int row = jTableUp.getSelectedRow();
-
                 int guideId = controller.getGuideId(jTableUp.getModel().getValueAt(row, 0).toString());
                 controller.userHomeOpenGuide(guideId,
                         jTableUp.getModel().getValueAt(row, 0).toString(),
@@ -272,13 +271,14 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
         }
         else if (e.getSource() == btnShowGuideLower) {
             try {
-                int guideId = (int) jTableLow.getModel().getValueAt(jTableLow.getSelectedRow(), 0);
                 int row = jTableLow.getSelectedRow();
+                int guideId = controller.getGuideId(jTableLow.getModel().getValueAt(row, 0).toString());
+
                 controller.userHomeOpenGuide(guideId,
+                        jTableLow.getModel().getValueAt(row, 0).toString(),
                         jTableLow.getModel().getValueAt(row, 1).toString(),
                         jTableLow.getModel().getValueAt(row, 2).toString(),
-                        jTableLow.getModel().getValueAt(row, 3).toString(),
-                        jTableLow.getModel().getValueAt(row, 5).toString());
+                        controller.getGuideDescription(guideId));
             } catch (ArrayIndexOutOfBoundsException exception) {
                 controller.getUtil().showErrorDialog("Du har inte valt någon guide!");
             }

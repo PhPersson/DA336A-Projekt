@@ -303,7 +303,7 @@ public class DbCon {
      */
     public DefaultTableModel getAllGuidesUser(String user) {
         DefaultTableModel guideModel = new DefaultTableModel(new String[]{
-                "GuideID", "Titel", "Skapad av:", "Datum", "Betyg", "Visningar", "Typ", "Kategori"}, 0);
+                "Titel", "Skapad av:", "Datum", "Betyg", "Visningar", "Typ", "Kategori"}, 0);
 
         try {
             String strGetUsers = "SELECT * FROM GUIDE WHERE username = ? ORDER BY guideId ASC";
@@ -312,7 +312,6 @@ public class DbCon {
 
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
-                int guideId = rs.getInt("guideId");
                 String title = rs.getString("title");
                 String description = rs.getString("description");
                 String username = rs.getString("username");
@@ -321,7 +320,7 @@ public class DbCon {
                 int views = rs.getInt("views");
                 String type = rs.getString("type");
                 String category = rs.getString("category");
-                guideModel.addRow(new Object[]{guideId, title, description, username, date, rating, views, type, category});
+                guideModel.addRow(new Object[]{title, description, username, date, rating, views, type, category});
             }
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -361,14 +360,13 @@ public class DbCon {
      */
     public DefaultTableModel searchGuide(String searchText) {
         DefaultTableModel guideModel = new DefaultTableModel(new String[]{
-                "GuideID", "Titel", "Skapad av:", "Datum", "Betyg", "Visningar", "Typ", "Kategori"}, 0);
+                "Titel", "Skapad av:", "Datum", "Betyg", "Visningar", "Typ", "Kategori"}, 0);
         try {
             String query = "SELECT guideId, title, username, date, rating,  views, type, category FROM Guide WHERE title LIKE '%" + searchText + "%' OR username LIKE '%" + searchText + "%' OR Type LIKE '%" + searchText + "%' OR category LIKE '%" + searchText + "%'";
             PreparedStatement ps = connection.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                int guideId = rs.getInt("guideId");
                 String title = rs.getString("title");
                 String username = rs.getString("username");
                 Date date = rs.getDate("date");
@@ -376,7 +374,7 @@ public class DbCon {
                 int views = rs.getInt("views");
                 String type = rs.getString("type");
                 String category = rs.getString("category");
-                guideModel.addRow(new Object[]{guideId, title, username, date, rating, views, type, category});
+                guideModel.addRow(new Object[]{ title, username, date, rating, views, type, category});
             }
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -600,7 +598,7 @@ public class DbCon {
         try {
             connection.setAutoCommit(false);
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1, titleToRemove);
+            ps.setInt(1, getGuideId(titleToRemove));
             ps.execute();
             connection.commit();
             ps.close();
