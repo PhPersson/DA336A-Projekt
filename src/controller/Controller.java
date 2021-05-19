@@ -2,17 +2,18 @@ package controller;
 
 import model.*;
 import view.*;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * @version 1.0
  * @author Philip Persson
  * @author Simon Pizevski
  * @author Måns Olsson
  * @author Alexander Olsson
+ * @version 1.0
  */
 
 public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
@@ -23,9 +24,14 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
     private DbCon con;
     private GuiUtilities util;
     private AdminFrame adminFrame;
+    //private HomePageFrameOld homePageFrameOld;  Spara!
     private HomePageFrame homePageFrame;
+   // private MakeGuideGuiOld makeGuideGUIOld;  Spara!
     private MakeGuideGui makeGuideGUI;
+    // private UserSettingsOld userSettingsOld;   Spara!
+
     private UserSettings userSettings;
+
     private EditGuideGUI editGuideGUI;
     private PictureGUI pictureGUI;
     private ShowGuideGUI showGuideGUI;
@@ -58,7 +64,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
                 Email.sendMail(view.getTxtEmail(), view.getTxtUsername());
                 con.registerNewUser(new User(view.getTxtUsername().substring(0, 1).toUpperCase() + view.getTxtUsername().substring(1), view.getTxtEmail(), Hash.hashPass(view.gettxtPassword()), 0));
 
-                util.showDialog("Registreringen OK \nDu kan nu återgå och logga in");
+                util.showDialog("Registrering av ny användare slutförd \nDu kan nu återgå och logga in");
                 view.getRegisterFrame().dispose();
             } else {
                 util.showErrorDialog("Det är ingen gilltig e-postadress! \nAnge en gilltig e-postadress och försök igen!");
@@ -122,9 +128,10 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
 
     /**
      * Admin tar bort en användare i databasen.
+     *
      * @param username Användarnamn för raden man vill ta bort.
-     * If-satsen: Kollar om användaren har aktiva guider, då kan man välja att ta bort guiderna.
-     * Annars: Behåller guiderna kopplade till den användaren.
+     *                 If-satsen: Kollar om användaren har aktiva guider, då kan man välja att ta bort guiderna.
+     *                 Annars: Behåller guiderna kopplade till den användaren.
      */
     public void btnAdminDeleteUser(String username) {
         if (con.checkIfUserHaveGuides(username)) {
@@ -196,20 +203,20 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
      * Inloggad användare loggar ut, ny loginFrame öppnas.
      */
     public void btnUserLoggOff() {
-        userHomePageFrame.dispose();
-        view.getLoginFrame().setVisible(true);
-        try {
-            editGuideGUI.getFrame().dispose();
-        } catch (NullPointerException e) {
-        }
-        try {
-            showGuideGUI.getFrame().dispose();
-        } catch (NullPointerException e) {
+        if (util.showConfirmationDialog("Är du säker att du vill logga ut?") == 1) {
+            userHomePageFrame.dispose();
+            view.getLoginFrame().setVisible(true);
+            try {
+                editGuideGUI.getFrame().dispose();
+                showGuideGUI.getFrame().dispose();
+            } catch (NullPointerException e) {
+            }
         }
     }
 
     /**
      * Inloggad användare kan söka på guider efter användarnamn och titel i sökfältet.
+     *
      * @param searchText input av sträng man vill söka med.
      */
     public void btnUserSearchGuide(String searchText) {
@@ -218,6 +225,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
 
     /**
      * Ej inloggad användare kan söka på guider efter användarnamn och titel i sökfältet.
+     *
      * @param searchText input av sträng man vill söka med.
      */
     public void btnNoLoginSearchGuide(String searchText) {
@@ -251,6 +259,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
      */
 
     public void btnCreateGuide(String picture) {
+        util.showDialog("Guide '"+makeGuideGUI.getTitleGuide()+"' är skapad");
         con.createGuide(guide = new Guide(makeGuideGUI.getTitleGuide(), makeGuideGUI.getDescriptionField(), user.getUsername().substring(0, 1).toUpperCase() + user.getUsername().substring(1), makeGuideGUI.getTypeString(), makeGuideGUI.getCategoryString()));
         userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
         userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
@@ -294,24 +303,27 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
      * If-satsen avgör om AdminFrame eller UserHomePageFrame.
      */
     public void btnSaveGuide() {
+        util.showDialog("Guide '"+editGuideGUI.getTitleEdit()+"' redigerad");
         if (adminFrame != null || userHomePageFrame == null) {
             int row = adminFrame.getGuideTable().getSelectedRow();
+            String oldTitel = adminFrame.getGuideTable().getModel().getValueAt(row,1).toString();
             con.updateGuide(
                     editGuideGUI.getTitleEdit(),
                     editGuideGUI.getDescription(),
                     editGuideGUI.getTypeString(),
                     editGuideGUI.getCategoryString(),
-                    adminFrame.getGuideTable().getModel().getValueAt(row, 0).toString());
+                    oldTitel);
 
             adminFrame.updateGuideList(con.getAllGuides());
         } else {
             int row = userHomePageFrame.getTableLow().getSelectedRow();
+            String oldTitel = userHomePageFrame.getTableLow().getValueAt(row,0).toString();
             con.updateGuide(
                     editGuideGUI.getTitleEdit(),
                     editGuideGUI.getDescription(),
                     editGuideGUI.getTypeString(),
                     editGuideGUI.getCategoryString(),
-                    userHomePageFrame.getTableLow().getModel().getValueAt(row, 0).toString());
+                    oldTitel);
 
             userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
             userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
@@ -327,29 +339,30 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
         if (adminFrame != null || userHomePageFrame == null) {
             int row = adminFrame.getGuideTable().getSelectedRow();
             editGuideGUI = new EditGuideGUI(this,
+                    adminFrame.getGuideTable().getModel().getValueAt(row, 0).toString(),
                     adminFrame.getGuideTable().getModel().getValueAt(row, 1).toString(),
                     adminFrame.getGuideTable().getModel().getValueAt(row, 2).toString(),
-                    adminFrame.getGuideTable().getModel().getValueAt(row, 3).toString(),
-                    adminFrame.getGuideTable().getModel().getValueAt(row, 5).toString(),
-                    adminFrame.getGuideTable().getModel().getValueAt(row,7).toString(),
-                    adminFrame.getGuideTable().getModel().getValueAt(row,8).toString());
+                    getGuideDescription(getGuideId(adminFrame.getGuideTable().getModel().getValueAt(row,0).toString())),
+
+                    adminFrame.getGuideTable().getModel().getValueAt(row,5).toString(),
+                    adminFrame.getGuideTable().getModel().getValueAt(row,6).toString());
         } else {
 
             int row = userHomePageFrame.getTableLow().getSelectedRow();
             editGuideGUI = new EditGuideGUI(this,
+                    userHomePageFrame.getTableLow().getModel().getValueAt(row, 0).toString(),
                     userHomePageFrame.getTableLow().getModel().getValueAt(row, 1).toString(),
                     userHomePageFrame.getTableLow().getModel().getValueAt(row, 2).toString(),
-                    userHomePageFrame.getTableLow().getModel().getValueAt(row, 3).toString(),
+                    getGuideDescription(getGuideId(userHomePageFrame.getTableLow().getModel().getValueAt(row, 0).toString())),
                     userHomePageFrame.getTableLow().getModel().getValueAt(row, 5).toString(),
-                    userHomePageFrame.getTableLow().getModel().getValueAt(row,7).toString(),
-                    userHomePageFrame.getTableLow().getModel().getValueAt(row,8).toString());
+                    userHomePageFrame.getTableLow().getModel().getValueAt(row, 6).toString());
         }
     }
 
     /**
      * Användare väljer att kolla på bilderna som finnns kopplade till en guide.
      */
-    public void pictureGUI () {
+    public void pictureGUI() {
         pictureGUI = new PictureGUI(this);
         pictureGUI.setVisible(true);
     }
@@ -357,27 +370,37 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
     /**
      * Användare väljer att ta bort en egen guide.
      */
-    public void btnDeleteGuide (String titleToRemove){
-        con.deleteGuide(titleToRemove);
-        userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
-        userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
+    public void btnDeleteGuide(String titleToRemove) {
+        if (util.showConfirmationDialog("Är du säker att du vill radera denna guide?\nDetta går inte att ångra!") == 1) {
+            con.deleteGuide(titleToRemove);
+            userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
+            userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
+        }
     }
 
     /**
      * Inloggad Användare eller ej inloggad Användaren väljer att öppna o kolla på en guide.
      */
-    public void openGuide(int guideId, String title, String author, String date, String description) {
-        showGuideGUI = new ShowGuideGUI(this, title,author,date,description);
+    public void userHomeOpenGuide(int guideId, String title, String author, String date, String description) {
+        showGuideGUI = new ShowGuideGUI(this, title, author, date, description);
         con.addView(guideId);
         setGuideId(guideId);
 
         try {
             userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
             userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
-            //homePageFrame.updateSearchGuideList(con.getAllGuides()); //TODO VAD GÖR DENNA METODEN HÄR?
+
         } catch (NullPointerException exception) {
             exception.printStackTrace();
         }
+    }
+
+    public void homeOpenGuide(int guideId, String title, String author, String date, String description) {
+        showGuideGUI = new ShowGuideGUI(this, title, author, date, description);
+        con.addView(guideId);
+        setGuideId(guideId);
+
+        homePageFrame.updateSearchGuideList(con.getAllGuides());
     }
 
     public void setGuideId(int guideId) {
@@ -390,8 +413,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
     }
 
 
-
-    public void downloadGuide(){
+    public void downloadGuide() {
         try {
             File file = new File("src/files");
             file.setWritable(true);
@@ -404,6 +426,15 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
         } catch (IOException exception) {
             exception.printStackTrace();
         }
+    }
+
+    public int getGuideId(String titel){
+        return con.getGuideId(titel);
+    }
+
+
+    public String getGuideDescription(int guideID){
+        return con.getGuideDescription(guideID);
     }
 
 }

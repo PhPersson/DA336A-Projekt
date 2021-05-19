@@ -1,35 +1,74 @@
 package view;
 
 import controller.Controller;
+
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.Document;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
 /**
- * Autogenererad av Netbeans och redigerad utav:
  * @author Alexander Olsson
  * @author Philip Persson
  */
 public class UserSettings extends JFrame implements ActionListener {
 
-    private JButton btnEmail, btnPassword;
-    private JLabel lblChangeEmail, lblChangePass1, lblChangePass2, lblTitle, lblEmailTitle, txtUsername,lblUsername, txtEmail;
+    private JButton btnEmail, btnPassword, btnClose;
+    private JLabel lblChangeEmail, lblChangePass1, lblChangePass2, lblTitle, lblEmailTitle, txtUsername, lblUsername, txtEmail;
     private JTextField fieldEmail;
-    private JFrame jFrame1;
+    private JFrame frame;
     private JTextField fieldPass1, fieldPass2;
     private Controller controller;
     private GuiUtilities util;
+    private JPanel panel,panelText,panelSouth;
+    private javax.swing.text.Document emailDoc;
+    private Document passDoc;
+
 
     public UserSettings(Controller controller) {
         this.controller = controller;
         util = new GuiUtilities();
         initComponents();
     }
+
     private void initComponents() {
 
-        jFrame1 = new JFrame();
+        setSize(300,485);
+
+
+        setTitle("Användarinställningar");
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setResizable(false);
+
+        GridLayout layout = new GridLayout(8,1,0,5);
+        GridLayout layoutText = new GridLayout(5, 1, 0, 5 );
+
+        Border emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
+        Border emptyBorderButton = BorderFactory.createEmptyBorder(0, 10, 10, 10);
+
+
+        //Dimension fieldSize = new Dimension(180, 30);
+
+        panel = new JPanel();
+        panel.setLayout(layout);
+        panel.setBorder(emptyBorder);
+
+        panelText = new JPanel();
+        panelText.setLayout(layoutText);
+        panelText.setBorder(emptyBorder);
+
+        panelSouth = new JPanel();
+        panelSouth.setBorder(emptyBorderButton);
+
+
+
+
+
         fieldPass1 = new JPasswordField();
         fieldPass2 = new JPasswordField();
         lblChangePass2 = new JLabel();
@@ -43,18 +82,7 @@ public class UserSettings extends JFrame implements ActionListener {
         fieldEmail = new JTextField();
         lblChangeEmail = new JLabel();
         btnEmail = new JButton();
-        setTitle("Användarinställningar");
-        GroupLayout jFrame1Layout = new GroupLayout(jFrame1.getContentPane());
-        jFrame1.getContentPane().setLayout(jFrame1Layout);
-        jFrame1Layout.setHorizontalGroup(
-                jFrame1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGap(0, 400, Short.MAX_VALUE));
-        jFrame1Layout.setVerticalGroup(
-                jFrame1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGap(0, 300, Short.MAX_VALUE));
-
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-
+        btnClose = new JButton();
 
         lblChangePass2.setText("Bekräfta lösenord");
         btnPassword.setText("Ändra lösenord");
@@ -69,79 +97,50 @@ public class UserSettings extends JFrame implements ActionListener {
         txtEmail.setText("jLabel4");
         lblChangeEmail.setText("Ändra email");
         btnEmail.setText("Ändra email");
+        btnClose.setText("Stäng");
 
-        GroupLayout layout = new GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGap(33, 33, 33)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                        .addComponent(lblChangeEmail)
-                                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
-                                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                        .addComponent(lblChangePass2)
-                                                        .addComponent(fieldPass1, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(lblChangePass1))
-                                                .addGroup(GroupLayout.Alignment.LEADING, layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                                                        .addComponent(btnPassword)
-                                                        .addComponent(fieldPass2, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)))
-                                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                                                .addComponent(btnEmail)
-                                                .addComponent(fieldEmail, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(lblEmailTitle)
-                                        .addComponent(txtEmail, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
-                                                .addGroup(layout.createSequentialGroup()
-                                                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                                .addComponent(lblTitle)
-                                                                .addComponent(lblUsername))
-                                                        .addGap(13, 13, 13))
-                                                .addComponent(txtUsername, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addContainerGap(27, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGap(28, 28, 28)
-                                .addComponent(lblTitle)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lblUsername)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtUsername)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lblEmailTitle)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtEmail)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lblChangeEmail)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(fieldEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnEmail)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblChangePass1)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(fieldPass1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblChangePass2)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(fieldPass2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnPassword)
-                                .addGap(41, 41, 41))
-        );
+        panelText.add(lblTitle);
+        panelText.add(lblUsername);
+        panelText.add(txtUsername);
+        panelText.add(lblEmailTitle);
+        panelText.add(txtEmail);
+        panel.add(lblChangeEmail);
+        panel.add(fieldEmail);
+        panel.add(btnEmail);
+        panel.add(lblChangePass1);
+        panel.add(fieldPass1);
+        panel.add(lblChangePass2);
+        panel.add(fieldPass2);
+        panel.add(btnPassword);
+        panelSouth.add(btnClose);
 
-        pack();
-        setVisible(true);
+
+        add(panelText, BorderLayout.NORTH);
+
+        add(panel, BorderLayout.CENTER);
+
+        add(panelSouth, BorderLayout.SOUTH);
+
+
+        btnEmail.setEnabled(false);
+        btnPassword.setEnabled(false);
+
         setLocationRelativeTo(null);
-        setResizable(false);
         addListeners();
+
+        emailDoc = fieldEmail.getDocument();
+        emailDoc.addDocumentListener(new EmailButtonController(btnEmail));
+
+        passDoc = fieldPass2.getDocument();
+        passDoc.addDocumentListener(new PassButtonController(btnPassword));
+
+
     }
 
     private void addListeners() {
         btnPassword.addActionListener(this);
         btnEmail.addActionListener(this);
+        btnClose.addActionListener(this);
     }
 
     public String getFieldPass1() {
@@ -177,6 +176,70 @@ public class UserSettings extends JFrame implements ActionListener {
         } else if (e.getSource() == btnEmail) {
             controller.changeEmailUser();
             util.showDialog("Email är uppdaterat!");
+        } else if (e.getSource() == btnClose) {
+            this.dispose();
         }
     }
+}
+
+class EmailButtonController implements DocumentListener {
+    private JButton email;
+
+    EmailButtonController(JButton b){
+        email = b;
+    }
+
+
+    public void insertUpdate(DocumentEvent e) {
+        disableIfEmpty(e);
+    }
+
+    public void removeUpdate(DocumentEvent e) {
+        disableIfEmpty(e);
+
+    }
+
+    public void changedUpdate(DocumentEvent e) {
+        disableIfEmpty(e);
+
+    }
+
+    public void disableIfEmpty(DocumentEvent e){
+
+
+        email.setEnabled(e.getDocument().getLength() > 0);
+    }
+
+
+}
+
+class PassButtonController implements DocumentListener {
+    private JButton pass;
+
+    PassButtonController(JButton b){
+        pass = b;
+    }
+
+
+    public void insertUpdate(DocumentEvent e) {
+        disableIfEmpty(e);
+    }
+
+    public void removeUpdate(DocumentEvent e) {
+        disableIfEmpty(e);
+
+    }
+
+    public void changedUpdate(DocumentEvent e) {
+        disableIfEmpty(e);
+
+    }
+
+    public void disableIfEmpty(DocumentEvent e){
+
+        pass.setEnabled(e.getDocument().getLength() > 0);
+
+    }
+
+
 }

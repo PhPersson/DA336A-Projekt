@@ -2,6 +2,7 @@ package view;
 
 import javax.swing.*;
 
+
 /**
  * @author Philip Persson
  * @author
@@ -27,5 +28,6 @@ public class GuiUtilities { // TODO KOMMENTERA KLASSEN
         }
         return reply;
     }
+
 
 }

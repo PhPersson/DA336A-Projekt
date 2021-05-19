@@ -1,9 +1,10 @@
 package view;
 
-
 import controller.Controller;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -16,17 +17,24 @@ import java.io.IOException;
 
 /**
  * @author Philip Persson
- * @version 1.0
+ * @author Alexander Olsson
+ * @version 2.0
  */
 
 public class HomePageFrame extends JFrame implements ActionListener {
 
+    private JPanel middle,top, topUpper, topLower, lower;
+
     private JButton btnLogin,btnSearch,btnShowGuides;
     private JScrollPane jScrollPane1;
     private JTable table;
-    private JLabel lblLogo,lblSearchResult;
+    private JLabel lblLogo,lblSearchResult, lblEmpty;
     private JTextField txtSearch;
     private Controller controller;
+    private String btnSearchToolTip = "<html><p style='font-style:italic;color:black;'>" +
+            "Sök efter en guide baserat på användarnamn och/eller titel</p></html> ";
+    private String btnShowGuideToolTip = "<html><p style='font-style:italic;color:black'>" +
+                        "Markera den guide du vill se" + " Tryck sedan här igen</p></html> ";
 
     public HomePageFrame(Controller controller) {
         this.controller = controller;
@@ -35,9 +43,10 @@ public class HomePageFrame extends JFrame implements ActionListener {
 
     private void initComponents() {
         setTitle("SupportME");
+
         BufferedImage myPicture = null;
         try {
-            myPicture = ImageIO.read(new File("files/Logga2.png"));
+            myPicture = ImageIO.read(new File("files/Logga.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -53,12 +62,14 @@ public class HomePageFrame extends JFrame implements ActionListener {
         btnLogin = new JButton();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
         txtSearch.setFont(new Font("Tahoma", 0, 14));
+        txtSearch.setPreferredSize(new Dimension(400,25));
 
 
         btnSearch.setFont(new Font("Tahoma", 0, 14));
         btnSearch.setText("Sök");
+        btnSearch.setToolTipText(btnSearchToolTip);
+        btnSearch.setPreferredSize(new Dimension(100,25));
 
         table.setModel(new DefaultTableModel(
                 new Object [][] {
@@ -72,65 +83,89 @@ public class HomePageFrame extends JFrame implements ActionListener {
         lblSearchResult.setFont(new Font("Tahoma", 0, 14));
         lblSearchResult.setText("Sökresultat:");
 
-        btnShowGuides.setFont(new java.awt.Font("Tahoma", 0, 14));
+        btnShowGuides.setFont(new Font("Tahoma", 0, 14));
         btnShowGuides.setText("Visa");
+        btnShowGuides.setToolTipText(btnShowGuideToolTip);
 
-        btnLogin.setFont(new java.awt.Font("Tahoma", 0, 14));
+        btnLogin.setFont(new Font("Tahoma", 0, 14));
         btnLogin.setText("Logga in");
 
         table.setDefaultEditor(Object.class, null);
 
 
-        GroupLayout layout = new GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(btnShowGuides, GroupLayout.PREFERRED_SIZE, 127, GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                .addGap(18, 18, 18)
-                                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                        .addComponent(jScrollPane1)
-                                                        .addGroup(layout.createSequentialGroup()
-                                                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                                                                        .addGroup(layout.createSequentialGroup()
-                                                                                .addComponent(txtSearch)
-                                                                                .addGap(18, 18, 18)
-                                                                                .addComponent(btnSearch))
-                                                                        .addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                                                .addComponent(lblSearchResult)
-                                                                                .addGap(0, 0, Short.MAX_VALUE))
-                                                                        .addGroup(layout.createSequentialGroup()
-                                                                                .addComponent(lblLogo)
-                                                                                .addGap(350, 350, 350)
-                                                                                .addComponent(btnLogin, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                                                .addGap(1, 1, 1)))))
-                                .addGap(26, 26, 26))
-        );
-        layout.setVerticalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addComponent(lblLogo)
-                                                .addGap(0, 23, Short.MAX_VALUE))
-                                        .addComponent(btnLogin, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(txtSearch, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(btnSearch, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lblSearchResult)
-                                .addGap(4, 4, 4)
-                                .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 400, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnShowGuides, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
-                                .addGap(23, 23, 23))
-        );
+        GridLayout layout = new GridLayout(2,1,0,0);
+
+        GridLayout layoutTopGap = new GridLayout(1,2,200,0);
+        GridLayout gridLayout = new GridLayout(1,2,250,0);
+        GridLayout layoutTop = new GridLayout(1,2,0,0);
+        Container panel;
+
+
+        Border emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
+        Border emptyBorderLower = BorderFactory.createEmptyBorder(0, 10, 10, 10);
+
+        top = new JPanel();
+        top.setLayout(layout);
+        top.setBorder(emptyBorder);
+        // top.setPreferredSize(new Dimension(400,800));
+
+        topUpper = new JPanel();
+        topUpper.setLayout(layoutTopGap);
+        topUpper.setBorder(emptyBorder);
+
+        topLower = new JPanel(new GridLayout(1,2));
+        topLower.setLayout(new BoxLayout(topLower,BoxLayout.X_AXIS));
+        topLower = new JPanel();
+        //topLower.setLayout(layoutTop);
+        topLower.setBorder(emptyBorder);
+
+        topUpper.add(lblLogo);
+        topUpper.add(btnLogin);
+
+        topLower.add(txtSearch);
+        topLower.add(btnSearch);
+
+        top.add(topUpper, BorderLayout.NORTH);
+        top.add(topLower, BorderLayout.CENTER);
+
+        add(top, BorderLayout.NORTH);
+
+        middle = new JPanel(new GridLayout(2,1));
+        middle.setLayout(new BoxLayout(middle, BoxLayout.Y_AXIS));
+        middle.setBorder(emptyBorder);
+
+        middle.add(lblSearchResult, BorderLayout.NORTH);
+        middle.add(jScrollPane1, BorderLayout.SOUTH);
+
+        add(middle, BorderLayout.CENTER);
+
+
+        lower = new JPanel();
+        lower.setLayout(gridLayout);
+        lower.setBorder(emptyBorderLower);
+
+        btnShowGuides.setPreferredSize(new Dimension(10,30));
+        lblEmpty = new JLabel();
+
+        lower.add(lblEmpty);
+
+        lower.add(btnShowGuides);
+
+        add(lower, BorderLayout.SOUTH);
+
+
+        //add(btnShowGuides, BorderLayout.SOUTH);
+
+
+
+
+
+
+
+
+
+
+
 
         pack();
         setLocationRelativeTo(null);
@@ -172,16 +207,18 @@ public class HomePageFrame extends JFrame implements ActionListener {
             controller.btnNoLoginSearchGuide(txtSearch.getText());
         } else if (e.getSource() == btnLogin) {
             controller.btnHomePageFrameLogin();
-        } else if (e.getSource() == btnShowGuides){ // Visa den markerade guiden // Baserat på vilket index man står på i raden.
-            int guideId = (int) table.getModel().getValueAt(table.getSelectedRow(),0);
-            int row = table.getSelectedRow();
+        } else if (e.getSource() == btnShowGuides){
 
-            controller.openGuide(
+            int row = table.getSelectedRow();
+            int guideId = controller.getGuideId(table.getModel().getValueAt(row,0).toString());
+            controller.homeOpenGuide(
                     guideId,
+                    table.getModel().getValueAt(row,0).toString(),
                     table.getModel().getValueAt(row,1).toString(),
                     table.getModel().getValueAt(row,2).toString(),
-                    table.getModel().getValueAt(row,3).toString(),
-                    table.getModel().getValueAt(row,5).toString());
+                    controller.getGuideDescription(guideId));
+
+
 
         } else if (e.getSource() == btnSearch){
             controller.btnNoLoginSearchGuide(txtSearch.getText());
