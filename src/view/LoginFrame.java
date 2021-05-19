@@ -20,7 +20,7 @@ import java.io.IOException;
  * @author Philip Persson
  * @author Simon Pizevski
  * @author Alexander Olsson
- * @version
+ * @version 1.0
  */
 public class LoginFrame extends JFrame implements ActionListener{
 
@@ -37,17 +37,13 @@ public class LoginFrame extends JFrame implements ActionListener{
     private String txtUsernameToolTip = "<html><p style='font-style:italic;color:black;'>" +
             "Ditt unika användarnamn för att logga in till systemet</p></html>";
     private String infoMessage = "<html><p style='font-style:italic;color:black;'>" +
-            "Hejsan För att komma ikontakt med ansvariga utvecklare, kontakta gärna oss på support@supportme.com</p></html>";
-
-    private String AboutUs = "Hejsan hoppsan alla ";
+            "För att komma i kontakt med ansvariga utvecklare eller för att lämna feedback kontakta gärna oss på support@supportme.com</p></html>";
 
     private Controller controller;
 
     public LoginFrame(Controller controller) {
         this.controller = controller;
         createComponents();
-
-
     }
 
     public void createComponents() {
@@ -87,19 +83,17 @@ public class LoginFrame extends JFrame implements ActionListener{
         lblPassword = new JLabel("Lösenord");
 
         lblContact = new JLabel("Kontakta oss");
-        Font myfont2 = new Font("Kontakta oss", Font.ITALIC, 12);
-        lblContact.setFont(myfont2);
+        Font contactFont = new Font("Kontakta oss", Font.ITALIC, 12);
+        lblContact.setFont(contactFont);
 
 
 
         lblInfo = new JLabel("Om SupportMe");
-        Font myfont = new Font("Om SupportMe", Font.ITALIC, 12);
-        lblInfo.setFont(myfont);
-        //lblInfo.setSize(new Dimension(20,10));
+        Font infoFont = new Font("Om SupportMe", Font.ITALIC, 12);
+        lblInfo.setFont(infoFont);
         lblInfo.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e){
-                JOptionPane.showMessageDialog(null,AboutUs,"Om SupportME",JOptionPane.INFORMATION_MESSAGE);
-
+                controller.openPDF();
             }
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
@@ -108,19 +102,15 @@ public class LoginFrame extends JFrame implements ActionListener{
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
                 lblInfo.setForeground(Color.black);
-
             }
-
         });
 
 
-
-
-                BufferedImage logo = null;
+        BufferedImage logo = null;
         BufferedImage infoIcon = null;
         try {
             logo = ImageIO.read(new File("files/Logga.png"));
-            infoIcon = ImageIO.read(new File("files/Blue_question_mark_icon.svg.png"));
+            infoIcon = ImageIO.read(new File("files/InfoLogga.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -144,7 +134,6 @@ public class LoginFrame extends JFrame implements ActionListener{
                 lblContact.setForeground(Color.black);
 
             }
-
         });
 
         txtUsername = new JTextField();
@@ -207,12 +196,10 @@ public class LoginFrame extends JFrame implements ActionListener{
     public RegisterFrame getRegisterFrame() { return registerFrame; }
 
 
-        public void addListeners() {
+    public void addListeners() {
         btnRegister.addActionListener(this);
         btnLogin.addActionListener(this);
         btnNoLogin.addActionListener(this);
-        //btnInfo.addActionListener(this);
-        //lblInfo.addMouseListener(lblInfo.set);
     }
 
     @Override
