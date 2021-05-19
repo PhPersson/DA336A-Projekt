@@ -38,7 +38,7 @@ public class AdminFrame extends JFrame implements ActionListener {
     private void initComponents() {
         BufferedImage myPicture = null;
         try {
-            myPicture = ImageIO.read(new File("files/Logga2.png"));
+            myPicture = ImageIO.read(new File("files/Logga.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -348,9 +348,9 @@ public class AdminFrame extends JFrame implements ActionListener {
         } else if (e.getSource() == btnLogOff) {
             controller.btnLoggOffAdmin();
         } else if (e.getSource() == btnDeleteGuide) {
-            int column = 0;
+
             int row = guideTable.getSelectedRow();
-            String indexGuide = guideTable.getModel().getValueAt(row, column).toString();
+            String indexGuide = guideTable.getModel().getValueAt(row, 0).toString();
             controller.btnAdminDeleteGuide(indexGuide);
         } else if (e.getSource() == btnEditGuide) {
             controller.editGuide();

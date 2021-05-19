@@ -31,6 +31,10 @@ public class HomePageFrame extends JFrame implements ActionListener {
     private JLabel lblLogo,lblSearchResult, lblEmpty;
     private JTextField txtSearch;
     private Controller controller;
+    private String btnSearchToolTip = "<html><p style='font-style:italic;color:black;'>" +
+            "Sök efter en guide baserat på användarnamn och/eller titel</p></html> ";
+    private String btnShowGuideToolTip = "<html><p style='font-style:italic;color:black'>" +
+                        "Markera den guide du vill se" + " Tryck sedan här igen</p></html> ";
 
     public HomePageFrame(Controller controller) {
         this.controller = controller;
@@ -42,7 +46,7 @@ public class HomePageFrame extends JFrame implements ActionListener {
 
         BufferedImage myPicture = null;
         try {
-            myPicture = ImageIO.read(new File("files/Logga2.png"));
+            myPicture = ImageIO.read(new File("files/Logga.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -64,7 +68,9 @@ public class HomePageFrame extends JFrame implements ActionListener {
 
         btnSearch.setFont(new Font("Tahoma", 0, 14));
         btnSearch.setText("Sök");
+        btnSearch.setToolTipText(btnSearchToolTip);
         btnSearch.setPreferredSize(new Dimension(100,25));
+
         table.setModel(new DefaultTableModel(
                 new Object [][] {
                 },
@@ -77,10 +83,11 @@ public class HomePageFrame extends JFrame implements ActionListener {
         lblSearchResult.setFont(new Font("Tahoma", 0, 14));
         lblSearchResult.setText("Sökresultat:");
 
-        btnShowGuides.setFont(new java.awt.Font("Tahoma", 0, 14));
+        btnShowGuides.setFont(new Font("Tahoma", 0, 14));
         btnShowGuides.setText("Visa");
+        btnShowGuides.setToolTipText(btnShowGuideToolTip);
 
-        btnLogin.setFont(new java.awt.Font("Tahoma", 0, 14));
+        btnLogin.setFont(new Font("Tahoma", 0, 14));
         btnLogin.setText("Logga in");
 
         table.setDefaultEditor(Object.class, null);
@@ -200,16 +207,15 @@ public class HomePageFrame extends JFrame implements ActionListener {
             controller.btnNoLoginSearchGuide(txtSearch.getText());
         } else if (e.getSource() == btnLogin) {
             controller.btnHomePageFrameLogin();
-        } else if (e.getSource() == btnShowGuides){ // Visa den markerade guiden // Baserat på vilket index man står på i raden.
+        } else if (e.getSource() == btnShowGuides){
 
             int row = table.getSelectedRow();
-//            System.out.println(controller.getGuideId(table.getModel().getValueAt(row,1).toString()));
-            int guideId = controller.getGuideId(table.getModel().getValueAt(row,1).toString());
+            int guideId = controller.getGuideId(table.getModel().getValueAt(row,0).toString());
             controller.homeOpenGuide(
                     guideId,
+                    table.getModel().getValueAt(row,0).toString(),
                     table.getModel().getValueAt(row,1).toString(),
                     table.getModel().getValueAt(row,2).toString(),
-                    table.getModel().getValueAt(row,3).toString(),
                     controller.getGuideDescription(guideId));
 
 

@@ -77,7 +77,7 @@ public class EditGuideGUI extends JFrame implements ActionListener {
 
         BufferedImage myPicture = null;
         try {
-            myPicture = ImageIO.read(new File("files/Logga2.png"));
+            myPicture = ImageIO.read(new File("files/Logga.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,6 +1,7 @@
 package view;
 
 import controller.Controller;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -19,22 +20,30 @@ import java.io.IOException;
  * @author
  * @version 1.0
  */
-
-
 public class UserHomepageFrame extends JFrame implements ActionListener {
 
-    private JButton btnEditGuide,btnLogOff,btnNewGuide,btnShowGuideLower,btnRemoveGuide,btnSearch,btnShowGuideUpper;
-    private JScrollPane jScrollPane1,jScrollPane2;
+    private JButton btnEditGuide, btnLogOff, btnNewGuide, btnShowGuideLower, btnRemoveGuide, btnSearch, btnShowGuideUpper;
+    private JScrollPane jScrollPane1, jScrollPane2;
 
     private JTable jTableLow;
     private JTable jTableUp;
-    private JLabel lblLoggedIn,lblSearchResult,lblYourGuides,lblActiveUser;
+    private JLabel lblLoggedIn, lblSearchResult, lblYourGuides, lblActiveUser;
     private JTextField txtSearch;
     private JLabel lblLogo;
     private JButton btnUserSettings;
     private Controller controller;
+    private String btnEditGuideToolTip = "<html><p style='font-style:italic;color:black'>" +
+            "Markera den guide du vill redigera " + " Tryck sedan här igen</p></html>";
+    private String btnRemoveGuideToolTip = "<html><p style='font-style:italic;color:black'>" +
+            "Markera den guide du vill radera " + "Tryck sedan här igen</p></html>";
+    private String btnSearchToolTip = "<html><p style='font-style:italic;color:black;'>" +
+            "Sök efter en guide baserat på användarnamn och/eller titel</p></html> ";
+    private String btnUserSettingsToolTip = "<html><p style='font-style:italic;color:black'>" +
+            "Tryck här för att ändra dina nvändarinställningar</p></html>";
+    private String btnShowGuidesToolTip = "<html><p style='font-style:italic;color:black'>" +
+            "Markera den guide du vill se" + " Tryck sedan här igen</p></html> ";
 
-    public UserHomepageFrame(Controller controller){
+    public UserHomepageFrame(Controller controller) {
         this.controller = controller;
         initComponents();
     }
@@ -43,12 +52,12 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
         setTitle("SupportME");
         BufferedImage myPicture = null;
         try {
-            myPicture = ImageIO.read(new File("files/Logga2.png"));
+            myPicture = ImageIO.read(new File("files/Logga.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
         lblLogo = new JLabel(new ImageIcon(myPicture.getScaledInstance(
-                140,38, Image.SCALE_SMOOTH)));
+                140, 38, Image.SCALE_SMOOTH)));
 
         txtSearch = new JTextField("Sök efter guide, Sök på titel och skapare...");
         btnSearch = new JButton();
@@ -74,6 +83,7 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
 
         btnSearch.setFont(new Font("Tahoma", 0, 14));
         btnSearch.setText("Sök");
+        btnSearch.setToolTipText(btnSearchToolTip);
 
         jScrollPane2.setViewportView(jTableLow);
 
@@ -81,15 +91,18 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
 
         btnShowGuideUpper.setFont(new Font("Tahoma", 0, 14));
         btnShowGuideUpper.setText("Visa");
+        btnShowGuideUpper.setToolTipText(btnShowGuidesToolTip);
 
         btnEditGuide.setFont(new Font("Tahoma", 0, 14));
         btnEditGuide.setText("Redigera");
+        btnEditGuide.setToolTipText(btnEditGuideToolTip);
 
         lblSearchResult.setFont(new Font("Tahoma", 0, 14));
         lblSearchResult.setText("Sökresultat:");
 
         btnShowGuideLower.setFont(new Font("Tahoma", 0, 14));
         btnShowGuideLower.setText("Visa");
+        btnShowGuideLower.setToolTipText(btnShowGuidesToolTip);
 
         btnNewGuide.setFont(new Font("Tahoma", 0, 14));
         btnNewGuide.setText("Skapa ny guide");
@@ -109,9 +122,11 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
 
         btnRemoveGuide.setFont(new Font("Tahoma", 0, 14));
         btnRemoveGuide.setText("Ta Bort");
+        btnRemoveGuide.setToolTipText(btnRemoveGuideToolTip);
 
         btnUserSettings.setFont(new Font("Tahoma", 0, 14));
         btnUserSettings.setText("Inställningar");
+        btnUserSettings.setToolTipText(btnUserSettingsToolTip);
 
         jTableUp.setDefaultEditor(Object.class, null);
         jTableLow.setDefaultEditor(Object.class, null);
@@ -239,6 +254,7 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
     public void updateUserSearchGuideList(DefaultTableModel update) {
         jTableUp.setModel(update);
     }
+
     public void updateUserGuideList(DefaultTableModel update) {
         jTableLow.setModel(update);
     }
@@ -249,17 +265,14 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
         if (e.getSource() == btnNewGuide) {
             controller.btnOpenCreateGuideFrame();
 
-        }  else if (e.getSource() == btnLogOff) {
+        } else if (e.getSource() == btnLogOff) {
             controller.btnUserLoggOff();
-        }
-        else if (e.getSource() == btnSearch) {
+        } else if (e.getSource() == btnSearch) {
             controller.btnUserSearchGuide(txtSearch.getText());
-        }
-        else if (e.getSource() == btnShowGuideUpper) {
+        } else if (e.getSource() == btnShowGuideUpper) {
             try {
 
                 int row = jTableUp.getSelectedRow();
-
                 int guideId = controller.getGuideId(jTableUp.getModel().getValueAt(row, 0).toString());
                 controller.userHomeOpenGuide(guideId,
                         jTableUp.getModel().getValueAt(row, 0).toString(),
@@ -269,41 +282,44 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
             } catch (ArrayIndexOutOfBoundsException exception) {
                 controller.getUtil().showErrorDialog("Du har inte valt någon guide!");
             }
-        }
-        else if (e.getSource() == btnShowGuideLower) {
+        } else if (e.getSource() == btnShowGuideLower) {
             try {
-                int guideId = (int) jTableLow.getModel().getValueAt(jTableLow.getSelectedRow(), 0);
                 int row = jTableLow.getSelectedRow();
+                int guideId = controller.getGuideId(jTableLow.getModel().getValueAt(row, 0).toString());
                 controller.userHomeOpenGuide(guideId,
+                        jTableLow.getModel().getValueAt(row, 0).toString(),
                         jTableLow.getModel().getValueAt(row, 1).toString(),
                         jTableLow.getModel().getValueAt(row, 2).toString(),
-                        jTableLow.getModel().getValueAt(row, 3).toString(),
-                        jTableLow.getModel().getValueAt(row, 5).toString());
+
+                        controller.getGuideDescription(guideId));
             } catch (ArrayIndexOutOfBoundsException exception) {
                 controller.getUtil().showErrorDialog("Du har inte valt någon guide!");
+                exception.printStackTrace();
             }
         } else if (e.getSource() == btnUserSettings) {
             controller.btnUserSettings();
-        }
-        else if (e.getSource() == btnEditGuide) {
+        } else if (e.getSource() == btnEditGuide) {
             try {
                 controller.editGuide();
             } catch (ArrayIndexOutOfBoundsException exception) {
+                exception.printStackTrace();
                 controller.getUtil().showErrorDialog("Du har ännu inte valt någon guide!");
             }
-        }
-        else if (e.getSource() == btnRemoveGuide) {
+        } else if (e.getSource() == btnRemoveGuide) {
             try {
-                String titleToRemove = jTableLow.getModel().getValueAt(jTableLow.getSelectedRow(),0).toString();
+                String titleToRemove = jTableLow.getModel().getValueAt(jTableLow.getSelectedRow(), 0).toString();
                 controller.btnDeleteGuide(titleToRemove);
             } catch (ArrayIndexOutOfBoundsException exception) {
                 controller.getUtil().showErrorDialog("Du har ännu inte valt någon guide!");
             }
         }
     }
+
     public JTable getTableLow() {
         return jTableLow;
     }
 
-    public JTable getjTableUp() {return jTableUp;}
+    public JTable getjTableUp() {
+        return jTableUp;
+    }
 }
