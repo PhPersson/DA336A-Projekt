@@ -3,6 +3,10 @@ package model;
 
 import org.springframework.security.crypto.bcrypt.*;
 
+/**
+ * @author Philip Persson
+ */
+
 public class Hash {
 
 

@@ -8,6 +8,7 @@ import javax.mail.internet.*;
 /**
  * @author Philip Persson
  * @author Alexander Olsson
+ * @author Måns Olsson
  * @version 1.0
  */
 
