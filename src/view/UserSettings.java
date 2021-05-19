@@ -21,7 +21,7 @@ public class UserSettings extends JFrame implements ActionListener {
     private JButton btnEmail, btnPassword, btnClose;
     private JLabel lblChangeEmail, lblChangePass1, lblChangePass2, lblTitle, lblEmailTitle, txtUsername, lblUsername, txtEmail;
     private JTextField fieldEmail;
-    private JFrame jFrame1;
+    private JFrame frame;
     private JTextField fieldPass1, fieldPass2;
     private Controller controller;
     private GuiUtilities util;
@@ -68,7 +68,7 @@ public class UserSettings extends JFrame implements ActionListener {
 
 
 
-        //jFrame1 = new JFrame();
+
         fieldPass1 = new JPasswordField();
         fieldPass2 = new JPasswordField();
         lblChangePass2 = new JLabel();
@@ -126,7 +126,6 @@ public class UserSettings extends JFrame implements ActionListener {
         btnPassword.setEnabled(false);
 
         setLocationRelativeTo(null);
-
         addListeners();
 
         emailDoc = fieldEmail.getDocument();
@@ -141,6 +140,7 @@ public class UserSettings extends JFrame implements ActionListener {
     private void addListeners() {
         btnPassword.addActionListener(this);
         btnEmail.addActionListener(this);
+        btnClose.addActionListener(this);
     }
 
     public String getFieldPass1() {
@@ -176,6 +176,8 @@ public class UserSettings extends JFrame implements ActionListener {
         } else if (e.getSource() == btnEmail) {
             controller.changeEmailUser();
             util.showDialog("Email är uppdaterat!");
+        } else if (e.getSource() == btnClose) {
+            this.dispose();
         }
     }
 }
