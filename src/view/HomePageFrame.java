@@ -61,9 +61,12 @@ public class HomePageFrame extends JFrame implements ActionListener {
         btnShowGuides = new JButton();
         btnLogin = new JButton();
 
+
+
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         txtSearch.setFont(new Font("Tahoma", 0, 14));
         txtSearch.setPreferredSize(new Dimension(400,25));
+        txtSearch.setText("Sök här efter guide...");
 
 
         btnSearch.setFont(new Font("Tahoma", 0, 14));
@@ -90,6 +93,7 @@ public class HomePageFrame extends JFrame implements ActionListener {
 
         btnLogin.setFont(new Font("Tahoma", 0, 14));
         btnLogin.setText("Logga in");
+        btnLogin.setPreferredSize(new Dimension(10,10));
 
         table.setDefaultEditor(Object.class, null);
 
@@ -104,6 +108,8 @@ public class HomePageFrame extends JFrame implements ActionListener {
 
         Border emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
         Border emptyBorderLower = BorderFactory.createEmptyBorder(0, 10, 10, 10);
+        Border emptyBorderMiddle = BorderFactory.createEmptyBorder(10, 20, 10, 20);
+
 
         top = new JPanel();
         top.setLayout(layout);
@@ -111,7 +117,7 @@ public class HomePageFrame extends JFrame implements ActionListener {
         // top.setPreferredSize(new Dimension(400,800));
 
         topUpper = new JPanel();
-        topUpper.setLayout(layoutTopGap);
+        topUpper.setLayout(new BoxLayout(topUpper, BoxLayout.X_AXIS));
         topUpper.setBorder(emptyBorder);
 
         topLower = new JPanel(new GridLayout(1,2));
@@ -121,6 +127,7 @@ public class HomePageFrame extends JFrame implements ActionListener {
         topLower.setBorder(emptyBorder);
 
         topUpper.add(lblLogo);
+        topUpper.add(Box.createRigidArea(new Dimension(275,10)));
         topUpper.add(btnLogin);
 
         topLower.add(txtSearch);
@@ -133,7 +140,7 @@ public class HomePageFrame extends JFrame implements ActionListener {
 
         middle = new JPanel(new GridLayout(2,1));
         middle.setLayout(new BoxLayout(middle, BoxLayout.Y_AXIS));
-        middle.setBorder(emptyBorder);
+        middle.setBorder(emptyBorderMiddle);
 
         middle.add(lblSearchResult, BorderLayout.NORTH);
         middle.add(jScrollPane1, BorderLayout.SOUTH);
@@ -143,7 +150,7 @@ public class HomePageFrame extends JFrame implements ActionListener {
 
         lower = new JPanel();
         lower.setLayout(gridLayout);
-        lower.setBorder(emptyBorderLower);
+        lower.setBorder(emptyBorderMiddle);
 
         btnShowGuides.setPreferredSize(new Dimension(10,30));
         lblEmpty = new JLabel();
