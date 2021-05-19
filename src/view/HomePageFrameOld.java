@@ -176,14 +176,14 @@ public class HomePageFrameOld extends JFrame implements ActionListener {
             int guideId = (int) table.getModel().getValueAt(table.getSelectedRow(),0);
             int row = table.getSelectedRow();
 
-            controller.openGuide(
+            /*controller.openGuide(
 
                     guideId,
                     table.getModel().getValueAt(row,1).toString(),
                     table.getModel().getValueAt(row,2).toString(),
                     table.getModel().getValueAt(row,3).toString(),
                     table.getModel().getValueAt(row,5).toString());
-
+*/
         } else if (e.getSource() == btnSearch){
             controller.btnNoLoginSearchGuide(txtSearch.getText());
         }

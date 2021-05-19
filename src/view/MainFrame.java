@@ -15,7 +15,7 @@ public class MainFrame extends JFrame {
     private int margin = 5;
 
     private LoginFrame loginFrame;
-    private UserHomepageFrame hpf;
+    private UserHomepageFrameGammal hpf;
     private HomePageFrameOld homePageFrame;
     private Controller controller;
     private GuiUtilities util;
@@ -68,7 +68,7 @@ public class MainFrame extends JFrame {
 
     public RegisterFrame getRegisterFrame() {return loginFrame.getRegisterFrame();}
 
-    public UserHomepageFrame getHomepageFrame(){
+    public UserHomepageFrameGammal getHomepageFrame(){
         return getHomepageFrame();
     }
 

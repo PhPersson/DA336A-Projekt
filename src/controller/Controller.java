@@ -19,7 +19,8 @@ import java.util.ArrayList;
 public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
     private User user;
     private Guide guide;
-    private UserHomepageFrame userHomePageFrame;
+    private UserHomepageFrameGammal userHomePageFrameOld;
+    private UserHomePageFrame userHomePageFrame;
     private MainFrame view;
     private DbCon con;
     private GuiUtilities util;
@@ -85,7 +86,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
                 if (!con.getRole(view.getLoginUsername())) {
                     user.setUsername(view.getLoginUsername());
                     view.getLoginFrame().dispose();
-                    userHomePageFrame = new UserHomepageFrame(this);
+                    userHomePageFrame = new UserHomePageFrame(this);
                     userHomePageFrame.setLblLoginUser(user.getUsername());
                     userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
                     userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
