@@ -82,51 +82,28 @@ public class AdminFrame extends JFrame implements ActionListener {
         btnEditGuide.setFont(new Font("Tahoma", 0, 12));
         btnEditGuide.setText("Redigera");
 
-        userTable.setModel(new DefaultTableModel(
-                new Object[][]{
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null}
-                },
-                new String[]{
-                        "Title 1", "Title 2", "Title 3", "Title 4"
-                }
-        ));
 
         userTableScroll.setViewportView(userTable);
+        guideTableScroll.setViewportView(guideTable);
 
-        guideTable.setModel(new DefaultTableModel(
-                new Object[][]{
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null}
-                },
-                new String[]{
-                        "Title 1", "Title 2", "Title 3", "Title 4"
-                }
-        ));
 
         userTable.setDefaultEditor(Object.class, null);
         guideTable.setDefaultEditor(Object.class, null);
 
-        guideTableScroll.setViewportView(guideTable);
 
+        lblLogin.setText("Inloggad:");
         lblGuideSearch.setText("Guide");
 
+        userSearch.setText(""); // TODO LÄGG TILL TOO TIP I KURSIV
+        guideSearch.setText(""); // TODO LÄGG TILL TOO TIP I KURSIV
         userSearch.setText("");
-
         btnSearchUser.setFont(new Font("Tahoma", 0, 12));
         btnSearchUser.setText("Sök");
 
-        lblLogin.setText("Inloggad:");
-
-        lblAdminName.setText("\"\"");
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        guideSearch.setText("");
+
 
         btnSearchGuide.setFont(new Font("Tahoma", 0, 12));
         btnSearchGuide.setText("Sök");
@@ -150,14 +127,13 @@ public class AdminFrame extends JFrame implements ActionListener {
 
         lblGuideSearch.setText("Guide");
 
-        userSearch.setText("");
+
 
         btnSearchUser.setFont(new Font("Tahoma", 0, 12));
         btnSearchUser.setText("Sök");
 
         lblLogin.setText("Inloggad:");
 
-        lblAdminName.setText("\"\"");
 
         btnLogOff.setFont(new Font("Tahoma", 0, 12));
         btnLogOff.setText("Logga ut");

@@ -1,7 +1,6 @@
 package view;
 
 import controller.Controller;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
