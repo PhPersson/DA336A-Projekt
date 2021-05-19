@@ -3,6 +3,7 @@ package controller;
 import model.*;
 import view.*;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -433,4 +434,14 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
         return con.getGuideDescription(guideID);
     }
 
+    public void openPDF() {
+        if (Desktop.isDesktopSupported()) {
+            try {
+                File pdfFile = new File("files/SupportME.pdf");
+                Desktop.getDesktop().open(pdfFile);
+            } catch (IOException ex) {
+                // no application registered for PDFs
+            }
+        }
+    }
 }
