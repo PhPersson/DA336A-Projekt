@@ -36,7 +36,12 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
             "Markera den guide du vill redigera " + " Tryck sedan här igen</p></html>";
     private String btnRemoveGuideToolTip = "<html><p style='font-style:italic;color:black'>" +
             "Markera den guide du vill radera " + "Tryck sedan här igen</p></html>";
-    private String btnSearchToolTip;
+    private String btnSearchToolTip = "<html><p style='font-style:italic;color:black;'>" +
+            "Sök efter en guide baserat på användarnamn och/eller titel</p></html> ";
+    private String btnUserSettingsToolTip = "<html><p style='font-style:italic;color:black'>" +
+            "Tryck här för att ändra dina nvändarinställningar</p></html>";
+    private String btnShowGuidesToolTip = "<html><p style='font-style:italic;color:black'>" +
+            "Markera den guide du vill se" + " Tryck sedan här igen</p></html> ";
 
     public UserHomepageFrame(Controller controller) {
         this.controller = controller;
@@ -47,7 +52,7 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
         setTitle("SupportME");
         BufferedImage myPicture = null;
         try {
-            myPicture = ImageIO.read(new File("files/Logga2.png"));
+            myPicture = ImageIO.read(new File("files/Logga.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -78,6 +83,7 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
 
         btnSearch.setFont(new Font("Tahoma", 0, 14));
         btnSearch.setText("Sök");
+        btnSearch.setToolTipText(btnSearchToolTip);
 
         jScrollPane2.setViewportView(jTableLow);
 
@@ -85,6 +91,7 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
 
         btnShowGuideUpper.setFont(new Font("Tahoma", 0, 14));
         btnShowGuideUpper.setText("Visa");
+        btnShowGuideUpper.setToolTipText(btnShowGuidesToolTip);
 
         btnEditGuide.setFont(new Font("Tahoma", 0, 14));
         btnEditGuide.setText("Redigera");
@@ -95,6 +102,7 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
 
         btnShowGuideLower.setFont(new Font("Tahoma", 0, 14));
         btnShowGuideLower.setText("Visa");
+        btnShowGuideLower.setToolTipText(btnShowGuidesToolTip);
 
         btnNewGuide.setFont(new Font("Tahoma", 0, 14));
         btnNewGuide.setText("Skapa ny guide");
@@ -118,6 +126,7 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
 
         btnUserSettings.setFont(new Font("Tahoma", 0, 14));
         btnUserSettings.setText("Inställningar");
+        btnUserSettings.setToolTipText(btnUserSettingsToolTip);
 
         jTableUp.setDefaultEditor(Object.class, null);
         jTableLow.setDefaultEditor(Object.class, null);

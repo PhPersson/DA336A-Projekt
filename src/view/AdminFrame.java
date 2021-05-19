@@ -38,7 +38,7 @@ public class AdminFrame extends JFrame implements ActionListener {
     private void initComponents() {
         BufferedImage myPicture = null;
         try {
-            myPicture = ImageIO.read(new File("files/Logga2.png"));
+            myPicture = ImageIO.read(new File("files/Logga.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

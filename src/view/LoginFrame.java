@@ -27,7 +27,7 @@ public class LoginFrame extends JFrame implements ActionListener{
     private JLabel lblUsername, lblPassword, lblLogo;
     private JTextField txtUsername;
     private JPasswordField txtPassword;
-    private JButton btnRegister, btnLogin;
+    private JButton btnRegister, btnLogin, btnInfo;
     private JButton btnNoLogin;
     private RegisterFrame registerFrame;
     private Document username, password;
@@ -35,6 +35,8 @@ public class LoginFrame extends JFrame implements ActionListener{
             "Utan inloggning ges en begränsad tillgänglighet till systemet</p></html>";
     private String txtUsernameToolTip = "<html><p style='font-style:italic;color:black;'>" +
             "Ditt unika användarnamn för att logga in till systemet</p></html>";
+    private String infoMessage = "<html><p style='font-style:italic;color:black;'>" +
+            "Hejsan För att komma ikontakt med ansvariga utvecklare, kontakta gärna oss på support@supportme.com</p></html>";
 
     private Controller controller;
 
@@ -54,7 +56,7 @@ public class LoginFrame extends JFrame implements ActionListener{
         setLayout(new BorderLayout());
 
         GridLayout layout = new GridLayout(2, 2, 0, 8);
-        GridLayout layoutButton = new GridLayout(3, 1, 0, 8);
+        GridLayout layoutButton = new GridLayout(3, 1, 5, 8);
 
 
         Border emptyBorder = BorderFactory.createEmptyBorder(0, 10, 10, 10);
@@ -72,18 +74,24 @@ public class LoginFrame extends JFrame implements ActionListener{
         lblUsername = new JLabel("Användarnamn");
         lblPassword = new JLabel("Lösenord");
 
-        BufferedImage myPicture = null;
+        BufferedImage logo = null;
+        BufferedImage infoIcon = null;
         try {
-            myPicture = ImageIO.read(new File("files/Logga2.png"));
+            logo = ImageIO.read(new File("files/Logga.png"));
+            infoIcon = ImageIO.read(new File("files/InfoLogga.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        lblLogo = new JLabel(new ImageIcon(myPicture.getScaledInstance(
+        lblLogo = new JLabel(new ImageIcon(logo.getScaledInstance(
                 140,38, Image.SCALE_SMOOTH)));
+
+        btnInfo = new JButton(new ImageIcon(infoIcon.getScaledInstance(15,15,Image.SCALE_SMOOTH)));
+
 
         txtUsername = new JTextField();
         txtUsername.setToolTipText(txtUsernameToolTip);
         txtPassword = new JPasswordField();
+
 
 
         btnRegister = new JButton("Registrera ny användare");
@@ -93,6 +101,7 @@ public class LoginFrame extends JFrame implements ActionListener{
         btnNoLogin.setToolTipText(btnnoLoginToolTip);
 
         panelLogo.add(lblLogo, BorderLayout.WEST);
+        panelLogo.add(btnInfo, BorderLayout.EAST);
 
         panel.add(lblUsername);
         panel.add(lblPassword);
@@ -109,28 +118,22 @@ public class LoginFrame extends JFrame implements ActionListener{
         add(panelLogo, BorderLayout.NORTH);
         add(panel, BorderLayout.CENTER);
         add(panelNoLog, BorderLayout.SOUTH);
-
         getRootPane().setDefaultButton(btnLogin);
 
-        //pack();
+
         setLocationRelativeTo(null);
         setVisible(true);
         addListeners();
 
 
-
-       // username = txtUsername.getDocument();
         password = txtPassword.getDocument();
-        //username.addDocumentListener(new LoginButtonController(btnLogin));
         password.addDocumentListener(new LoginButtonController(btnLogin));
 
 
     }
 
     public String getLoginUsername() { return txtUsername.getText(); }
-
     public String getLoginPassword() { return txtPassword.getText(); }
-
     public RegisterFrame getRegisterFrame() { return registerFrame; }
 
 
@@ -138,6 +141,7 @@ public class LoginFrame extends JFrame implements ActionListener{
         btnRegister.addActionListener(this);
         btnLogin.addActionListener(this);
         btnNoLogin.addActionListener(this);
+        btnInfo.addActionListener(this);
     }
 
     @Override
@@ -148,8 +152,12 @@ public class LoginFrame extends JFrame implements ActionListener{
             registerFrame = new RegisterFrame(controller);
         } else if (e.getSource() == btnLogin) {
           controller.btnLoginClicked();
+          this.dispose();
         } else if (e.getSource() == btnNoLogin) {
             controller.btnNoLoginClicked();
+            this.dispose();
+        } if (e.getSource() == btnInfo) {
+            JOptionPane.showMessageDialog(null,infoMessage,"Information",JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -173,17 +181,13 @@ class LoginButtonController implements DocumentListener{
 
     public void removeUpdate(DocumentEvent e) {
         disableIfEmpty(e);
-
     }
 
     public void changedUpdate(DocumentEvent e) {
         disableIfEmpty(e);
-
     }
 
     public void disableIfEmpty(DocumentEvent e){
-
-
         login.setEnabled(e.getDocument().getLength() > 0);
     }
 
