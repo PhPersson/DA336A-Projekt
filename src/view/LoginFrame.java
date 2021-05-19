@@ -152,7 +152,6 @@ public class LoginFrame extends JFrame implements ActionListener{
             registerFrame = new RegisterFrame(controller);
         } else if (e.getSource() == btnLogin) {
           controller.btnLoginClicked();
-          this.dispose();
         } else if (e.getSource() == btnNoLogin) {
             controller.btnNoLoginClicked();
             this.dispose();
@@ -168,7 +167,6 @@ public class LoginFrame extends JFrame implements ActionListener{
  */
 class LoginButtonController implements DocumentListener{
     private JButton login;
-    private LoginFrame frame;
 
     LoginButtonController(JButton b){
         login = b;
