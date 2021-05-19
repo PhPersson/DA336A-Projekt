@@ -5,18 +5,12 @@ import javax.swing.*;
 
 /**
  * @author Philip Persson
- * @author
- * @author
  * @version 1.0
  */
 public class MainFrame extends JFrame {
-    private int width = 1000;
-    private int height = 600;
-    private int margin = 5;
 
     private LoginFrame loginFrame;
-    private UserHomepageFrame hpf;
-    private HomePageFrameOld homePageFrame;
+    private UserHomepageFrame homepageFrame;
     private Controller controller;
     private GuiUtilities util;
 
@@ -26,15 +20,6 @@ public class MainFrame extends JFrame {
         loginFrame = new LoginFrame(controller);
     }
 
-    public void setupPanel(int userStatus) {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(width, height);
-        setResizable(false);
-
-        pack();
-        setLocationRelativeTo(null);
-        setVisible(true);
-    }
 
     public String getTxtUsername() {
         return loginFrame.getRegisterFrame().getTxtUsername();
@@ -71,7 +56,6 @@ public class MainFrame extends JFrame {
     public UserHomepageFrame getHomepageFrame(){
         return getHomepageFrame();
     }
-
 
 
 }
