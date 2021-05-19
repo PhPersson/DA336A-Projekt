@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 
 /**
  * @author Philip Persson
- * @author
+ * @author Måns Olsson
  * @author
  * @version 1.0
  */

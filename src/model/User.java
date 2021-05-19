@@ -5,7 +5,7 @@ package model;
  * @version 1.0
  * @author Philip Persson
  * @author Alexander Olsson
- * @author
+ * @author Måns Olsson
  */
 public class User { // TODO KOMMENTERA DENNA KLASSEN
 

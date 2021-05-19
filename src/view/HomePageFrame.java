@@ -18,6 +18,7 @@ import java.io.IOException;
 /**
  * @author Philip Persson
  * @author Alexander Olsson
+ * @author Måns Olsson
  * @version 2.0
  */
 

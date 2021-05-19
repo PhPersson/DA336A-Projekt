@@ -16,10 +16,11 @@ import java.io.IOException;
 
 /**
  * @author Philip Persson
+ * @author Måns Olsson
  * @version 1.0
  */
 
-public class HomePageFrameOld extends JFrame implements ActionListener {
+public class HomePageFrameOld extends JFrame {
 
     private JButton btnLogin,btnSearch,btnShowGuides;
     private JScrollPane jScrollPane1;
@@ -135,7 +136,7 @@ public class HomePageFrameOld extends JFrame implements ActionListener {
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
-        addListeners();
+       //addListeners();
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -150,11 +151,11 @@ public class HomePageFrameOld extends JFrame implements ActionListener {
         });
     }
 
-    public void addListeners() {
+    /*public void addListeners() {
         btnLogin.addActionListener(this);
         btnSearch.addActionListener(this);
         btnShowGuides.addActionListener(this);
-    }
+    }*/
 
     public void updateSearchGuideList(DefaultTableModel update) {
         table.setModel(update);
@@ -166,7 +167,7 @@ public class HomePageFrameOld extends JFrame implements ActionListener {
     }
 
 
-    @Override
+    /*@Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnSearch) {
             controller.btnNoLoginSearchGuide(txtSearch.getText());
@@ -186,7 +187,7 @@ public class HomePageFrameOld extends JFrame implements ActionListener {
         } else if (e.getSource() == btnSearch){
             controller.btnNoLoginSearchGuide(txtSearch.getText());
         }
-    }
+    }*/
 
 
 }

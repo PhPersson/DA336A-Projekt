@@ -14,6 +14,7 @@ import java.util.ArrayList;
  * @author Philip Persson
  * @author Simon Pizevski
  * @author Alexander Olsson
+ * @author Måns Olsson
  * @version 1.0
  */
 public class DbCon {

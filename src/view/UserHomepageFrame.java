@@ -16,7 +16,7 @@ import java.io.IOException;
 
 /**
  * @author Philip Persson
- * @author
+ * @author Måns Olsson
  * @author
  * @version 1.0
  */

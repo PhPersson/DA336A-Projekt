@@ -6,7 +6,7 @@ import java.io.File;
 /**
  * @author Philip Persson
  * @author Alexander Olsson
- * @author
+ * @author Måns Olsson
  * @version 1.0
  */
 public class Guide {
