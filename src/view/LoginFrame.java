@@ -52,7 +52,7 @@ public class LoginFrame extends JFrame implements ActionListener{
         setTitle("Inloggning");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
-        setSize(400,255);
+        setSize(400,275);
         setLayout(new BorderLayout());
 
         GridLayout layout = new GridLayout(2, 2, 0, 8);
@@ -60,6 +60,8 @@ public class LoginFrame extends JFrame implements ActionListener{
 
 
         Border emptyBorder = BorderFactory.createEmptyBorder(0, 10, 10, 10);
+        Border emptyBorderLogo = BorderFactory.createEmptyBorder(10, 0, 10, 10);
+
         Border southBorder = BorderFactory.createEmptyBorder(0,70,10,70);
 
         panel = new JPanel();
@@ -102,6 +104,7 @@ public class LoginFrame extends JFrame implements ActionListener{
 
         panelLogo.add(lblLogo, BorderLayout.WEST);
         panelLogo.add(btnInfo, BorderLayout.EAST);
+        panelLogo.setBorder(emptyBorderLogo);
 
         panel.add(lblUsername);
         panel.add(lblPassword);
