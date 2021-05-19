@@ -1,6 +1,7 @@
 package view;
 
 import controller.Controller;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -104,13 +105,12 @@ public class AdminFrame extends JFrame implements ActionListener {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
 
-
         btnSearchGuide.setFont(new Font("Tahoma", 0, 12));
         btnSearchGuide.setText("Sök");
 
-        jComboBox1.setModel(new DefaultComboBoxModel<>(new String[]{"Typ:  ","Mjukvara", "Hårdvara", "Snabbguide"}));
+        jComboBox1.setModel(new DefaultComboBoxModel<>(new String[]{"Typ:  ", "Mjukvara", "Hårdvara", "Snabbguide"}));
 
-        jComboBox2.setModel(new DefaultComboBoxModel<>(new String[]{"Kategori: ","Internet", "Dator", "Mobil", "Övrigt"}));
+        jComboBox2.setModel(new DefaultComboBoxModel<>(new String[]{"Kategori: ", "Internet", "Dator", "Mobil", "Övrigt"}));
 
         btnDeleteGuide.setFont(new Font("Tahoma", 0, 12));
         btnDeleteGuide.setText("Ta bort");
@@ -119,14 +119,12 @@ public class AdminFrame extends JFrame implements ActionListener {
         btnEditGuide.setText("Redigera");
 
 
-
         userTableScroll.setViewportView(userTable);
 
 
         guideTableScroll.setViewportView(guideTable);
 
         lblGuideSearch.setText("Guide");
-
 
 
         btnSearchUser.setFont(new Font("Tahoma", 0, 12));
@@ -295,7 +293,11 @@ public class AdminFrame extends JFrame implements ActionListener {
             int column = 0;
             int row = userTable.getSelectedRow();
             String value = userTable.getModel().getValueAt(row, column).toString();
-            controller.btnAdminDeleteUser(value);
+            try {
+                controller.btnAdminDeleteUser(value);
+            } catch (ArrayIndexOutOfBoundsException exception) {
+                controller.getUtil().showErrorDialog("Du har ännu inte valt någon guide!");
+            }
         } else if (e.getSource() == btnSearchUser) {
             controller.btnAdminSearchUser(userSearch.getText());
         } else if (e.getSource() == btnSearchGuide) {
@@ -303,12 +305,19 @@ public class AdminFrame extends JFrame implements ActionListener {
         } else if (e.getSource() == btnLogOff) {
             controller.btnLoggOffAdmin();
         } else if (e.getSource() == btnDeleteGuide) {
-
             int row = guideTable.getSelectedRow();
             String indexGuide = guideTable.getModel().getValueAt(row, 0).toString();
-            controller.btnAdminDeleteGuide(indexGuide);
+            try {
+                controller.btnAdminDeleteGuide(indexGuide);
+            } catch (ArrayIndexOutOfBoundsException exception) {
+                controller.getUtil().showErrorDialog("Du har ännu inte valt någon guide!");
+            }
         } else if (e.getSource() == btnEditGuide) {
-            controller.editGuide();
+            try {
+                controller.editGuide();
+            } catch (ArrayIndexOutOfBoundsException exception) {
+                controller.getUtil().showErrorDialog("Du har ännu inte valt någon guide!");
+            }
         }
     }
 }
