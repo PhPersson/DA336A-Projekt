@@ -1,3 +1,4 @@
+
 package view;
 
 
@@ -177,7 +178,8 @@ public class HomePageFrameOld extends JFrame {
             int guideId = (int) table.getModel().getValueAt(table.getSelectedRow(),0);
             int row = table.getSelectedRow();
 
-            controller.openGuide(
+            controller.homeOpenGuide(
+
                     guideId,
                     table.getModel().getValueAt(row,1).toString(),
                     table.getModel().getValueAt(row,2).toString(),
@@ -191,3 +193,4 @@ public class HomePageFrameOld extends JFrame {
 
 
 }
+
