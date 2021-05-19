@@ -68,6 +68,7 @@ public class HomePageFrame extends JFrame implements ActionListener {
 
         btnSearch.setFont(new Font("Tahoma", 0, 14));
         btnSearch.setText("Sök");
+
         btnSearch.setToolTipText(btnSearchToolTip);
         btnSearch.setPreferredSize(new Dimension(100,25));
 

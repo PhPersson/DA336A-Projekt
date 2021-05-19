@@ -177,6 +177,7 @@ public class HomePageFrameOld extends JFrame implements ActionListener {
             int row = table.getSelectedRow();
 
             controller.openGuide(
+
                     guideId,
                     table.getModel().getValueAt(row,1).toString(),
                     table.getModel().getValueAt(row,2).toString(),
