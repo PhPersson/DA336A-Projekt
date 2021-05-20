@@ -24,13 +24,13 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
 
     private JButton btnEditGuide, btnLogOff, btnNewGuide, btnShowGuideLower, btnRemoveGuide, btnSearch, btnShowGuideUpper;
     private JScrollPane jScrollPane1, jScrollPane2;
-    private JPanel pnlLogo, pnlBtnNorth, pnlSearchField, pnlSearchTable, pnlGuideTable, pnlTableUp, pnlTableUpBtn, pnlTableLow, pnlTableLowBtn,
-            pnlTxtUp, pnlTxtLow;
+    private JPanel pnlUpper, pnlLogo, pnlUser, pnlBtnNorth, pnlSearchField, pnlSearchTable, pnlGuideTable, pnlTableUp, pnlTableUpBtn, pnlTableLow, pnlTableLowBtn,
+            pnlTxtUp, pnlTxtLow, pnlCombo, pnlLowerBorder, pnlUpperBorder;
     private JTable jTableLow;
     private JTable jTableUp;
     private JLabel lblLoggedIn, lblSearchResult, lblYourGuides, lblActiveUser;
     private JTextField txtSearch;
-    private JLabel lblLogo;
+    private JLabel lblLogo, lblType, lblCategory, lblChoose;
     private JButton btnUserSettings;
     private Controller controller;
     private String btnEditGuideToolTip = "<html><p style='font-style:italic;color:black'>" +
@@ -43,6 +43,9 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
             "Tryck här för att ändra dina nvändarinställningar</p></html>";
     private String btnShowGuidesToolTip = "<html><p style='font-style:italic;color:black'>" +
             "Markera den guide du vill se" + " Tryck sedan här igen</p></html> ";
+
+    private JComboBox<String> categoryComboBox, typeComboBox;
+
 
     public UserHomePageFrame(Controller controller) {
         this.controller = controller;
@@ -83,6 +86,10 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
         lblLoggedIn = new JLabel();
         btnRemoveGuide = new JButton();
         btnUserSettings = new JButton();
+        lblCategory = new JLabel();
+        lblType = new JLabel();
+        lblChoose = new JLabel();
+
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -117,7 +124,7 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
         btnLogOff.setText("Logga ut");
 
         lblActiveUser.setFont(new Font("Tahoma", 0, 14));
-        lblActiveUser.setText("Inloggad:");
+        lblActiveUser.setText("Inloggad: ");
 
         lblLoggedIn.setFont(new Font("Tahoma", 0, 14));
         lblLoggedIn.setText("Användarnamn");
@@ -127,8 +134,17 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
         btnRemoveGuide.setToolTipText(btnRemoveGuideToolTip);
 
         btnUserSettings.setFont(new Font("Tahoma", 0, 14));
-        btnUserSettings.setText("Inställningar");
+        btnUserSettings.setText("Användarinställningar");
         btnUserSettings.setToolTipText(btnUserSettingsToolTip);
+
+        lblType.setFont(new Font("Tahoma", 1, 11));
+        lblType.setText("Typ av guide");
+
+        lblCategory.setFont(new Font("Tahoma", 1, 11));
+        lblCategory.setText("Kategori av guide");
+
+        lblChoose.setFont(new Font("Tahoma", 1, 11));
+        lblChoose.setText("Välj en guide ovanför");
 
         jScrollPane1.setViewportView(jTableUp);
         jScrollPane2.setViewportView(jTableLow);
@@ -139,64 +155,163 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
         jTableUp.setDefaultEditor(Object.class, null);
         jTableLow.setDefaultEditor(Object.class, null);
 
+
+        typeComboBox = new JComboBox<>();
+        categoryComboBox = new JComboBox<>();
+
+        typeComboBox.setModel(new DefaultComboBoxModel<>(new String[]{ "Sök efter typ", "Mjukvara", "Hårdvara", "Snabbguide"}));
+        categoryComboBox.setModel(new DefaultComboBoxModel<>(new String[]{ "Sök efter kategori", "Internet", "Dator", "Mobil", "Övrigt"}));
+
+
         getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 
-        pnlLogo = new JPanel(new BorderLayout());
+        pnlUpper = new JPanel(new BorderLayout());
         pnlBtnNorth = new JPanel(new BorderLayout());
-        pnlSearchField = new JPanel(new BorderLayout());
+        pnlSearchField = new JPanel(new BoxLayout(pnlSearchField, BoxLayout.Y_AXIS));
         pnlSearchTable = new JPanel(new BorderLayout());
         pnlTableUp = new JPanel();
         pnlTableUpBtn = new JPanel(new FlowLayout());
+
+        //pnlTableUpBtn.setLayout(new GridLayout(2,1));
+
         pnlGuideTable = new JPanel(new BorderLayout());
         pnlTableLow = new JPanel();
         pnlTableLowBtn = new JPanel(new FlowLayout());
         pnlTxtUp = new JPanel(new BorderLayout());
         pnlTxtLow = new JPanel(new BorderLayout());
+        pnlLowerBorder = new JPanel();
+        pnlUpperBorder = new JPanel(new GridLayout(3,1));
+        pnlUpperBorder.setLayout(new BoxLayout(pnlUpperBorder, BoxLayout.Y_AXIS));
 
-        add(pnlLogo, getContentPane());
+
+        pnlUpper = new JPanel();
+        pnlUser = new JPanel();
+        pnlLogo = new JPanel();
+
+        pnlCombo = new JPanel(new GridLayout(1,3,10,0));
+        //pnlCombo.setLayout(new BoxLayout(pnlCombo,BoxLayout.X_AXIS));
+
+
+
+
+
+
+
+        GridLayout layoutTop = new GridLayout(1,2,70,0);
+
+        pnlLogo.setLayout(new GridLayout(1,2));
+
+        pnlUpper.setLayout(layoutTop);
+
+        //pnlUser.setLayout(new GridLayout(1,3));
+
+        pnlUser = new JPanel(new GridLayout(1,3));
+        pnlUser.setLayout(new BoxLayout(pnlUser,BoxLayout.X_AXIS));
+        //pnlUser.setAlignmentX(50);
+        //pnlUser = new JPanel();
+
+
+
+
+
+
+        add(pnlUpper);
+
+        pnlLogo.add(lblLogo);
+        pnlLogo.add(Box.createRigidArea(new Dimension(1,1)));
+
+        pnlUpper.add(pnlUser);
+        pnlUpper.add(pnlLogo, BoxLayout.X_AXIS);
+        //pnlUpper.setBorder();
+
+        pnlUser.add(Box.createHorizontalGlue());
+
+        //pnlUser.add(Box.createRigidArea(new Dimension(1,10)));
+
+        lblLoggedIn.setAlignmentX(Component.RIGHT_ALIGNMENT);
+
+        pnlUser.add(lblActiveUser);
+        pnlUser.add(lblLoggedIn);
+
+        //pnlCombo.add(lblType);
+        //pnlCombo.add(Box.createRigidArea(new Dimension(40,10)));
+        //pnlCombo.add(lblCategory);
+
+        pnlCombo.add(typeComboBox);
+        pnlCombo.add(Box.createRigidArea(new Dimension(40,10)));
+        pnlCombo.add(categoryComboBox);
+
+
+
+        pnlSearchField.setLayout(new GridLayout(1,2));
+        pnlSearchField.setLayout(new BoxLayout(pnlSearchField, BoxLayout.X_AXIS));
+
         add(pnlBtnNorth, getContentPane());
-        add(pnlSearchField, getContentPane());
+        //add(pnlSearchField, getContentPane());
+        add(pnlSearchField);
+        add(pnlCombo);
         add(pnlTxtUp);
         add(pnlSearchTable, getContentPane());
         add(pnlTxtLow);
         add(pnlGuideTable, getContentPane());
 
-        pnlLogo.setBorder(BorderFactory.createEmptyBorder(10,15,5,15));
-        pnlBtnNorth.setBorder(BorderFactory.createEmptyBorder(10,15,5,15));
+        pnlUpper.setBorder(BorderFactory.createEmptyBorder(10,0,5,15));
+        pnlBtnNorth.setBorder(BorderFactory.createEmptyBorder(10,15,30,15));
         pnlSearchField.setBorder(BorderFactory.createEmptyBorder(10,15,5,15));
+        pnlCombo.setBorder(BorderFactory.createEmptyBorder(0,75,0,75));
         pnlTxtUp.setBorder(BorderFactory.createEmptyBorder(2,20,2,10));
         pnlSearchTable.setBorder(BorderFactory.createEmptyBorder(5,15,2,15));
         pnlTxtLow.setBorder(BorderFactory.createEmptyBorder(2,20,2,10));
         pnlGuideTable.setBorder(BorderFactory.createEmptyBorder(5,15,5,15));
+        //pnlUpperBorder.setBorder(BorderFactory.createEmptyBorder(5,25,5,5));
+        //pnlLowerBorder.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
 
-        pnlLogo.add(lblLogo, BorderLayout.WEST);
-        pnlLogo.add(lblActiveUser, BorderLayout.EAST);
-        pnlLogo.add(lblLoggedIn, BorderLayout.AFTER_LINE_ENDS);
+        pnlLowerBorder.setBorder((BorderFactory.createTitledBorder("Dina guider")));
+        pnlUpperBorder.setBorder((BorderFactory.createTitledBorder("Alla guider")));
+       // pnlUpper.add(lblLogo, BorderLayout.WEST);
+
+        //pnlUpper.add(lblActiveUser, BorderLayout.CENTER);
+        //pnlUpper.add(lblLoggedIn, BorderLayout.EAST);
 
         pnlBtnNorth.add(btnUserSettings, BorderLayout.WEST);
         pnlBtnNorth.add(btnLogOff, BorderLayout.EAST);
 
-        pnlSearchField.add(txtSearch, BorderLayout.WEST);
-        pnlSearchField.add(btnSearch, BorderLayout.EAST);
+        add(pnlUpperBorder);
+        pnlUpperBorder.add(pnlSearchField);
+        pnlUpperBorder.add(pnlCombo);
+        pnlUpperBorder.add(pnlSearchTable);
 
-        pnlTxtUp.add(lblSearchResult, BorderLayout.WEST);
+        pnlSearchField.add(txtSearch);
+        pnlSearchField.add(btnSearch);
+
+        //pnlTxtUp.add(lblSearchResult, BorderLayout.WEST);
 
         pnlSearchTable.add(pnlTableUp, BorderLayout.NORTH);
+        //pnlSearchTable.add(lblChoose);
         pnlSearchTable.add(pnlTableUpBtn, BorderLayout.SOUTH);
 
         pnlTableUp.add(jScrollPane1);
-        pnlTableUpBtn.add(btnNewGuide);
+        //add(lblChoose);
         pnlTableUpBtn.add(btnShowGuideUpper);
+        //pnlTableUpBtn.add(lblChoose);
 
-        pnlTxtLow.add(lblYourGuides, BorderLayout.WEST);
+       // pnlUpperBorder.add(pnlTableUp);
+        //pnlUpperBorder.add(btnShowGuideUpper);
+
+        add(pnlLowerBorder);
+        //pnlTxtLow.add(lblYourGuides, BorderLayout.WEST);
+
+        //pnlLower.add(lblYourGuides);
 
         pnlGuideTable.add(pnlTableLow, BorderLayout.NORTH);
         pnlGuideTable.add(pnlTableLowBtn, BorderLayout.SOUTH);
+        pnlLowerBorder.add(pnlGuideTable);
 
         pnlTableLow.add(jScrollPane2);
         pnlTableLowBtn.add(btnRemoveGuide);
         pnlTableLowBtn.add(btnEditGuide);
         pnlTableLowBtn.add(btnShowGuideLower);
+        pnlTableLowBtn.add(btnNewGuide);
 
         pack();
         setVisible(true);
