@@ -96,9 +96,13 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
         txtSearch.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseClicked(MouseEvent e){
-                txtSearch.setText("");
+                if (!txtSearch.getText().isEmpty()) {
+                    txtSearch.setText("");
+                }
             }
         });
+
+
 
         btnSearch.setFont(new Font("Tahoma", 0, 14));
         btnSearch.setText("Sök");
@@ -180,7 +184,6 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
         pnlTableUp = new JPanel();
         pnlTableUpBtn = new JPanel(new FlowLayout());
 
-        //pnlTableUpBtn.setLayout(new GridLayout(2,1));
 
         pnlGuideTable = new JPanel(new BorderLayout());
         pnlTableLow = new JPanel();
@@ -192,17 +195,29 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
         pnlUpperBorder.setLayout(new BoxLayout(pnlUpperBorder, BoxLayout.Y_AXIS));
 
 
+        getjTableUp().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+
+                    int row = getjTableUp().getSelectedRow();
+                    int guideId = controller.getGuideId(getjTableUp().getModel().getValueAt(row, 0).toString());
+                    
+                    controller.userHomeOpenGuide(guideId,
+                            getjTableUp().getModel().getValueAt(row, 0).toString(),
+                            getjTableUp().getModel().getValueAt(row,1).toString(),
+                            getjTableUp().getModel().getValueAt(row,2).toString(),
+                            controller.getGuideDescription(guideId));
+                }
+            }
+        });
+
+
         pnlUpper = new JPanel();
         pnlUser = new JPanel();
         pnlLogo = new JPanel();
 
         pnlCombo = new JPanel(new GridLayout(1,3,10,0));
-        //pnlCombo.setLayout(new BoxLayout(pnlCombo,BoxLayout.X_AXIS));
-
-
-
-
-
 
 
         GridLayout layoutTop = new GridLayout(1,2,0,0);
@@ -211,16 +226,9 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
 
         pnlUpper.setLayout(layoutTop);
 
-        //pnlUser.setLayout(new GridLayout(1,3));
 
         pnlUser = new JPanel(new GridLayout(1,3));
         pnlUser.setLayout(new BoxLayout(pnlUser,BoxLayout.X_AXIS));
-        //pnlUser.setAlignmentX(50);
-        //pnlUser = new JPanel();
-
-
-
-
 
 
         add(pnlUpper);
@@ -230,20 +238,16 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
 
         pnlUpper.add(pnlUser);
         pnlUpper.add(pnlLogo, BoxLayout.X_AXIS);
-        //pnlUpper.setBorder();
+
 
         pnlUser.add(Box.createHorizontalGlue());
 
-        //pnlUser.add(Box.createRigidArea(new Dimension(1,10)));
 
         lblLoggedIn.setAlignmentX(Component.RIGHT_ALIGNMENT);
 
         pnlUser.add(lblActiveUser);
         pnlUser.add(lblLoggedIn);
 
-        //pnlCombo.add(lblType);
-        //pnlCombo.add(Box.createRigidArea(new Dimension(40,10)));
-        //pnlCombo.add(lblCategory);
 
         pnlCombo.add(typeComboBox);
         pnlCombo.add(Box.createRigidArea(new Dimension(40,10)));
@@ -256,9 +260,7 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
 
 
 
-        //add(pnlLogoAndUser, getContentPane());
         add(pnlBtnNorth, getContentPane());
-        //add(pnlSearchField, getContentPane());
         add(pnlSearchField);
         add(pnlCombo);
         add(pnlTxtUp);
@@ -281,22 +283,17 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
         pnlSearchTable.setBorder(BorderFactory.createEmptyBorder(5,15,2,15));
         pnlTxtLow.setBorder(BorderFactory.createEmptyBorder(2,20,2,10));
         pnlGuideTable.setBorder(BorderFactory.createEmptyBorder(5,15,5,15));
-        //pnlUpperBorder.setBorder(BorderFactory.createEmptyBorder(5,25,5,5));
-        //pnlLowerBorder.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+
 
         pnlLowerBorder.setBorder((BorderFactory.createTitledBorder("Dina guider")));
         pnlUpperBorder.setBorder((BorderFactory.createTitledBorder("Alla guider")));
-       // pnlUpper.add(lblLogo, BorderLayout.WEST);
 
-
-        //pnlUpper.add(lblActiveUser, BorderLayout.CENTER);
-        //pnlUpper.add(lblLoggedIn, BorderLayout.EAST);
-
-
-
-        //pnlLogoAndUser.add(lblLogo, BorderLayout.WEST);
-        //pnlLogoAndUser.add(lblLoggedIn, BorderLayout.AFTER_LINE_ENDS);
-        //pnlLogoAndUser.add(lblActiveUser, BorderLayout.EAST);
+        pnlBtnNorth.setBorder(BorderFactory.createEmptyBorder(10, 15, 5, 15));
+        pnlSearchField.setBorder(BorderFactory.createEmptyBorder(10, 15, 5, 15));
+        pnlTxtUp.setBorder(BorderFactory.createEmptyBorder(2, 20, 2, 10));
+        pnlSearchTable.setBorder(BorderFactory.createEmptyBorder(5, 15, 2, 15));
+        pnlTxtLow.setBorder(BorderFactory.createEmptyBorder(2, 20, 2, 10));
+        pnlGuideTable.setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15));
 
 
         pnlBtnNorth.add(btnUserSettings, BorderLayout.WEST);
@@ -310,24 +307,16 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
         pnlSearchField.add(txtSearch);
         pnlSearchField.add(btnSearch);
 
-        //pnlTxtUp.add(lblSearchResult, BorderLayout.WEST);
 
         pnlSearchTable.add(pnlTableUp, BorderLayout.NORTH);
-        //pnlSearchTable.add(lblChoose);
         pnlSearchTable.add(pnlTableUpBtn, BorderLayout.SOUTH);
 
         pnlTableUp.add(jScrollPane1);
-        //add(lblChoose);
-        pnlTableUpBtn.add(btnShowGuideUpper);
-        //pnlTableUpBtn.add(lblChoose);
 
-       // pnlUpperBorder.add(pnlTableUp);
-        //pnlUpperBorder.add(btnShowGuideUpper);
+        pnlTableUpBtn.add(btnShowGuideUpper);
+
 
         add(pnlLowerBorder);
-        //pnlTxtLow.add(lblYourGuides, BorderLayout.WEST);
-
-        //pnlLower.add(lblYourGuides);
 
         pnlGuideTable.add(pnlTableLow, BorderLayout.NORTH);
         pnlGuideTable.add(pnlTableLowBtn, BorderLayout.SOUTH);
@@ -351,8 +340,6 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
                         "Stäng", JOptionPane.YES_NO_OPTION);
                 if (resp == JOptionPane.YES_OPTION) {
                     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                } else {
-                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
                 }
             }
         });
