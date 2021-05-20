@@ -30,6 +30,9 @@ public class ShowGuideGUI extends JFrame implements ActionListener {
     private final JLabel lblCategory;
     private final JLabel lblCategoryTxt;
     private final JLabel lblType;
+
+
+
     private final JLabel lblTypeTxt;
     private final JTextArea descriptionArea;
     private final Font bold;
@@ -152,6 +155,10 @@ public class ShowGuideGUI extends JFrame implements ActionListener {
             System.out.println("ladda ner");
             controller.downloadGuide();
         }
+    }
+
+    public String getTxtTitle() {
+        return txtTitle.getText();
     }
 
     public JFrame getFrame() {

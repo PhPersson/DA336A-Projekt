@@ -3,10 +3,8 @@ package model;
 import controller.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.awt.*;
+import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -635,7 +633,6 @@ public class DbCon {
             File file = new File(selectedFile);
             FileInputStream fis = new FileInputStream(file);
             ps.setBlob(1,fis);
-//            ps.setBinaryStream(1, fis);
             ps.setInt(2, getGuideId(guideId) );
 
             ps.executeUpdate();
@@ -647,25 +644,26 @@ public class DbCon {
 
     public ImageIcon getAPic(int guideId) {
         String query = "SELECT picture from Picture WHERE guideId = ?";
-        ImageIcon icon = new ImageIcon();
+        byte[] imageBytes = null;
+        ImageIcon photo = new ImageIcon();
 
         try {
             PreparedStatement ps = connection.prepareStatement(query);
-            //ps.setInt(1, controller.getGuidenum());
-            ps.setInt(1, 67);
+            ps.setInt(1, guideId);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-
-                icon = new ImageIcon((byte[]) rs.getObject("picture"));
-                return icon;
-
+                imageBytes = rs.getBytes("picture");
             }
         } catch (SQLException exception) {
+            photo = null;
             exception.printStackTrace();
+
         }
-        System.out.println(icon + " Här");
-        return icon;
+            Image image = Toolkit.getDefaultToolkit().createImage(imageBytes);
+            image.getScaledInstance(250, 250, Image.SCALE_DEFAULT);
+            photo = new ImageIcon(image);
+        return photo;
     }
 
     public int getGuideId(String titel) {

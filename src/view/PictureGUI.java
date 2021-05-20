@@ -20,7 +20,10 @@ public class PictureGUI extends JFrame implements ActionListener {
 
     private final JPanel centerPanel;
     private final JPanel southPanel;
-    private final JLabel lblPicture;
+
+
+
+    private JLabel lblPicture;
     private final JButton btnNext;
     private final JButton btnBack;
     private final Controller controller;
@@ -62,6 +65,7 @@ public class PictureGUI extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         setVisible(true);
         addListeners();
+
     }
 
     public void addListeners() {
@@ -77,5 +81,10 @@ public class PictureGUI extends JFrame implements ActionListener {
         } else if (e.getSource() == btnNext) {
             System.out.println("2");
         }
+    }
+
+
+    public void showPic(ImageIcon picture) {
+        lblPicture.setIcon(picture);
     }
 }
