@@ -23,7 +23,7 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
     private JScrollPane jScrollPane1, jScrollPane2;
 
     private JPanel pnlUpper, pnlLogo, pnlUser, pnlBtnNorth, pnlSearchField, pnlSearchTable, pnlGuideTable, pnlTableUp, pnlTableUpBtn, pnlTableLow, pnlTableLowBtn,
-            pnlTxtUp, pnlTxtLow, pnlCombo, pnlLowerBorder, pnlUpperBorder;
+            pnlTxtUp, pnlTxtLow, pnlCombo, pnlLowerBorder, pnlUpperBorder, pnlLogoAndUser;
 
     private JTable jTableLow;
     private JTable jTableUp;
@@ -256,7 +256,7 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
 
 
 
-        add(pnlLogoAndUser, getContentPane());
+        //add(pnlLogoAndUser, getContentPane());
         add(pnlBtnNorth, getContentPane());
         //add(pnlSearchField, getContentPane());
         add(pnlSearchField);
@@ -271,7 +271,7 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
         pnlBtnNorth.setBorder(BorderFactory.createEmptyBorder(10,15,30,15));
 
 
-        pnlLogoAndUser.setBorder(BorderFactory.createEmptyBorder(10,15,5,15));
+       // pnlLogoAndUser.setBorder(BorderFactory.createEmptyBorder(10,15,5,15));
         pnlBtnNorth.setBorder(BorderFactory.createEmptyBorder(10,15,5,15));
 
       
@@ -294,9 +294,9 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
 
 
 
-        pnlLogoAndUser.add(lblLogo, BorderLayout.WEST);
-        pnlLogoAndUser.add(lblLoggedIn, BorderLayout.AFTER_LINE_ENDS);
-        pnlLogoAndUser.add(lblActiveUser, BorderLayout.EAST);
+        //pnlLogoAndUser.add(lblLogo, BorderLayout.WEST);
+        //pnlLogoAndUser.add(lblLoggedIn, BorderLayout.AFTER_LINE_ENDS);
+        //pnlLogoAndUser.add(lblActiveUser, BorderLayout.EAST);
 
 
         pnlBtnNorth.add(btnUserSettings, BorderLayout.WEST);
