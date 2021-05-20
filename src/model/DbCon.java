@@ -592,6 +592,19 @@ public class DbCon {
      * @param titleToRemove Baserat på titeln till guiden tas den bort i databasen.
      */
     public void deleteGuide(String titleToRemove) {
+
+        String query2 = "DELETE From Picture Where guideId = ?";
+        try {
+            PreparedStatement pes = connection.prepareStatement(query2);
+            pes.setInt(1, getGuideId(titleToRemove));
+            pes.execute();
+            connection.commit();
+            pes.close();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+
+
         String query = "DELETE FROM GUIDE WHERE guideId = ?";
         try {
             connection.setAutoCommit(false);
@@ -605,7 +618,7 @@ public class DbCon {
         }
     }
 
-    /**
+        /**
      * Uppdaterar hur många som har tittat på en guide.
      *
      * @param guideId , Identifierare för vilken guide som det berör.
