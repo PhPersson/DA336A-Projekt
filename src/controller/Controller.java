@@ -3,6 +3,7 @@ package controller;
 import model.*;
 import view.*;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -437,4 +438,8 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
         return con.getGuideDescription(guideID);
     }
 
+    public Icon getPicture() {
+        //con.getAPic(getGuideId())
+        return null;
+    }
 }
