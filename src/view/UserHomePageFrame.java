@@ -21,7 +21,7 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
 
     private JButton btnEditGuide, btnLogOff, btnNewGuide, btnShowGuideLower, btnRemoveGuide, btnSearch, btnShowGuideUpper;
     private JScrollPane jScrollPane1, jScrollPane2;
-    private JPanel pnlLogo, pnlBtnNorth, pnlSearchField, pnlSearchTable, pnlGuideTable, pnlTableUp, pnlTableUpBtn, pnlTableLow, pnlTableLowBtn,
+    private JPanel pnlLogoAndUser, pnlBtnNorth, pnlSearchField, pnlSearchTable, pnlGuideTable, pnlTableUp, pnlTableUpBtn, pnlTableLow, pnlTableLowBtn,
             pnlTxtUp, pnlTxtLow;
     private JTable jTableLow;
     private JTable jTableUp;
@@ -144,7 +144,7 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
 
         getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 
-        pnlLogo = new JPanel(new BorderLayout());
+        pnlLogoAndUser = new JPanel(new BorderLayout());
         pnlBtnNorth = new JPanel(new BorderLayout());
         pnlSearchField = new JPanel(new BorderLayout());
         pnlSearchTable = new JPanel(new BorderLayout());
@@ -156,7 +156,7 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
         pnlTxtUp = new JPanel(new BorderLayout());
         pnlTxtLow = new JPanel(new BorderLayout());
 
-        add(pnlLogo, getContentPane());
+        add(pnlLogoAndUser, getContentPane());
         add(pnlBtnNorth, getContentPane());
         add(pnlSearchField, getContentPane());
         add(pnlTxtUp);
@@ -164,7 +164,7 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
         add(pnlTxtLow);
         add(pnlGuideTable, getContentPane());
 
-        pnlLogo.setBorder(BorderFactory.createEmptyBorder(10,15,5,15));
+        pnlLogoAndUser.setBorder(BorderFactory.createEmptyBorder(10,15,5,15));
         pnlBtnNorth.setBorder(BorderFactory.createEmptyBorder(10,15,5,15));
         pnlSearchField.setBorder(BorderFactory.createEmptyBorder(10,15,5,15));
         pnlTxtUp.setBorder(BorderFactory.createEmptyBorder(2,20,2,10));
@@ -172,10 +172,10 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
         pnlTxtLow.setBorder(BorderFactory.createEmptyBorder(2,20,2,10));
         pnlGuideTable.setBorder(BorderFactory.createEmptyBorder(5,15,5,15));
 
-        pnlLogo.add(lblLogo, BorderLayout.WEST);
-        pnlLogo.add(lblLoggedIn, BorderLayout.EAST);
-        pnlLogo.add(lblActiveUser);
-        
+        pnlLogoAndUser.add(lblLogo, BorderLayout.WEST);
+        pnlLogoAndUser.add(lblLoggedIn, BorderLayout.AFTER_LINE_ENDS);
+        pnlLogoAndUser.add(lblActiveUser, BorderLayout.EAST);
+
         pnlBtnNorth.add(btnUserSettings, BorderLayout.WEST);
         pnlBtnNorth.add(btnLogOff, BorderLayout.EAST);
 
