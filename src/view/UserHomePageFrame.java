@@ -205,7 +205,7 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
 
 
 
-        GridLayout layoutTop = new GridLayout(1,2,70,0);
+        GridLayout layoutTop = new GridLayout(1,2,0,0);
 
         pnlLogo.setLayout(new GridLayout(1,2));
 
