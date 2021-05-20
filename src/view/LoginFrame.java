@@ -48,6 +48,7 @@ public class LoginFrame extends JFrame implements ActionListener {
 
     public void createComponents() {
 
+
         setTitle("Inloggning");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
@@ -189,8 +190,7 @@ public class LoginFrame extends JFrame implements ActionListener {
 
         password = txtPassword.getDocument();
         password.addDocumentListener(new LoginButtonController(btnLogin));
-
-
+        
     }
 
     public String getLoginUsername() {
