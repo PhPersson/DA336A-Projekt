@@ -9,6 +9,9 @@ import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.File;
 
 /**
  * @author Alexander Olsson
@@ -84,6 +87,12 @@ public class MakeGuideGui extends JFrame implements ActionListener {
         textAreaInput = new JTextArea(20, 40);
         jScrollPane1 = new JScrollPane(textAreaInput);
         textAreaInput.setText("Lägg till titel på din guide här...");
+        textAreaInput.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e){
+                textAreaInput.setText("");
+            }
+        });
 
         typeComboBox = new JComboBox<>();
         categoryComboBox = new JComboBox<>();
@@ -102,6 +111,12 @@ public class MakeGuideGui extends JFrame implements ActionListener {
         categoryComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Internet", "Dator", "Mobil", "Övrigt"}));
 
         fieldTitle.setText("Lägg till beskrivning på din guide här...");
+        fieldTitle.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e){
+                fieldTitle.setText("");
+            }
+        });
 
         btnMakeGuide.setText("Skapa guide");
 

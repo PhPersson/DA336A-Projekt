@@ -20,8 +20,8 @@ import java.io.IOException;
 
 public class HomePageFrame extends JFrame implements ActionListener {
 
-    private JPanel middle, top, topUpper, topLower, lower;
 
+    private JPanel middle, top, topUpper, topLower, lower, pnlSearchResult;
     private JButton btnLogin, btnSearch, btnShowGuides;
     private JScrollPane jScrollPane1;
     private JTable table;
@@ -100,9 +100,7 @@ public class HomePageFrame extends JFrame implements ActionListener {
 
         table.setDefaultEditor(Object.class, null);
 
-
         GridLayout layout = new GridLayout(2,1,0,0);
-
 
         GridLayout layoutTopGap = new GridLayout(1, 2, 200, 0);
         GridLayout gridLayout = new GridLayout(1, 2, 250, 0);
@@ -140,13 +138,17 @@ public class HomePageFrame extends JFrame implements ActionListener {
 
         add(top, BorderLayout.NORTH);
 
-        middle = new JPanel(new GridLayout(2, 1));
+
+        pnlSearchResult = new JPanel(new BorderLayout());
+        pnlSearchResult.add(lblSearchResult, BorderLayout.WEST);
+        pnlSearchResult.setBorder(BorderFactory.createEmptyBorder(0,0,2,10));
+
+        middle = new JPanel(new GridLayout(2,1));
         middle.setLayout(new BoxLayout(middle, BoxLayout.Y_AXIS));
         middle.setBorder(emptyBorderMiddle);
 
-        middle.add(lblSearchResult, BorderLayout.NORTH);
+        middle.add(pnlSearchResult);
         middle.add(jScrollPane1, BorderLayout.SOUTH);
-
         add(middle, BorderLayout.CENTER);
 
         lower = new JPanel();
@@ -194,7 +196,6 @@ public class HomePageFrame extends JFrame implements ActionListener {
         int guideId = (int) table.getModel().getValueAt(table.getSelectedRow(), 0);
         return guideId;
     }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
