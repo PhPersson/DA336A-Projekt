@@ -24,8 +24,8 @@ public class AdminFrame extends JFrame implements ActionListener {
     private JButton btnDeleteGuide, btnDeleteUser, btnEditGuide, btnLogOff, btnSearchGuide, btnSearchUser;
     private JScrollPane guideTableScroll, userTableScroll;
     private JTextField guideSearch, userSearch;
-    private JComboBox<String> jComboBox1;
-    private JComboBox<String> jComboBox2;
+    private JComboBox<String> typeComboBox;
+    private JComboBox<String> categoryComboBox;
     private JLabel lblGuideSearch, lblLogo, lblUserSearch, lblAdminName, lblLogin;
 
     private final Controller controller;
@@ -47,8 +47,8 @@ public class AdminFrame extends JFrame implements ActionListener {
 
         guideSearch = new JTextField();
         btnSearchGuide = new JButton();
-        jComboBox1 = new JComboBox<>();
-        jComboBox2 = new JComboBox<>();
+        typeComboBox = new JComboBox<>();
+        categoryComboBox = new JComboBox<>();
         btnDeleteGuide = new JButton();
         btnEditGuide = new JButton();
         userTableScroll = new JScrollPane();
@@ -72,9 +72,9 @@ public class AdminFrame extends JFrame implements ActionListener {
         btnSearchGuide.setFont(new Font("Tahoma", 0, 12));
         btnSearchGuide.setText("Sök");
 
-        jComboBox1.setModel(new DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
+        typeComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
 
-        jComboBox2.setModel(new DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
+        categoryComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
 
         btnDeleteGuide.setFont(new Font("Tahoma", 0, 12));
         btnDeleteGuide.setText("Ta bort");
@@ -107,9 +107,9 @@ public class AdminFrame extends JFrame implements ActionListener {
         btnSearchGuide.setFont(new Font("Tahoma", 0, 12));
         btnSearchGuide.setText("Sök");
 
-        jComboBox1.setModel(new DefaultComboBoxModel<>(new String[]{"Typ:  ", "Mjukvara", "Hårdvara", "Snabbguide"}));
+        typeComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Typ:  ", "Mjukvara", "Hårdvara", "Snabbguide"}));
 
-        jComboBox2.setModel(new DefaultComboBoxModel<>(new String[]{"Kategori: ", "Internet", "Dator", "Mobil", "Övrigt"}));
+        categoryComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Kategori: ", "Internet", "Dator", "Mobil", "Övrigt"}));
 
         btnDeleteGuide.setFont(new Font("Tahoma", 0, 12));
         btnDeleteGuide.setText("Ta bort");
@@ -160,9 +160,9 @@ public class AdminFrame extends JFrame implements ActionListener {
                                                                         .addGap(18, 18, 18)
                                                                         .addComponent(btnDeleteGuide, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE))
                                                                 .addGroup(layout.createSequentialGroup()
-                                                                        .addComponent(jComboBox1, GroupLayout.PREFERRED_SIZE, 151, GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(typeComboBox, GroupLayout.PREFERRED_SIZE, 151, GroupLayout.PREFERRED_SIZE)
                                                                         .addGap(97, 97, 97)
-                                                                        .addComponent(jComboBox2, GroupLayout.PREFERRED_SIZE, 183, GroupLayout.PREFERRED_SIZE))
+                                                                        .addComponent(categoryComboBox, GroupLayout.PREFERRED_SIZE, 183, GroupLayout.PREFERRED_SIZE))
                                                                 .addComponent(guideTableScroll, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                                                         .addComponent(lblGuideSearch))
                                                 .addGap(18, 18, 18)
@@ -206,8 +206,8 @@ public class AdminFrame extends JFrame implements ActionListener {
                                                 .addComponent(btnSearchGuide, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)))
                                 .addGap(16, 16, 16)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jComboBox1, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jComboBox2, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(typeComboBox, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(categoryComboBox, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                                         .addComponent(userTableScroll)
@@ -252,11 +252,7 @@ public class AdminFrame extends JFrame implements ActionListener {
                 Point point = mouseEvent.getPoint();
                 int row = table.rowAtPoint(point);
                 if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
-                    try {
-                        controller.editGuide();
-                    } catch (ArrayIndexOutOfBoundsException exception) {
-                        controller.getUtil().showErrorDialog("Du har ännu inte valt någon guide!");
-                    }
+
                 }
             }
         });
@@ -269,17 +265,19 @@ public class AdminFrame extends JFrame implements ActionListener {
         btnLogOff.addActionListener(this);
         btnDeleteGuide.addActionListener(this);
         btnEditGuide.addActionListener(this);
-        jComboBox1.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                controller.comboBoxSearchGuideADM(guideSearch.getSelectedText(), String.valueOf(jComboBox1.getSelectedItem()), String.valueOf(jComboBox2.getSelectedItem()));
-            }
-        });
-        jComboBox2.addItemListener(new ItemListener() {
+        typeComboBox.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
-                    controller.comboBoxSearchGuideADM(guideSearch.getSelectedText(), String.valueOf(jComboBox1.getSelectedItem()), String.valueOf(jComboBox2.getSelectedItem()));
+                    controller.comboBoxSearchGuideADM(guideSearch.getSelectedText(), String.valueOf(typeComboBox.getSelectedItem()), String.valueOf(categoryComboBox.getSelectedItem()));
+                }
+            }
+        });
+        categoryComboBox.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    controller.comboBoxSearchGuideADM(guideSearch.getSelectedText(), String.valueOf(typeComboBox.getSelectedItem()), String.valueOf(categoryComboBox.getSelectedItem()));
                 }
             }
         });

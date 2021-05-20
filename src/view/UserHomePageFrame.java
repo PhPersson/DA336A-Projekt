@@ -362,10 +362,13 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
         btnUserSettings.addActionListener(this);
         btnEditGuide.addActionListener(this);
         btnRemoveGuide.addActionListener(this);
+
         typeComboBox.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                controller.comboBoxSearchGuideUHP(txtSearch.getSelectedText(), String.valueOf(typeComboBox.getSelectedItem()), String.valueOf(categoryComboBox.getSelectedItem()));
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    controller.comboBoxSearchGuideUHP(txtSearch.getSelectedText(), String.valueOf(typeComboBox.getSelectedItem()), String.valueOf(categoryComboBox.getSelectedItem()));
+                }
             }
         });
         categoryComboBox.addItemListener(new ItemListener() {

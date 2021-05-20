@@ -163,7 +163,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
     }
 
     public void comboBoxSearchGuideUHP(String searchText, String type, String category) {
-        userHomePageFrame.updateUserGuideList(con.searchGuideAdmin(searchText, type, category));
+        userHomePageFrame.updateUserSearchGuideList(con.searchGuideAdmin(searchText, type, category));
     }
 
     /**
