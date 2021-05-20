@@ -100,7 +100,9 @@ public class HomePageFrame extends JFrame implements ActionListener {
 
         table.setDefaultEditor(Object.class, null);
 
+
         GridLayout layout = new GridLayout(2,1,0,0);
+
 
         GridLayout layoutTopGap = new GridLayout(1, 2, 200, 0);
         GridLayout gridLayout = new GridLayout(1, 2, 250, 0);
@@ -138,12 +140,14 @@ public class HomePageFrame extends JFrame implements ActionListener {
 
         add(top, BorderLayout.NORTH);
 
-
         pnlSearchResult = new JPanel(new BorderLayout());
         pnlSearchResult.add(lblSearchResult, BorderLayout.WEST);
         pnlSearchResult.setBorder(BorderFactory.createEmptyBorder(0,0,2,10));
 
         middle = new JPanel(new GridLayout(2,1));
+
+        middle = new JPanel(new GridLayout(2, 1));
+
         middle.setLayout(new BoxLayout(middle, BoxLayout.Y_AXIS));
         middle.setBorder(emptyBorderMiddle);
 

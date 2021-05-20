@@ -165,19 +165,20 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
         add(pnlGuideTable, getContentPane());
 
 
+        pnlLogoAndUser.setBorder(BorderFactory.createEmptyBorder(10,15,5,15));
+        pnlBtnNorth.setBorder(BorderFactory.createEmptyBorder(10,15,5,15));
+        pnlSearchField.setBorder(BorderFactory.createEmptyBorder(10,15,5,15));
+        pnlTxtUp.setBorder(BorderFactory.createEmptyBorder(2,20,2,10));
+        pnlSearchTable.setBorder(BorderFactory.createEmptyBorder(5,15,2,15));
+        pnlTxtLow.setBorder(BorderFactory.createEmptyBorder(2,20,2,10));
+        pnlGuideTable.setBorder(BorderFactory.createEmptyBorder(5,15,5,15));
 
-        pnlLogo.setBorder(BorderFactory.createEmptyBorder(10, 15, 5, 15));
-        pnlBtnNorth.setBorder(BorderFactory.createEmptyBorder(10, 15, 5, 15));
-        pnlSearchField.setBorder(BorderFactory.createEmptyBorder(10, 15, 5, 15));
-        pnlTxtUp.setBorder(BorderFactory.createEmptyBorder(2, 20, 2, 10));
-        pnlSearchTable.setBorder(BorderFactory.createEmptyBorder(5, 15, 2, 15));
-        pnlTxtLow.setBorder(BorderFactory.createEmptyBorder(2, 20, 2, 10));
-        pnlGuideTable.setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15));
 
-        pnlLogo.add(lblLogo, BorderLayout.WEST);
-        pnlLogo.add(lblLoggedIn, BorderLayout.EAST);
-        pnlLogo.add(lblActiveUser);
-        
+
+        pnlLogoAndUser.add(lblLogo, BorderLayout.WEST);
+        pnlLogoAndUser.add(lblLoggedIn, BorderLayout.AFTER_LINE_ENDS);
+        pnlLogoAndUser.add(lblActiveUser, BorderLayout.EAST);
+
         pnlBtnNorth.add(btnUserSettings, BorderLayout.WEST);
         pnlBtnNorth.add(btnLogOff, BorderLayout.EAST);
 
