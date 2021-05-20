@@ -18,16 +18,18 @@ import java.awt.event.ActionListener;
 
 public class PictureGUI extends JFrame implements ActionListener {
 
-    private JPanel centerPanel, southPanel;
-    private JLabel lblPicture;
-    private JButton btnNext, btnBack;
-    private Controller controller;
+    private final JPanel centerPanel;
+    private final JPanel southPanel;
+    private final JLabel lblPicture;
+    private final JButton btnNext;
+    private final JButton btnBack;
+    private final Controller controller;
 
     public PictureGUI(Controller controller) {
         this.controller = controller;
 
         setTitle("SupportME");
-        getContentPane().setLayout(new BoxLayout(getContentPane(),BoxLayout.X_AXIS));
+        getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS));
         setLayout(new BorderLayout());
 
         centerPanel = new JPanel();
@@ -36,7 +38,7 @@ public class PictureGUI extends JFrame implements ActionListener {
         //lblPicture.setIcon();
 
         lblPicture = new JLabel();
-        lblPicture.setPreferredSize(new Dimension(500,400));
+        lblPicture.setPreferredSize(new Dimension(500, 400));
 //        lblPicture.setIcon(controller.getPicture());
 
         btnBack = new JButton("Föregående bild");
@@ -54,7 +56,7 @@ public class PictureGUI extends JFrame implements ActionListener {
         add(centerPanel, BorderLayout.CENTER);
         add(southPanel, BorderLayout.SOUTH);
 
-        setSize(800,800);
+        setSize(800, 800);
         pack();
         setResizable(false);
         setLocationRelativeTo(null);
@@ -62,18 +64,17 @@ public class PictureGUI extends JFrame implements ActionListener {
         addListeners();
     }
 
-    public void addListeners(){
+    public void addListeners() {
         btnNext.addActionListener(this);
         btnBack.addActionListener(this);
     }
 
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == btnBack){
+        if (e.getSource() == btnBack) {
             System.out.println("1");
-        } else if (e.getSource() == btnNext){
+        } else if (e.getSource() == btnNext) {
             System.out.println("2");
         }
     }

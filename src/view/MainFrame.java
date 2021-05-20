@@ -1,6 +1,8 @@
 package view;
 
 import controller.Controller;
+import view.utils.GuiUtilities;
+
 import javax.swing.*;
 
 /**
@@ -9,10 +11,10 @@ import javax.swing.*;
  */
 public class MainFrame extends JFrame {
 
-    private LoginFrame loginFrame;
-    private UserHomepageFrame homepageFrame;
-    private Controller controller;
-    private GuiUtilities util;
+    private final LoginFrame loginFrame;
+    private UserHomePageFrame homepageFrame;
+    private final Controller controller;
+    private final GuiUtilities util;
 
     public MainFrame(Controller controller) {
         this.controller = controller;
@@ -49,11 +51,15 @@ public class MainFrame extends JFrame {
         util.showDialog(message);
     }
 
-    public LoginFrame getLoginFrame() {return loginFrame;}
+    public LoginFrame getLoginFrame() {
+        return loginFrame;
+    }
 
-    public RegisterFrame getRegisterFrame() {return loginFrame.getRegisterFrame();}
+    public RegisterFrame getRegisterFrame() {
+        return loginFrame.getRegisterFrame();
+    }
 
-    public UserHomepageFrame getHomepageFrame(){
+    public UserHomePageFrame getHomepageFrame() {
         return getHomepageFrame();
     }
 
