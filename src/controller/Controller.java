@@ -445,5 +445,10 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
             } catch (IOException ex) {
                 // no application registered for PDFs
             }
+        }
+    }
+
+    public Icon getPicture() {
+        return null;
     }
 }
