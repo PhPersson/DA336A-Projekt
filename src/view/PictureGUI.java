@@ -90,33 +90,24 @@ public class PictureGUI extends JFrame implements ActionListener {
     public void showPic(ImageIcon picture) {
         int original_width = picture.getIconWidth();
         int original_height = picture.getIconHeight();
-
         int bound_width = 500;
         int bound_height = 400;
         int new_width = original_width;
         int new_height = original_height;
 
-        // first check if we need to scale width
         if (original_width > bound_width) {
-            //scale width to fit
             new_width = bound_width;
-            //scale height to maintain aspect ratio
             new_height = (new_width * original_height) / original_width;
         }
 
-        // then check if we need to scale even with the new height
         if (new_height > bound_height) {
-            //scale height to fit instead
             new_height = bound_height;
-            //scale width to maintain aspect ratio
             new_width = (new_height * original_width) / original_height;
         }
-
 
         Image image = picture.getImage();
         Image newimg = image.getScaledInstance(new_width,new_height, Image.SCALE_SMOOTH);
         ImageIcon a = new ImageIcon(newimg);
-        //picture = picture.getImage();
         lblPicture.setIcon(a);
     }
 }
