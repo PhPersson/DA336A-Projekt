@@ -437,10 +437,6 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
         return con.getGuideDescription(guideID);
     }
 
-    public Icon getPicture() {
-        //con.getAPic(getGuideId())
-        return null;
-}
     public void openPDF() {
         if (Desktop.isDesktopSupported()) {
             try {
