@@ -193,6 +193,26 @@ public class HomePageFrame extends JFrame implements ActionListener {
                 }
             }
         });
+
+        table.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent mouseEvent) {
+                JTable table =(JTable) mouseEvent.getSource();
+                Point point = mouseEvent.getPoint();
+                int row = table.rowAtPoint(point);
+                if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
+                    try {
+                        int guideId = controller.getGuideId(table.getModel().getValueAt(row, 0).toString());
+                        controller.userHomeOpenGuide(guideId,
+                                table.getModel().getValueAt(row, 0).toString(),
+                                table.getModel().getValueAt(row, 1).toString(),
+                                table.getModel().getValueAt(row, 2).toString(),
+                                controller.getGuideDescription(guideId));
+                    } catch (ArrayIndexOutOfBoundsException exception) {
+                        controller.getUtil().showErrorDialog("Du har inte valt någon guide!");
+                    }
+                }
+            }
+        });
     }
 
     public void addListeners() {
@@ -217,7 +237,6 @@ public class HomePageFrame extends JFrame implements ActionListener {
         } else if (e.getSource() == btnLogin) {
             controller.btnHomePageFrameLogin();
         } else if (e.getSource() == btnShowGuides) {
-
             int row = table.getSelectedRow();
             int guideId = controller.getGuideId(table.getModel().getValueAt(row, 0).toString());
             controller.homeOpenGuide(

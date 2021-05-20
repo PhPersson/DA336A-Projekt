@@ -158,8 +158,12 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
         adminFrame.updateUserList(con.searchUser(searchText));
     }
 
-    public void comboBoxSearchGuide(String searchText, String type, String category) {
+    public void comboBoxSearchGuideADM(String searchText, String type, String category) {
         adminFrame.updateGuideList(con.searchGuideAdmin(searchText, type, category));
+    }
+
+    public void comboBoxSearchGuideUHP(String searchText, String type, String category) {
+        userHomePageFrame.updateUserGuideList(con.searchGuideAdmin(searchText, type, category));
     }
 
     /**

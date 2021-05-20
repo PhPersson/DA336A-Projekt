@@ -236,6 +236,30 @@ public class AdminFrame extends JFrame implements ActionListener {
                 }
             }
         });
+        guideTable.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent mouseEvent) {
+                JTable table =(JTable) mouseEvent.getSource();
+                Point point = mouseEvent.getPoint();
+                int row = table.rowAtPoint(point);
+                if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
+
+                }
+            }
+        });
+        userTable.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent mouseEvent) {
+                JTable table =(JTable) mouseEvent.getSource();
+                Point point = mouseEvent.getPoint();
+                int row = table.rowAtPoint(point);
+                if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
+                    try {
+                        controller.editGuide();
+                    } catch (ArrayIndexOutOfBoundsException exception) {
+                        controller.getUtil().showErrorDialog("Du har ännu inte valt någon guide!");
+                    }
+                }
+            }
+        });
     }
 
     public void addListeners() {
@@ -248,14 +272,14 @@ public class AdminFrame extends JFrame implements ActionListener {
         jComboBox1.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                controller.comboBoxSearchGuide(guideSearch.getSelectedText(), String.valueOf(jComboBox1.getSelectedItem()), String.valueOf(jComboBox2.getSelectedItem()));
+                controller.comboBoxSearchGuideADM(guideSearch.getSelectedText(), String.valueOf(jComboBox1.getSelectedItem()), String.valueOf(jComboBox2.getSelectedItem()));
             }
         });
         jComboBox2.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
-                    controller.comboBoxSearchGuide(guideSearch.getSelectedText(), String.valueOf(jComboBox1.getSelectedItem()), String.valueOf(jComboBox2.getSelectedItem()));
+                    controller.comboBoxSearchGuideADM(guideSearch.getSelectedText(), String.valueOf(jComboBox1.getSelectedItem()), String.valueOf(jComboBox2.getSelectedItem()));
                 }
             }
         });
