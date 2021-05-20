@@ -158,8 +158,8 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
         jScrollPane1.setViewportView(jTableUp);
         jScrollPane2.setViewportView(jTableLow);
 
-        jScrollPane1.setPreferredSize(new Dimension(500,200));
-        jScrollPane2.setPreferredSize(new Dimension(500,200));
+        jScrollPane1.setPreferredSize(new Dimension(550,200));
+        jScrollPane2.setPreferredSize(new Dimension(550,200));
 
         jTableUp.setDefaultEditor(Object.class, null);
         jTableLow.setDefaultEditor(Object.class, null);
@@ -241,7 +241,7 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
         add(pnlTxtLow);
         add(pnlGuideTable, getContentPane());
 
-        pnlUpper.setBorder(BorderFactory.createEmptyBorder(10,0,5,15));
+        pnlUpper.setBorder(BorderFactory.createEmptyBorder(10,5,5,15));
         pnlBtnNorth.setBorder(BorderFactory.createEmptyBorder(10,15,30,15));
        // pnlLogoAndUser.setBorder(BorderFactory.createEmptyBorder(10,15,5,15));
         pnlBtnNorth.setBorder(BorderFactory.createEmptyBorder(10,15,5,15));
@@ -256,7 +256,7 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
         pnlLowerBorder.setBorder((BorderFactory.createTitledBorder("Dina guider")));
         pnlUpperBorder.setBorder((BorderFactory.createTitledBorder("Alla guider")));
 
-        pnlBtnNorth.setBorder(BorderFactory.createEmptyBorder(10, 15, 5, 15));
+        pnlBtnNorth.setBorder(BorderFactory.createEmptyBorder(0, 15, 25, 15));
         pnlSearchField.setBorder(BorderFactory.createEmptyBorder(10, 15, 5, 15));
         pnlTxtUp.setBorder(BorderFactory.createEmptyBorder(2, 20, 2, 10));
         pnlSearchTable.setBorder(BorderFactory.createEmptyBorder(5, 15, 2, 15));
