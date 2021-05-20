@@ -20,7 +20,7 @@ import java.io.IOException;
  * @author
  * @version 1.0
  */
-public class UserHomepageFrame extends JFrame implements ActionListener {
+public class UserHomepageFrameGammal extends JFrame implements ActionListener {
 
     private JButton btnEditGuide, btnLogOff, btnNewGuide, btnShowGuideLower, btnRemoveGuide, btnSearch, btnShowGuideUpper;
     private JScrollPane jScrollPane1, jScrollPane2;
@@ -43,7 +43,7 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
     private String btnShowGuidesToolTip = "<html><p style='font-style:italic;color:black'>" +
             "Markera den guide du vill se" + " Tryck sedan här igen</p></html> ";
 
-    public UserHomepageFrame(Controller controller) {
+    public UserHomepageFrameGammal(Controller controller) {
         this.controller = controller;
         initComponents();
     }
@@ -118,7 +118,6 @@ public class UserHomepageFrame extends JFrame implements ActionListener {
 
         lblLoggedIn.setFont(new Font("Tahoma", 0, 14));
         lblLoggedIn.setText("Användarnamn");
-
 
         btnRemoveGuide.setFont(new Font("Tahoma", 0, 14));
         btnRemoveGuide.setText("Ta Bort");

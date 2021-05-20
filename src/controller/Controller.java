@@ -3,7 +3,10 @@ package controller;
 import model.*;
 import view.*;
 
+
 import javax.swing.*;
+import java.awt.*;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -20,17 +23,14 @@ import java.util.ArrayList;
 public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
     private User user;
     private Guide guide;
-    private UserHomepageFrame userHomePageFrame;
+    private UserHomepageFrameGammal userHomePageFrameOld;
+    private UserHomePageFrame userHomePageFrame;
     private MainFrame view;
     private DbCon con;
     private GuiUtilities util;
     private AdminFrame adminFrame;
-    //private HomePageFrameOld homePageFrameOld;  Spara!
     private HomePageFrame homePageFrame;
-   // private MakeGuideGuiOld makeGuideGUIOld;  Spara!
     private MakeGuideGui makeGuideGUI;
-    // private UserSettingsOld userSettingsOld;   Spara!
-
     private UserSettings userSettings;
 
     private EditGuideGUI editGuideGUI;
@@ -86,7 +86,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
                 if (!con.getRole(view.getLoginUsername())) {
                     user.setUsername(view.getLoginUsername());
                     view.getLoginFrame().dispose();
-                    userHomePageFrame = new UserHomepageFrame(this);
+                    userHomePageFrame = new UserHomePageFrame(this);
                     userHomePageFrame.setLblLoginUser(user.getUsername());
                     userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
                     userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
@@ -307,7 +307,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
         util.showDialog("Guide '"+editGuideGUI.getTitleEdit()+"' redigerad");
         if (adminFrame != null || userHomePageFrame == null) {
             int row = adminFrame.getGuideTable().getSelectedRow();
-            String oldTitel = adminFrame.getGuideTable().getModel().getValueAt(row,1).toString();
+            String oldTitel = adminFrame.getGuideTable().getModel().getValueAt(row,0).toString();
             con.updateGuide(
                     editGuideGUI.getTitleEdit(),
                     editGuideGUI.getDescription(),
@@ -348,7 +348,6 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
                     adminFrame.getGuideTable().getModel().getValueAt(row,5).toString(),
                     adminFrame.getGuideTable().getModel().getValueAt(row,6).toString());
         } else {
-
             int row = userHomePageFrame.getTableLow().getSelectedRow();
             editGuideGUI = new EditGuideGUI(this,
                     userHomePageFrame.getTableLow().getModel().getValueAt(row, 0).toString(),
@@ -441,5 +440,14 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
     public Icon getPicture() {
         //con.getAPic(getGuideId())
         return null;
+}
+    public void openPDF() {
+        if (Desktop.isDesktopSupported()) {
+            try {
+                File pdfFile = new File("files/SupportME.pdf");
+                Desktop.getDesktop().open(pdfFile);
+            } catch (IOException ex) {
+                // no application registered for PDFs
+            }
     }
 }

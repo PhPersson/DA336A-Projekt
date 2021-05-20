@@ -10,7 +10,7 @@ import javax.swing.*;
 public class MainFrame extends JFrame {
 
     private LoginFrame loginFrame;
-    private UserHomepageFrame homepageFrame;
+    private UserHomePageFrame homepageFrame;
     private Controller controller;
     private GuiUtilities util;
 
@@ -53,7 +53,7 @@ public class MainFrame extends JFrame {
 
     public RegisterFrame getRegisterFrame() {return loginFrame.getRegisterFrame();}
 
-    public UserHomepageFrame getHomepageFrame(){
+    public UserHomePageFrame getHomepageFrame(){
         return getHomepageFrame();
     }
 
