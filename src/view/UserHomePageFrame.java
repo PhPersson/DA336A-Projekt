@@ -29,16 +29,16 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
     private JTextField txtSearch;
     private JLabel lblLogo;
     private JButton btnUserSettings;
-    private Controller controller;
-    private String btnEditGuideToolTip = "<html><p style='font-style:italic;color:black'>" +
+    private final Controller controller;
+    private final String btnEditGuideToolTip = "<html><p style='font-style:italic;color:black'>" +
             "Markera den guide du vill redigera " + " Tryck sedan här igen</p></html>";
-    private String btnRemoveGuideToolTip = "<html><p style='font-style:italic;color:black'>" +
+    private final String btnRemoveGuideToolTip = "<html><p style='font-style:italic;color:black'>" +
             "Markera den guide du vill radera " + "Tryck sedan här igen</p></html>";
-    private String btnSearchToolTip = "<html><p style='font-style:italic;color:black;'>" +
+    private final String btnSearchToolTip = "<html><p style='font-style:italic;color:black;'>" +
             "Sök efter en guide baserat på användarnamn och/eller titel</p></html> ";
-    private String btnUserSettingsToolTip = "<html><p style='font-style:italic;color:black'>" +
+    private final String btnUserSettingsToolTip = "<html><p style='font-style:italic;color:black'>" +
             "Tryck här för att ändra dina nvändarinställningar</p></html>";
-    private String btnShowGuidesToolTip = "<html><p style='font-style:italic;color:black'>" +
+    private final String btnShowGuidesToolTip = "<html><p style='font-style:italic;color:black'>" +
             "Markera den guide du vill se" + " Tryck sedan här igen</p></html> ";
 
     public UserHomePageFrame(Controller controller) {
@@ -164,18 +164,20 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
         add(pnlTxtLow);
         add(pnlGuideTable, getContentPane());
 
-        pnlLogoAndUser.setBorder(BorderFactory.createEmptyBorder(10,15,5,15));
-        pnlBtnNorth.setBorder(BorderFactory.createEmptyBorder(10,15,5,15));
-        pnlSearchField.setBorder(BorderFactory.createEmptyBorder(10,15,5,15));
-        pnlTxtUp.setBorder(BorderFactory.createEmptyBorder(2,20,2,10));
-        pnlSearchTable.setBorder(BorderFactory.createEmptyBorder(5,15,2,15));
-        pnlTxtLow.setBorder(BorderFactory.createEmptyBorder(2,20,2,10));
-        pnlGuideTable.setBorder(BorderFactory.createEmptyBorder(5,15,5,15));
 
-        pnlLogoAndUser.add(lblLogo, BorderLayout.WEST);
-        pnlLogoAndUser.add(lblLoggedIn, BorderLayout.AFTER_LINE_ENDS);
-        pnlLogoAndUser.add(lblActiveUser, BorderLayout.EAST);
 
+        pnlLogo.setBorder(BorderFactory.createEmptyBorder(10, 15, 5, 15));
+        pnlBtnNorth.setBorder(BorderFactory.createEmptyBorder(10, 15, 5, 15));
+        pnlSearchField.setBorder(BorderFactory.createEmptyBorder(10, 15, 5, 15));
+        pnlTxtUp.setBorder(BorderFactory.createEmptyBorder(2, 20, 2, 10));
+        pnlSearchTable.setBorder(BorderFactory.createEmptyBorder(5, 15, 2, 15));
+        pnlTxtLow.setBorder(BorderFactory.createEmptyBorder(2, 20, 2, 10));
+        pnlGuideTable.setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15));
+
+        pnlLogo.add(lblLogo, BorderLayout.WEST);
+        pnlLogo.add(lblLoggedIn, BorderLayout.EAST);
+        pnlLogo.add(lblActiveUser);
+        
         pnlBtnNorth.add(btnUserSettings, BorderLayout.WEST);
         pnlBtnNorth.add(btnLogOff, BorderLayout.EAST);
 
