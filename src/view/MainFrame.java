@@ -13,6 +13,8 @@ public class MainFrame extends JFrame {
 
 
     private final LoginFrame loginFrame;
+
+  
     private UserHomePageFrame homepageFrame;
     private Controller controller;
     private GuiUtilities util;
