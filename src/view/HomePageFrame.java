@@ -33,6 +33,9 @@ public class HomePageFrame extends JFrame implements ActionListener {
     private final String btnShowGuideToolTip = "<html><p style='font-style:italic;color:black'>" +
             "Markera den guide du vill se" + " Tryck sedan här igen</p></html> ";
 
+    private JComboBox<String> categoryComboBox, typeComboBox;
+
+
     public HomePageFrame(Controller controller) {
         this.controller = controller;
         initComponents();
@@ -99,6 +102,12 @@ public class HomePageFrame extends JFrame implements ActionListener {
         btnLogin.setPreferredSize(new Dimension(10, 10));
 
         table.setDefaultEditor(Object.class, null);
+
+
+
+        //typeComboBox.setModel(new DefaultComboBoxModel<>(new String[]{ "Mjukvara", "Hårdvara", "Snabbguide"}));
+
+        //categoryComboBox.setModel(new DefaultComboBoxModel<>(new String[]{ "Internet", "Dator", "Mobil", "Övrigt"}));
 
 
         GridLayout layout = new GridLayout(2,1,0,0);
