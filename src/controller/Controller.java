@@ -2,6 +2,8 @@ package controller;
 
 import model.*;
 import view.*;
+import view.utils.GuiUtilities;
+import view.utils.UserSettings;
 
 
 import javax.swing.*;
@@ -23,7 +25,6 @@ import java.util.ArrayList;
 public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
     private User user;
     private Guide guide;
-    private UserHomepageFrameGammal userHomePageFrameOld;
     private UserHomePageFrame userHomePageFrame;
     private MainFrame view;
     private DbCon con;

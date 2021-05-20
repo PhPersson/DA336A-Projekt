@@ -20,18 +20,18 @@ import java.io.IOException;
 
 public class HomePageFrame extends JFrame implements ActionListener {
 
-    private JPanel middle, top, topUpper, topLower, lower, pnlSearchResult;
 
-    private JButton btnLogin,btnSearch,btnShowGuides;
+    private JPanel middle, top, topUpper, topLower, lower, pnlSearchResult;
+    private JButton btnLogin, btnSearch, btnShowGuides;
     private JScrollPane jScrollPane1;
     private JTable table;
-    private JLabel lblLogo,lblSearchResult, lblEmpty;
+    private JLabel lblLogo, lblSearchResult, lblEmpty;
     private JTextField txtSearch;
-    private Controller controller;
-    private String btnSearchToolTip = "<html><p style='font-style:italic;color:black;'>" +
+    private final Controller controller;
+    private final String btnSearchToolTip = "<html><p style='font-style:italic;color:black;'>" +
             "Sök efter en guide baserat på användarnamn och/eller titel</p></html> ";
-    private String btnShowGuideToolTip = "<html><p style='font-style:italic;color:black'>" +
-                        "Markera den guide du vill se" + " Tryck sedan här igen</p></html> ";
+    private final String btnShowGuideToolTip = "<html><p style='font-style:italic;color:black'>" +
+            "Markera den guide du vill se" + " Tryck sedan här igen</p></html> ";
 
     public HomePageFrame(Controller controller) {
         this.controller = controller;
@@ -48,7 +48,7 @@ public class HomePageFrame extends JFrame implements ActionListener {
             e.printStackTrace();
         }
         lblLogo = new JLabel(new ImageIcon(myPicture.getScaledInstance(
-                140,38, Image.SCALE_SMOOTH)));
+                140, 38, Image.SCALE_SMOOTH)));
 
         txtSearch = new JTextField();
         btnSearch = new JButton();
@@ -61,7 +61,7 @@ public class HomePageFrame extends JFrame implements ActionListener {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         txtSearch.setFont(new Font("Tahoma", 0, 14));
-        txtSearch.setPreferredSize(new Dimension(400,25));
+        txtSearch.setPreferredSize(new Dimension(400, 25));
         txtSearch.setText("Sök här efter guide...");
         txtSearch.addMouseListener(new MouseAdapter(){
             @Override
@@ -75,12 +75,12 @@ public class HomePageFrame extends JFrame implements ActionListener {
         btnSearch.setText("Sök");
 
         btnSearch.setToolTipText(btnSearchToolTip);
-        btnSearch.setPreferredSize(new Dimension(100,25));
+        btnSearch.setPreferredSize(new Dimension(100, 25));
 
         table.setModel(new DefaultTableModel(
-                new Object [][] {
+                new Object[][]{
                 },
-                new String [] {
+                new String[]{
                         "Title", "Username", "Date", "Ratings"
                 }
         ));
@@ -96,15 +96,17 @@ public class HomePageFrame extends JFrame implements ActionListener {
 
         btnLogin.setFont(new Font("Tahoma", 0, 14));
         btnLogin.setText("Logga in");
-        btnLogin.setPreferredSize(new Dimension(10,10));
+        btnLogin.setPreferredSize(new Dimension(10, 10));
 
         table.setDefaultEditor(Object.class, null);
 
+
         GridLayout layout = new GridLayout(2,1,0,0);
 
-        GridLayout layoutTopGap = new GridLayout(1,2,200,0);
-        GridLayout gridLayout = new GridLayout(1,2,250,0);
-        GridLayout layoutTop = new GridLayout(1,2,0,0);
+
+        GridLayout layoutTopGap = new GridLayout(1, 2, 200, 0);
+        GridLayout gridLayout = new GridLayout(1, 2, 250, 0);
+        GridLayout layoutTop = new GridLayout(1, 2, 0, 0);
         Container panel;
 
         Border emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
@@ -120,14 +122,14 @@ public class HomePageFrame extends JFrame implements ActionListener {
         topUpper.setLayout(new BoxLayout(topUpper, BoxLayout.X_AXIS));
         topUpper.setBorder(emptyBorder);
 
-        topLower = new JPanel(new GridLayout(1,2));
-        topLower.setLayout(new BoxLayout(topLower,BoxLayout.X_AXIS));
+        topLower = new JPanel(new GridLayout(1, 2));
+        topLower.setLayout(new BoxLayout(topLower, BoxLayout.X_AXIS));
         topLower = new JPanel();
         //topLower.setLayout(layoutTop);
         topLower.setBorder(emptyBorder);
 
         topUpper.add(lblLogo);
-        topUpper.add(Box.createRigidArea(new Dimension(275,10)));
+        topUpper.add(Box.createRigidArea(new Dimension(275, 10)));
         topUpper.add(btnLogin);
 
         topLower.add(txtSearch);
@@ -143,6 +145,9 @@ public class HomePageFrame extends JFrame implements ActionListener {
         pnlSearchResult.setBorder(BorderFactory.createEmptyBorder(0,0,2,10));
 
         middle = new JPanel(new GridLayout(2,1));
+
+        middle = new JPanel(new GridLayout(2, 1));
+
         middle.setLayout(new BoxLayout(middle, BoxLayout.Y_AXIS));
         middle.setBorder(emptyBorderMiddle);
 
@@ -154,7 +159,7 @@ public class HomePageFrame extends JFrame implements ActionListener {
         lower.setLayout(gridLayout);
         lower.setBorder(emptyBorderMiddle);
 
-        btnShowGuides.setPreferredSize(new Dimension(10,30));
+        btnShowGuides.setPreferredSize(new Dimension(10, 30));
         lblEmpty = new JLabel();
 
         lower.add(lblEmpty);
@@ -191,8 +196,8 @@ public class HomePageFrame extends JFrame implements ActionListener {
         table.setModel(update);
     }
 
-    public int getGuideId(){
-        int guideId = (int) table.getModel().getValueAt(table.getSelectedRow(),0);
+    public int getGuideId() {
+        int guideId = (int) table.getModel().getValueAt(table.getSelectedRow(), 0);
         return guideId;
     }
 
@@ -202,20 +207,19 @@ public class HomePageFrame extends JFrame implements ActionListener {
             controller.btnNoLoginSearchGuide(txtSearch.getText());
         } else if (e.getSource() == btnLogin) {
             controller.btnHomePageFrameLogin();
-        } else if (e.getSource() == btnShowGuides){
+        } else if (e.getSource() == btnShowGuides) {
 
             int row = table.getSelectedRow();
-            int guideId = controller.getGuideId(table.getModel().getValueAt(row,0).toString());
+            int guideId = controller.getGuideId(table.getModel().getValueAt(row, 0).toString());
             controller.homeOpenGuide(
                     guideId,
-                    table.getModel().getValueAt(row,0).toString(),
-                    table.getModel().getValueAt(row,1).toString(),
-                    table.getModel().getValueAt(row,2).toString(),
+                    table.getModel().getValueAt(row, 0).toString(),
+                    table.getModel().getValueAt(row, 1).toString(),
+                    table.getModel().getValueAt(row, 2).toString(),
                     controller.getGuideDescription(guideId));
 
 
-
-        } else if (e.getSource() == btnSearch){
+        } else if (e.getSource() == btnSearch) {
             controller.btnNoLoginSearchGuide(txtSearch.getText());
         }
     }
