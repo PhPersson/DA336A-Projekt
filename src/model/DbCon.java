@@ -673,6 +673,7 @@ public class DbCon {
             exception.printStackTrace();
 
         }
+
             Image image = Toolkit.getDefaultToolkit().createImage(imageBytes);
             image.getScaledInstance(250, 250, Image.SCALE_DEFAULT);
             photo = new ImageIcon(image);

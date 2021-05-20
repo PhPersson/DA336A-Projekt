@@ -21,7 +21,7 @@ import java.io.IOException;
 public class HomePageFrame extends JFrame implements ActionListener {
 
 
-    private JPanel middle, top, topUpper, topLower, lower, pnlSearchResult;
+    private JPanel middle, top, topUpper, topLower, lower, pnlSearchResult, pnlCombo;
     private JButton btnLogin, btnSearch, btnShowGuides;
     private JScrollPane jScrollPane1;
     private JTable table;
@@ -104,10 +104,12 @@ public class HomePageFrame extends JFrame implements ActionListener {
         table.setDefaultEditor(Object.class, null);
 
 
+        typeComboBox = new JComboBox<>();
+        categoryComboBox = new JComboBox<>();
 
-        //typeComboBox.setModel(new DefaultComboBoxModel<>(new String[]{ "Mjukvara", "Hårdvara", "Snabbguide"}));
+        typeComboBox.setModel(new DefaultComboBoxModel<>(new String[]{ "Sök efter typ", "Mjukvara", "Hårdvara", "Snabbguide"}));
+        categoryComboBox.setModel(new DefaultComboBoxModel<>(new String[]{ "Sök efter kategori", "Internet", "Dator", "Mobil", "Övrigt"}));
 
-        //categoryComboBox.setModel(new DefaultComboBoxModel<>(new String[]{ "Internet", "Dator", "Mobil", "Övrigt"}));
 
 
         GridLayout layout = new GridLayout(2,1,0,0);
@@ -144,10 +146,25 @@ public class HomePageFrame extends JFrame implements ActionListener {
         topLower.add(txtSearch);
         topLower.add(btnSearch);
 
+        pnlCombo = new JPanel(new GridLayout(1,2,10,0));
+
+
+        pnlCombo.add(typeComboBox);
+        pnlCombo.add(categoryComboBox);
+
+        //add(pnlCombo, BorderLayout.);
+
+
+
+
+
+
         top.add(topUpper, BorderLayout.NORTH);
         top.add(topLower, BorderLayout.CENTER);
+        //top.add(pnlCombo, BorderLayout.SOUTH);
 
         add(top, BorderLayout.NORTH);
+       // add(pnlCombo);
 
         pnlSearchResult = new JPanel(new BorderLayout());
         pnlSearchResult.add(lblSearchResult, BorderLayout.WEST);
@@ -155,7 +172,6 @@ public class HomePageFrame extends JFrame implements ActionListener {
 
         middle = new JPanel(new GridLayout(2,1));
 
-        middle = new JPanel(new GridLayout(2, 1));
 
         middle.setLayout(new BoxLayout(middle, BoxLayout.Y_AXIS));
         middle.setBorder(emptyBorderMiddle);
@@ -176,6 +192,7 @@ public class HomePageFrame extends JFrame implements ActionListener {
         lower.add(btnShowGuides);
 
         add(lower, BorderLayout.SOUTH);
+
 
         pack();
         setLocationRelativeTo(null);
