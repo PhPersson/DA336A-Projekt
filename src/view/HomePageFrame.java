@@ -147,7 +147,6 @@ public class HomePageFrame extends JFrame implements ActionListener {
 
         add(middle, BorderLayout.CENTER);
 
-
         lower = new JPanel();
         lower.setLayout(gridLayout);
         lower.setBorder(emptyBorderMiddle);
@@ -161,19 +160,7 @@ public class HomePageFrame extends JFrame implements ActionListener {
 
         add(lower, BorderLayout.SOUTH);
 
-
         //add(btnShowGuides, BorderLayout.SOUTH);
-
-
-
-
-
-
-
-
-
-
-
 
         pack();
         setLocationRelativeTo(null);
