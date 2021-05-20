@@ -11,10 +11,13 @@ import javax.swing.*;
  */
 public class MainFrame extends JFrame {
 
+
     private final LoginFrame loginFrame;
     private UserHomePageFrame homepageFrame;
-    private final Controller controller;
-    private final GuiUtilities util;
+    private LoginFrame loginFrame;
+    private UserHomePageFrame homepageFrame;
+    private Controller controller;
+    private GuiUtilities util;
 
     public MainFrame(Controller controller) {
         this.controller = controller;
@@ -59,7 +62,7 @@ public class MainFrame extends JFrame {
         return loginFrame.getRegisterFrame();
     }
 
-    public UserHomePageFrame getHomepageFrame() {
+    public UserHomePageFrame getHomepageFrame(){
         return getHomepageFrame();
     }
 

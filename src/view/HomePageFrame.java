@@ -7,10 +7,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -61,11 +58,17 @@ public class HomePageFrame extends JFrame implements ActionListener {
         btnShowGuides = new JButton();
         btnLogin = new JButton();
 
-
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
         txtSearch.setFont(new Font("Tahoma", 0, 14));
         txtSearch.setPreferredSize(new Dimension(400, 25));
         txtSearch.setText("Sök här efter guide...");
+        txtSearch.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e){
+                txtSearch.setText("");
+            }
+        });
 
 
         btnSearch.setFont(new Font("Tahoma", 0, 14));
@@ -81,6 +84,7 @@ public class HomePageFrame extends JFrame implements ActionListener {
                         "Title", "Username", "Date", "Ratings"
                 }
         ));
+
         jScrollPane1.setViewportView(table);
 
         lblSearchResult.setFont(new Font("Tahoma", 0, 14));
@@ -97,18 +101,17 @@ public class HomePageFrame extends JFrame implements ActionListener {
         table.setDefaultEditor(Object.class, null);
 
 
-        GridLayout layout = new GridLayout(2, 1, 0, 0);
+        GridLayout layout = new GridLayout(2,1,0,0);
+
 
         GridLayout layoutTopGap = new GridLayout(1, 2, 200, 0);
         GridLayout gridLayout = new GridLayout(1, 2, 250, 0);
         GridLayout layoutTop = new GridLayout(1, 2, 0, 0);
         Container panel;
 
-
         Border emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
         Border emptyBorderLower = BorderFactory.createEmptyBorder(0, 10, 10, 10);
         Border emptyBorderMiddle = BorderFactory.createEmptyBorder(10, 20, 10, 20);
-
 
         top = new JPanel();
         top.setLayout(layout);
@@ -158,8 +161,6 @@ public class HomePageFrame extends JFrame implements ActionListener {
         lower.add(btnShowGuides);
 
         add(lower, BorderLayout.SOUTH);
-
-        //add(btnShowGuides, BorderLayout.SOUTH);
 
         pack();
         setLocationRelativeTo(null);
@@ -217,6 +218,4 @@ public class HomePageFrame extends JFrame implements ActionListener {
             controller.btnNoLoginSearchGuide(txtSearch.getText());
         }
     }
-
-
 }

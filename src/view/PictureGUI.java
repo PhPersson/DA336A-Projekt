@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 
 /**
  * @author Philip Persson
- * @author
+ * @author Alexander Olsson
  * @author
  * @version 1.0
  */
@@ -35,11 +35,11 @@ public class PictureGUI extends JFrame implements ActionListener {
         centerPanel = new JPanel();
         southPanel = new JPanel(new FlowLayout());
 
-        //lblPicture.setIcon();
-
         lblPicture = new JLabel();
-        lblPicture.setPreferredSize(new Dimension(500, 400));
-//        lblPicture.setIcon(controller.getPicture());
+
+        lblPicture.setPreferredSize(new Dimension(500,400));
+        lblPicture.setIcon(controller.getPicture());
+
 
         btnBack = new JButton("Föregående bild");
         btnNext = new JButton("Nästa bild");

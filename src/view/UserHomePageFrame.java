@@ -6,10 +6,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -87,6 +84,12 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         txtSearch.setFont(new Font("Tahoma", 0, 14));
+        txtSearch.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e){
+                txtSearch.setText("");
+            }
+        });
 
         btnSearch.setFont(new Font("Tahoma", 0, 14));
         btnSearch.setText("Sök");
@@ -133,8 +136,8 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
         jScrollPane1.setViewportView(jTableUp);
         jScrollPane2.setViewportView(jTableLow);
 
-        jScrollPane1.setPreferredSize(new Dimension(600, 250));
-        jScrollPane2.setPreferredSize(new Dimension(600, 250));
+        jScrollPane1.setPreferredSize(new Dimension(500,200));
+        jScrollPane2.setPreferredSize(new Dimension(500,200));
 
         jTableUp.setDefaultEditor(Object.class, null);
         jTableLow.setDefaultEditor(Object.class, null);
@@ -170,9 +173,9 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
         pnlGuideTable.setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15));
 
         pnlLogo.add(lblLogo, BorderLayout.WEST);
-        pnlLogo.add(lblActiveUser, BorderLayout.EAST);
-        pnlLogo.add(lblLoggedIn, BorderLayout.AFTER_LINE_ENDS);
-
+        pnlLogo.add(lblLoggedIn, BorderLayout.EAST);
+        pnlLogo.add(lblActiveUser);
+        
         pnlBtnNorth.add(btnUserSettings, BorderLayout.WEST);
         pnlBtnNorth.add(btnLogOff, BorderLayout.EAST);
 
