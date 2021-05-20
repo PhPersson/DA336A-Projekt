@@ -409,8 +409,8 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
     }
 
 
-    public void addPicturesToDb(String selectedFile) {
-        con.addPictureToGuide(selectedFile);
+    public void addPicturesToDb(String selectedFile, String guideId) {
+        con.addPictureToGuide(selectedFile, guideId);
     }
 
 
