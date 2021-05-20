@@ -11,9 +11,6 @@ import javax.swing.*;
  */
 public class MainFrame extends JFrame {
 
-
-    private final LoginFrame loginFrame;
-    private UserHomePageFrame homepageFrame;
     private LoginFrame loginFrame;
     private UserHomePageFrame homepageFrame;
     private Controller controller;

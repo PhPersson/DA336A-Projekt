@@ -6,6 +6,7 @@ import javax.swing.table.DefaultTableModel;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -627,17 +628,15 @@ public class DbCon {
     }
 
 
-    public void addPictureToGuide(String selectedFile) {
+    public void addPictureToGuide(String selectedFile, String guideId) {
         String query = "INSERT INTO Picture(picture, GuideId) VALUES(?,?)";
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             File file = new File(selectedFile);
             FileInputStream fis = new FileInputStream(file);
-            ps.setBinaryStream(1, fis);
-
-           // ps.setInt(2, guideId);
-            ps.setInt(2, 0);
-
+            ps.setBlob(1,fis);
+//            ps.setBinaryStream(1, fis);
+            ps.setInt(2, getGuideId(guideId) );
 
             ps.executeUpdate();
         } catch (FileNotFoundException | SQLException e) {
