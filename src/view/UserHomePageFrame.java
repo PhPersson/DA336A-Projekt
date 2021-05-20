@@ -164,16 +164,13 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
         jTableUp.setDefaultEditor(Object.class, null);
         jTableLow.setDefaultEditor(Object.class, null);
 
-
         typeComboBox = new JComboBox<>();
         categoryComboBox = new JComboBox<>();
 
         typeComboBox.setModel(new DefaultComboBoxModel<>(new String[]{ "Sök efter typ", "Mjukvara", "Hårdvara", "Snabbguide"}));
         categoryComboBox.setModel(new DefaultComboBoxModel<>(new String[]{ "Sök efter kategori", "Internet", "Dator", "Mobil", "Övrigt"}));
 
-
         getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
-
 
         pnlUpper = new JPanel(new BorderLayout());
         pnlLogoAndUser = new JPanel(new BorderLayout());
@@ -194,31 +191,11 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
         pnlUpperBorder = new JPanel(new GridLayout(3,1));
         pnlUpperBorder.setLayout(new BoxLayout(pnlUpperBorder, BoxLayout.Y_AXIS));
 
-
-        getjTableUp().addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2) {
-
-                    int row = getjTableUp().getSelectedRow();
-                    int guideId = controller.getGuideId(getjTableUp().getModel().getValueAt(row, 0).toString());
-                    
-                    controller.userHomeOpenGuide(guideId,
-                            getjTableUp().getModel().getValueAt(row, 0).toString(),
-                            getjTableUp().getModel().getValueAt(row,1).toString(),
-                            getjTableUp().getModel().getValueAt(row,2).toString(),
-                            controller.getGuideDescription(guideId));
-                }
-            }
-        });
-
-
         pnlUpper = new JPanel();
         pnlUser = new JPanel();
         pnlLogo = new JPanel();
 
         pnlCombo = new JPanel(new GridLayout(1,3,10,0));
-
 
         GridLayout layoutTop = new GridLayout(1,2,0,0);
 
@@ -229,7 +206,6 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
 
         pnlUser = new JPanel(new GridLayout(1,3));
         pnlUser.setLayout(new BoxLayout(pnlUser,BoxLayout.X_AXIS));
-
 
         add(pnlUpper);
 
@@ -253,11 +229,8 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
         pnlCombo.add(Box.createRigidArea(new Dimension(40,10)));
         pnlCombo.add(categoryComboBox);
 
-
-
         pnlSearchField.setLayout(new GridLayout(1,2));
         pnlSearchField.setLayout(new BoxLayout(pnlSearchField, BoxLayout.X_AXIS));
-
 
 
         add(pnlBtnNorth, getContentPane());
@@ -268,15 +241,10 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
         add(pnlTxtLow);
         add(pnlGuideTable, getContentPane());
 
-
         pnlUpper.setBorder(BorderFactory.createEmptyBorder(10,0,5,15));
         pnlBtnNorth.setBorder(BorderFactory.createEmptyBorder(10,15,30,15));
-
-
        // pnlLogoAndUser.setBorder(BorderFactory.createEmptyBorder(10,15,5,15));
         pnlBtnNorth.setBorder(BorderFactory.createEmptyBorder(10,15,5,15));
-
-      
         pnlSearchField.setBorder(BorderFactory.createEmptyBorder(10,15,5,15));
         pnlCombo.setBorder(BorderFactory.createEmptyBorder(0,75,0,75));
         pnlTxtUp.setBorder(BorderFactory.createEmptyBorder(2,20,2,10));
@@ -343,6 +311,46 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
                 }
             }
         });
+
+        jTableUp.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent mouseEvent) {
+                JTable table =(JTable) mouseEvent.getSource();
+                Point point = mouseEvent.getPoint();
+                int row = table.rowAtPoint(point);
+                if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
+                    try {
+                        int guideId = controller.getGuideId(jTableUp.getModel().getValueAt(row, 0).toString());
+                        controller.userHomeOpenGuide(guideId,
+                                jTableUp.getModel().getValueAt(row, 0).toString(),
+                                jTableUp.getModel().getValueAt(row, 1).toString(),
+                                jTableUp.getModel().getValueAt(row, 2).toString(),
+                                controller.getGuideDescription(guideId));
+                    } catch (ArrayIndexOutOfBoundsException exception) {
+                        controller.getUtil().showErrorDialog("Du har inte valt någon guide!");
+                    }
+                }
+            }
+        });
+
+        jTableLow.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent mouseEvent) {
+                JTable table =(JTable) mouseEvent.getSource();
+                Point point = mouseEvent.getPoint();
+                int row = table.rowAtPoint(point);
+                if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
+                    try {
+                        int guideId = controller.getGuideId(jTableLow.getModel().getValueAt(row, 0).toString());
+                        controller.userHomeOpenGuide(guideId,
+                                jTableLow.getModel().getValueAt(row, 0).toString(),
+                                jTableLow.getModel().getValueAt(row, 1).toString(),
+                                jTableLow.getModel().getValueAt(row, 2).toString(),
+                                controller.getGuideDescription(guideId));
+                    } catch (ArrayIndexOutOfBoundsException exception) {
+                        controller.getUtil().showErrorDialog("Du har inte valt någon guide!");
+                    }
+                }
+            }
+        });
     }
 
     public void addListeners() {
@@ -354,6 +362,23 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
         btnUserSettings.addActionListener(this);
         btnEditGuide.addActionListener(this);
         btnRemoveGuide.addActionListener(this);
+
+        typeComboBox.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    controller.comboBoxSearchGuideUHP(txtSearch.getSelectedText(), String.valueOf(typeComboBox.getSelectedItem()), String.valueOf(categoryComboBox.getSelectedItem()));
+                }
+            }
+        });
+        categoryComboBox.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    controller.comboBoxSearchGuideUHP(txtSearch.getSelectedText(), String.valueOf(typeComboBox.getSelectedItem()), String.valueOf(categoryComboBox.getSelectedItem()));
+                }
+            }
+        });
     }
 
     public void setLblLoginUser(String name) {
