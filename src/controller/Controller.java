@@ -4,6 +4,7 @@ import model.*;
 import view.*;
 
 
+import javax.swing.*;
 import java.awt.*;
 
 import java.io.File;
@@ -444,6 +445,5 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
             } catch (IOException ex) {
                 // no application registered for PDFs
             }
-        }
     }
 }
