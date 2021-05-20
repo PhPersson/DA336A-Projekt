@@ -6,10 +6,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -24,24 +21,26 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
 
     private JButton btnEditGuide, btnLogOff, btnNewGuide, btnShowGuideLower, btnRemoveGuide, btnSearch, btnShowGuideUpper;
     private JScrollPane jScrollPane1, jScrollPane2;
+
     private JPanel pnlUpper, pnlLogo, pnlUser, pnlBtnNorth, pnlSearchField, pnlSearchTable, pnlGuideTable, pnlTableUp, pnlTableUpBtn, pnlTableLow, pnlTableLowBtn,
             pnlTxtUp, pnlTxtLow, pnlCombo, pnlLowerBorder, pnlUpperBorder;
+
     private JTable jTableLow;
     private JTable jTableUp;
     private JLabel lblLoggedIn, lblSearchResult, lblYourGuides, lblActiveUser;
     private JTextField txtSearch;
     private JLabel lblLogo, lblType, lblCategory, lblChoose;
     private JButton btnUserSettings;
-    private Controller controller;
-    private String btnEditGuideToolTip = "<html><p style='font-style:italic;color:black'>" +
+    private final Controller controller;
+    private final String btnEditGuideToolTip = "<html><p style='font-style:italic;color:black'>" +
             "Markera den guide du vill redigera " + " Tryck sedan här igen</p></html>";
-    private String btnRemoveGuideToolTip = "<html><p style='font-style:italic;color:black'>" +
+    private final String btnRemoveGuideToolTip = "<html><p style='font-style:italic;color:black'>" +
             "Markera den guide du vill radera " + "Tryck sedan här igen</p></html>";
-    private String btnSearchToolTip = "<html><p style='font-style:italic;color:black;'>" +
+    private final String btnSearchToolTip = "<html><p style='font-style:italic;color:black;'>" +
             "Sök efter en guide baserat på användarnamn och/eller titel</p></html> ";
-    private String btnUserSettingsToolTip = "<html><p style='font-style:italic;color:black'>" +
+    private final String btnUserSettingsToolTip = "<html><p style='font-style:italic;color:black'>" +
             "Tryck här för att ändra dina nvändarinställningar</p></html>";
-    private String btnShowGuidesToolTip = "<html><p style='font-style:italic;color:black'>" +
+    private final String btnShowGuidesToolTip = "<html><p style='font-style:italic;color:black'>" +
             "Markera den guide du vill se" + " Tryck sedan här igen</p></html> ";
 
     private JComboBox<String> categoryComboBox, typeComboBox;
@@ -94,6 +93,12 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         txtSearch.setFont(new Font("Tahoma", 0, 14));
+        txtSearch.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e){
+                txtSearch.setText("");
+            }
+        });
 
         btnSearch.setFont(new Font("Tahoma", 0, 14));
         btnSearch.setText("Sök");
@@ -149,8 +154,8 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
         jScrollPane1.setViewportView(jTableUp);
         jScrollPane2.setViewportView(jTableLow);
 
-        jScrollPane1.setPreferredSize(new Dimension(600,250));
-        jScrollPane2.setPreferredSize(new Dimension(600,250));
+        jScrollPane1.setPreferredSize(new Dimension(500,200));
+        jScrollPane2.setPreferredSize(new Dimension(500,200));
 
         jTableUp.setDefaultEditor(Object.class, null);
         jTableLow.setDefaultEditor(Object.class, null);
@@ -165,7 +170,10 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
 
         getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 
+
         pnlUpper = new JPanel(new BorderLayout());
+        pnlLogoAndUser = new JPanel(new BorderLayout());
+
         pnlBtnNorth = new JPanel(new BorderLayout());
         pnlSearchField = new JPanel(new BoxLayout(pnlSearchField, BoxLayout.Y_AXIS));
         pnlSearchTable = new JPanel(new BorderLayout());
@@ -246,6 +254,9 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
         pnlSearchField.setLayout(new GridLayout(1,2));
         pnlSearchField.setLayout(new BoxLayout(pnlSearchField, BoxLayout.X_AXIS));
 
+
+
+        add(pnlLogoAndUser, getContentPane());
         add(pnlBtnNorth, getContentPane());
         //add(pnlSearchField, getContentPane());
         add(pnlSearchField);
@@ -255,8 +266,15 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
         add(pnlTxtLow);
         add(pnlGuideTable, getContentPane());
 
+
         pnlUpper.setBorder(BorderFactory.createEmptyBorder(10,0,5,15));
         pnlBtnNorth.setBorder(BorderFactory.createEmptyBorder(10,15,30,15));
+
+
+        pnlLogoAndUser.setBorder(BorderFactory.createEmptyBorder(10,15,5,15));
+        pnlBtnNorth.setBorder(BorderFactory.createEmptyBorder(10,15,5,15));
+
+      
         pnlSearchField.setBorder(BorderFactory.createEmptyBorder(10,15,5,15));
         pnlCombo.setBorder(BorderFactory.createEmptyBorder(0,75,0,75));
         pnlTxtUp.setBorder(BorderFactory.createEmptyBorder(2,20,2,10));
@@ -270,8 +288,16 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
         pnlUpperBorder.setBorder((BorderFactory.createTitledBorder("Alla guider")));
        // pnlUpper.add(lblLogo, BorderLayout.WEST);
 
+
         //pnlUpper.add(lblActiveUser, BorderLayout.CENTER);
         //pnlUpper.add(lblLoggedIn, BorderLayout.EAST);
+
+
+
+        pnlLogoAndUser.add(lblLogo, BorderLayout.WEST);
+        pnlLogoAndUser.add(lblLoggedIn, BorderLayout.AFTER_LINE_ENDS);
+        pnlLogoAndUser.add(lblActiveUser, BorderLayout.EAST);
+
 
         pnlBtnNorth.add(btnUserSettings, BorderLayout.WEST);
         pnlBtnNorth.add(btnLogOff, BorderLayout.EAST);

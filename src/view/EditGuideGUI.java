@@ -20,16 +20,28 @@ import java.io.IOException;
  */
 
 public class EditGuideGUI extends JFrame implements ActionListener {
-    private JFrame frame;
-    private JPanel centerPanel, southPanel, logoPanel, buttonPanel;
-    private JLabel authorTxt, dateTxt, titleLbl, authorLbl, dateLbl, lblType, lblCategory;
-    private JTextArea descriptionArea;
-    private JTextField titleTxt;
-    private Font bold, plain;
-    private JButton btnClose, btnSaveGuide;
-    private JScrollPane scroll;
-    private Controller controller;
-    private JComboBox typeComboBox, categoryComboBox;
+    private final JFrame frame;
+    private final JPanel centerPanel;
+    private final JPanel southPanel;
+    private final JPanel logoPanel;
+    private final JPanel buttonPanel;
+    private final JLabel authorTxt;
+    private final JLabel dateTxt;
+    private final JLabel titleLbl;
+    private final JLabel authorLbl;
+    private final JLabel dateLbl;
+    private final JLabel lblType;
+    private final JLabel lblCategory;
+    private final JTextArea descriptionArea;
+    private final JTextField titleTxt;
+    private final Font bold;
+    private final Font plain;
+    private final JButton btnClose;
+    private final JButton btnSaveGuide;
+    private final JScrollPane scroll;
+    private final Controller controller;
+    private final JComboBox typeComboBox;
+    private final JComboBox categoryComboBox;
 
     public EditGuideGUI(Controller controller, String titleString, String authorString, String dateString, String descriptionString, String type, String category) {
         this.controller = controller;
@@ -66,8 +78,8 @@ public class EditGuideGUI extends JFrame implements ActionListener {
         lblCategory = new JLabel("Kategori");
         lblCategory.setFont(bold);
 
-        String [] items = { "Mjukvara", "Hårdvara", "Snabbguide"};
-        String [] items2 = {"Internet", "Dator", "Mobil", "Övrigt"};
+        String[] items = {"Mjukvara", "Hårdvara", "Snabbguide"};
+        String[] items2 = {"Internet", "Dator", "Mobil", "Övrigt"};
 
         typeComboBox = new JComboBox(items);
         categoryComboBox = new JComboBox(items2);
@@ -152,11 +164,11 @@ public class EditGuideGUI extends JFrame implements ActionListener {
         return descriptionArea.getText();
     }
 
-    public String getTypeString(){
+    public String getTypeString() {
         return typeComboBox.getSelectedItem().toString();
     }
 
-    public String getCategoryString(){
+    public String getCategoryString() {
         return categoryComboBox.getSelectedItem().toString();
     }
 

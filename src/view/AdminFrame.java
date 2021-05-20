@@ -10,7 +10,6 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Objects;
 
 
 /**
@@ -29,7 +28,7 @@ public class AdminFrame extends JFrame implements ActionListener {
     private JComboBox<String> jComboBox2;
     private JLabel lblGuideSearch, lblLogo, lblUserSearch, lblAdminName, lblLogin;
 
-    private Controller controller;
+    private final Controller controller;
 
     public AdminFrame(Controller controller) {
         this.controller = controller;

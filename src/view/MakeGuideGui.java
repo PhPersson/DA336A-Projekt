@@ -9,24 +9,25 @@ import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 
+
 /**
- *
  * @author Alexander Olsson
  * @author Philip Persson
  * @author
  * @version 1.0
- *
  */
 
 public class MakeGuideGui extends JFrame implements ActionListener {
 
-    private Controller controller;
+    private final Controller controller;
 
-    private JPanel top,middle,lower, text, middlePanel, lbl;
+    private JPanel top, middle, lower, text, middlePanel, lbl;
 
-    private JButton btnCancel,btnMakeGuide,btnAddPicture;
+    private JButton btnCancel, btnMakeGuide, btnAddPicture;
     private JTextArea textAreaInput;
     private JComboBox<String> categoryComboBox;
     private JLabel lblMakeGuide, lblType, lblCategory, lblPicture;
@@ -43,19 +44,19 @@ public class MakeGuideGui extends JFrame implements ActionListener {
 
     private void initComponents() {
 
-        setSize(800,800);
+        setSize(800, 800);
 
         setTitle("Skapa guide");
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(true);
 
-        GridLayout layoutTop = new GridLayout(2,1,20,10);
-        GridLayout layoutMiddleLbl = new GridLayout(1,3,20,0);
+        GridLayout layoutTop = new GridLayout(2, 1, 20, 10);
+        GridLayout layoutMiddleLbl = new GridLayout(1, 3, 20, 0);
 
-        GridLayout layoutMiddle = new GridLayout(2,3,20,0);
-        GridLayout layoutLower = new GridLayout(1,2,150,0);
-        GridLayout LayoutMiddlePanel = new GridLayout(2,1,0,0);
+        GridLayout layoutMiddle = new GridLayout(2, 3, 20, 0);
+        GridLayout layoutLower = new GridLayout(1, 2, 150, 0);
+        GridLayout LayoutMiddlePanel = new GridLayout(2, 1, 0, 0);
 
 
         Border topBorder = BorderFactory.createEmptyBorder(10, 60, 10, 60);
@@ -84,9 +85,15 @@ public class MakeGuideGui extends JFrame implements ActionListener {
         middlePanel = new JPanel();
         middlePanel.setLayout(LayoutMiddlePanel);
 
-        textAreaInput = new JTextArea(20,40);
+        textAreaInput = new JTextArea(20, 40);
         jScrollPane1 = new JScrollPane(textAreaInput);
         textAreaInput.setText("Lägg till titel på din guide här...");
+        textAreaInput.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e){
+                textAreaInput.setText("");
+            }
+        });
 
         typeComboBox = new JComboBox<>();
         categoryComboBox = new JComboBox<>();
@@ -100,17 +107,23 @@ public class MakeGuideGui extends JFrame implements ActionListener {
         btnCancel = new JButton();
 
 
-        typeComboBox.setModel(new DefaultComboBoxModel<>(new String[]{ "Mjukvara", "Hårdvara", "Snabbguide"}));
+        typeComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Mjukvara", "Hårdvara", "Snabbguide"}));
 
-        categoryComboBox.setModel(new DefaultComboBoxModel<>(new String[]{ "Internet", "Dator", "Mobil", "Övrigt"}));
+        categoryComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Internet", "Dator", "Mobil", "Övrigt"}));
 
         fieldTitle.setText("Lägg till beskrivning på din guide här...");
+        fieldTitle.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e){
+                fieldTitle.setText("");
+            }
+        });
 
         btnMakeGuide.setText("Skapa guide");
 
         btnAddPicture.setFont(new Font("Tahoma", 0, 14)); // NOI18N
         btnAddPicture.setText("Lägg till bild");
-        btnAddPicture.setSize(new Dimension(10,10));
+        btnAddPicture.setSize(new Dimension(10, 10));
 
         lblMakeGuide.setFont(new Font("Tahoma", 1, 14)); // NOI18N
         lblMakeGuide.setText("Skapa ny guide");
@@ -127,8 +140,6 @@ public class MakeGuideGui extends JFrame implements ActionListener {
         btnCancel.setText("Stäng");
 
 
-
-
         top.add(lblMakeGuide, BorderLayout.NORTH);
         top.add(fieldTitle, BorderLayout.SOUTH);
 
@@ -139,7 +150,6 @@ public class MakeGuideGui extends JFrame implements ActionListener {
         middle.add(typeComboBox);
         middle.add(categoryComboBox);
         middle.add(btnAddPicture);
-
 
 
         text.add(jScrollPane1);
@@ -156,7 +166,6 @@ public class MakeGuideGui extends JFrame implements ActionListener {
 
         add(lower, BorderLayout.SOUTH);
 
-        //pack();
         setLocationRelativeTo(null);
         setVisible(true);
         addListeners();
@@ -177,11 +186,11 @@ public class MakeGuideGui extends JFrame implements ActionListener {
         return textAreaInput.getText();
     }
 
-    public String getTypeString(){
+    public String getTypeString() {
         return typeComboBox.getSelectedItem().toString();
     }
 
-    public String getCategoryString(){
+    public String getCategoryString() {
         return categoryComboBox.getSelectedItem().toString();
     }
 
@@ -189,8 +198,10 @@ public class MakeGuideGui extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnCancel) {
             controller.btnCancelGuide();
+            dispose();
         } else if (e.getSource() == btnMakeGuide) {
             controller.btnCreateGuide(selectedFile);
+            controller.addPicturesToDb(selectedFile,getTitleGuide());
             dispose();
         } else if (e.getSource() == btnAddPicture) {
             JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
@@ -199,8 +210,7 @@ public class MakeGuideGui extends JFrame implements ActionListener {
             fileChooser.showOpenDialog(null);
             if (JFileChooser.APPROVE_OPTION == 0) {
                 selectedFile = fileChooser.getSelectedFile().getPath();
-                controller.addPicturesToDb(selectedFile);
-                System.out.println(selectedFile);
+
             }
         }
 

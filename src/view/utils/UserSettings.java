@@ -1,4 +1,4 @@
-package view;
+package view.utils;
 
 import controller.Controller;
 
@@ -23,9 +23,9 @@ public class UserSettings extends JFrame implements ActionListener {
     private JTextField fieldEmail;
     private JFrame frame;
     private JTextField fieldPass1, fieldPass2;
-    private Controller controller;
-    private GuiUtilities util;
-    private JPanel panel,panelText,panelSouth;
+    private final Controller controller;
+    private final GuiUtilities util;
+    private JPanel panel, panelText, panelSouth;
     private javax.swing.text.Document emailDoc;
     private Document passDoc;
 
@@ -38,15 +38,15 @@ public class UserSettings extends JFrame implements ActionListener {
 
     private void initComponents() {
 
-        setSize(300,485);
+        setSize(300, 485);
 
 
         setTitle("Användarinställningar");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(false);
 
-        GridLayout layout = new GridLayout(8,1,0,5);
-        GridLayout layoutText = new GridLayout(5, 1, 0, 5 );
+        GridLayout layout = new GridLayout(8, 1, 0, 5);
+        GridLayout layoutText = new GridLayout(5, 1, 0, 5);
 
         Border emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
         Border emptyBorderButton = BorderFactory.createEmptyBorder(0, 10, 10, 10);
@@ -64,9 +64,6 @@ public class UserSettings extends JFrame implements ActionListener {
 
         panelSouth = new JPanel();
         panelSouth.setBorder(emptyBorderButton);
-
-
-
 
 
         fieldPass1 = new JPasswordField();
@@ -183,9 +180,9 @@ public class UserSettings extends JFrame implements ActionListener {
 }
 
 class EmailButtonController implements DocumentListener {
-    private JButton email;
+    private final JButton email;
 
-    EmailButtonController(JButton b){
+    EmailButtonController(JButton b) {
         email = b;
     }
 
@@ -204,7 +201,7 @@ class EmailButtonController implements DocumentListener {
 
     }
 
-    public void disableIfEmpty(DocumentEvent e){
+    public void disableIfEmpty(DocumentEvent e) {
 
 
         email.setEnabled(e.getDocument().getLength() > 0);
@@ -214,9 +211,9 @@ class EmailButtonController implements DocumentListener {
 }
 
 class PassButtonController implements DocumentListener {
-    private JButton pass;
+    private final JButton pass;
 
-    PassButtonController(JButton b){
+    PassButtonController(JButton b) {
         pass = b;
     }
 
@@ -235,7 +232,7 @@ class PassButtonController implements DocumentListener {
 
     }
 
-    public void disableIfEmpty(DocumentEvent e){
+    public void disableIfEmpty(DocumentEvent e) {
 
         pass.setEnabled(e.getDocument().getLength() > 0);
 
