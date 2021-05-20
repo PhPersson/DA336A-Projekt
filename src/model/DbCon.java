@@ -635,7 +635,9 @@ public class DbCon {
             FileInputStream fis = new FileInputStream(file);
             ps.setBinaryStream(1, fis);
 
-            ps.setInt(2, guideId);
+           // ps.setInt(2, guideId);
+            ps.setInt(2, 0);
+
 
             ps.executeUpdate();
         } catch (FileNotFoundException | SQLException e) {

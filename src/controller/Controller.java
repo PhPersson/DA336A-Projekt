@@ -3,7 +3,10 @@ package controller;
 import model.*;
 import view.*;
 
+
+import javax.swing.*;
 import java.awt.*;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -443,5 +446,9 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
                 // no application registered for PDFs
             }
         }
+    }
+
+    public Icon getPicture() {
+        return null;
     }
 }
