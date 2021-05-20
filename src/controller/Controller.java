@@ -369,7 +369,12 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
      */
     public void pictureGUI() {
         pictureGUI = new PictureGUI(this);
-        pictureGUI.setVisible(true);
+        ImageIcon image = con.getAPic(getGuideId(showGuideGUI.getTxtTitle()));
+        if (image != null) {
+            pictureGUI.showPic(image);
+        } else {
+            util.showErrorDialog("Denna guiden har inga bilder");
+        }
     }
 
     /**
