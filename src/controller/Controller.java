@@ -147,14 +147,28 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
     }
 
     public void comboBoxSearchGuideADM(String searchText, String type, String category) {
-        adminFrame.updateGuideList(con.searchGuideAdmin(searchText, type, category));
+        if (type.contains("Typ") && category.contains("Kategori")) {
+            adminFrame.updateGuideList(con.getAllGuides());
+        } else {
+            adminFrame.updateGuideList(con.searchGuideAdmin(searchText, type, category));
+        }
     }
 
     public void comboBoxSearchGuideUHP(String searchText, String type, String category) {
-        userHomePageFrame.updateUserSearchGuideList(con.searchGuideAdmin(searchText, type, category));
+        if (type.contains("typ") && category.contains("kategori")) {
+            userHomePageFrame.updateUserSearchGuideList(con.getAllGuides());
+        } else {
+            userHomePageFrame.updateUserSearchGuideList(con.searchGuideAdmin(searchText, type, category));
+        }
     }
+
+
     public void comboBoxSearchGuideHPF(String searchText, String type, String category) {
-        homePageFrame.updateUserSearchGuideList(con.searchGuideAdmin(searchText, type, category));
+        if (type.contains("typ") && category.contains("kategori")) {
+            homePageFrame.updateUserSearchGuideList(con.getAllGuides());
+        } else {
+            homePageFrame.updateUserSearchGuideList(con.searchGuideAdmin(searchText, type, category));
+        }
     }
 
     /**
