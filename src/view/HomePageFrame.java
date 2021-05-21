@@ -25,7 +25,7 @@ public class HomePageFrame extends JFrame implements ActionListener {
     private JButton btnLogin, btnSearch, btnShowGuides;
     private JScrollPane jScrollPane1;
     private JTable table;
-    private JLabel lblLogo, lblSearchResult, lblEmpty;
+    private JLabel lblLogo, lblSearchResult, lblEmpty, lblLoginInfo;
     private JTextField txtSearch;
     private final Controller controller;
     private final String btnSearchToolTip = "<html><p style='font-style:italic;color:black;'>" +
@@ -34,6 +34,8 @@ public class HomePageFrame extends JFrame implements ActionListener {
             "Markera den guide du vill se" + " Tryck sedan här igen</p></html> ";
 
     private JComboBox<String> categoryComboBox, typeComboBox;
+
+    private String infoMessage = "Logga in för att få tillgång till att skapa dina egna guider!";
 
 
     public HomePageFrame(Controller controller) {
@@ -104,6 +106,41 @@ public class HomePageFrame extends JFrame implements ActionListener {
         table.setDefaultEditor(Object.class, null);
 
 
+
+        BufferedImage infoIcon = null;
+        try {
+            infoIcon = ImageIO.read(new File("files/InfoLogga.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        lblLoginInfo = new JLabel();
+
+
+        lblLoginInfo.setIcon(new ImageIcon(infoIcon.getScaledInstance(15, 15, Image.SCALE_SMOOTH)));
+
+
+        lblLoginInfo.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                JOptionPane.showMessageDialog(null, infoMessage, "Kontaktinformation", JOptionPane.INFORMATION_MESSAGE);
+
+            }
+
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                lblLoginInfo.setForeground(Color.BLUE);
+            }
+
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                lblLoginInfo.setForeground(Color.black);
+
+            }
+        });
+
+
+
+
         typeComboBox = new JComboBox<>();
         categoryComboBox = new JComboBox<>();
 
@@ -121,6 +158,8 @@ public class HomePageFrame extends JFrame implements ActionListener {
         Container panel;
 
         Border emptyBorder = BorderFactory.createEmptyBorder(10, 10, 0, 10);
+        Border emptyBorderUpper = BorderFactory.createEmptyBorder(10, 10, 0, 0);
+
         Border emptyBorderLower = BorderFactory.createEmptyBorder(0, 10, 10, 10);
         Border emptyBorderMiddle = BorderFactory.createEmptyBorder(0, 20, 10, 20);
 
@@ -131,7 +170,7 @@ public class HomePageFrame extends JFrame implements ActionListener {
 
         topUpper = new JPanel();
         topUpper.setLayout(new BoxLayout(topUpper, BoxLayout.X_AXIS));
-        topUpper.setBorder(emptyBorder);
+        topUpper.setBorder(emptyBorderUpper);
 
         topLower = new JPanel(new GridLayout(1, 2));
         topLower.setLayout(new BoxLayout(topLower, BoxLayout.X_AXIS));
@@ -142,11 +181,15 @@ public class HomePageFrame extends JFrame implements ActionListener {
         topUpper.add(lblLogo);
         topUpper.add(Box.createRigidArea(new Dimension(275, 10)));
         topUpper.add(btnLogin);
+        topUpper.add(Box.createRigidArea(new Dimension(5, 10)));
+        topUpper.add(lblLoginInfo);
 
         topLower.add(txtSearch);
         topLower.add(btnSearch);
 
         pnlCombo = new JPanel();
+
+
 
 
         pnlCombo.add(typeComboBox);
