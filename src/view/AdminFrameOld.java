@@ -17,9 +17,11 @@ import java.io.IOException;
  * @author
  * @version 1.0
  */
-public class AdminFrame extends JFrame implements ActionListener {
+public class AdminFrameOld extends JFrame implements ActionListener {
 
     private JTable userTable, guideTable;
+    private JPanel top, middle, lower;
+    private JPanel pnlLogo, pnlLogOut, pnlWest, pnlEast;
     private JButton btnDeleteGuide, btnDeleteUser, btnEditGuide, btnLogOff, btnSearchGuide, btnSearchUser;
     private JScrollPane guideTableScroll, userTableScroll;
     private JTextField guideSearch, userSearch;
@@ -27,10 +29,14 @@ public class AdminFrame extends JFrame implements ActionListener {
     private JComboBox<String> categoryComboBox;
     private JLabel lblGuideSearch, lblLogo, lblUserSearch, lblAdminName, lblLogin;
 
-    private final Controller controller;
+    private Controller controller;
 
-    public AdminFrame(Controller controller) {
-        this.controller = controller;
+    public static void main(String[] args) {
+        new AdminFrameOld();
+    }
+
+    public AdminFrameOld() {
+        //this.controller = controller;
         initComponents();
     }
 
@@ -65,9 +71,10 @@ public class AdminFrame extends JFrame implements ActionListener {
         lblUserSearch = new JLabel();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setTitle("SupportME");
 
         guideSearch.setText("");
-        setTitle("SupportME");
+
         btnSearchGuide.setFont(new Font("Tahoma", 0, 12));
         btnSearchGuide.setText("Sök");
 
@@ -81,14 +88,11 @@ public class AdminFrame extends JFrame implements ActionListener {
         btnEditGuide.setFont(new Font("Tahoma", 0, 12));
         btnEditGuide.setText("Redigera");
 
-
         userTableScroll.setViewportView(userTable);
         guideTableScroll.setViewportView(guideTable);
 
-
         userTable.setDefaultEditor(Object.class, null);
         guideTable.setDefaultEditor(Object.class, null);
-
 
         lblLogin.setText("Inloggad:");
         lblGuideSearch.setText("Guide");
@@ -96,12 +100,11 @@ public class AdminFrame extends JFrame implements ActionListener {
         userSearch.setText(""); // TODO LÄGG TILL TOO TIP I KURSIV
         guideSearch.setText(""); // TODO LÄGG TILL TOO TIP I KURSIV
         userSearch.setText("");
+
         btnSearchUser.setFont(new Font("Tahoma", 0, 12));
         btnSearchUser.setText("Sök");
 
-
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
 
         btnSearchGuide.setFont(new Font("Tahoma", 0, 12));
         btnSearchGuide.setText("Sök");
@@ -116,20 +119,16 @@ public class AdminFrame extends JFrame implements ActionListener {
         btnEditGuide.setFont(new Font("Tahoma", 0, 12));
         btnEditGuide.setText("Redigera");
 
-
         userTableScroll.setViewportView(userTable);
-
 
         guideTableScroll.setViewportView(guideTable);
 
         lblGuideSearch.setText("Guide");
 
-
         btnSearchUser.setFont(new Font("Tahoma", 0, 12));
         btnSearchUser.setText("Sök");
 
         lblLogin.setText("Inloggad:");
-
 
         btnLogOff.setFont(new Font("Tahoma", 0, 12));
         btnLogOff.setText("Logga ut");
@@ -139,85 +138,28 @@ public class AdminFrame extends JFrame implements ActionListener {
 
         lblUserSearch.setText("Användare");
 
-        GroupLayout layout = new GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGap(40, 40, 40)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                        .addComponent(lblLogo)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
-                                                                .addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                                        .addComponent(guideSearch, GroupLayout.PREFERRED_SIZE, 340, GroupLayout.PREFERRED_SIZE)
-                                                                        .addGap(18, 18, 18)
-                                                                        .addComponent(btnSearchGuide, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE))
-                                                                .addGroup(layout.createSequentialGroup()
-                                                                        .addComponent(btnEditGuide, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE)
-                                                                        .addGap(18, 18, 18)
-                                                                        .addComponent(btnDeleteGuide, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE))
-                                                                .addGroup(layout.createSequentialGroup()
-                                                                        .addComponent(typeComboBox, GroupLayout.PREFERRED_SIZE, 151, GroupLayout.PREFERRED_SIZE)
-                                                                        .addGap(97, 97, 97)
-                                                                        .addComponent(categoryComboBox, GroupLayout.PREFERRED_SIZE, 183, GroupLayout.PREFERRED_SIZE))
-                                                                .addComponent(guideTableScroll, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                                                        .addComponent(lblGuideSearch))
-                                                .addGap(18, 18, 18)
-                                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                        .addComponent(lblUserSearch)
-                                                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                                .addComponent(userTableScroll, GroupLayout.PREFERRED_SIZE, 421, GroupLayout.PREFERRED_SIZE)
-                                                                .addGroup(layout.createSequentialGroup()
-                                                                        .addComponent(userSearch, GroupLayout.PREFERRED_SIZE, 340, GroupLayout.PREFERRED_SIZE)
-                                                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                                        .addComponent(btnSearchUser, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE))
-                                                                .addGroup(GroupLayout.Alignment.TRAILING, layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                                                        .addComponent(btnLogOff, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                        .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                                                .addComponent(lblLogin)
-                                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                                                                .addComponent(lblAdminName))))
-                                                        .addComponent(btnDeleteUser, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE))))
-                                .addContainerGap(40, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(lblLogo)
-                                        .addComponent(lblLogin)
-                                        .addComponent(lblAdminName))
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnLogOff)
-                                .addGap(18, 18, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(lblGuideSearch)
-                                        .addComponent(lblUserSearch))
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                        .addComponent(guideSearch, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                                .addComponent(userSearch, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(btnSearchUser, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(btnSearchGuide, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)))
-                                .addGap(16, 16, 16)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(typeComboBox, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(categoryComboBox, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(userTableScroll)
-                                        .addComponent(guideTableScroll))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(btnDeleteGuide)
-                                        .addComponent(btnEditGuide)
-                                        .addComponent(btnDeleteUser, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                                .addGap(36, 36, 36))
-        );
+        top = new JPanel(new BorderLayout());
+        middle = new JPanel(new BorderLayout());
+        pnlLogo = new JPanel(new BorderLayout());
+        pnlLogOut = new JPanel(new BorderLayout());
+        pnlWest = new JPanel();
+        pnlEast = new JPanel();
+
+        getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+
+        pnlWest.setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+        pnlEast.setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+
+        pnlLogo.add(lblLogo, BorderLayout.WEST);
+
+        add(top);
+        add(middle);
+        top.add(pnlLogo, BorderLayout.NORTH);
+        top.add(pnlLogOut, BorderLayout.SOUTH);
+        middle.add(pnlWest, BorderLayout.WEST);
+        middle.add(pnlEast, BorderLayout.EAST);
+
+
         addListeners();
         setResizable(false);
         pack();
