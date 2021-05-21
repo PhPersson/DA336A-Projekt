@@ -21,7 +21,7 @@ public class Email { // TODO KOMMENTERA DENNA KLASSEN!!!
     public static boolean isValidEmailAddress(String email) {
         boolean result = false;
         try {
-            if (email.contains("@") && email.contains(".com")) {
+            if (email.contains("@") && email.contains(".com") ||email.contains(".se") || email.contains(".nu")) {
                 InternetAddress emailAddress = new InternetAddress(email);
                 emailAddress.validate();
                 result = true;
@@ -45,7 +45,7 @@ public class Email { // TODO KOMMENTERA DENNA KLASSEN!!!
         {
             // Sender's email ID needs to be mentioned
             final String from = "supmeg25@gmail.com";
-            final String pass = "supportme25";
+            final String pass = "FaKFiiZVZAHzNc27Ujrm4ai8p9M9sVA";
             // Recipient's email ID needs to be mentioned.
             String to = recipient;
 
