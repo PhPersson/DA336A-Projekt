@@ -5,10 +5,8 @@ import view.*;
 import view.utils.GuiUtilities;
 import view.utils.UserSettings;
 
-
 import javax.swing.*;
 import java.awt.*;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -21,7 +19,6 @@ import java.util.ArrayList;
  * @author Alexander Olsson
  * @version 1.0
  */
-
 public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
     private User user;
     private Guide guide;
@@ -33,7 +30,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
     private HomePageFrame homePageFrame;
     private MakeGuideGui makeGuideGUI;
     private UserSettings userSettings;
-
+    private Thread login, register;
     private EditGuideGUI editGuideGUI;
     private PictureGUI pictureGUI;
     private ShowGuideGUI showGuideGUI;
@@ -43,9 +40,9 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
      *
      */
     public Controller() {
+        con = new DbCon(this);
         view = new MainFrame(this);
         util = new GuiUtilities();
-        con = new DbCon(this);
         user = new User();
         guide = new Guide();
     }
@@ -57,23 +54,8 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
      * Om det är valid så läggs den nya användare in i databasen med parapetrar: Username, Email, Password.
      */
     public void btnRegisterClicked() {
-        if (con.getAllUsernames(view.getTxtUsername())) {
-            util.showDialog("Detta användarnam finns redan, vänligen ange ett nytt");
-        }
-        if (!view.getRegisterFrame().getTxtPassword().isEmpty()) {
-
-            if (Email.isValidEmailAddress(view.getTxtEmail())) {
-                Email.sendMail(view.getTxtEmail(), view.getTxtUsername());
-                con.registerNewUser(new User(view.getTxtUsername().substring(0, 1).toUpperCase() + view.getTxtUsername().substring(1), view.getTxtEmail(), Hash.hashPass(view.gettxtPassword()), 0));
-
-                util.showDialog("Registrering av ny användare slutförd \nDu kan nu återgå och logga in");
-                view.getRegisterFrame().dispose();
-            } else {
-                util.showErrorDialog("Det är ingen gilltig e-postadress! \nAnge en gilltig e-postadress och försök igen!");
-            }
-        } else {
-            util.showErrorDialog("Du måste fylla i ett lösenord!");
-        }
+        register = new Register();
+        register.start();
     }
 
     /**
@@ -196,8 +178,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
      * Användare öppnar in från homePageFrame utan att logga in med ett konto.
      */
     public void btnHomePageFrameLogin() {
-        homePageFrame.dispose();
-        view.getLoginFrame().setVisible(true);
+        new LoginFrame(this);
         try {
             showGuideGUI.getFrame().dispose();
         } catch (NullPointerException e) {
@@ -211,7 +192,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
     public void btnUserLoggOff() {
         if (util.showConfirmationDialog("Är du säker att du vill logga ut?") == 1) {
             userHomePageFrame.dispose();
-            view.getLoginFrame().setVisible(true);
+            new LoginFrame(this);
             try {
                 editGuideGUI.getFrame().dispose();
                 showGuideGUI.getFrame().dispose();
@@ -265,7 +246,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
      */
 
     public void btnCreateGuide(String picture) {
-        util.showDialog("Guide '"+makeGuideGUI.getTitleGuide()+"' är skapad");
+        util.showDialog("Guide '" + makeGuideGUI.getTitleGuide() + "' är skapad");
         con.createGuide(guide = new Guide(makeGuideGUI.getTitleGuide(), makeGuideGUI.getDescriptionField(), user.getUsername().substring(0, 1).toUpperCase() + user.getUsername().substring(1), makeGuideGUI.getTypeString(), makeGuideGUI.getCategoryString()));
         userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
         userHomePageFrame.updateUserSearchGuideList(con.getAllGuidesUserSearch());
@@ -309,10 +290,10 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
      * If-satsen avgör om AdminFrame eller UserHomePageFrame.
      */
     public void btnSaveGuide() {
-        util.showDialog("Guide '"+editGuideGUI.getTitleEdit()+"' redigerad");
+        util.showDialog("Guide '" + editGuideGUI.getTitleEdit() + "' redigerad");
         if (adminFrame != null || userHomePageFrame == null) {
             int row = adminFrame.getGuideTable().getSelectedRow();
-            String oldTitel = adminFrame.getGuideTable().getModel().getValueAt(row,0).toString();
+            String oldTitel = adminFrame.getGuideTable().getModel().getValueAt(row, 0).toString();
             con.updateGuide(
                     editGuideGUI.getTitleEdit(),
                     editGuideGUI.getDescription(),
@@ -323,7 +304,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
             adminFrame.updateGuideList(con.getAllGuides());
         } else {
             int row = userHomePageFrame.getTableLow().getSelectedRow();
-            String oldTitel = userHomePageFrame.getTableLow().getValueAt(row,0).toString();
+            String oldTitel = userHomePageFrame.getTableLow().getValueAt(row, 0).toString();
             con.updateGuide(
                     editGuideGUI.getTitleEdit(),
                     editGuideGUI.getDescription(),
@@ -348,10 +329,10 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
                     adminFrame.getGuideTable().getModel().getValueAt(row, 0).toString(),
                     adminFrame.getGuideTable().getModel().getValueAt(row, 1).toString(),
                     adminFrame.getGuideTable().getModel().getValueAt(row, 2).toString(),
-                    getGuideDescription(getGuideId(adminFrame.getGuideTable().getModel().getValueAt(row,0).toString())),
+                    getGuideDescription(getGuideId(adminFrame.getGuideTable().getModel().getValueAt(row, 0).toString())),
 
-                    adminFrame.getGuideTable().getModel().getValueAt(row,5).toString(),
-                    adminFrame.getGuideTable().getModel().getValueAt(row,6).toString());
+                    adminFrame.getGuideTable().getModel().getValueAt(row, 5).toString(),
+                    adminFrame.getGuideTable().getModel().getValueAt(row, 6).toString());
         } else {
             int row = userHomePageFrame.getTableLow().getSelectedRow();
             editGuideGUI = new EditGuideGUI(this,
@@ -374,6 +355,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
             pictureGUI.showPic(image);
         } else {
             util.showErrorDialog("Denna guiden har inga bilder");
+            pictureGUI.dispose();
         }
     }
 
@@ -438,12 +420,12 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
         }
     }
 
-    public int getGuideId(String titel){
+    public int getGuideId(String titel) {
         return con.getGuideId(titel);
     }
 
 
-    public String getGuideDescription(int guideID){
+    public String getGuideDescription(int guideID) {
         return con.getGuideDescription(guideID);
     }
 
@@ -453,12 +435,35 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
                 File pdfFile = new File("files/SupportME.pdf");
                 Desktop.getDesktop().open(pdfFile);
             } catch (IOException ex) {
-                // no application registered for PDFs
             }
         }
     }
 
-    public Icon getPicture() {
-        return null;
+
+    class Register extends Thread {
+        private Controller controller;
+
+        public void run() {
+            if (con.getAllUsernames(view.getTxtUsername())) {
+                util.showDialog("Detta användarnam finns redan, vänligen ange ett nytt");
+            }
+            if (!view.getRegisterFrame().getTxtPassword().isEmpty()) {
+
+                if (Email.isValidEmailAddress(view.getTxtEmail())) {
+                    Email.sendMail(view.getTxtEmail(), view.getTxtUsername());
+                    con.registerNewUser(new User(view.getTxtUsername().substring(0, 1).toUpperCase() + view.getTxtUsername().substring(1), view.getTxtEmail(), Hash.hashPass(view.gettxtPassword()), 0));
+
+                    util.showDialog("Registrering av ny användare slutförd \nDu kan nu återgå och logga in");
+                    view.getRegisterFrame().dispose();
+                } else {
+                    util.showErrorDialog("Det är ingen gilltig e-postadress! \nAnge en gilltig e-postadress och försök igen!");
+                }
+            } else {
+                util.showErrorDialog("Du måste fylla i ett lösenord!");
+            }
+        }
     }
 }
+
+
+

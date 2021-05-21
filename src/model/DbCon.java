@@ -19,6 +19,7 @@ public class DbCon {
     private Connection connection;
     private int guideId;
     private Controller controller;
+    private Thread connect;
 
 
     /**
@@ -34,13 +35,8 @@ public class DbCon {
      * Ansluter till den fastställda databsen. Om databasen inte går att ansluta till visas ett felmeddelande.
      */
     public void connectToDatabase() {
-        try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            connection = DriverManager.getConnection(Values.getSqlUrl());
-        } catch (ClassNotFoundException | SQLException exception) {
-            controller.getUtil().showErrorDialog("Verkar som vi har problem med databasen, vi kommer åtgärda detta så snart som möjligt");
-            exception.printStackTrace();
-        }
+        connect = new ConnectToDB();
+        connect.start();
     }
 
     /**
@@ -372,7 +368,7 @@ public class DbCon {
                 int views = rs.getInt("views");
                 String type = rs.getString("type");
                 String category = rs.getString("category");
-                guideModel.addRow(new Object[]{ title, username, date, rating, views, type, category});
+                guideModel.addRow(new Object[]{title, username, date, rating, views, type, category});
             }
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -514,7 +510,8 @@ public class DbCon {
 
     /**
      * Uppdaterar en existerande guide.
-     *  @param title       , Titel på guiden
+     *
+     * @param title       , Titel på guiden
      * @param description , Innehållstexen i guiden
      * @param oldTitel
      */
@@ -618,7 +615,7 @@ public class DbCon {
         }
     }
 
-        /**
+    /**
      * Uppdaterar hur många som har tittat på en guide.
      *
      * @param guideId , Identifierare för vilken guide som det berör.
@@ -645,8 +642,8 @@ public class DbCon {
             PreparedStatement ps = connection.prepareStatement(query);
             File file = new File(selectedFile);
             FileInputStream fis = new FileInputStream(file);
-            ps.setBlob(1,fis);
-            ps.setInt(2, getGuideId(guideId) );
+            ps.setBlob(1, fis);
+            ps.setInt(2, getGuideId(guideId));
 
             ps.executeUpdate();
         } catch (FileNotFoundException | SQLException e) {
@@ -658,7 +655,7 @@ public class DbCon {
     public ImageIcon getAPic(int guideId) {
         String query = "SELECT picture from Picture WHERE guideId = ?";
         byte[] imageBytes = null;
-        ImageIcon photo = new ImageIcon();
+        ImageIcon photo;
 
         try {
             PreparedStatement ps = connection.prepareStatement(query);
@@ -669,14 +666,14 @@ public class DbCon {
                 imageBytes = rs.getBytes("picture");
             }
         } catch (SQLException exception) {
-            photo = null;
             exception.printStackTrace();
-
         }
-
+        if (imageBytes != null) {
             Image image = Toolkit.getDefaultToolkit().createImage(imageBytes);
-            image.getScaledInstance(250, 250, Image.SCALE_DEFAULT);
             photo = new ImageIcon(image);
+        } else {
+            photo = null;
+        }
         return photo;
     }
 
@@ -704,7 +701,7 @@ public class DbCon {
         String query = "SELECT description FROM Guide WHERE guideId = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setInt(1,guideID);
+            ps.setInt(1, guideID);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 description = rs.getString("description");
@@ -714,6 +711,20 @@ public class DbCon {
             exception.printStackTrace();
         }
         return description;
+    }
+
+
+    private class ConnectToDB extends Thread {
+
+        public void run() {
+            try {
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                connection = DriverManager.getConnection(Values.getSqlUrl());
+            } catch (ClassNotFoundException | SQLException exception) {
+                controller.getUtil().showErrorDialog("Verkar som vi har problem med databasen, vi kommer åtgärda detta så snart som möjligt");
+                exception.printStackTrace();
+            }
+        }
     }
 }
 
