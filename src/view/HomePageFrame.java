@@ -112,7 +112,7 @@ public class HomePageFrame extends JFrame implements ActionListener {
 
 
 
-        GridLayout layout = new GridLayout(2,1,0,0);
+        GridLayout layout = new GridLayout(3,1,0,0);
 
 
         GridLayout layoutTopGap = new GridLayout(1, 2, 200, 0);
@@ -120,9 +120,9 @@ public class HomePageFrame extends JFrame implements ActionListener {
         GridLayout layoutTop = new GridLayout(1, 2, 0, 0);
         Container panel;
 
-        Border emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
+        Border emptyBorder = BorderFactory.createEmptyBorder(10, 10, 0, 10);
         Border emptyBorderLower = BorderFactory.createEmptyBorder(0, 10, 10, 10);
-        Border emptyBorderMiddle = BorderFactory.createEmptyBorder(10, 20, 10, 20);
+        Border emptyBorderMiddle = BorderFactory.createEmptyBorder(0, 20, 10, 20);
 
         top = new JPanel();
         top.setLayout(layout);
@@ -146,10 +146,11 @@ public class HomePageFrame extends JFrame implements ActionListener {
         topLower.add(txtSearch);
         topLower.add(btnSearch);
 
-        pnlCombo = new JPanel(new GridLayout(1,2,10,0));
+        pnlCombo = new JPanel();
 
 
         pnlCombo.add(typeComboBox);
+        pnlCombo.add(Box.createRigidArea(new Dimension(75, 10)));
         pnlCombo.add(categoryComboBox);
 
         //add(pnlCombo, BorderLayout.);
@@ -161,7 +162,7 @@ public class HomePageFrame extends JFrame implements ActionListener {
 
         top.add(topUpper, BorderLayout.NORTH);
         top.add(topLower, BorderLayout.CENTER);
-        //top.add(pnlCombo, BorderLayout.SOUTH);
+        top.add(pnlCombo);
 
         add(top, BorderLayout.NORTH);
        // add(pnlCombo);
@@ -236,12 +237,34 @@ public class HomePageFrame extends JFrame implements ActionListener {
         btnLogin.addActionListener(this);
         btnSearch.addActionListener(this);
         btnShowGuides.addActionListener(this);
+
+        typeComboBox.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    controller.comboBoxSearchGuideHPF(txtSearch.getSelectedText(), String.valueOf(typeComboBox.getSelectedItem()), String.valueOf(categoryComboBox.getSelectedItem()));
+                }
+            }
+        });
+        categoryComboBox.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    controller.comboBoxSearchGuideHPF(txtSearch.getSelectedText(), String.valueOf(typeComboBox.getSelectedItem()), String.valueOf(categoryComboBox.getSelectedItem()));
+                }
+            }
+        });
     }
 
     public void updateSearchGuideList(DefaultTableModel update) {
         table.setModel(update);
     }
 
+
+
+    public void updateUserSearchGuideList(DefaultTableModel update) {
+        table.setModel(update);
+    }
     public int getGuideId() {
         int guideId = (int) table.getModel().getValueAt(table.getSelectedRow(), 0);
         return guideId;

@@ -165,6 +165,9 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
     public void comboBoxSearchGuideUHP(String searchText, String type, String category) {
         userHomePageFrame.updateUserSearchGuideList(con.searchGuideAdmin(searchText, type, category));
     }
+    public void comboBoxSearchGuideHPF(String searchText, String type, String category) {
+        homePageFrame.updateUserSearchGuideList(con.searchGuideAdmin(searchText, type, category));
+    }
 
     /**
      * Admin söker efter guider.
