@@ -262,7 +262,7 @@ public class HomePageFrame extends JFrame implements ActionListener {
                 if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
                     try {
                         int guideId = controller.getGuideId(table.getModel().getValueAt(row, 0).toString());
-                        controller.userHomeOpenGuide(guideId,
+                        controller.homeOpenGuide(guideId,
                                 table.getModel().getValueAt(row, 0).toString(),
                                 table.getModel().getValueAt(row, 1).toString(),
                                 table.getModel().getValueAt(row, 2).toString(),
