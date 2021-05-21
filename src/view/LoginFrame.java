@@ -52,7 +52,7 @@ public class LoginFrame extends JFrame implements ActionListener {
         setTitle("Inloggning");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
-        setSize(400, 270); //275
+        setSize(400, 270);
         setLayout(new BorderLayout());
 
         GridLayout layout = new GridLayout(2, 2, 0, 0);
