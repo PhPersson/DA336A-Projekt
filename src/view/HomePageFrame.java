@@ -166,7 +166,7 @@ public class HomePageFrame extends JFrame implements ActionListener {
         top = new JPanel();
         top.setLayout(layout);
         top.setBorder(emptyBorder);
-        // top.setPreferredSize(new Dimension(400,800));
+
 
         topUpper = new JPanel();
         topUpper.setLayout(new BoxLayout(topUpper, BoxLayout.X_AXIS));
@@ -196,7 +196,6 @@ public class HomePageFrame extends JFrame implements ActionListener {
         pnlCombo.add(Box.createRigidArea(new Dimension(75, 10)));
         pnlCombo.add(categoryComboBox);
 
-        //add(pnlCombo, BorderLayout.);
 
 
 
@@ -263,7 +262,7 @@ public class HomePageFrame extends JFrame implements ActionListener {
                 if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
                     try {
                         int guideId = controller.getGuideId(table.getModel().getValueAt(row, 0).toString());
-                        controller.userHomeOpenGuide(guideId,
+                        controller.homeOpenGuide(guideId,
                                 table.getModel().getValueAt(row, 0).toString(),
                                 table.getModel().getValueAt(row, 1).toString(),
                                 table.getModel().getValueAt(row, 2).toString(),
@@ -320,6 +319,7 @@ public class HomePageFrame extends JFrame implements ActionListener {
             controller.btnNoLoginSearchGuide(txtSearch.getText());
         } else if (e.getSource() == btnLogin) {
             controller.btnHomePageFrameLogin();
+            dispose();
         } else if (e.getSource() == btnShowGuides) {
             int row = table.getSelectedRow();
             int guideId = controller.getGuideId(table.getModel().getValueAt(row, 0).toString());
