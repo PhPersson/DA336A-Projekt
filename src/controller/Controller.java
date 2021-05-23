@@ -162,7 +162,6 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
         }
     }
 
-
     public void comboBoxSearchGuideHPF(String searchText, String type, String category) {
         if (type.contains("typ") && category.contains("kategori")) {
             homePageFrame.updateUserSearchGuideList(con.getAllGuides());
