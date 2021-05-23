@@ -132,6 +132,7 @@ public class AdminFrame extends JFrame implements ActionListener {
         btnSearchUser.setText("Sök");
 
         lblLogin.setText("Inloggad: ");
+        lblLogin.setAlignmentX(Component.RIGHT_ALIGNMENT);
 
         btnLogOff.setFont(new Font("Tahoma", 0, 12));
         btnLogOff.setText("Logga ut");
@@ -170,10 +171,11 @@ public class AdminFrame extends JFrame implements ActionListener {
         pnlUser.setLayout(new BoxLayout(pnlUser, BoxLayout.X_AXIS));
         pnlUser.add(Box.createHorizontalGlue());
 
-        top.setBorder(BorderFactory.createEmptyBorder(10,0,0,10));
-        middle.setBorder(BorderFactory.createEmptyBorder(0,10,10,10));
+        top.setBorder(BorderFactory.createEmptyBorder(0,0,0,10));
+        middle.setBorder(BorderFactory.createEmptyBorder(0,10,0,10));
         pnlTxtUser.setBorder(BorderFactory.createEmptyBorder(0,4,2,10));
         pnlTxtGuide.setBorder(BorderFactory.createEmptyBorder(0,4,2,10));
+        pnlEastTable.setBorder(BorderFactory.createEmptyBorder(27,0,0,0));
 
         add(top);
         add(middle);
@@ -186,9 +188,6 @@ public class AdminFrame extends JFrame implements ActionListener {
 
         pnlUser.add(lblLogin);
         pnlUser.add(lblAdminName);
-
-        lblLogin.setAlignmentX(Component.RIGHT_ALIGNMENT);
-        lblAdminName.setText("Admin");
 
         middle.add(pnlWest, BorderLayout.WEST);
         middle.add(pnlEast, BorderLayout.EAST);
@@ -218,6 +217,8 @@ public class AdminFrame extends JFrame implements ActionListener {
         pnlComboBoxGuide.add(typeComboBox, BorderLayout.WEST);
         pnlComboBoxGuide.add(categoryComboBox, BorderLayout.EAST);
 
+        typeComboBox2.setVisible(false);
+        categoryComboBox2.setVisible(false);
         pnlComboBoxUser.add(typeComboBox2, BorderLayout.WEST);
         pnlComboBoxUser.add(categoryComboBox2, BorderLayout.EAST);
 
@@ -232,7 +233,6 @@ public class AdminFrame extends JFrame implements ActionListener {
 
         pnlSearchFieldUser.add(userSearch);
         pnlSearchFieldUser.add(btnSearchUser);
-
 
         addListeners();
         setResizable(false);
@@ -251,6 +251,7 @@ public class AdminFrame extends JFrame implements ActionListener {
                 }
             }
         });
+
         guideTable.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent mouseEvent) {
                 JTable table =(JTable) mouseEvent.getSource();
@@ -261,6 +262,7 @@ public class AdminFrame extends JFrame implements ActionListener {
                 }
             }
         });
+
         userTable.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent mouseEvent) {
                 JTable table =(JTable) mouseEvent.getSource();
