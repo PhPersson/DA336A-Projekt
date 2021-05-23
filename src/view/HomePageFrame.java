@@ -105,8 +105,6 @@ public class HomePageFrame extends JFrame implements ActionListener {
 
         table.setDefaultEditor(Object.class, null);
 
-
-
         BufferedImage infoIcon = null;
         try {
             infoIcon = ImageIO.read(new File("files/InfoLogga.png"));
@@ -116,14 +114,11 @@ public class HomePageFrame extends JFrame implements ActionListener {
 
         lblLoginInfo = new JLabel();
 
-
         lblLoginInfo.setIcon(new ImageIcon(infoIcon.getScaledInstance(15, 15, Image.SCALE_SMOOTH)));
-
 
         lblLoginInfo.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 JOptionPane.showMessageDialog(null, infoMessage, "Kontaktinformation", JOptionPane.INFORMATION_MESSAGE);
-
             }
 
             public void mouseEntered(MouseEvent e) {
@@ -138,35 +133,22 @@ public class HomePageFrame extends JFrame implements ActionListener {
             }
         });
 
-
-
-
         typeComboBox = new JComboBox<>();
         categoryComboBox = new JComboBox<>();
 
         typeComboBox.setModel(new DefaultComboBoxModel<>(new String[]{ "Sök efter typ", "Mjukvara", "Hårdvara", "Snabbguide"}));
         categoryComboBox.setModel(new DefaultComboBoxModel<>(new String[]{ "Sök efter kategori", "Internet", "Dator", "Mobil", "Övrigt"}));
 
-
-
         GridLayout layout = new GridLayout(3,1,0,0);
-
-
-        GridLayout layoutTopGap = new GridLayout(1, 2, 200, 0);
         GridLayout gridLayout = new GridLayout(1, 2, 250, 0);
-        GridLayout layoutTop = new GridLayout(1, 2, 0, 0);
-        Container panel;
 
-        Border emptyBorder = BorderFactory.createEmptyBorder(10, 10, 0, 10);
-        Border emptyBorderUpper = BorderFactory.createEmptyBorder(10, 10, 0, 0);
-
-        Border emptyBorderLower = BorderFactory.createEmptyBorder(0, 10, 10, 10);
-        Border emptyBorderMiddle = BorderFactory.createEmptyBorder(0, 20, 10, 20);
+        Border emptyBorder = BorderFactory.createEmptyBorder(5, 2, 0, 5);
+        Border emptyBorderUpper = BorderFactory.createEmptyBorder(5, 2, 0, 0);
+        Border emptyBorderMiddle = BorderFactory.createEmptyBorder(0, 10, 2, 10);
 
         top = new JPanel();
         top.setLayout(layout);
         top.setBorder(emptyBorder);
-
 
         topUpper = new JPanel();
         topUpper.setLayout(new BoxLayout(topUpper, BoxLayout.X_AXIS));
@@ -188,33 +170,21 @@ public class HomePageFrame extends JFrame implements ActionListener {
         topLower.add(btnSearch);
 
         pnlCombo = new JPanel();
-
-
-
-
         pnlCombo.add(typeComboBox);
-        pnlCombo.add(Box.createRigidArea(new Dimension(75, 10)));
+        pnlCombo.add(Box.createRigidArea(new Dimension(200, 10)));
         pnlCombo.add(categoryComboBox);
-
-
-
-
-
-
 
         top.add(topUpper, BorderLayout.NORTH);
         top.add(topLower, BorderLayout.CENTER);
         top.add(pnlCombo);
 
         add(top, BorderLayout.NORTH);
-       // add(pnlCombo);
 
         pnlSearchResult = new JPanel(new BorderLayout());
         pnlSearchResult.add(lblSearchResult, BorderLayout.WEST);
         pnlSearchResult.setBorder(BorderFactory.createEmptyBorder(0,0,2,10));
 
         middle = new JPanel(new GridLayout(2,1));
-
 
         middle.setLayout(new BoxLayout(middle, BoxLayout.Y_AXIS));
         middle.setBorder(emptyBorderMiddle);
@@ -230,12 +200,12 @@ public class HomePageFrame extends JFrame implements ActionListener {
         btnShowGuides.setPreferredSize(new Dimension(10, 30));
         lblEmpty = new JLabel();
 
-        lower.add(lblEmpty);
+        //lower.add(lblEmpty);
 
         lower.add(btnShowGuides);
+        lower.setBorder(BorderFactory.createEmptyBorder(0,225,0,225));
 
         add(lower, BorderLayout.SOUTH);
-
 
         pack();
         setLocationRelativeTo(null);

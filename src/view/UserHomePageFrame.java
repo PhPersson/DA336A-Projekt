@@ -167,8 +167,8 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
         typeComboBox = new JComboBox<>();
         categoryComboBox = new JComboBox<>();
 
-        typeComboBox.setModel(new DefaultComboBoxModel<>(new String[]{ "Sök efter typ", "Mjukvara", "Hårdvara", "Snabbguide"}));
-        categoryComboBox.setModel(new DefaultComboBoxModel<>(new String[]{ "Sök efter kategori", "Internet", "Dator", "Mobil", "Övrigt"}));
+        typeComboBox.setModel(new DefaultComboBoxModel<>(new String[]{ "Typ", "Mjukvara", "Hårdvara", "Snabbguide"}));
+        categoryComboBox.setModel(new DefaultComboBoxModel<>(new String[]{ "Kategori", "Internet", "Dator", "Mobil", "Övrigt"}));
 
         getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 
@@ -235,26 +235,18 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
         add(pnlGuideTable, getContentPane());
 
         pnlUpper.setBorder(BorderFactory.createEmptyBorder(10,5,5,15));
-        pnlBtnNorth.setBorder(BorderFactory.createEmptyBorder(10,15,30,15));
-       // pnlLogoAndUser.setBorder(BorderFactory.createEmptyBorder(10,15,5,15));
+        pnlBtnNorth.setBorder(BorderFactory.createEmptyBorder(10,15,10,15));
+        //pnlLogoAndUser.setBorder(BorderFactory.createEmptyBorder(10,15,5,15));
         pnlBtnNorth.setBorder(BorderFactory.createEmptyBorder(10,15,5,15));
         pnlSearchField.setBorder(BorderFactory.createEmptyBorder(10,15,5,15));
-        pnlCombo.setBorder(BorderFactory.createEmptyBorder(0,75,0,75));
+        pnlCombo.setBorder(BorderFactory.createEmptyBorder(0,20,0,20));
         pnlTxtUp.setBorder(BorderFactory.createEmptyBorder(2,20,2,10));
         pnlSearchTable.setBorder(BorderFactory.createEmptyBorder(5,15,2,15));
         pnlTxtLow.setBorder(BorderFactory.createEmptyBorder(2,20,2,10));
         pnlGuideTable.setBorder(BorderFactory.createEmptyBorder(5,15,5,15));
 
-
         pnlLowerBorder.setBorder((BorderFactory.createTitledBorder("Dina guider")));
         pnlUpperBorder.setBorder((BorderFactory.createTitledBorder("Alla guider")));
-
-        pnlBtnNorth.setBorder(BorderFactory.createEmptyBorder(0, 15, 25, 15));
-        pnlSearchField.setBorder(BorderFactory.createEmptyBorder(10, 15, 5, 15));
-        pnlTxtUp.setBorder(BorderFactory.createEmptyBorder(2, 20, 2, 10));
-        pnlSearchTable.setBorder(BorderFactory.createEmptyBorder(5, 15, 2, 15));
-        pnlTxtLow.setBorder(BorderFactory.createEmptyBorder(2, 20, 2, 10));
-        pnlGuideTable.setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15));
 
         pnlBtnNorth.add(btnUserSettings, BorderLayout.WEST);
         pnlBtnNorth.add(btnLogOff, BorderLayout.EAST);
