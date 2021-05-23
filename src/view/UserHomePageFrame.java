@@ -343,6 +343,7 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
         });
     }
 
+
     public void addListeners() {
         btnNewGuide.addActionListener(this);
         btnSearch.addActionListener(this);
@@ -389,7 +390,7 @@ public class UserHomePageFrame extends JFrame implements ActionListener {
         if (e.getSource() == btnNewGuide) {
             controller.btnOpenCreateGuideFrame();
 
-        } else if (e.getSource() == btnLogOff) {
+        } if (e.getSource() == btnLogOff) {
             controller.btnUserLoggOff();
         } else if (e.getSource() == btnSearch) {
             controller.btnUserSearchGuide(txtSearch.getText());

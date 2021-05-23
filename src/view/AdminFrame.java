@@ -1,7 +1,6 @@
 package view;
 
 import controller.Controller;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -333,7 +332,7 @@ public class AdminFrame extends JFrame implements ActionListener {
             try {
                 controller.btnAdminDeleteUser(value);
             } catch (ArrayIndexOutOfBoundsException exception) {
-                controller.getUtil().showErrorDialog("Du har ännu inte valt någon guide!");
+                controller.getUtil().showErrorDialog("Du har ännu inte valt någon användare!");
             }
         } else if (e.getSource() == btnSearchUser) {
             controller.btnAdminSearchUser(userSearch.getText());

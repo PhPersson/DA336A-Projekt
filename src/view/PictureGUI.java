@@ -43,7 +43,6 @@ public class PictureGUI extends JFrame implements ActionListener {
         lblPicture = new JLabel("",SwingConstants.CENTER);
 
         lblPicture.setPreferredSize(new Dimension(500,400));
-        lblPicture.setIcon(controller.getPicture());
 
 
 
@@ -87,9 +86,9 @@ public class PictureGUI extends JFrame implements ActionListener {
     }
 
 
-    public void showPic(ImageIcon picture) {
-        int original_width = picture.getIconWidth();
-        int original_height = picture.getIconHeight();
+    public void showPic(ImageIcon pictureFromDb) {
+        int original_width = pictureFromDb.getIconWidth();
+        int original_height = pictureFromDb.getIconHeight();
         int bound_width = 500;
         int bound_height = 400;
         int new_width = original_width;
@@ -105,9 +104,9 @@ public class PictureGUI extends JFrame implements ActionListener {
             new_width = (new_height * original_width) / original_height;
         }
 
-        Image image = picture.getImage();
+        Image image = pictureFromDb.getImage();
         Image newimg = image.getScaledInstance(new_width,new_height, Image.SCALE_SMOOTH);
-        ImageIcon a = new ImageIcon(newimg);
-        lblPicture.setIcon(a);
+        ImageIcon picture = new ImageIcon(newimg);
+        lblPicture.setIcon(picture);
     }
 }
