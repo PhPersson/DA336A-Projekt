@@ -13,8 +13,6 @@ public class MainFrame extends JFrame {
 
 
     private final LoginFrame loginFrame;
-
-  
     private UserHomePageFrame homepageFrame;
     private Controller controller;
     private GuiUtilities util;
@@ -24,7 +22,6 @@ public class MainFrame extends JFrame {
         util = new GuiUtilities();
         loginFrame = new LoginFrame(controller);
     }
-
 
     public String getTxtUsername() {
         return loginFrame.getRegisterFrame().getTxtUsername();
