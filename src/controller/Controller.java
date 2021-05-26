@@ -109,6 +109,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
      */
     public void btnLoggOffAdmin() {
         adminFrame.dispose();
+        adminFrame = null;
         view.getLoginFrame().setVisible(true);
         try {
             editGuideGUI.getFrame().dispose();
