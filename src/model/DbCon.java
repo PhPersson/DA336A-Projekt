@@ -195,10 +195,15 @@ public class DbCon {
         try {
             connection.setAutoCommit(false);
 
+            String deletePicture = "DELETE FROM Picture WHERE guideId = ?";
+
             String deleteUser = "DELETE FROM GUIDE WHERE guideId = ?";
 
             PreparedStatement delete = connection.prepareStatement(deleteUser);
+            PreparedStatement psp = connection.prepareStatement(deletePicture);
+            psp.setInt(1,getGuideId(titel));
             delete.setInt(1, getGuideId(titel));
+            psp.execute();
             delete.execute();
             connection.commit();
             delete.close();
