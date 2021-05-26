@@ -75,15 +75,16 @@ public class Email { // TODO KOMMENTERA DENNA KLASSEN!!!
                 // Set From: header field of the header.
                 message.setFrom(new InternetAddress(from));
 
+
                 // Set To: header field of the header.
                 message.addRecipient(Message.RecipientType.TO,
                         new InternetAddress(to));
 
                 // Set Subject: header field
-                message.setSubject("Välkommen " + username + " till SupportMe!");
+                message.setSubject("Välkommen " + username + " till SupportMe!", "UTF-8");
 
                 // Now set the actual message
-                message.setContent("<h1>Välkommen!</h1>" + "\n" + "<p>Vi på SupportMe är glada att ha dig som kund hos oss!.</p>", "text/html");
+                message.setContent("<h1>Välkommen!</h1>" + "\n" + "<p>Vi på SupportMe är glada att ha dig som kund hos oss!.</p>", "text/html; charset=utf-8");
 
                 // Send message
                 Transport transport = session.getTransport("smtp");
