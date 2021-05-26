@@ -147,14 +147,27 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
     }
 
     public void comboBoxSearchGuideADM(String searchText, String type, String category) {
-        adminFrame.updateGuideList(con.searchGuideAdmin(searchText, type, category));
+        if (type.contains("Typ") && category.contains("Kategori")) {
+            adminFrame.updateGuideList(con.getAllGuides());
+        } else {
+            adminFrame.updateGuideList(con.searchGuideAdmin(searchText, type, category));
+        }
     }
 
     public void comboBoxSearchGuideUHP(String searchText, String type, String category) {
-        userHomePageFrame.updateUserSearchGuideList(con.searchGuideAdmin(searchText, type, category));
+        if (type.contains("Typ") && category.contains("Kategori")) {
+            userHomePageFrame.updateUserSearchGuideList(con.getAllGuides());
+        } else {
+            userHomePageFrame.updateUserSearchGuideList(con.searchGuideAdmin(searchText, type, category));
+        }
     }
+
     public void comboBoxSearchGuideHPF(String searchText, String type, String category) {
-        homePageFrame.updateUserSearchGuideList(con.searchGuideAdmin(searchText, type, category));
+        if (type.contains("Typ") && category.contains("Kategori")) {
+            homePageFrame.updateUserSearchGuideList(con.getAllGuides());
+        } else {
+            homePageFrame.updateUserSearchGuideList(con.searchGuideAdmin(searchText, type, category));
+        }
     }
 
     /**
@@ -254,7 +267,7 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
      * Användare skapar en guide.
      */
 
-    public void btnCreateGuide(String picture) {
+    public void btnCreateGuide() {
         util.showDialog("Guide '" + makeGuideGUI.getTitleGuide() + "' är skapad");
         con.createGuide(guide = new Guide(makeGuideGUI.getTitleGuide(), makeGuideGUI.getDescriptionField(), user.getUsername().substring(0, 1).toUpperCase() + user.getUsername().substring(1), makeGuideGUI.getTypeString(), makeGuideGUI.getCategoryString()));
         userHomePageFrame.updateUserGuideList(con.getAllGuidesUser(user.getUsername()));
