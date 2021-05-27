@@ -55,12 +55,11 @@ public class MakeGuideGui extends JFrame implements ActionListener {
         GridLayout layoutMiddleLbl = new GridLayout(1, 3, 20, 0);
 
         GridLayout layoutMiddle = new GridLayout(2, 3, 20, 0);
-        GridLayout layoutLower = new GridLayout(1, 2, 150, 0);
+        //GridLayout layoutLower = new GridLayout(1, 2, 150, 0);
         GridLayout LayoutMiddlePanel = new GridLayout(2, 1, 0, 0);
 
-
-        Border topBorder = BorderFactory.createEmptyBorder(10, 60, 10, 60);
-        Border middleBorder = BorderFactory.createEmptyBorder(10, 60, 10, 60);
+        Border topBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
+        Border middleBorder = BorderFactory.createEmptyBorder(10, 10, 2, 10);
 
 
         top = new JPanel();
@@ -75,8 +74,8 @@ public class MakeGuideGui extends JFrame implements ActionListener {
         middle.setLayout(layoutMiddle);
         middle.setBorder(middleBorder);
 
-        lower = new JPanel();
-        lower.setLayout(layoutLower);
+        lower = new JPanel(new FlowLayout());
+        //lower.setLayout(layoutLower);
         lower.setBorder(middleBorder);
 
         text = new JPanel();
