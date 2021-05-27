@@ -136,8 +136,8 @@ public class HomePageFrame extends JFrame implements ActionListener {
         typeComboBox = new JComboBox<>();
         categoryComboBox = new JComboBox<>();
 
-        typeComboBox.setModel(new DefaultComboBoxModel<>(new String[]{ "Sök efter typ", "Mjukvara", "Hårdvara", "Snabbguide"}));
-        categoryComboBox.setModel(new DefaultComboBoxModel<>(new String[]{ "Sök efter kategori", "Internet", "Dator", "Mobil", "Övrigt"}));
+        typeComboBox.setModel(new DefaultComboBoxModel<>(new String[]{ "Typ", "Mjukvara", "Hårdvara", "Snabbguide"}));
+        categoryComboBox.setModel(new DefaultComboBoxModel<>(new String[]{ "Kategori", "Internet", "Dator", "Mobil", "Övrigt"}));
 
         GridLayout layout = new GridLayout(3,1,0,0);
         GridLayout gridLayout = new GridLayout(1, 2, 250, 0);
@@ -161,7 +161,7 @@ public class HomePageFrame extends JFrame implements ActionListener {
         topLower.setBorder(emptyBorder);
 
         topUpper.add(lblLogo);
-        topUpper.add(Box.createRigidArea(new Dimension(275, 10)));
+        topUpper.add(Box.createRigidArea(new Dimension(265, 10)));
         topUpper.add(btnLogin);
         topUpper.add(Box.createRigidArea(new Dimension(5, 10)));
         topUpper.add(lblLoginInfo);
