@@ -174,14 +174,14 @@ public class AdminFrame extends JFrame implements ActionListener {
 
         top.setBorder(BorderFactory.createEmptyBorder(0,0,0,10));
         middle.setBorder(BorderFactory.createEmptyBorder(0,10,0,10));
-        pnlTxtUser.setBorder(BorderFactory.createEmptyBorder(0,4,2,10));
+        pnlTxtUser.setBorder(BorderFactory.createEmptyBorder(0,9,2,10));
         pnlTxtGuide.setBorder(BorderFactory.createEmptyBorder(0,4,2,10));
         pnlEastTable.setBorder(BorderFactory.createEmptyBorder(15,0,15,0));
         pnlWestTable.setBorder(BorderFactory.createEmptyBorder(0,0,5,0));
         pnlComboBoxUser.setBorder(BorderFactory.createEmptyBorder(5,0,5,0));
-        pnlComboBoxGuide.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+        pnlComboBoxGuide.setBorder(BorderFactory.createEmptyBorder(5,0,5,0));
         pnlSearchFieldGuide.setBorder(BorderFactory.createEmptyBorder(0,0,0,5));
-        pnlSearchFieldUser.setBorder(BorderFactory.createEmptyBorder(0,5,0,0));
+        pnlSearchFieldUser.setBorder(BorderFactory.createEmptyBorder(2,5,0,0));
         pnlBtnEast.setBorder(BorderFactory.createEmptyBorder(10,0,10,0));
         pnlBtnWest.setBorder(BorderFactory.createEmptyBorder(10,0,10,0));
         pnlEast.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
