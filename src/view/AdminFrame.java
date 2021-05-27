@@ -151,8 +151,8 @@ public class AdminFrame extends JFrame implements ActionListener {
         pnlSearchFieldUser = new JPanel();
         pnlTxtGuide = new JPanel(new BorderLayout());
         pnlTxtUser = new JPanel(new BorderLayout());
-        pnlComboBoxGuide = new JPanel(new BorderLayout());
-        pnlComboBoxUser = new JPanel(new BorderLayout());
+        pnlComboBoxGuide = new JPanel();
+        pnlComboBoxUser = new JPanel();
         pnlEastTable = new JPanel();
         pnlWestTable = new JPanel();
         pnlBtnWest = new JPanel(new FlowLayout());
@@ -164,18 +164,28 @@ public class AdminFrame extends JFrame implements ActionListener {
         getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
         pnlWest.setLayout(new BoxLayout(pnlWest, BoxLayout.Y_AXIS));
         pnlEast.setLayout(new BoxLayout(pnlEast, BoxLayout.Y_AXIS));
-        pnlSearchFieldGuide.setLayout(new GridLayout(1,2));
-        pnlSearchFieldUser.setLayout(new GridLayout(1,2));
+        pnlSearchFieldGuide.setLayout(new GridLayout(1,3));
+        pnlSearchFieldUser.setLayout(new GridLayout(1,3));
         pnlSearchFieldGuide.setLayout(new BoxLayout(pnlSearchFieldGuide, BoxLayout.X_AXIS));
         pnlSearchFieldUser.setLayout(new BoxLayout(pnlSearchFieldUser, BoxLayout.X_AXIS));
         pnlUser.setLayout(new BoxLayout(pnlUser, BoxLayout.X_AXIS));
         pnlUser.add(Box.createHorizontalGlue());
+        pnlComboBoxGuide.setLayout(new BoxLayout(pnlComboBoxGuide, BoxLayout.X_AXIS));
 
         top.setBorder(BorderFactory.createEmptyBorder(0,0,0,10));
         middle.setBorder(BorderFactory.createEmptyBorder(0,10,0,10));
         pnlTxtUser.setBorder(BorderFactory.createEmptyBorder(0,4,2,10));
         pnlTxtGuide.setBorder(BorderFactory.createEmptyBorder(0,4,2,10));
-        pnlEastTable.setBorder(BorderFactory.createEmptyBorder(27,0,0,0));
+        pnlEastTable.setBorder(BorderFactory.createEmptyBorder(15,0,15,0));
+        pnlWestTable.setBorder(BorderFactory.createEmptyBorder(0,0,5,0));
+        pnlComboBoxUser.setBorder(BorderFactory.createEmptyBorder(5,0,5,0));
+        pnlComboBoxGuide.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+        pnlSearchFieldGuide.setBorder(BorderFactory.createEmptyBorder(0,0,0,5));
+        pnlSearchFieldUser.setBorder(BorderFactory.createEmptyBorder(0,5,0,0));
+        pnlBtnEast.setBorder(BorderFactory.createEmptyBorder(10,0,10,0));
+        pnlBtnWest.setBorder(BorderFactory.createEmptyBorder(10,0,10,0));
+        pnlEast.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
+        pnlWest.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
 
         add(top);
         add(middle);
@@ -212,15 +222,17 @@ public class AdminFrame extends JFrame implements ActionListener {
         pnlTxtUser.add(lblUserSearch, BorderLayout.WEST);
 
         pnlSearchFieldGuide.add(guideSearch);
+        pnlSearchFieldGuide.add(Box.createRigidArea(new Dimension(5,10)));
         pnlSearchFieldGuide.add(btnSearchGuide);
 
-        pnlComboBoxGuide.add(typeComboBox, BorderLayout.WEST);
-        pnlComboBoxGuide.add(categoryComboBox, BorderLayout.EAST);
+        pnlComboBoxGuide.add(typeComboBox);
+        pnlComboBoxGuide.add(Box.createRigidArea(new Dimension(100,10)));
+        pnlComboBoxGuide.add(categoryComboBox);
 
         typeComboBox2.setVisible(false);
         categoryComboBox2.setVisible(false);
-        pnlComboBoxUser.add(typeComboBox2, BorderLayout.WEST);
-        pnlComboBoxUser.add(categoryComboBox2, BorderLayout.EAST);
+        pnlComboBoxUser.add(typeComboBox2);
+        pnlComboBoxUser.add(categoryComboBox2);
 
         pnlWestTable.add(guideTableScroll);
 
@@ -232,6 +244,7 @@ public class AdminFrame extends JFrame implements ActionListener {
         pnlBtnEast.add(btnDeleteUser);
 
         pnlSearchFieldUser.add(userSearch);
+        pnlSearchFieldUser.add(Box.createRigidArea(new Dimension(5,10)));
         pnlSearchFieldUser.add(btnSearchUser);
 
         addListeners();
