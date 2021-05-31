@@ -1,6 +1,7 @@
 package view;
 
 import controller.Controller;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -15,18 +16,35 @@ import java.io.IOException;
  */
 
 public class ShowGuideGUI extends JFrame implements ActionListener {
-    private JFrame frame;
-    private JPanel centerPanel, southPanel, logoPanel, buttonPanel;
-    private JLabel txtTitle, txtAuthor, txtDate, lblTitle, lblAuthor,
-            lblDate, lblCategory, lblCategoryTxt, lblType, lblTypeTxt;
-    private JTextArea descriptionArea;
-    private Font bold, plain;
-    private JButton btnClose, btnShowPics, btnDownload;
-    private JScrollPane scroll;
-    private Controller controller;
+    private final JFrame frame;
+    private final JPanel centerPanel;
+    private final JPanel southPanel;
+    private final JPanel logoPanel;
+    private final JPanel buttonPanel;
+    private final JLabel txtTitle;
+    private final JLabel txtAuthor;
+    private final JLabel txtDate;
+    private final JLabel lblTitle;
+    private final JLabel lblAuthor;
+    private final JLabel lblDate;
+    private final JLabel lblCategory;
+    private final JLabel lblCategoryTxt;
+    private final JLabel lblType;
 
-    public ShowGuideGUI (Controller controller, String titleString, String authorString, String dateString,
-                         String indexGuide) {
+
+
+    private final JLabel lblTypeTxt;
+    private final JTextArea descriptionArea;
+    private final Font bold;
+    private final Font plain;
+    private final JButton btnClose;
+    private final JButton btnShowPics;
+    private final JButton btnDownload;
+    private final JScrollPane scroll;
+    private final Controller controller;
+
+    public ShowGuideGUI(Controller controller, String titleString, String authorString, String dateString,
+                        String indexGuide) {
 
         this.controller = controller;
         frame = new JFrame(titleString);
@@ -78,12 +96,12 @@ public class ShowGuideGUI extends JFrame implements ActionListener {
             e.printStackTrace();
         }
         JLabel picLogo = new JLabel(new ImageIcon(myPicture.getScaledInstance(
-                    140,38, Image.SCALE_SMOOTH)));
+                140, 38, Image.SCALE_SMOOTH)));
         logoPanel.add(picLogo, BorderLayout.WEST);
 
         descriptionArea.setText(indexGuide);
         descriptionArea.setEditable(false);
-        descriptionArea.setPreferredSize(new Dimension(500,400));
+        descriptionArea.setPreferredSize(new Dimension(500, 400));
 
         scroll = new JScrollPane(descriptionArea);
         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -100,9 +118,9 @@ public class ShowGuideGUI extends JFrame implements ActionListener {
         centerPanel.add(lblDate);
         centerPanel.add(txtDate);
 
-        centerPanel.setBorder(BorderFactory.createEmptyBorder(0,15,10,10));
+        centerPanel.setBorder(BorderFactory.createEmptyBorder(0, 15, 10, 10));
 
-        southPanel.setBorder(BorderFactory.createEmptyBorder(10,15,5,15));
+        southPanel.setBorder(BorderFactory.createEmptyBorder(10, 15, 5, 15));
         southPanel.add(scroll);
 
         buttonPanel.add(btnClose);
@@ -112,7 +130,7 @@ public class ShowGuideGUI extends JFrame implements ActionListener {
         SwingUtilities.getRootPane(btnShowPics).setDefaultButton(btnShowPics);
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
-        frame.setSize(800,800);
+        frame.setSize(800, 800);
         frame.pack();
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
@@ -131,14 +149,16 @@ public class ShowGuideGUI extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnClose) {
             frame.dispose();
-        }
-        else if (e.getSource() == btnShowPics) {
+        } else if (e.getSource() == btnShowPics) {
             controller.pictureGUI();
-        }
-        else if (e.getSource() == btnDownload) {
+        } else if (e.getSource() == btnDownload) {
             System.out.println("ladda ner");
             controller.downloadGuide();
         }
+    }
+
+    public String getTxtTitle() {
+        return txtTitle.getText();
     }
 
     public JFrame getFrame() {

@@ -22,7 +22,7 @@ public class Email { // TODO KOMMENTERA DENNA KLASSEN!!!
     public static boolean isValidEmailAddress(String email) {
         boolean result = false;
         try {
-            if (email.contains("@") && email.contains(".com")) {
+            if (email.contains("@") && email.contains(".com") ||email.contains(".se") || email.contains(".nu")) {
                 InternetAddress emailAddress = new InternetAddress(email);
                 emailAddress.validate();
                 result = true;
@@ -46,7 +46,7 @@ public class Email { // TODO KOMMENTERA DENNA KLASSEN!!!
         {
             // Sender's email ID needs to be mentioned
             final String from = "supmeg25@gmail.com";
-            final String pass = "supportme25";
+            final String pass = "FaKFiiZVZAHzNc27Ujrm4ai8p9M9sVA";
             // Recipient's email ID needs to be mentioned.
             String to = recipient;
 
@@ -76,15 +76,16 @@ public class Email { // TODO KOMMENTERA DENNA KLASSEN!!!
                 // Set From: header field of the header.
                 message.setFrom(new InternetAddress(from));
 
+
                 // Set To: header field of the header.
                 message.addRecipient(Message.RecipientType.TO,
                         new InternetAddress(to));
 
                 // Set Subject: header field
-                message.setSubject("Välkommen " + username + " till SupportMe!");
+                message.setSubject("Välkommen " + username + " till SupportMe!", "UTF-8");
 
                 // Now set the actual message
-                message.setContent("<h1>Välkommen!</h1>" + "\n" + "<p>Vi på SupportMe är glada att ha dig som kund hos oss!.</p>", "text/html");
+                message.setContent("<h1>Välkommen!</h1>" + "\n" + "<p>Vi på SupportMe är glada att ha dig som kund hos oss!.</p>", "text/html; charset=utf-8");
 
                 // Send message
                 Transport transport = session.getTransport("smtp");

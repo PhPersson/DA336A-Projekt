@@ -1,6 +1,7 @@
 package view;
 
 import controller.Controller;
+import view.utils.GuiUtilities;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -22,9 +23,9 @@ public class RegisterFrame extends JFrame implements ActionListener {
     private JPanel panel;
     private JLabel lblUsername, lblEmail, lblPassword, lblConPassword;
     private JTextField txtUsername, txtEmail, txtPassword, txtConPassword;
-    private JButton btnRegister,btnCancel;
-    private Controller controller;
-    private GuiUtilities util;
+    private JButton btnRegister, btnCancel;
+    private final Controller controller;
+    private final GuiUtilities util;
     private Document pass;
 
     public RegisterFrame(Controller controller) {
@@ -100,7 +101,6 @@ public class RegisterFrame extends JFrame implements ActionListener {
         pass.addDocumentListener(new RegButtonController(btnRegister));
 
 
-
     }
 
     public void addListeners() {
@@ -127,12 +127,12 @@ public class RegisterFrame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnRegister) {
-            if(getTxtPassword().equals(getTxtConPassword())){
+            if (getTxtPassword().equals(getTxtConPassword())) {
                 controller.btnRegisterClicked();
-            }else{
+            } else {
                 util.showDialog("Lösenorden stämmer inte överrens");
             }
-        } else if (e.getSource() == btnCancel){
+        } else if (e.getSource() == btnCancel) {
             if (util.showConfirmationDialog("Säker att du vill avbryta registreringen?") == 1) {
                 dispose();
             }
@@ -141,10 +141,10 @@ public class RegisterFrame extends JFrame implements ActionListener {
 }
 
 class RegButtonController implements DocumentListener {
-    private JButton reg;
+    private final JButton reg;
     private LoginFrame frame;
 
-    RegButtonController(JButton b){
+    RegButtonController(JButton b) {
         reg = b;
     }
 
@@ -163,7 +163,7 @@ class RegButtonController implements DocumentListener {
 
     }
 
-    public void disableIfEmpty(DocumentEvent e){
+    public void disableIfEmpty(DocumentEvent e) {
 
 
         reg.setEnabled(e.getDocument().getLength() > 0);

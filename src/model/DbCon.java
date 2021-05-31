@@ -3,9 +3,8 @@ package model;
 import controller.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.awt.*;
+import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -21,6 +20,7 @@ public class DbCon {
     private Connection connection;
     private int guideId;
     private Controller controller;
+    private Thread connect;
 
 
     /**
@@ -36,13 +36,8 @@ public class DbCon {
      * Ansluter till den fastställda databsen. Om databasen inte går att ansluta till visas ett felmeddelande.
      */
     public void connectToDatabase() {
-        try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            connection = DriverManager.getConnection(Values.getSqlUrl());
-        } catch (ClassNotFoundException | SQLException exception) {
-            controller.getUtil().showErrorDialog("Verkar som vi har problem med databasen, vi kommer åtgärda detta så snart som möjligt");
-            exception.printStackTrace();
-        }
+        connect = new ConnectToDB();
+        connect.start();
     }
 
     /**
@@ -201,10 +196,15 @@ public class DbCon {
         try {
             connection.setAutoCommit(false);
 
+            String deletePicture = "DELETE FROM Picture WHERE guideId = ?";
+
             String deleteUser = "DELETE FROM GUIDE WHERE guideId = ?";
 
             PreparedStatement delete = connection.prepareStatement(deleteUser);
+            PreparedStatement psp = connection.prepareStatement(deletePicture);
+            psp.setInt(1,getGuideId(titel));
             delete.setInt(1, getGuideId(titel));
+            psp.execute();
             delete.execute();
             connection.commit();
             delete.close();
@@ -374,7 +374,7 @@ public class DbCon {
                 int views = rs.getInt("views");
                 String type = rs.getString("type");
                 String category = rs.getString("category");
-                guideModel.addRow(new Object[]{ title, username, date, rating, views, type, category});
+                guideModel.addRow(new Object[]{title, username, date, rating, views, type, category});
             }
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -516,7 +516,8 @@ public class DbCon {
 
     /**
      * Uppdaterar en existerande guide.
-     *  @param title       , Titel på guiden
+     *
+     * @param title       , Titel på guiden
      * @param description , Innehållstexen i guiden
      * @param oldTitel
      */
@@ -594,6 +595,19 @@ public class DbCon {
      * @param titleToRemove Baserat på titeln till guiden tas den bort i databasen.
      */
     public void deleteGuide(String titleToRemove) {
+
+        String query2 = "DELETE From Picture Where guideId = ?";
+        try {
+            PreparedStatement pes = connection.prepareStatement(query2);
+            pes.setInt(1, getGuideId(titleToRemove));
+            pes.execute();
+            connection.commit();
+            pes.close();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+
+
         String query = "DELETE FROM GUIDE WHERE guideId = ?";
         try {
             connection.setAutoCommit(false);
@@ -628,15 +642,14 @@ public class DbCon {
     }
 
 
-    public void addPictureToGuide(String selectedFile) {
+    public void addPictureToGuide(String selectedFile, String guideId) {
         String query = "INSERT INTO Picture(picture, GuideId) VALUES(?,?)";
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             File file = new File(selectedFile);
             FileInputStream fis = new FileInputStream(file);
-            ps.setBinaryStream(1, fis);
-
-            ps.setInt(2, guideId);
+            ps.setBlob(1, fis);
+            ps.setInt(2, getGuideId(guideId));
 
             ps.executeUpdate();
         } catch (FileNotFoundException | SQLException e) {
@@ -647,25 +660,27 @@ public class DbCon {
 
     public ImageIcon getAPic(int guideId) {
         String query = "SELECT picture from Picture WHERE guideId = ?";
-        ImageIcon icon = new ImageIcon();
+        byte[] imageBytes = null;
+        ImageIcon photo;
 
         try {
             PreparedStatement ps = connection.prepareStatement(query);
-            //ps.setInt(1, controller.getGuidenum());
-            ps.setInt(1, 67);
+            ps.setInt(1, guideId);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-
-                icon = new ImageIcon((byte[]) rs.getObject("picture"));
-                return icon;
-
+                imageBytes = rs.getBytes("picture");
             }
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
-        System.out.println(icon + " Här");
-        return icon;
+        if (imageBytes != null) {
+            Image image = Toolkit.getDefaultToolkit().createImage(imageBytes);
+            photo = new ImageIcon(image);
+        } else {
+            photo = null;
+        }
+        return photo;
     }
 
     public int getGuideId(String titel) {
@@ -692,7 +707,7 @@ public class DbCon {
         String query = "SELECT description FROM Guide WHERE guideId = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setInt(1,guideID);
+            ps.setInt(1, guideID);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 description = rs.getString("description");
@@ -702,6 +717,20 @@ public class DbCon {
             exception.printStackTrace();
         }
         return description;
+    }
+
+
+    private class ConnectToDB extends Thread {
+
+        public void run() {
+            try {
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                connection = DriverManager.getConnection(Values.getSqlUrl());
+            } catch (ClassNotFoundException | SQLException exception) {
+                controller.getUtil().showErrorDialog("Verkar som vi har problem med databasen, vi kommer åtgärda detta så snart som möjligt");
+                exception.printStackTrace();
+            }
+        }
     }
 }
 

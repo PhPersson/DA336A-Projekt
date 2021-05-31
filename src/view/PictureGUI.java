@@ -11,33 +11,40 @@ import java.awt.event.ActionListener;
 
 /**
  * @author Philip Persson
- * @author
+ * @author Alexander Olsson
  * @author
  * @version 1.0
  */
 
 public class PictureGUI extends JFrame implements ActionListener {
 
-    private JPanel centerPanel, southPanel;
+    private final JPanel centerPanel;
+    private final JPanel southPanel;
+
+
+
     private JLabel lblPicture;
-    private JButton btnNext, btnBack;
-    private Controller controller;
+    private final JButton btnNext;
+    private final JButton btnBack;
+    private final Controller controller;
+    private int width = 500;
+    private int height = 400;
 
     public PictureGUI(Controller controller) {
         this.controller = controller;
 
         setTitle("SupportME");
-        getContentPane().setLayout(new BoxLayout(getContentPane(),BoxLayout.X_AXIS));
+        getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS));
         setLayout(new BorderLayout());
 
         centerPanel = new JPanel();
         southPanel = new JPanel(new FlowLayout());
 
-        //lblPicture.setIcon();
+        lblPicture = new JLabel("",SwingConstants.CENTER);
 
-        lblPicture = new JLabel();
         lblPicture.setPreferredSize(new Dimension(500,400));
-//        lblPicture.setIcon(controller.getPicture());
+
+
 
         btnBack = new JButton("Föregående bild");
         btnNext = new JButton("Nästa bild");
@@ -54,27 +61,52 @@ public class PictureGUI extends JFrame implements ActionListener {
         add(centerPanel, BorderLayout.CENTER);
         add(southPanel, BorderLayout.SOUTH);
 
-        setSize(800,800);
+        setSize(800, 800);
         pack();
         setResizable(false);
         setLocationRelativeTo(null);
         setVisible(true);
         addListeners();
+
     }
 
-    public void addListeners(){
+    public void addListeners() {
         btnNext.addActionListener(this);
         btnBack.addActionListener(this);
     }
 
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == btnBack){
+        if (e.getSource() == btnBack) {
             System.out.println("1");
-        } else if (e.getSource() == btnNext){
+        } else if (e.getSource() == btnNext) {
             System.out.println("2");
         }
+    }
+
+
+    public void showPic(ImageIcon pictureFromDb) {
+        int original_width = pictureFromDb.getIconWidth();
+        int original_height = pictureFromDb.getIconHeight();
+        int bound_width = 500;
+        int bound_height = 400;
+        int new_width = original_width;
+        int new_height = original_height;
+
+        if (original_width > bound_width) {
+            new_width = bound_width;
+            new_height = (new_width * original_height) / original_width;
+        }
+
+        if (new_height > bound_height) {
+            new_height = bound_height;
+            new_width = (new_height * original_width) / original_height;
+        }
+
+        Image image = pictureFromDb.getImage();
+        Image newimg = image.getScaledInstance(new_width,new_height, Image.SCALE_SMOOTH);
+        ImageIcon picture = new ImageIcon(newimg);
+        lblPicture.setIcon(picture);
     }
 }

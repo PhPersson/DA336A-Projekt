@@ -9,25 +9,27 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Objects;
-
 
 /**
  * @author Philip Persson
- * @author
+ * @author Simon Pizevski
  * @author
  * @version 1.0
  */
 public class AdminFrame extends JFrame implements ActionListener {
 
     private JTable userTable, guideTable;
+    private JPanel top, middle, lower;
+    private JPanel pnlLogo, pnlLogOut, pnlWest, pnlEast;
+    private JPanel pnlSearchFieldGuide, pnlSearchFieldUser, pnlTxtGuide, pnlTxtUser, pnlComboBoxGuide, pnlComboBoxUser,
+            pnlEastTable, pnlWestTable, pnlBtnWest, pnlBtnEast, pnlLogoUser, pnlUser;
     private JButton btnDeleteGuide, btnDeleteUser, btnEditGuide, btnLogOff, btnSearchGuide, btnSearchUser;
     private JScrollPane guideTableScroll, userTableScroll;
     private JTextField guideSearch, userSearch;
-    private JComboBox<String> jComboBox1;
-    private JComboBox<String> jComboBox2;
+    private JComboBox<String> typeComboBox;
+    private JComboBox<String> categoryComboBox;
+    private JComboBox<String> typeComboBox2, categoryComboBox2;
     private JLabel lblGuideSearch, lblLogo, lblUserSearch, lblAdminName, lblLogin;
-
     private Controller controller;
 
     public AdminFrame(Controller controller) {
@@ -47,8 +49,8 @@ public class AdminFrame extends JFrame implements ActionListener {
 
         guideSearch = new JTextField();
         btnSearchGuide = new JButton();
-        jComboBox1 = new JComboBox<>();
-        jComboBox2 = new JComboBox<>();
+        typeComboBox = new JComboBox<>();
+        categoryComboBox = new JComboBox<>();
         btnDeleteGuide = new JButton();
         btnEditGuide = new JButton();
         userTableScroll = new JScrollPane();
@@ -64,17 +66,24 @@ public class AdminFrame extends JFrame implements ActionListener {
         btnLogOff = new JButton();
         btnDeleteUser = new JButton();
         lblUserSearch = new JLabel();
+        typeComboBox2 = new JComboBox<>();
+        categoryComboBox2 = new JComboBox<>();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setTitle("SupportME");
 
         guideSearch.setText("");
-        setTitle("SupportME");
+
         btnSearchGuide.setFont(new Font("Tahoma", 0, 12));
         btnSearchGuide.setText("Sök");
 
-        jComboBox1.setModel(new DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
+        typeComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
 
-        jComboBox2.setModel(new DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
+        categoryComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
+
+        typeComboBox2.setModel(new DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
+
+        categoryComboBox2.setModel(new DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
 
         btnDeleteGuide.setFont(new Font("Tahoma", 0, 12));
         btnDeleteGuide.setText("Ta bort");
@@ -82,58 +91,30 @@ public class AdminFrame extends JFrame implements ActionListener {
         btnEditGuide.setFont(new Font("Tahoma", 0, 12));
         btnEditGuide.setText("Redigera");
 
-        userTable.setModel(new DefaultTableModel(
-                new Object[][]{
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null}
-                },
-                new String[]{
-                        "Title 1", "Title 2", "Title 3", "Title 4"
-                }
-        ));
-
         userTableScroll.setViewportView(userTable);
-
-        guideTable.setModel(new DefaultTableModel(
-                new Object[][]{
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null}
-                },
-                new String[]{
-                        "Title 1", "Title 2", "Title 3", "Title 4"
-                }
-        ));
+        guideTableScroll.setViewportView(guideTable);
 
         userTable.setDefaultEditor(Object.class, null);
         guideTable.setDefaultEditor(Object.class, null);
 
-        guideTableScroll.setViewportView(guideTable);
-
+        lblLogin.setText("Inloggad:");
         lblGuideSearch.setText("Guide");
 
+        userSearch.setText(""); // TODO LÄGG TILL TOO TIP I KURSIV
+        guideSearch.setText(""); // TODO LÄGG TILL TOO TIP I KURSIV
         userSearch.setText("");
 
         btnSearchUser.setFont(new Font("Tahoma", 0, 12));
         btnSearchUser.setText("Sök");
 
-        lblLogin.setText("Inloggad:");
-
-        lblAdminName.setText("\"\"");
-
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-        guideSearch.setText("");
 
         btnSearchGuide.setFont(new Font("Tahoma", 0, 12));
         btnSearchGuide.setText("Sök");
 
-        jComboBox1.setModel(new DefaultComboBoxModel<>(new String[]{"Typ:  ","Mjukvara", "Hårdvara", "Snabbguide"}));
+        typeComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Typ:  ", "Mjukvara", "Hårdvara", "Snabbguide"}));
 
-        jComboBox2.setModel(new DefaultComboBoxModel<>(new String[]{"Kategori: ","Internet", "Dator", "Mobil", "Övrigt"}));
+        categoryComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Kategori: ", "Internet", "Dator", "Mobil", "Övrigt"}));
 
         btnDeleteGuide.setFont(new Font("Tahoma", 0, 12));
         btnDeleteGuide.setText("Ta bort");
@@ -141,23 +122,17 @@ public class AdminFrame extends JFrame implements ActionListener {
         btnEditGuide.setFont(new Font("Tahoma", 0, 12));
         btnEditGuide.setText("Redigera");
 
-
-
         userTableScroll.setViewportView(userTable);
-
 
         guideTableScroll.setViewportView(guideTable);
 
         lblGuideSearch.setText("Guide");
 
-        userSearch.setText("");
-
         btnSearchUser.setFont(new Font("Tahoma", 0, 12));
         btnSearchUser.setText("Sök");
 
-        lblLogin.setText("Inloggad:");
-
-        lblAdminName.setText("\"\"");
+        lblLogin.setText("Inloggad: ");
+        lblLogin.setAlignmentX(Component.RIGHT_ALIGNMENT);
 
         btnLogOff.setFont(new Font("Tahoma", 0, 12));
         btnLogOff.setText("Logga ut");
@@ -167,85 +142,111 @@ public class AdminFrame extends JFrame implements ActionListener {
 
         lblUserSearch.setText("Användare");
 
-        GroupLayout layout = new GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGap(40, 40, 40)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                        .addComponent(lblLogo)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
-                                                                .addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                                        .addComponent(guideSearch, GroupLayout.PREFERRED_SIZE, 340, GroupLayout.PREFERRED_SIZE)
-                                                                        .addGap(18, 18, 18)
-                                                                        .addComponent(btnSearchGuide, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE))
-                                                                .addGroup(layout.createSequentialGroup()
-                                                                        .addComponent(btnEditGuide, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE)
-                                                                        .addGap(18, 18, 18)
-                                                                        .addComponent(btnDeleteGuide, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE))
-                                                                .addGroup(layout.createSequentialGroup()
-                                                                        .addComponent(jComboBox1, GroupLayout.PREFERRED_SIZE, 151, GroupLayout.PREFERRED_SIZE)
-                                                                        .addGap(97, 97, 97)
-                                                                        .addComponent(jComboBox2, GroupLayout.PREFERRED_SIZE, 183, GroupLayout.PREFERRED_SIZE))
-                                                                .addComponent(guideTableScroll, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                                                        .addComponent(lblGuideSearch))
-                                                .addGap(18, 18, 18)
-                                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                        .addComponent(lblUserSearch)
-                                                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                                .addComponent(userTableScroll, GroupLayout.PREFERRED_SIZE, 421, GroupLayout.PREFERRED_SIZE)
-                                                                .addGroup(layout.createSequentialGroup()
-                                                                        .addComponent(userSearch, GroupLayout.PREFERRED_SIZE, 340, GroupLayout.PREFERRED_SIZE)
-                                                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                                        .addComponent(btnSearchUser, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE))
-                                                                .addGroup(GroupLayout.Alignment.TRAILING, layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                                                        .addComponent(btnLogOff, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                        .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                                                .addComponent(lblLogin)
-                                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                                                                .addComponent(lblAdminName))))
-                                                        .addComponent(btnDeleteUser, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE))))
-                                .addContainerGap(40, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(lblLogo)
-                                        .addComponent(lblLogin)
-                                        .addComponent(lblAdminName))
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnLogOff)
-                                .addGap(18, 18, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(lblGuideSearch)
-                                        .addComponent(lblUserSearch))
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                        .addComponent(guideSearch, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                                .addComponent(userSearch, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(btnSearchUser, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(btnSearchGuide, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)))
-                                .addGap(16, 16, 16)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jComboBox1, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jComboBox2, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(userTableScroll)
-                                        .addComponent(guideTableScroll))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(btnDeleteGuide)
-                                        .addComponent(btnEditGuide)
-                                        .addComponent(btnDeleteUser, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                                .addGap(36, 36, 36))
-        );
+        top = new JPanel(new BorderLayout());
+        middle = new JPanel(new BorderLayout());
+        pnlLogOut = new JPanel(new BorderLayout());
+        pnlWest = new JPanel();
+        pnlEast = new JPanel();
+        pnlSearchFieldGuide = new JPanel();
+        pnlSearchFieldUser = new JPanel();
+        pnlTxtGuide = new JPanel(new BorderLayout());
+        pnlTxtUser = new JPanel(new BorderLayout());
+        pnlComboBoxGuide = new JPanel();
+        pnlComboBoxUser = new JPanel();
+        pnlEastTable = new JPanel();
+        pnlWestTable = new JPanel();
+        pnlBtnWest = new JPanel(new FlowLayout());
+        pnlBtnEast = new JPanel(new FlowLayout());
+        pnlLogoUser = new JPanel(new BorderLayout());
+        pnlLogo = new JPanel(new BorderLayout());
+        pnlUser = new JPanel(new GridLayout(1,3));
+
+        getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+        pnlWest.setLayout(new BoxLayout(pnlWest, BoxLayout.Y_AXIS));
+        pnlEast.setLayout(new BoxLayout(pnlEast, BoxLayout.Y_AXIS));
+        pnlSearchFieldGuide.setLayout(new GridLayout(1,3));
+        pnlSearchFieldUser.setLayout(new GridLayout(1,3));
+        pnlSearchFieldGuide.setLayout(new BoxLayout(pnlSearchFieldGuide, BoxLayout.X_AXIS));
+        pnlSearchFieldUser.setLayout(new BoxLayout(pnlSearchFieldUser, BoxLayout.X_AXIS));
+        pnlUser.setLayout(new BoxLayout(pnlUser, BoxLayout.X_AXIS));
+        pnlUser.add(Box.createHorizontalGlue());
+        pnlComboBoxGuide.setLayout(new BoxLayout(pnlComboBoxGuide, BoxLayout.X_AXIS));
+
+        top.setBorder(BorderFactory.createEmptyBorder(0,0,0,10));
+        middle.setBorder(BorderFactory.createEmptyBorder(0,10,0,10));
+        pnlTxtUser.setBorder(BorderFactory.createEmptyBorder(0,9,2,10));
+        pnlTxtGuide.setBorder(BorderFactory.createEmptyBorder(0,4,2,10));
+        pnlEastTable.setBorder(BorderFactory.createEmptyBorder(15,0,15,0));
+        pnlWestTable.setBorder(BorderFactory.createEmptyBorder(0,0,5,0));
+        pnlComboBoxUser.setBorder(BorderFactory.createEmptyBorder(5,0,5,0));
+        pnlComboBoxGuide.setBorder(BorderFactory.createEmptyBorder(5,0,5,0));
+        pnlSearchFieldGuide.setBorder(BorderFactory.createEmptyBorder(0,0,0,5));
+        pnlSearchFieldUser.setBorder(BorderFactory.createEmptyBorder(2,5,0,0));
+        pnlBtnEast.setBorder(BorderFactory.createEmptyBorder(10,0,10,0));
+        pnlBtnWest.setBorder(BorderFactory.createEmptyBorder(10,0,10,0));
+        pnlEast.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
+        pnlWest.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
+
+        add(top);
+        add(middle);
+
+        top.add(pnlLogoUser, BorderLayout.NORTH);
+        top.add(pnlLogOut, BorderLayout.SOUTH);
+
+        pnlLogoUser.add(pnlLogo, BorderLayout.WEST);
+        pnlLogoUser.add(pnlUser, BorderLayout.EAST);
+
+        pnlUser.add(lblLogin);
+        pnlUser.add(lblAdminName);
+
+        middle.add(pnlWest, BorderLayout.WEST);
+        middle.add(pnlEast, BorderLayout.EAST);
+
+        pnlWest.add(pnlTxtGuide);
+        pnlWest.add(pnlSearchFieldGuide);
+        pnlWest.add(pnlComboBoxGuide);
+        pnlWest.add(pnlWestTable);
+        pnlWest.add(pnlBtnWest);
+
+        pnlEast.add(pnlTxtUser);
+        pnlEast.add(pnlSearchFieldUser);
+        pnlEast.add(pnlComboBoxUser);
+        pnlEast.add(pnlEastTable);
+        pnlEast.add(pnlBtnEast);
+
+        pnlLogo.add(lblLogo, BorderLayout.WEST);
+        pnlLogOut.add(btnLogOff, BorderLayout.EAST);
+
+        pnlTxtGuide.add(lblGuideSearch, BorderLayout.WEST);
+
+        pnlTxtUser.add(lblUserSearch, BorderLayout.WEST);
+
+        pnlSearchFieldGuide.add(guideSearch);
+        pnlSearchFieldGuide.add(Box.createRigidArea(new Dimension(5,10)));
+        pnlSearchFieldGuide.add(btnSearchGuide);
+
+        pnlComboBoxGuide.add(typeComboBox);
+        pnlComboBoxGuide.add(Box.createRigidArea(new Dimension(100,10)));
+        pnlComboBoxGuide.add(categoryComboBox);
+
+        typeComboBox2.setVisible(false);
+        categoryComboBox2.setVisible(false);
+        pnlComboBoxUser.add(typeComboBox2);
+        pnlComboBoxUser.add(categoryComboBox2);
+
+        pnlWestTable.add(guideTableScroll);
+
+        pnlEastTable.add(userTableScroll);
+
+        pnlBtnWest.add(btnEditGuide);
+        pnlBtnWest.add(btnDeleteGuide);
+
+        pnlBtnEast.add(btnDeleteUser);
+
+        pnlSearchFieldUser.add(userSearch);
+        pnlSearchFieldUser.add(Box.createRigidArea(new Dimension(5,10)));
+        pnlSearchFieldUser.add(btnSearchUser);
+
         addListeners();
         setResizable(false);
         pack();
@@ -263,6 +264,28 @@ public class AdminFrame extends JFrame implements ActionListener {
                 }
             }
         });
+
+        guideTable.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent mouseEvent) {
+                JTable table =(JTable) mouseEvent.getSource();
+                Point point = mouseEvent.getPoint();
+                int row = table.rowAtPoint(point);
+                if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
+
+                }
+            }
+        });
+
+        userTable.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent mouseEvent) {
+                JTable table =(JTable) mouseEvent.getSource();
+                Point point = mouseEvent.getPoint();
+                int row = table.rowAtPoint(point);
+                if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
+
+                }
+            }
+        });
     }
 
     public void addListeners() {
@@ -272,17 +295,19 @@ public class AdminFrame extends JFrame implements ActionListener {
         btnLogOff.addActionListener(this);
         btnDeleteGuide.addActionListener(this);
         btnEditGuide.addActionListener(this);
-        jComboBox1.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                controller.comboBoxSearchGuide(guideSearch.getSelectedText(), String.valueOf(jComboBox1.getSelectedItem()), String.valueOf(jComboBox2.getSelectedItem()));
-            }
-        });
-        jComboBox2.addItemListener(new ItemListener() {
+        typeComboBox.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
-                    controller.comboBoxSearchGuide(guideSearch.getSelectedText(), String.valueOf(jComboBox1.getSelectedItem()), String.valueOf(jComboBox2.getSelectedItem()));
+                    controller.comboBoxSearchGuideADM(guideSearch.getSelectedText(), String.valueOf(typeComboBox.getSelectedItem()), String.valueOf(categoryComboBox.getSelectedItem()));
+                }
+            }
+        });
+        categoryComboBox.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    controller.comboBoxSearchGuideADM(guideSearch.getSelectedText(), String.valueOf(typeComboBox.getSelectedItem()), String.valueOf(categoryComboBox.getSelectedItem()));
                 }
             }
         });
@@ -319,7 +344,11 @@ public class AdminFrame extends JFrame implements ActionListener {
             int column = 0;
             int row = userTable.getSelectedRow();
             String value = userTable.getModel().getValueAt(row, column).toString();
-            controller.btnAdminDeleteUser(value);
+            try {
+                controller.btnAdminDeleteUser(value);
+            } catch (ArrayIndexOutOfBoundsException exception) {
+                controller.getUtil().showErrorDialog("Du har ännu inte valt någon användare!");
+            }
         } else if (e.getSource() == btnSearchUser) {
             controller.btnAdminSearchUser(userSearch.getText());
         } else if (e.getSource() == btnSearchGuide) {
@@ -327,12 +356,19 @@ public class AdminFrame extends JFrame implements ActionListener {
         } else if (e.getSource() == btnLogOff) {
             controller.btnLoggOffAdmin();
         } else if (e.getSource() == btnDeleteGuide) {
-
             int row = guideTable.getSelectedRow();
             String indexGuide = guideTable.getModel().getValueAt(row, 0).toString();
-            controller.btnAdminDeleteGuide(indexGuide);
+            try {
+                controller.btnAdminDeleteGuide(indexGuide);
+            } catch (ArrayIndexOutOfBoundsException exception) {
+                controller.getUtil().showErrorDialog("Du har ännu inte valt någon guide!");
+            }
         } else if (e.getSource() == btnEditGuide) {
-            controller.editGuide();
+            try {
+                controller.editGuide();
+            } catch (ArrayIndexOutOfBoundsException exception) {
+                controller.getUtil().showErrorDialog("Du har ännu inte valt någon guide!");
+            }
         }
     }
 }
