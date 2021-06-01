@@ -176,7 +176,7 @@ public class AdminFrame extends JFrame implements ActionListener {
         middle.setBorder(BorderFactory.createEmptyBorder(0,10,0,10));
         pnlTxtUser.setBorder(BorderFactory.createEmptyBorder(0,9,2,10));
         pnlTxtGuide.setBorder(BorderFactory.createEmptyBorder(0,4,2,10));
-        pnlEastTable.setBorder(BorderFactory.createEmptyBorder(15,0,15,0));
+        pnlEastTable.setBorder(BorderFactory.createEmptyBorder(14,0,15,0));
         pnlWestTable.setBorder(BorderFactory.createEmptyBorder(0,0,5,0));
         pnlComboBoxUser.setBorder(BorderFactory.createEmptyBorder(5,0,5,0));
         pnlComboBoxGuide.setBorder(BorderFactory.createEmptyBorder(5,0,5,0));
