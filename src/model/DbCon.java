@@ -640,7 +640,11 @@ public class DbCon {
         }
     }
 
-
+    /**
+     * Lägger till en bild till en specifik guide.
+     * @param selectedFile sparar en vald bild.
+     * @param guideId identifierare för vilken guide som är vald.
+     */
     public void addPictureToGuide(String selectedFile, String guideId) {
         String query = "INSERT INTO Picture(picture, GuideId) VALUES(?,?)";
         try {
@@ -657,6 +661,11 @@ public class DbCon {
 
     }
 
+    /**
+     * Väljer en bild från databasen.
+     * @param guideId identifierar för vilken guide.
+     * @return returner en bild som är hämtad.
+     */
     public ImageIcon getAPic(int guideId) {
         String query = "SELECT picture from Picture WHERE guideId = ?";
         byte[] imageBytes = null;
@@ -682,6 +691,11 @@ public class DbCon {
         return photo;
     }
 
+    /**
+     * Hömtar guideId från en guide baserat på titelnamn.
+     * @param titel identifierare för vilken titel som är vald.
+     * @return returnerar valt guideId.
+     */
     public int getGuideId(String titel) {
         int guideId = 0;
         String query = "SELECT guideId FROM Guide WHERE title = ?";
@@ -701,6 +715,11 @@ public class DbCon {
         return guideId;
     }
 
+    /**
+     * Hämtar beskrivningen från en guide baserat på guideId.
+     * @param guideID identifierare för vilken guide som är vald.
+     * @return returnerar beskrivningen.
+     */
     public String getGuideDescription(int guideID) {
         String description = "";
         String query = "SELECT description FROM Guide WHERE guideId = ?";
