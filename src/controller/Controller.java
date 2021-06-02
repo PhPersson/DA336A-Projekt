@@ -410,6 +410,14 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
         }
     }
 
+    /**
+     * Visar en vald guide.
+     * @param guideId
+     * @param title
+     * @param author
+     * @param date
+     * @param description
+     */
     public void homeOpenGuide(int guideId, String title, String author, String date, String description) {
         showGuideGUI = new ShowGuideGUI(this, title, author, date, description);
         con.addView(guideId);
@@ -418,16 +426,26 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
         homePageFrame.updateSearchGuideList(con.getAllGuides());
     }
 
+    /**
+     *
+     * @param guideId
+     */
     public void setGuideId(int guideId) {
         this.guidenum = guideId;
     }
 
-
+    /**
+     * Lägger till en bild till databasen.
+     * @param selectedFile vilken bild som är vald.
+     * @param guideId bilden kopplas till en vald guide med detta guideId.
+     */
     public void addPicturesToDb(String selectedFile, String guideId) {
         con.addPictureToGuide(selectedFile, guideId);
     }
 
-
+    /**
+     *
+     */
     public void downloadGuide() {
         try {
             File file = new File("src/files");
@@ -443,15 +461,27 @@ public class Controller { // TODO KOMMENTERA HELA DENNA KLASSEN OCKSÅ
         }
     }
 
-    public int getGuideId(String titel) {
-        return con.getGuideId(titel);
+    /**
+     * Hämtar guideId baserat på titel.
+     * @param title identifierare för titel på guiden.
+     * @return returnerar ett guideId.
+     */
+    public int getGuideId(String title) {
+        return con.getGuideId(title);
     }
 
-
+    /**
+     * Hämtar beskrivningen i en guide baserat på guideId.
+     * @param guideID identifierare för vilken guide det är.
+     * @return returnerar beskrivningen i guiden.
+     */
     public String getGuideDescription(int guideID) {
         return con.getGuideDescription(guideID);
     }
 
+    /**
+     * Öppnar en pdf-fil.
+     */
     public void openPDF() {
         if (Desktop.isDesktopSupported()) {
             try {
