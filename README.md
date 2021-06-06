@@ -1,6 +1,6 @@
 # SupportMe (Grupp 25)
 
-<img src="https://github.com/PhPersson/Support_Me/blob/main/files/Logga.png" width=300 align=topleft>
+<img src="https://github.com/PhPersson/Support_Me/blob/main/files/Logga2.png" width=300 align=topleft>
 
 * [Delaktiga](#Delaktiga)
 * [Projektbeskrivning](#Projektbeskrivning)
@@ -23,12 +23,23 @@ SupportMe är en desktopapplikation som går ut på att hjälpa användaren med 
 3. I URL fältet kopiera in https://github.com/PhPersson/Support_Me.git och spara projectet på lämplig plats på din dator
 ![image](https://user-images.githubusercontent.com/51906227/115513511-6db62080-a283-11eb-8417-b288c26f1ace.png)
 
+4. För att kunna köra programmet behövs 4st externa bibliotek.
+- spring-security.jar
+- mssql-jdbc.jar
+- javax.mail.jar
+- activation.jar
 
-4. Starta projektet genom att högerklicka på Main och tryck Run Main.main()
-5. ![image](https://user-images.githubusercontent.com/51906227/115513927-e2895a80-a283-11eb-8367-bf6180911a9c.png)
+Dessa .jar-filer finns i mappen "JarSupportMe"
+Skulle Intellij klaga på att den inte kan hitta biblioteken gör då på följande sätt!
+File --> Project Structure... --> Libraries --> Tryck på + --> Leta sedan upp mappen "JarSupportMe"
+5. ![image](https://user-images.githubusercontent.com/51906227/120917427-90738b80-c6af-11eb-8efe-7e699b3c36fa.png)
 
-6. De initiala användarnamnet för administratörsrättigheter är admin. Lösenorder är identiskt med användarnamnet.
-7. För att kunna logga in som användare krävs det att du anger ett användarnamn, gilltig epost samt ett lösenord.
+
+6. Starta projektet genom att högerklicka på Main och tryck Run Main.main()
+7. ![image](https://user-images.githubusercontent.com/51906227/115513927-e2895a80-a283-11eb-8367-bf6180911a9c.png)
+
+8. De initiala användarnamnet för administratörsrättigheter är admin. Lösenorder är identiskt med användarnamnet.
+9. För att kunna logga in som användare krävs det att du anger ett användarnamn, gilltig epost samt ett lösenord.
 
 
-Länk till källkoden finns på [GitHub](https://github.com/PhPersson/Support_Me/src)
+Länk till källkoden finns på [GitHub](https://github.com/PhPersson/Support_Me)
